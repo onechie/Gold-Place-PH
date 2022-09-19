@@ -3,7 +3,6 @@
 <head>
     <?php
         include 'links.php';
-        
     ?>
     <link rel="stylesheet" href="../css/products.css">
     <title>View Products</title>
@@ -23,7 +22,7 @@
             <div class="container-xxl py-5">
                 <div class="d-flex flex-row justify-content-evenly">
 
-                    <div class="card d-flex shadow bg-light p-2" style="display:none">
+                    <div class="card d-flex mx-1 shadow bg-light p-2" style="display:none">
                         <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
@@ -38,7 +37,7 @@
                         </div>
                     </div>
 
-                    <div class="card d-sm-flex shadow bg-light p-2" style="display:none">
+                    <div class="card d-sm-flex mx-1 shadow bg-light p-2" style="display:none">
                         <img src="../assets/images/compressed/img2.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
@@ -52,7 +51,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="card d-md-flex shadow-lg bg-light p-2" style="display:none">
+                    <div class="card d-md-flex mx-1 shadow-lg bg-light p-2" style="display:none">
                         <img src="../assets/images/compressed/img3.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
@@ -66,7 +65,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="card d-lg-flex shadow-lg bg-light p-2" style="display:none">
+                    <div class="card d-lg-flex mx-1 shadow-lg bg-light p-2" style="display:none">
                         <img src="../assets/images/compressed/img4.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>

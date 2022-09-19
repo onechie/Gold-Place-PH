@@ -10,7 +10,6 @@
       ?>
       <link rel="stylesheet" href="../css/home.css">
       <title>Login</title>
-      
     </head>
 
     <body>
@@ -22,8 +21,8 @@
         }
       ?>
       
-      <main class="bg-light pt-4">
-        
+      <main class="bg-light mt-5 h-100 overflow-auto">
+        <div class="container-fluid pt-4 p-0">
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -152,6 +151,7 @@
         <?php
           include 'footer.php'
         ?>
+        </div>
       </main>
   </body>
 </html>

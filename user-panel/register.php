@@ -19,7 +19,7 @@
           <div class="container-fluid d-flex justify-content-center rounded-5">
               <form class="form-signin w-100 pb-5 px-4 bg-warning rounded-5" novalidate>
                 <img class="mb-4" src="../assets/images/compressed/logo-only-black.png" alt="" height="70">
-                <h1 class="h3 mb-4 text-dark fw-normal">Create your account</h1>
+                <h1 class="h3 mb-4 text-dark fw-normal fs-4">Create your account</h1>
                 <div class="form-floating mb-1">
                 <input type="text" class="form-control fn" id="fnInput" placeholder="Firstname">
                   <label for="fnInput">

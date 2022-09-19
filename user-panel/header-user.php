@@ -20,7 +20,7 @@
 ?>
 <script src="../script/client/logout.js" type="text/javascript"></script>
 <link rel="stylesheet" href="../css/index.css">
-<nav class="navbar navbar-expand-md navbar-light bg-warning shadow fixed-top" aria-label="Fourth navbar example">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning gradient shadow fixed-top" aria-label="Fourth navbar example">
   <div class="container-xxl">
     <a class="navbar-brand" href="#">
       <img height="40" src="../assets/images/compressed/logo-only-black.png" alt="Logo">
@@ -72,7 +72,7 @@
     <div class="modal-content">
       <div class="modal-header bg-warning">
         <h5 class="modal-title text-dark" id="modalLabel">Your Profile</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body overflow-auto">
         <div class="container-fluid">
@@ -149,7 +149,7 @@
     <div class="modal-content">
       <div class="modal-header bg-warning">
         <h5 class="modal-title text-dark" id="cartLabel">Your Cart</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body bg-light overflow-auto p-0" style="max-height: 60vh;">
         <div class="container-fluid p-0">
@@ -226,7 +226,7 @@
     <div class="modal-content">
       <div class="modal-header bg-warning">
         <h5 class="modal-title text-dark" id="orderLabel">Your Order</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body bg-light overflow-auto p-0" style="max-height: 60vh;">
         <div class="container-fluid p-0">
