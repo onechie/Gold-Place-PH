@@ -1,9 +1,19 @@
+:root {
+    --primary:#0d6efd;
+    --secondary:#6c757d;
+    --success:#198754;
+    --info:#0dcaf0;
+    --warning:#ffc107;
+    --danger:#dc3545;
+    --light:#f8f9fa;
+    --dark:#212529;
+  }
 .gray-text{
     color: gray;
     text-decoration: none;
 }
 .gold-text{
-    color: goldenrod;
+    color: var(--warning);
     text-decoration: none;
 }
 .black-text{
@@ -11,7 +21,7 @@
     text-decoration: none;
 }
 .dropdown-item:hover{
-    background-color: goldenrod;
+    background-color: var(--warning);
 }
 .input-qty{
     max-width: 80px;
@@ -19,4 +29,26 @@
 }
 .modal-body{
     max-height: 60vh;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--light);
+}
+
+/* Handle */    
+::-webkit-scrollbar-thumb {
+    background: var(--dark);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--warning);
+}
+.disabled-white{
+    background-color: #e9ecef;
 }

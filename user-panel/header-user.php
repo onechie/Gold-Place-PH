@@ -55,7 +55,7 @@
           </a>
           <ul class="dropdown-menu text-small bg-dark dropdown-menu-xxl-start dropdown-menu-md-end">
             <li><a class="dropdown-item text-light" href="#" data-bs-toggle="modal" data-bs-target="#cart"><i class="bi bi-bag fs-5"></i> Cart</a></li>
-            <li><a class="dropdown-item text-light" href="#"><i class="bi bi-card-checklist fs-5"></i> Orders</a></li>
+            <li><a class="dropdown-item text-light" href="#" data-bs-toggle="modal" data-bs-target="#order"><i class="bi bi-card-checklist fs-5"></i> Orders</a></li>
             <li><a class="dropdown-item text-light" href="#" data-bs-toggle="modal" data-bs-target="#profile"><i class="bi bi-person fs-5"></i> Profile</a></li>
             <li><a class="dropdown-item text-light" href="#"><i class="bi bi-gear fs-5"></i> Settings</a></li>
             <li><hr class="dropdown-divider"></li>
@@ -137,7 +137,6 @@
         </div>
       </div>
       <div class="modal-footer bg-dark">
-        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-warning">Save changes</button>
       </div>
     </div>
@@ -145,76 +144,170 @@
 </div>
 
 <!-- User Cart Modal -->
-<div class="modal fade" id="cart" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="cart" tabindex="-1" aria-labelledby="cartLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-dark">
-        <h5 class="modal-title text-light" id="modalLabel">Your Cart</h5>
+        <h5 class="modal-title text-light" id="cartLabel">Your Cart</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body bg-light overflow-auto" style="max-height: 60vh;">
-        <div class="container-fluid">
-        <table class="table table-hover">
-          <thead>
+      <div class="modal-body bg-light overflow-auto p-0" style="max-height: 60vh;">
+        <div class="container-fluid p-0">
+        <table class="table table-hover m-0">
+          <thead class="sticky-top disabled-white ">
             <tr>
-              <th class="text-center" scrop="col"><input class="form-check-input" type="checkbox" value=""></th>
-              <th class="text-center" scope="col">Image</th>
-              <th class="text-center" scope="col">Name</th>
-              <th class="text-center" scope="col">Price</th>
-              <th class="text-center" scope="col">Quantity</th>
-              <th class="text-center" scope="col">Action</th>
+              <th class="text-center align-middle" scope="col" height="60"><input class="form-check-input" type="checkbox" value=""></th>
+              <th class="text-center align-middle" scope="col">Image</th>
+              <th class="text-center align-middle" scope="col">Name</th>
+              <th class="text-center align-middle" scope="col">Price</th>
+              <th class="text-center align-middle" scope="col">Quantity</th>
+              <th class="text-center align-middle" scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
-              <td class="text-center align-middle"><img src="../assets/images/img1.jpg" height="100" width="100" alt=""></td>
-              <td class="text-center align-middle">Necklace of Seven eleven</td>
-              <td class="text-center align-middle">P 3,000</td>
-              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
-              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
-            </tr>
-            <tr>
-              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
-              <td class="text-center align-middle"><img src="../assets/images/img2.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img2.jpg" height="100" width="100" alt=""></td>
               <td class="text-center align-middle">Pendant of Seven eleven</td>
               <td class="text-center align-middle">P 3,000</td>
               <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
-              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Remove</button></td>
             </tr>
             <tr>
-              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
-              <td class="text-center align-middle"><img src="../assets/images/img3.jpg" height="100" width="100" alt=""></td>
-              <td class="text-center align-middle">Ring of Seven eleven</td>
-              <td class="text-center align-middle">P 3,000</td>
-              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
-              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
-            </tr>
-            <tr>
-              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
-              <td class="text-center align-middle"><img src="../assets/images/img1.jpg" height="100" width="100" alt=""></td>
-              <td class="text-center align-middle">Necklace of Seven eleven</td>
-              <td class="text-center align-middle">P 3,000</td>
-              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
-              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
-            </tr>
-            <tr>
-              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
-              <td class="text-center align-middle"><img src="../assets/images/img2.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img2.jpg" height="100" width="100" alt=""></td>
               <td class="text-center align-middle">Pendant of Seven eleven</td>
               <td class="text-center align-middle">P 3,000</td>
               <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
-              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img2.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Pendant of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img2.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Pendant of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img2.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Pendant of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Remove</button></td>
             </tr>
           </tbody>
+          <tfoot class="sticky-bottom disabled-white">
+            <tr>
+              <td scope="row" colspan="2"></td>
+              <th class="text-center align-middle">Total value of selected items :</th>
+              <th class="text-center align-middle">P0</th>
+              <td scope="row" colspan="2"></td>
+            </tr>
+          </tfoot>
         </table>
         </div>
       </div>
       <div class="modal-footer bg-dark">
-        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-warning">Check out</button>
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Remove</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Checkout</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- User Order Modal -->
+<div class="modal fade" id="order" tabindex="-1" aria-labelledby="orderLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-light" id="orderLabel">Your Order</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-light overflow-auto p-0" style="max-height: 60vh;">
+        <div class="container-fluid p-0">
+        <table class="table table-hover m-0">
+          <thead class="sticky-top disabled-white ">
+            <tr>
+              <th class="text-center align-middle" scope="col" height="60">#</th>
+              <th class="text-center align-middle" scope="col">Image</th>
+              <th class="text-center align-middle" scope="col">Name</th>
+              <th class="text-center align-middle" scope="col">Price</th>
+              <th class="text-center align-middle" scope="col">Quantity</th>
+              <th class="text-center align-middle" scope="col">Status</th>
+              <th class="text-center align-middle" scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center align-middle" scope="row">1</td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img1.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Necklace of Seven eleven</td>
+              <td class="text-center align-middle">P3,000</td>
+              <td class="text-center align-middle">1</td>
+              <td class="text-center align-middle">Processing</td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Cancel</button></td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle" scope="row">1</td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img1.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Necklace of Seven eleven</td>
+              <td class="text-center align-middle">P3,000</td>
+              <td class="text-center align-middle">1</td>
+              <td class="text-center align-middle">Processing</td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Cancel</button></td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle" scope="row">1</td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img1.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Necklace of Seven eleven</td>
+              <td class="text-center align-middle">P3,000</td>
+              <td class="text-center align-middle">1</td>
+              <td class="text-center align-middle">Processing</td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Cancel</button></td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle" scope="row">1</td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img1.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Necklace of Seven eleven</td>
+              <td class="text-center align-middle">P3,000</td>
+              <td class="text-center align-middle">1</td>
+              <td class="text-center align-middle">Processing</td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Cancel</button></td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle" scope="row">1</td>
+              <td class="text-center align-middle"><img src="../assets/images/compressed/img1.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Necklace of Seven eleven</td>
+              <td class="text-center align-middle">P3,000</td>
+              <td class="text-center align-middle">1</td>
+              <td class="text-center align-middle">Processing</td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-warning me-2  ">View</button><button type="button" class="btn btn-dark">Cancel</button></td>
+            </tr>
+          </tbody>
+          <tfoot class="sticky-bottom disabled-white">
+            <tr>
+              <td scope="row" colspan="2"></td>
+              <th class="text-center align-middle">Total to pay :</th>
+              <th class="text-center align-middle">P3,000</th>
+              <td scope="row" colspan="3"></td>
+            </tr>
+          </tfoot>
+        </table>
+        </div>
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">View Delivered</button>
+      </div>
+    </div>
+  </div>
+</div>
