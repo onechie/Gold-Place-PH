@@ -20,10 +20,10 @@
 ?>
 <script src="../script/client/logout.js" type="text/javascript"></script>
 <link rel="stylesheet" href="../css/index.css">
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" aria-label="Fourth navbar example">
+<nav class="navbar navbar-expand-md navbar-light bg-warning gradient fixed-top" aria-label="Fourth navbar example">
   <div class="container-xxl">
     <a class="navbar-brand" href="#">
-      <img height="40" src="../assets/images/compressed/logo-only.png" alt="Logo">
+      <img height="40" src="../assets/images/compressed/logo-only-black.png" alt="Logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -46,11 +46,11 @@
       </ul>
       
         <form class="col-12 col-md-auto mb-3 mb-md-0 me-md-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
 
         <div class="dropdown text-start">
-          <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="../assets/images/compressed/rick.jpg" alt="profile" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small bg-dark dropdown-menu-xxl-start dropdown-menu-md-end">

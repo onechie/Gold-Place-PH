@@ -22,7 +22,7 @@
         }
       ?>
       
-      <main class="bg-light">
+      <main class="bg-light pt-4">
         
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">

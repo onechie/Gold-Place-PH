@@ -8,6 +8,11 @@
     --light:#f8f9fa;
     --dark:#212529;
   }
+*{
+}
+html, body {
+    height: 100%;
+}
 .gray-text{
     color: gray;
     text-decoration: none;
@@ -51,4 +56,18 @@
 }
 .disabled-white{
     background-color: #e9ecef;
+}
+.bg-image{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.gradient{
+    background: rgba(255,255,255,0.1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(245,245,245,0.1) 29%, rgba(245,245,245,0.1) 48%, rgba(245,245,245,0.1) 69%, rgba(0,0,0,0.1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0.1)), color-stop(29%, rgba(245,245,245,0.1)), color-stop(48%, rgba(245,245,245,0.1)), color-stop(69%, rgba(245,245,245,0.1)), color-stop(100%, rgba(0,0,0,0.1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(245,245,245,0.1) 29%, rgba(245,245,245,0.1) 48%, rgba(245,245,245,0.1) 69%, rgba(0,0,0,0.1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(245,245,245,0.1) 29%, rgba(245,245,245,0.1) 48%, rgba(245,245,245,0.1) 69%, rgba(0,0,0,0.1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(245,245,245,0.1) 29%, rgba(245,245,245,0.1) 48%, rgba(245,245,245,0.1) 69%, rgba(0,0,0,0.1) 100%);
+
 }

@@ -1,0 +1,46 @@
+html,
+body {
+  height: 100%;
+  overflow:hidden;
+}
+.card{
+    transition: all 0.4s;
+}
+.card:hover{
+    scale: 1.05;
+    transition: all 0.4s;
+}
+.marketing .cat {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    transition: all 0.4s;
+}
+.marketing .cat:hover {
+    transition: all 0.4s;
+    scale: 1.1;
+}
+.marketing .cat img{
+    border-radius: 50%;
+    height: 140px;
+    width: 140px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+/* rtl:begin:ignore */
+.marketing .cat p {
+    margin-right: .75rem;
+    margin-left: .75rem;
+}
+.card{
+    max-width: 276px;
+}
+.pagination li a{
+    color: #212529;
+}
+.pagination li a:focus,
+.pagination li a:hover{
+    z-index: 3;
+    color: #212529;
+    background-color: #ffc107;
+}
