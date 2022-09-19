@@ -26,6 +26,7 @@
                     
                     session_start();
                     $_SESSION["userId"] = $userid;
+                    
                     echo'<div class="toast-header bg-dark">';
                     echo'    <input type="hidden" id="check" value="success">';
                     echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';

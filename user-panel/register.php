@@ -39,7 +39,7 @@
               </label>
             </div>
             <div class="form-floating mb-1">
-              <input type="email" class="form-control ea" id="emInput" placeholder="name@example.com">
+              <input type="email" class="form-control ea" id="emInput" placeholder="Email address">
               <label for="emInput">
                 Email address 
                 <span class="text-warning em-w em-exists"></span>

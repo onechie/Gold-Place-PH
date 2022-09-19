@@ -37,7 +37,7 @@
             <img class="mb-4" src="../assets/images/compressed/logo-only.png" alt="" height="70">
             <h1 class="h3 mb-4 fw-normal">Please sign in</h1>
             <div class="form-floating mb-1">
-              <input type="email" class="form-control" id="emInput" placeholder="name@example.com">
+              <input type="email" class="form-control" id="emInput" placeholder="Email address">
               <label for="emInput">
                 Email address
                 <span class="text-warning em-w em-exists"></span>

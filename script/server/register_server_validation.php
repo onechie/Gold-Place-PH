@@ -42,16 +42,20 @@
             if(mysqli_num_rows($resultPhone1) == 0 && mysqli_num_rows($resultPhone2) == 0 && mysqli_num_rows($resultPhone3) == 0 ){
 
                 $sql = "INSERT INTO user (firstname, lastname, email, phone, password) VALUES('$firstname', '$lastname', '$email', '$phone', '$password')";
-
-                    //ECHO SUCCESS MESSAGE WITH TOAST
-                    echo'<div class="toast-header bg-dark">';
-                    echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';
-                    echo'    <strong class="me-auto text-white-50">Gold Place PH</strong>';
-                    echo'    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>';
-                    echo'</div>';
-                    echo'<div class="toast-body">';
-                    echo'<span >', ucwords($firstname),' ',ucwords($lastname),'<span>', ' registered successfully! ';
-                    echo'</div>';
+                    
+                    if(mysqli_query($conn, $sql)){
+                        //ECHO SUCCESS MESSAGE WITH TOAST
+                        echo'<div class="toast-header bg-dark">';
+                        echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';
+                        echo'    <strong class="me-auto text-white-50">Gold Place PH</strong>';
+                        echo'    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>';
+                        echo'</div>';
+                        echo'<div class="toast-body">';
+                        echo'<span >', ucwords($firstname),' ',ucwords($lastname),'<span>', ' registered successfully! ';
+                        echo'</div>';
+                    } else {
+                        echoError('0ca4');
+                    }
                 
             }else{
                 echoError('0ca3');
