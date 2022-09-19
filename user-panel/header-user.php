@@ -1,0 +1,220 @@
+<?php
+  include '../script/server/database.php';
+
+  $userid = $_SESSION['userId'];
+  $sql = "SELECT * FROM user WHERE id = '$userid'";
+  $result = mysqli_query($conn, $sql);
+  $firstname = NULL;
+  $lastname = NULL;
+  $email = NULL;
+  $phone = NULL;
+
+  if(mysqli_num_rows($result) > 0){
+      while($row = mysqli_fetch_assoc($result)) {
+        $firstname = $row['firstname'];
+        $lastname = $row['lastname'];
+        $email = $row['email'];
+        $phone = $row['phone'];
+      }
+  }
+?>
+<script src="../script/client/logout.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/index.css">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" aria-label="Fourth navbar example">
+  <div class="container-xxl">
+    <a class="navbar-brand" href="#">
+      <img height="40" src="../assets/images/compressed/logo-only.png" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Contact us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">About</a>
+        </li>
+      </ul>
+      
+        <form class="col-12 col-md-auto mb-3 mb-md-0 me-md-3" role="search">
+          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="dropdown text-start">
+          <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../assets/images/compressed/rick.jpg" alt="profile" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small bg-dark dropdown-menu-xxl-start dropdown-menu-md-end">
+            <li><a class="dropdown-item text-light" href="#" data-bs-toggle="modal" data-bs-target="#cart"><i class="bi bi-bag fs-5"></i> Cart</a></li>
+            <li><a class="dropdown-item text-light" href="#"><i class="bi bi-card-checklist fs-5"></i> Orders</a></li>
+            <li><a class="dropdown-item text-light" href="#" data-bs-toggle="modal" data-bs-target="#profile"><i class="bi bi-person fs-5"></i> Profile</a></li>
+            <li><a class="dropdown-item text-light" href="#"><i class="bi bi-gear fs-5"></i> Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="w-100 text-start btn btn-lg btn-dark fs-6 py-1 " id="logout-button" type="button"><i class="bi bi-box-arrow-left fs-5" id="#logout-button"></i> Sign-out</button></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+</nav>
+
+<!-- User Info Modal -->
+<div class="modal fade" id="profile" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-light" id="modalLabel">Your Profile</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body overflow-auto">
+        <div class="container-fluid">
+        <div class="row text-center mt-3">
+              <div class="col-sm">
+                <h3 class="">Profile Photo</h3>
+              </div>
+            </div>
+
+            <div class="row text-center my-3">
+                <div class="col-sm">
+                  <img src="../assets/images/compressed/rick.jpg" alt="profile" width="150" height="150" class="rounded-circle">
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-sm-4 mx-auto">
+                <input class="form-control" type="file">
+              </div>
+            </div>
+                
+            <div class="row">
+                <div class="col-sm mt-2 form-floating">
+                    <input type="text" class="form-control fn" id="floatingInput" placeholder="Firstname" value="<?php echo $firstname?>" disabled>
+                    <label class="px-4" for="floatingInput">Firstname</label>
+                </div>
+                <div class="col-sm mt-2 form-floating">
+                    <input type="text" class="form-control fn" id="floatingInput" placeholder="Lastname" value="<?php echo $lastname?>" disabled>
+                    <label class="px-4" for="floatingInput">Lastname</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-8 mt-2 form-floating">
+                    <input type="email" class="form-control fn" id="floatingInput" placeholder="Email" value="<?php echo $email?>" disabled>
+                    <label class="px-4" for="floatingInput">Email</label>
+                </div>
+                <div class="col-sm-4 mt-2 form-floating">
+                    <input type="email" class="form-control fn" id="floatingInput" placeholder="Email" value="<?php echo $phone?>">
+                    <label class="px-4" for="floatingInput">Phone #</label>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-sm mt-2 form-floating">
+                    <input type="text" class="form-control fn" id="floatingInput" placeholder="Bldg./ House No." value="#000">
+                    <label class="px-4" for="floatingInput">Bldg./ House #</label>
+                </div>
+                <div class="col-sm mt-2 form-floating">
+                    <input type="text" class="form-control fn" id="floatingInput" placeholder="Street/Barangay" value="Palapat">
+                    <label class="px-4" for="floatingInput">Street/Barangay</label>
+                </div>
+                <div class="col-sm mt-2 form-floating">
+                    <input type="text" class="form-control fn" id="floatingInput" placeholder="Municipality/City" value="Hagonoy">
+                    <label class="px-4" for="floatingInput">Municipality/City</label>
+                </div>
+                <div class="col-sm mt-2 mb-5 form-floating">
+                    <input type="text" class="form-control fn" id="floatingInput" placeholder="Province" value="Bulacan">
+                    <label class="px-4" for="floatingInput">Province</label>
+                </div>
+                
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Cart Modal -->
+<div class="modal fade" id="cart" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-light" id="modalLabel">Your Cart</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-light overflow-auto" style="max-height: 60vh;">
+        <div class="container-fluid">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="text-center" scrop="col"><input class="form-check-input" type="checkbox" value=""></th>
+              <th class="text-center" scope="col">Image</th>
+              <th class="text-center" scope="col">Name</th>
+              <th class="text-center" scope="col">Price</th>
+              <th class="text-center" scope="col">Quantity</th>
+              <th class="text-center" scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
+              <td class="text-center align-middle"><img src="../assets/images/img1.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Necklace of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+            <tr>
+              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
+              <td class="text-center align-middle"><img src="../assets/images/img2.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Pendant of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+            <tr>
+              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
+              <td class="text-center align-middle"><img src="../assets/images/img3.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Ring of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+            <tr>
+              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
+              <td class="text-center align-middle"><img src="../assets/images/img1.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Necklace of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+            <tr>
+              <th class="text-center align-middle"><input class="form-check-input" type="checkbox" value=""></th>
+              <td class="text-center align-middle"><img src="../assets/images/img2.jpg" height="100" width="100" alt=""></td>
+              <td class="text-center align-middle">Pendant of Seven eleven</td>
+              <td class="text-center align-middle">P 3,000</td>
+              <td class="text-center align-middle"><input class="form-control input-qty mx-auto" type="number" value="1"></td>
+              <td class="text-center align-middle"><button type="button" class="btn btn-dark">Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning">Check out</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,22 @@
+.gray-text{
+    color: gray;
+    text-decoration: none;
+}
+.gold-text{
+    color: goldenrod;
+    text-decoration: none;
+}
+.black-text{
+    color: black;
+    text-decoration: none;
+}
+.dropdown-item:hover{
+    background-color: goldenrod;
+}
+.input-qty{
+    max-width: 80px;
+    text-align: center;
+}
+.modal-body{
+    max-height: 60vh;
+}

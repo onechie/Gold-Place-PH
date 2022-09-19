@@ -1,0 +1,28 @@
+html,
+body {
+  height: 100%;
+}
+.test{
+    height: 100%;
+    display: flex;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-image: url("../assets/images/compressed/background.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 20px;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin h1 {
+    color: goldenrod;
+}
+  

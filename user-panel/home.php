@@ -1,0 +1,157 @@
+<!doctype html>
+<?php
+  session_start();
+?>
+<html lang="en">
+  <!--Test Git -->
+    <head>
+      <?php
+        include 'links.php';
+      ?>
+      <link rel="stylesheet" href="../css/home.css">
+      <title>Login</title>
+      
+    </head>
+
+    <body>
+      <?php
+        if(isset($_SESSION["userId"])) {
+          include 'header-user.php';
+        } else {
+          include 'header.php';
+        }
+      ?>
+      
+      <main class="bg-light">
+        
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="bg-image" style="background-image: url(../assets/images/uncompressed/background3.jpg);"></div>
+              <div class="container">
+                <div class="carousel-caption text-start">
+                  <h1>Test headline.</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. </p>
+                  <p><a class="btn btn-lg btn-warning" href="#">Sign up today</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="bg-image" style="background-image: url(../assets/images/uncompressed/background4.jpg);"></div>
+              <div class="container">
+                <div class="carousel-caption">
+                  <h1>Another Test headline.</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Tortor vitae purus faucibus ornare suspendisse.</p>
+                  <p><a class="btn btn-lg btn-warning" href="#">Learn more</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="bg-image" style="background-image: url(../assets/images/uncompressed/background5.jpg);"></div>
+              <div class="container">
+                <div class="carousel-caption text-end">
+                  <h1>One more for good measure.</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  <p><a class="btn btn-lg btn-warning" href="#">Browse products</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+
+        <!-- Marketing messaging and featurettes
+        ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+
+        <div class="container marketing bg">
+
+          <!-- Three columns of text below the carousel -->
+          <div class="row">
+            <div class="col-lg-4">
+              <img src="../assets/images/uncompressed/img1.jpg" alt="image">
+              <h2 class="fw-normal">Necklace</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p><a class="btn btn-dark" href="#">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <img src="../assets/images/uncompressed/img2.jpg" alt="image">
+              <h2 class="fw-normal">Pendant</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p><a class="btn btn-dark" href="#">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <img src="../assets/images/uncompressed/img3.jpg" alt="image">
+              <h2 class="fw-normal">Ring</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+              <p><a class="btn btn-dark" href="#">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+          </div><!-- /.row -->
+
+
+          <!-- START THE FEATURETTES -->
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading fw-normal lh-1">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada nunc vel risus commodo viverra maecenas accumsan. Nisi porta lorem mollis aliquam ut porttitor.</p>
+            </div>
+            <div class="col-md-5">
+              <img src="../assets/images/uncompressed/img1.jpg" alt="" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
+            </div>
+          </div>
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading fw-normal lh-1">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat pellentesque adipiscing commodo elit at imperdiet dui.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+              <img src="../assets/images/uncompressed/img2.jpg" alt="" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
+            </div>
+          </div>
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading fw-normal lh-1">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Imperdiet proin fermentum leo vel orci porta non pulvinar. </p>
+            </div>
+            <div class="col-md-5">
+              <img src="../assets/images/uncompressed/img3.jpg" alt="" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
+            </div>
+          </div>
+          
+          <hr class="featurette-divider">
+
+          <!-- /END THE FEATURETTES -->
+
+        </div><!-- /.container -->
+
+
+        <!-- FOOTER -->
+        <?php
+          include 'footer.php'
+        ?>
+      </main>
+  </body>
+</html>
