@@ -145,8 +145,8 @@ $(document).ready(function () {
 
     //CREATE ACCOUNT CLICK
     $('#ca-submit').click(function () {
-
-        $('.reg-toast').load("../script/server/register_server_validation.php", {
+        console.log("test")
+        $('.toast-body').load("../script/server/register_server_validation.php", {
             firstname: fnInput,
             lastname: lnInput,
             email: emailInput,

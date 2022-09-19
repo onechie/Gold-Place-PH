@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-warning shadow-sm fixed-top gradient" aria-label="Fourth navbar example">
+<nav class="navbar navbar-expand-md navbar-light bg-warning shadow fixed-top" aria-label="Fourth navbar example">
   <div class="container-xxl ">
     <a class="navbar-brand" href="#">
       <img height="40" src="../assets/images/compressed/logo-only-black.png" alt="Logo">
@@ -27,8 +27,8 @@
         </form>
 
       <div class="text-start remove-button" >
-        <a class="btn btn-outline-dark me-2 gradient " href="./login.php">Login</a>
-        <a class="btn btn-dark gradient" href="./register.php">Sign-up</a>
+        <a class="btn btn-outline-dark me-2 " href="./login.php">Login</a>
+        <a class="btn btn-dark" href="./register.php">Sign-up</a>
       </div>
         
     </div>

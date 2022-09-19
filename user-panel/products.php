@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center"><a class="btn btn-lg btn-warning shadow px-5 gradient" href="#">View More</a></div>
+            <div class="d-flex justify-content-center"><a class="btn btn-lg btn-warning shadow px-5" href="#">View More</a></div>
         </div>
         <div class="container-fluid bg-warning gradient px-0 mb-5 shadow">
         <p class="text-center fs-2 fw-normal m-0 py-4 text-dark">CATEGORIES</p>
@@ -119,117 +119,179 @@
                 <div class="row justify-content-evenly">
                     <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
                         <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
-                        <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
-                        <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
                     <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
                         <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
                     <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
                         <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
                     <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
                         <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
                     <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
                         <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
                     <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
                         <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
+                        <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body pb-0">
+                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="card shadow my-3 bg-light p-2 col-lg-3 col-md-4">
+                        <img src="../assets/images/compressed/img1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body pb-0">
+                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
+                            <h6 class="card-text text-warning m-0 fs-5 fw-normal"><span>&#8369;</span>3000</h6>
+                            <div class="row justify-content-between">
+                                <div class="col-6 my-auto">
+                                    <span class="align-middle">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-bag-plus"></i></button>
+                                    <button type="button" class="btn btn-outline-warning"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
 
                 </div>
@@ -237,11 +299,11 @@
             </div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination pagination justify-content-center py-5">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    <li class="page-item shadow"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item shadow"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item shadow"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item shadow"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item shadow"><a class="page-link" href="#">Next</a></li>
                 </ul>
             </nav>
         </div>

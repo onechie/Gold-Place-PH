@@ -1,18 +1,9 @@
 html,
 body {
   height: 100%;
+  min-height: 800px;
+  overflow:hidden;
 }
-.test{
-    height: 100%;
-    display: flex;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-image: url("../assets/images/compressed/background.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
 .form-signin {
     max-width: 330px;
     padding: 20px;
@@ -21,8 +12,10 @@ body {
 .form-signin .form-floating:focus-within {
     z-index: 2;
 }
-
-.form-signin h1 {
-    color: goldenrod;
+.side-content{
+    background-image: url("../assets/images/compressed/background.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
   

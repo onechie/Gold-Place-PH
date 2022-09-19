@@ -27,15 +27,8 @@
                     session_start();
                     $_SESSION["userId"] = $userid;
                     
-                    echo'<div class="toast-header bg-dark">';
-                    echo'    <input type="hidden" id="check" value="success">';
-                    echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';
-                    echo'    <strong class="me-auto text-white-50">Gold Place PH</strong>';
-                    echo'    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>';
-                    echo'</div>';
-                    echo'<div class="toast-body">';
+                    echo'<input type="hidden" id="check" value="success">';
                     echo'Welcome, ', '<span >', ucwords($firstname),' ',ucwords($lastname),'!<span>';
-                    echo'</div>';
                 } else {
                     wrongPassword();
                 }
@@ -50,26 +43,10 @@
     }
     //ECHO WRONG PASSWORD WITH TOAST
     function wrongPassword(){
-        echo'<div class="toast-header bg-dark">';
-        echo'    <input type="hidden" id="check" value="failed">';
-        echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';
-        echo'    <strong class="me-auto text-white-50">Gold Place PH</strong>';
-        echo'    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>';
-        echo'</div>';
-        echo'<div class="toast-body">';
         echo'Wrong password! Please try again.';
-        echo'</div>';
     }
     //ECHO ERROR MESSAGE WITH TOAST
     function echoError($level){
-        echo'<div class="toast-header bg-dark">';
-        echo'    <input type="hidden" id="check" value="failed">';
-        echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';
-        echo'    <strong class="me-auto text-white-50">Gold Place PH</strong>';
-        echo'    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>';
-        echo'</div>';
-        echo'<div class="toast-body">';
         echo'Error occurred, Please reload the page! code : '. $level;
-        echo'</div>';
     }
 ?>

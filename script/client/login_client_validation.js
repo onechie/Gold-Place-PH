@@ -56,21 +56,19 @@ $(document).ready(function () {
     //LOGIN CLICK
     $('#log-submit').click(function () {
 
-        $('.log-toast').load("../script/server/login_server_validation.php", {
+        $('.toast-body').load("../script/server/login_server_validation.php", {
             email: emailInput,
             password: pwInput
     
         }, function () {
             const toast = new bootstrap.Toast($('#liveToast'));
             toast.show();
-            $('.dsbl').prop('disabled', true);
             if($('#check').val() == "success") {
                 setTimeout(function(){
                     location.reload();
-                }, 3000);
+                }, 2000);
                 $('.navbar').hide();
                 $('.test').load("../script/server/loading.php");
-
             } else {
             }
         });

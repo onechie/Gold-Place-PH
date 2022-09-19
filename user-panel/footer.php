@@ -51,9 +51,9 @@
         <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
         <p>&copy; 2022 Company, Inc. All rights reserved.</p>
         <ul class="list-unstyled d-flex">
-            <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-            <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-            <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+            <li class="ms-3"><a class="fs-5" href="#"><i class="bi bi-twitter text-muted"></i></a></li>
+            <li class="ms-3"><a class="fs-5" href="#"><i class="bi bi-instagram text-muted"></i></a></li>
+            <li class="ms-3"><a class="fs-5" href="#"><i class="bi bi-facebook text-muted"></i></svg></a></li>
         </ul>
         </div>
     </footer>

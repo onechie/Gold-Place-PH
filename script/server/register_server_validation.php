@@ -45,14 +45,7 @@
                     
                     if(mysqli_query($conn, $sql)){
                         //ECHO SUCCESS MESSAGE WITH TOAST
-                        echo'<div class="toast-header bg-dark">';
-                        echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';
-                        echo'    <strong class="me-auto text-white-50">Gold Place PH</strong>';
-                        echo'    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>';
-                        echo'</div>';
-                        echo'<div class="toast-body">';
                         echo'<span >', ucwords($firstname),' ',ucwords($lastname),'<span>', ' registered successfully! ';
-                        echo'</div>';
                     } else {
                         echoError('0ca4');
                     }
@@ -71,13 +64,6 @@
 
     //ECHO ERROR MESSAGE WITH TOAST
     function echoError($level){
-        echo'<div class="toast-header bg-dark">';
-        echo'    <img src="../assets/images/compressed/logo-only.png" height="30" class="rounded me-2" alt="...">';
-        echo'    <strong class="me-auto text-white-50">Gold Place PH</strong>';
-        echo'    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>';
-        echo'</div>';
-        echo'<div class="toast-body">';
         echo'Error occurred, Please reload the page! code : '. $level;
-        echo'</div>';
     }
 ?>

@@ -1,3 +1,6 @@
+:root{
+    --warning:#ffc107;
+}
 html,
 body {
   height: 100%;
@@ -5,9 +8,15 @@ body {
 }
 .card{
     transition: all 0.4s;
+    max-width: 276px;
 }
 .card:hover{
     scale: 1.05;
+    transition: all 0.4s;
+}
+.card:hover .row button{
+    background-color: #ffc107;
+    color: black;
     transition: all 0.4s;
 }
 .marketing .cat {
@@ -32,8 +41,12 @@ body {
     margin-right: .75rem;
     margin-left: .75rem;
 }
-.card{
-    max-width: 276px;
+.card .row button{
+    transition: all 0.4s;
+}
+.card .row button:hover{
+    scale: 1.1;
+    transition: all 0.4s;
 }
 .pagination li a{
     color: #212529;
@@ -43,4 +56,7 @@ body {
     z-index: 3;
     color: #212529;
     background-color: #ffc107;
+}
+.shadow-warning{
+    box-shadow: .5rem 1rem rgba(--warning, .15);
 }
