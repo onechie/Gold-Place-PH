@@ -21,7 +21,14 @@
         if(mysqli_num_rows($result) == 0) {
             echo ' is not registered <i class="bi bi-exclamation-circle-fill"></i>';
         }else{
-            echo '';
+            while($row = mysqli_fetch_assoc($result)){
+                $verified = $row['verified'];
+                if($verified=='yes') {
+                    echo '';
+                } else {
+                    echo ' is not verified <i class="bi bi-exclamation-circle-fill"></i>';
+                }
+            }
         }
     }
 ?>

@@ -79,5 +79,6 @@
         </div>
       </div>
     </div>
+    <input type="hidden" id="verify" value="<?php if(isset($_GET['verify'])) echo $_GET['verify'];?>">
   </body>
 </html>

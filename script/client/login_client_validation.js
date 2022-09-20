@@ -8,6 +8,17 @@ $(document).ready(function () {
     $('.text-warning').hide();
     $('#log-submit').prop('disabled', true)
 
+    //SHOW TOAST IF VERIFY VALUE IS SET FOR ACCOUNT VERIFICATION
+    if($('#verify').val() != ''){
+        var getCode = $('#verify').val();
+        $('.toast-body').load("../script/server/email_verification.php", {
+            code: getCode
+        }, function () {
+            const toast = new bootstrap.Toast($('#liveToast'));
+            toast.show();
+        });
+    }
+
     //EMAIL VALIDATION
     $('#emInput').keyup(function() {
         

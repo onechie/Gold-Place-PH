@@ -2,7 +2,7 @@
     include './database.php';
 
     $email = mysqli_escape_string($conn, $_POST['email']);
-    $password = mysqli_escape_string($conn, md5($_POST['password']));
+    $password = $_POST['password'];
     
     //REGULAR EXPRESSIONS PATTERN
     $emailPattern = "/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})$/";
@@ -22,15 +22,20 @@
                 $lastname = $row['lastname'];
                 $checkPassword = $row['password'];
                 $userid = $row['id'];
-                if($password == $checkPassword) {
-                    
-                    session_start();
-                    $_SESSION["userId"] = $userid;
-                    
-                    echo'<input type="hidden" id="check" value="success">';
-                    echo'Welcome, ', '<span >', ucwords($firstname),' ',ucwords($lastname),'!<span>';
+                $verified = $row['verified'];
+                if($verified == 'yes'){
+                    if(password_verify($password, $checkPassword)) {
+
+                        session_start();
+                        $_SESSION["userId"] = $userid;
+                        
+                        echo'<input type="hidden" id="check" value="success">';
+                        echo'Welcome, ', '<span >', ucwords($firstname),' ',ucwords($lastname),'!<span>';
+                    } else {
+                        wrongPassword();
+                    }
                 } else {
-                    wrongPassword();
+                    echoError('0l3');
                 }
             }
             
