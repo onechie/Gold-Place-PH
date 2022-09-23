@@ -60,11 +60,11 @@
                                 //echo'<span >', ucwords($firstname),' ',ucwords($lastname),'<span>', ' registered successfully! ';
                                 sendEmail($email, $code);
                               }else{
-                                echo 'error';
+                                echoError('0ca6');
                               }
                             }
                           }else{
-                            echo 'error';
+                            echoError('0ca5');
                           }
                     } else {
                         echoError('0ca4');
