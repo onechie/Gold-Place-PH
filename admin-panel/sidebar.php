@@ -62,13 +62,6 @@
 
 <script>
     $('#sidebarTrigger').click(function() {
-
-        var value = $(".make-abs").css("display");
-
-        if (value == "none") {
-            $(".make-abs").removeClass("hide");
-        } else {
-            $(".make-abs").addClass("hide");
-        }
+        $(".make-abs").fadeToggle();
     });
 </script>

@@ -62,3 +62,12 @@ html, body {
 .fs-9{
     font-size: 0.7rem;
 }
+th, p {
+    font-weight: 300!important;
+}
+.fw-200{
+    font-weight: 200!important;
+}
+td{
+    font-weight: 200!important;
+}

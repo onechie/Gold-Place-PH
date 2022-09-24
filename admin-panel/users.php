@@ -34,8 +34,8 @@
                                     <tr class=" align-middle">
                                         <th class="ps-4 py-4" style="width:10%">ID</th>
                                         <th class="ps-4" style="width:30%">NAME</th>
-                                        <th class="ps-4" style="width:30%">EMAIL</th>
-                                        <th class="ps-4" style="width:10%">PHONE</th>
+                                        <th class="ps-4" style="width:20%">EMAIL</th>
+                                        <th class="ps-4" style="width:20%">PHONE</th>
                                         <th class="ps-4" style="width:10%">PURCHASED</th>
                                         <th class="ps-4" style="width:10%">ACTION</th>
                                     </tr>

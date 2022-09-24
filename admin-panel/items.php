@@ -116,13 +116,13 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="w-100 bg-light p-4 d-flex justify-content-center justify-content-sm-end">
-                        <button type="button" class="btn btn-sm btn-danger btn-control">Add Item</button>
+                        <button type="button" class="btn btn-sm btn-danger btn-control" data-bs-toggle="modal" data-bs-target="#items">Add Item</button>
                     </div>
                 </div>
             </div>
