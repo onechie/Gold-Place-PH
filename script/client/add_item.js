@@ -2,6 +2,45 @@ $(document).ready(function () {
   //DISABLE THE ADD ITEM BUTTON
   $("#add-item-btn").prop("disabled", true);
 
+  //IF EDIT ITEM IS CLICKED RUN THE FUNCTION
+  $("#item-list").on("click", ".editItem", function () {
+    let id = $(this).parentsUntil("tr").siblings(".id").text();
+    //DO AJAX TO GET THE ITEMS DATA FROM THE SERVER
+    $.post("../script/server/edit_item.php", { dataRequest: id }, function (data) {
+      //PUT THE JSON DATA INTO ARRAY
+      let itemInfo = JSON.parse(data);
+
+      $("#id").val(itemInfo.id);
+      $("#item-name").val(itemInfo.name);
+      $("#category").val(itemInfo.category);
+      $("#price").val(itemInfo.price);
+      $("#stocks").val(itemInfo.stocks);
+      $("#description").val(itemInfo.description);
+      $("#category").trigger("change");
+
+      //SET IMAGES TO SPECIFIED CLASS
+      $("#output").empty();
+      for (let i = 0; i < itemInfo.images.length; i++) {
+        $("#output").append(
+          "<img class='inputImages rounded-4 shadow' src='../script/server/images/"+itemInfo.id+"/"+ itemInfo.images[i]+"' />"
+        );
+      }
+      $("#add-item-btn").hide();
+      $("#edit-item-btn").show();
+      $("#requestType").val("edit");
+    });
+  });
+
+  //IF ADD BUTTON IS CLICKED RESET THE FORM AND READY FOR ADDING
+  $("#addItemMainButton").click(function () {
+    $("#requestType").val("add");
+    $("#add-item")[0].reset();
+    $("#category").trigger("change");
+    $("#add-item-btn").show();
+    $("#edit-item-btn").hide();
+    $("#output").empty();
+  });
+
   $("#imageInput").change(function () {
     var i = 0;
     //REMOVE THE IMAGES DISPLAYED//
@@ -19,6 +58,7 @@ $(document).ready(function () {
       ];
       //CHECK IF FILE EXTENSION IS IN THE LIST
       if ($.inArray(fileType, validImageTypes) < 0) {
+        $("#errorText").empty();
         $("#errorText").append("Please insert pictures only.");
         //REMOVE THE IMAGES DISPLAYED
         $("#output").empty();
@@ -50,8 +90,20 @@ $(document).ready(function () {
     }).done(function (data) {
       console.log(data);
       if (data == "done") {
+        $("#errorText").empty();
         $("#add-item")[0].reset();
+        $("#errorText").append("<span class='text-success'>Item uploaded successfully!</span>");
         $("#output").empty();
+        updateButton();
+      }
+      if (data == "error") {
+        $("#errorText").empty();
+        $("#errorText").append("<span class='text-error'>ERROR! empty or 0 below is not allowed.</span>");
+        updateButton();
+      }
+      if (data == "no-picture") {
+        $("#errorText").empty();
+        $("#errorText").append("<span class='text-error'>Please insert picture.</span>");
         updateButton();
       }
     });
@@ -85,23 +137,13 @@ $(document).ready(function () {
   }
   //CHECK FORM AND UPDATE THE BUTTON
   function updateButton() {
-    if (hasFilled()) $("#add-item-btn").prop("disabled", false);
-    else $("#add-item-btn").prop("disabled", true);
+    if (hasFilled()){
+      $("#edit-item-btn").prop("disabled", false);
+      $("#add-item-btn").prop("disabled", false);
+    } 
+    else{
+      $("#edit-item-btn").prop("disabled", true);
+      $("#add-item-btn").prop("disabled", true);
+    } 
   }
-
-  /*
-  $("#add-item").submit(function () {
-    event.preventDefault();
-    console.log(new FormData(this));
-
-    $.post(
-      "../script/server/add_item.php",
-      {
-        data: new FormData(this),
-      },
-      function (data) {
-        console.log(data);
-      }
-    );
-  });*/
 });

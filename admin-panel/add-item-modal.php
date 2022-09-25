@@ -1,9 +1,8 @@
 <link rel="stylesheet" href="../css/default.css">
 <link rel="stylesheet" href="../css/dashboard.css">
-<script type="text/javascript" src="../script/client/add_item.js"></script>
 <!-- ADD ITEM MODAL - ADMIN PANEL -->
-<form action="" method="post" enctype="multipart/form-data" id="add-item">
-  <div class="modal fade" id="items" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+<form action="" method="post" enctype="multipart/form-data" class="form-add-item" id="add-item">
+  <div class="modal fade" id="items" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered  modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -14,6 +13,8 @@
           <div class="row">
             <div class="col-12">
               <label class="form-label" for="item-name">Item name</label>
+              <input type="hidden" id="id" name="id">
+              <input type="hidden" id="requestType" name="requestType">
               <input type="text" class="form-control" id="item-name" name="name">
             </div>
             <div class="col-12 col-sm-6 mb-3">
@@ -29,11 +30,11 @@
             </div>
             <div class="col-12 col-sm-3 mb-3">
               <label class="form-label" for="price">Price</label>
-              <input type="number" class="form-control" id="price" name="price">
+              <input type="number" class="form-control" id="price" name="price" min="1">
             </div>
             <div class="col-12 col-sm-3 mb-3">
               <label class="form-label" for="stocks">Stocks</label>
-              <input type="number" class="form-control" id="stocks" name="stocks">
+              <input type="number" class="form-control" id="stocks" name="stocks" min="1">
             </div>
             <div class="col-12 mb-3">
               <label class="form-label" for="description">Description</label>
@@ -51,9 +52,10 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-between px-4">
+        <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-between px-4" id="modalFooter">
           <p class="text-danger p-0 m-0" id="errorText"></p>
           <button type="submit" class="btn btn-sm btn-danger" id="add-item-btn">Add Item</button>
+          <button type="submit" class="btn btn-sm btn-danger" id="edit-item-btn">Edit Item</button>
         </div>
       </div>
     </div>

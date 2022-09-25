@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2022 at 11:13 AM
+-- Generation Time: Sep 25, 2022 at 10:28 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,6 +24,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items`
+--
+
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `stocks` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `sold` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -34,15 +77,16 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `phone` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `verified` varchar(10) NOT NULL
+  `verified` varchar(10) NOT NULL,
+  `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `phone`, `password`, `verified`) VALUES
-(45, 'angelo', 'parole', 'admin@test.com', '09812382838', '$2y$10$DMYxS2iuadDOXghnyZo7ouPHulDWeKmp0wWpwYUxA/zblW/WRokqy', 'yes');
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `phone`, `password`, `verified`, `type`) VALUES
+(45, 'angelo', 'parole', 'admin@test.com', '09812382838', '$2y$10$DMYxS2iuadDOXghnyZo7ouPHulDWeKmp0wWpwYUxA/zblW/WRokqy', 'yes', 'customer');
 
 -- --------------------------------------------------------
 
@@ -52,28 +96,31 @@ INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `phone`, `password`,
 
 CREATE TABLE `verify` (
   `code` varchar(255) NOT NULL,
-  `user_id` int(100) NOT NULL
+  `user_id` int(100) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `verify`
---
-
-INSERT INTO `verify` (`code`, `user_id`) VALUES
-('$2y$10$su1u264qW0UTM1LhBK5dY.PzxhdSWOMNW24aIifMorOkPjEuBrNba', 36),
-('$2y$10$q.WeVv/Bgs5CQqJbIu9X2.Ux9y.muQE5nFuEmNBlw6DUjrZdR3FCa', 37),
-('$2y$10$qIfaua5cxPRCgSvSuV/Ot.XBmqvdD7o3PgeIg23KB1XWGys7x7iDe', 38),
-('$2y$10$thtoALxMf5tq6eyrz7DyPOsXVtMd9nDdAxaT/TBU0nnkLYdWdcVtK', 39),
-('$2y$10$wKThQn1XXEhhF719f7b98u6f3MbtgqauRiz.76WvG8z6iV.T/JvIu', 40),
-('$2y$10$QvJgQFyOiYHwiYSHih1Pj.Zuva1qI4NUS8f5W6WDFiC1JfP1UA5sG', 41),
-('$2y$10$QRCXz8ynDQaYg1iXMkmZDecKmZjMQqZA9tbwSPqI/EZ0cghACYka6', 42),
-('$2y$10$TYwiGciXV0yGhP1dxqwNsOWKQOYesZKKNLcsra8GVsg2RWkykIw2G', 43),
-('$2y$10$a6sAJfd.9bcX126kih6cnOgaWK9LWmC/BeCyuqcuKACpThAsiuyo6', 44),
-('$2y$10$0KFmOzBdyV/i3E8TY256ZeJfptUbdpPrS5we2usMzurNov4eSvVE6', 45);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -82,14 +129,44 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `verify`
+--
+ALTER TABLE `verify`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `verify`
+--
+ALTER TABLE `verify`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
