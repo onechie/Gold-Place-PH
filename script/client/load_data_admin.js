@@ -52,7 +52,7 @@ $(document).ready(function () {
             +"    <td class='ps-4 d'>"
             +"        <div class='d-flex '>"
             +"            <i class='editItem bi-pencil-square fs-5 text-secondary' data-bs-toggle='modal' data-bs-target='#items'></i>"
-            +"            <i class='deleteItem bi bi-trash fs-5 text-danger'></i>"
+            +"            <i class='deleteItem bi bi-trash fs-5 text-danger' data-bs-toggle='modal' data-bs-target='#confirm'></i>"
             +"        </div>"
             +"    </td>"
             +"</tr>"

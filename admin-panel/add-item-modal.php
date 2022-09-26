@@ -1,13 +1,11 @@
-<link rel="stylesheet" href="../css/default.css">
-<link rel="stylesheet" href="../css/dashboard.css">
 <!-- ADD ITEM MODAL - ADMIN PANEL -->
-<form action="" method="post" enctype="multipart/form-data" class="form-add-item" id="add-item">
+<form action="" method="post" enctype="multipart/form-data" id="add-item">
   <div class="modal fade" id="items" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered  modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title fw-light" id="modalLabel">ADD ITEM</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body overflow-auto p-4" style="max-height: 60vh;">
           <div class="row">
@@ -52,8 +50,8 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-between px-4" id="modalFooter">
-          <p class="text-danger p-0 m-0" id="errorText"></p>
+        <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-between px-4">
+          <p class="p-0 m-0" id="messageText"></p>
           <button type="submit" class="btn btn-sm btn-danger" id="add-item-btn">Add Item</button>
           <button type="submit" class="btn btn-sm btn-danger" id="edit-item-btn">Edit Item</button>
         </div>

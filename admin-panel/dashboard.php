@@ -7,7 +7,7 @@
     ?>
     <script type="text/javascript" src="../script/client/pie-chart.js"></script>
     <script type="text/javascript" src="../script/client/line-chart.js"></script>
-    <script type="text/javascript" src="../script/client/add_item.js"></script>
+    <script type="text/javascript" src="../script/client/add_edit_item.js"></script>
     <script type="text/javascript" src="../script/client/load_data_admin.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -26,11 +26,11 @@
             include './orders.php';
             include './items.php';
             include './users.php';
-            include './add-item-modal.php'
+            include './add-item-modal.php';
+            include './confirmation-modal.php';
             ?>
         </div>
     </main>
-    <div id="modal-show"></div>
 </body>
 
 </html>
