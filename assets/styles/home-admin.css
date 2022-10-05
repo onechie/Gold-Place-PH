@@ -34,18 +34,6 @@ main {
   max-width: 30px;
   z-index: 999;
 }
-.z-low {
-  z-index: 997;
-}
-.z-mid {
-  z-index: 998;
-}
-.z-high {
-  z-index: 999;
-}
-.z-highest {
-  z-index: 1000;
-}
 .back {
   z-index: 998;
 }

@@ -19,7 +19,7 @@ if ($_POST['requestType'] == "add") {
     if (empty($description)) $readyToProcess = false;
 
     //SET DIRECTORY NAME
-    $mainDirectory = "images/";
+    $mainDirectory = "../../images/items/";
     $directory = "";
 
     //CHECK IF THE FILE LIST IS EMPTY
@@ -80,8 +80,8 @@ if ($_POST['requestType'] == "edit") {
         if (editItem($conn, $readyToProcess, $id, $name, $category, $price, $stocks, $description)) {
 
             //SET DIRECTORY NAME
-            $main_dir = "images/";
-            $target_dir = "images/" . $id . '/';
+            $main_dir = "../../images/items/";
+            $target_dir = $main_dir . $id . '/';
 
             //GET EACH FILE NAME IN THE TARGET DIRECTORY
             $files = glob($target_dir . '/*');
@@ -111,8 +111,8 @@ if ($_POST['requestType'] == "delete-item") {
     $sql = "DELETE FROM items WHERE id = '$id'";
     if(mysqli_query($conn, $sql)){
         //SET DIRECTORY NAME
-        $main_dir = "images/";
-        $target_dir = "images/" . $id . '/';
+        $main_dir = "../../images/items/";
+        $target_dir = $main_dir . $id . '/';
 
         //GET EACH FILE NAME IN THE TARGET DIRECTORY
         $files = glob($target_dir . '/*');
@@ -210,11 +210,11 @@ function editImage($directory, $mainDirectory) {
     //VALIDATION PASSED NOW TRY TO INSERT INTO SERVER
     for ($i = 0; $i < $len; $i++) {
 
-        $target_file = $directory . basename($_FILES["images"]["name"][$i]);
-
+        $new_file_name = $directory . md5($_FILES["images"]["name"][$i]) .".". strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
         //INSERT FILE TO SERVER
-        if (move_uploaded_file($_FILES["images"]["tmp_name"][$i], $target_file)) {
-
+        if (move_uploaded_file($_FILES["images"]["tmp_name"][$i], $new_file_name)) {
+            
         } else {
             echo 'failedImage';
             return false;

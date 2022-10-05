@@ -1,33 +1,40 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php
-        include './user_include/links.php';
+    include './user_include/links.php';
     ?>
     <script type="text/javascript" src="./assets/scripts/js/items_page.js"></script>
     <link rel="stylesheet" href="./assets/styles/products.css">
     <link rel="stylesheet" href="./assets/styles/default.css">
     <title>View Products</title>
 </head>
+
 <body>
     <?php
-        if(isset($_SESSION["userId"])) {
-          include './user_include/header-user.php';
-        } else {
-          include './user_include/header.php';
-        }
+    if (isset($_SESSION["userId"])) {
+        include './user_include/header-user.php';
+    } else {
+        include './user_include/header.php';
+    }
     ?>
     <main class="mt-5 bg-light h-100 overflow-auto" id="user-panel">
         <div class="container-fluid p-0 pb-5 shadow">
             <p class="pt-4 m-0"></p>
-            <p class="text-center fs-3 fw-normal m-0 py-4 shadow text-warning bg-dark bg-opacity-100 gradient">OUR FINEST MERCHANDISE</p>
+            <p class="text-center fs-3 m-0 py-4 shadow text-warning bg-dark gradient lt-space fw-light">OUR FINEST MERCHANDISE</p>
             <div class="container-xxl py-5">
                 <div class="d-flex flex-row justify-content-evenly">
 
                     <div class="card d-flex mx-1 shadow bg-light p-2" style="display:none">
-                        <img src="./assets/images/defaults/img1.jpg" class="card-img-top" alt="...">
+                        <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
+                            <img src="./assets/images/defaults/img1.jpg" class="card-img-top" alt="...">
+                        </div>
                         <div class="card-body">
-                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
+                            <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
                             <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
                             <i class="bi bi-star-fill text-warning"></i>
                             <span>
@@ -40,9 +47,11 @@
                     </div>
 
                     <div class="card d-sm-flex mx-1 shadow bg-light p-2" style="display:none">
-                        <img src="./assets/images/defaults/img2.jpg" class="card-img-top" alt="...">
+                    <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
+                            <img src="./assets/images/defaults/img2.jpg" class="card-img-top" alt="...">
+                        </div>
                         <div class="card-body">
-                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
+                            <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
                             <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
                             <i class="bi bi-star-fill text-warning"></i>
                             <span>
@@ -54,9 +63,11 @@
                         </div>
                     </div>
                     <div class="card d-lg-flex mx-1 shadow-lg bg-light p-2" style="display:none">
-                        <img src="./assets/images/defaults/img3.jpg" class="card-img-top" alt="...">
+                        <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
+                            <img src="./assets/images/defaults/img3.jpg" class="card-img-top" alt="...">
+                        </div>
                         <div class="card-body">
-                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
+                            <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
                             <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
                             <i class="bi bi-star-fill text-warning"></i>
                             <span>
@@ -68,9 +79,11 @@
                         </div>
                     </div>
                     <div class="card d-xl-flex mx-1 shadow-lg bg-light p-2" style="display:none">
-                        <img src="./assets/images/defaults/img4.jpg" class="card-img-top" alt="...">
+                    <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
+                            <img src="./assets/images/defaults/img4.jpg" class="card-img-top" alt="...">
+                        </div>
                         <div class="card-body">
-                            <h6 class="card-title m-0 fs-6 fw-normal text-dark">EXAMPLE PRODUCT</h6>
+                            <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
                             <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
                             <i class="bi bi-star-fill text-warning"></i>
                             <span>
@@ -83,43 +96,43 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center"><a class="btn btn-lg btn-warning shadow px-5" href="#">View More</a></div>
+            <div class="d-flex justify-content-center"><a class="btn btn-lg btn-warning shadow px-5 fw-light" href="#">View More</a></div>
         </div>
         <div class="container-fluid bg-warning gradient px-0 mb-5 shadow">
-        <p class="text-center fs-2 fw-normal m-0 py-4 text-dark">CATEGORIES</p>
+            <p class="text-center fs-2 lt-space fw-light m-0 py-4 text-dark">CATEGORIES</p>
             <div class="container marketing">
-            <!-- Three columns of text below the carousel -->
+                <!-- Three columns of text below the carousel -->
                 <div class="row justify-content-center">
                     <div class="cat col-lg-2 col-sm-4 col-6">
-                    <img src="./assets/images/defaults/img3.jpg" alt="image">
-                    <h6 class="fw-normal fs-4">Ring</h6>
+                        <img src="./assets/images/defaults/img3.jpg" alt="image">
+                        <h6 class="fw-light fs-4">Ring</h6>
                     </div>
                     <div class="cat col-lg-2 col-sm-4 col-6">
-                    <img src="./assets/images/defaults/img1.jpg" alt="image">
-                    <h6 class="fw-normal fs-4">Necklace</h6>
+                        <img src="./assets/images/defaults/img1.jpg" alt="image">
+                        <h6 class="fw-light fs-4">Necklace</h6>
                     </div>
                     <div class="cat col-lg-2 col-sm-4 col-6">
-                    <img src="./assets/images/defaults/img2.jpg" alt="image">
-                    <h6 class="fw-normal fs-4">Pendant</h6>
+                        <img src="./assets/images/defaults/img2.jpg" alt="image">
+                        <h6 class="fw-light fs-4">Pendant</h6>
                     </div>
                     <div class="cat col-lg-2 col-sm-4 col-6">
-                    <img src="./assets/images/defaults/img4.jpg" alt="image">
-                    <h6 class="fw-normal fs-4">Earring</h6>
+                        <img src="./assets/images/defaults/img4.jpg" alt="image">
+                        <h6 class="fw-light fs-4">Earring</h6>
                     </div>
                     <div class="cat col-lg-2 col-sm-4 col-6">
-                    <img src="./assets/images/defaults/img5.jpg" alt="image">
-                    <h6 class="fw-normal fs-4">Bracelet</h6>
+                        <img src="./assets/images/defaults/img5.jpg" alt="image">
+                        <h6 class="fw-light fs-4">Bracelet</h6>
                     </div>
                 </div><!-- /.row -->
             </div>
         </div>
-        <div class="container-fluid bg-light gradient px-0 pb-5">
-        <p class="text-center fs-3 fw-normal m-0 py-2 text-dark">RECOMMENDED FOR YOU</p>
+        <div class="container-fluid bg-light px-0 pb-5">
+            <p class="text-center fs-3 fw-light m-0 py-2 text-dark">RECOMMENDED FOR YOU</p>
             <div class="container-xxl marketing mt-5">
-            <!-- Three columns of text below the carousel -->
+                <!-- Three columns of text below the carousel -->
                 <input type="hidden" id="page" value="1">
                 <div class="d-flex flex-row justify-content-evenly flex-wrap" id="item-list">
-                    
+
                 </div>
             </div>
             <nav aria-label="Page navigation example">
@@ -133,9 +146,24 @@
             </nav>
         </div>
         <?php
-            include './user_include/view-item-modal.php';
-            include './user_include/footer.php';
+        include './user_include/view-item-modal.php';
+        include './user_include/footer.php';
         ?>
     </main>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast log-toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-warning">
+                <img src="./assets/images/defaults/logo-only-black.png" height="30" class="rounded me-1" alt="...">
+                <strong class="me-auto text-dark fw-normal">GOLD PLACE PH</strong>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body px-4">
+
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 <?php
 include './database.php';
 
-//RESPONSE FOR ITEM INFO REQUEST WITH ID
+//RESPONSE FOR SINGLE ITEM INFO REQUEST
 if(isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
     $id = $_POST['id'];
     $sql = "SELECT * FROM items WHERE id = '$id'";
@@ -9,7 +9,7 @@ if(isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
     $item = getItemData($sql, $conn, true);
     echo json_encode($item);
 }
-
+//RESPONSE FOR MULTIPLE ITEM INFO REQUEST
 if(isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
     $sql = "SELECT * FROM items";
     
@@ -24,6 +24,7 @@ if(isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
 
 }
 
+//GET ITEMS WITH SINGLE OR MULTIPLE IMAGE
 function getItemData($sql, $conn, $multiple){
 
     $result = mysqli_query($conn, $sql);
@@ -41,7 +42,7 @@ function getItemData($sql, $conn, $multiple){
             $description = $rows['description'];
 
             //GET THE ID AND SET AS DIRECTORY
-            $directory = 'images/' . $id;
+            $directory = '../../images/items/' . $id;
             //SCAN THE FILES INSIDE THE DIRECTORY
             $files = array_diff(scandir($directory), array('..', '.'));
             $file = array();

@@ -1,4 +1,4 @@
-<div class="container-fluid bg-dark">
+<div class="container-fluid bg-dark remove-footer">
     <div class="container">
     <footer class="py-5">
         <div class="row">

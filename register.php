@@ -23,47 +23,37 @@
                 <h1 class="h3 mb-4 text-dark fw-normal fs-4">Create your account</h1>
                 <div class="form-floating mb-1">
                 <input type="text" class="form-control fn" id="fnInput" placeholder="Firstname">
-                  <label for="fnInput">
+                  <label for="fnInput" style="width:110%">
                     Firstname
-                    <span class="text-warning fn-w fn-long"> is too long <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning fn-w fn-not-valid"> is not valid <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning fn-w fn-no-text"><i class="bi bi-exclamation-circle-fill"></i></span>
+                    <span class="text-warning fn-w"></i></span>
                   </label>
                 </div>
                 <div class="form-floating mb-1">
                   <input type="text" class="form-control ln" id="lnInput" placeholder="Lastname">
-                  <label for="lnInput">
+                  <label for="lnInput" style="width:110%">
                     Lastname
-                    <span class="text-warning ln-w ln-long"> is too long <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning ln-w ln-not-valid"> is not valid <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning ln-w ln-no-text"><i class="bi bi-exclamation-circle-fill"></i></span>
+                    <span class="text-warning ln-w"></i></span>
                   </label>
                 </div>
                 <div class="form-floating mb-1">
                 <input type="email" class="form-control ea" id="emInput" placeholder="Email address">
-                  <label for="emInput">
+                  <label for="emInput" style="width:110%">
                     Email address 
-                    <span class="text-warning em-w em-exists"></span>
-                    <span class="text-warning em-w em-not-valid"> is not valid <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning em-w em-no-text"><i class="bi bi-exclamation-circle-fill"></i></span>
+                    <span class="text-warning em-w"></i></span>
                   </label>
                 </div>
                 <div class="form-floating mb-1">
-                  <input type="text" class="form-control ea" id="pnInput" placeholder="Phone number">
-                  <label for="pnInput">
+                  <input type="text" class="form-control ea" id="phInput" placeholder="Phone number">
+                  <label for="phInput" style="width:110%">
                     Phone number
-                    <span class="text-warning ph-w ph-exists"></span>
-                    <span class="text-warning ph-w ph-not-valid"> is not valid <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning ph-w ph-no-text"><i class="bi bi-exclamation-circle-fill"></i></span>
+                    <span class="text-warning ph-w"></i></span>
                   </label>
                 </div>
                 <div class="form-floating mb-1">
                   <input type="password" class="form-control pw" id="pwInput" placeholder="Password">
-                  <label for="pwInput">
+                  <label for="pwInput" style="width:110%">
                     Password
-                    <span class="text-warning pw-w pw-long"> is too long <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning pw-w pw-short"> is too short <i class="bi bi-exclamation-circle-fill"></i></span>
-                    <span class="text-warning pw-w pw-no-text"><i class="bi bi-exclamation-circle-fill"></i></span>
+                    <span class="text-warning pw-w"></i></span>
                   </label>
                 </div>
                 <p class="mt-3 mb-3 text-dark">Already have an account? <a href="login.php" class="link-secondary">login now</a></p>

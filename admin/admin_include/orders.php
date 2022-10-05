@@ -4,21 +4,21 @@
     }
 ?>
 <!--ORDERS-->
-<div class="container-fluid px-xl-4" id="list-2">
+<div class="container-fluid px-xl-4 orders" id="list-2">
     <div class="container-fluid p-0">
         <div class="row">
             <!--GRAPH-->
             <div class="container-fluid col-12 col-lg-6 px-3 mb-4">
                 <div class="bg-white rounded-4 overflow-hidden shadow d-flex flex-column align-items-center">
-                    <div class="w-100 p-4 shadow-sm z-high">
+                    <div class="w-100 p-4 shadow-sm">
                         <P class="lt-space fw-light m-0 p-0 text-center text-sm-start">ORDERS CHART</P>
                     </div>
                     <div class="w-100 p-4 d-flex flex-wrap justify-content-center justify-content-sm-between">
                         <div class="px-3 pe-sm-0">
-                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">TOTAL ORDERS <span class="text-success fw-bold">10,000</span></P>
+                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">TOTAL ORDERS <span class="text-success fw-bold" id="total-orders">10,000</span></P>
                         </div>
                         <div class="d-flex">
-                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+1,000<span class="bg-success bg-opacity-25 rounded-4 pe-1"><i class="bi bi-arrow-up-short"></i>25.0%</span></P>
+                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+0<span class="bg-success bg-opacity-25 rounded-4 pe-1"><i class="bi bi-arrow-up-short"></i>0%</span></P>
                             <div class="btn-group drop-down ps-2">
                                 <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" data-bs-toggle="dropdown" aria-expanded="false">
                                     TODAY
@@ -45,7 +45,7 @@
             <!--RECENT SALES-->
             <div class="container-fluid col-12 col-lg-6 px-3 mb-4">
                 <div class="bg-white rounded-4 overflow-hidden shadow d-flex flex-column align-items-center">
-                    <div class="p-4 shadow-sm w-100 shadow-sm z-high">
+                    <div class="p-4 shadow-sm w-100 shadow-sm">
                         <P class="lt-space fw-light m-0 text-center text-sm-start">RECENT ORDERS</P>
                     </div>
                     <div class="w-100 m-0 max-h-ex overflow-auto">

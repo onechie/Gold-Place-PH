@@ -1,7 +1,11 @@
 $(document).ready(function () {
   let labels = ["Cancelled", "Processing", "Delivered"];
-  let allData = [100, 300, 200];
+  let allData = [];
 
+  getOrdersData();
+
+  console.log(allData);
+  
   const data = {
     labels: labels,
     datasets: [
@@ -28,5 +32,23 @@ $(document).ready(function () {
     },
   };
 
-  const pieChart = new Chart($("#pieChart"), config);
+  function getOrdersData(){
+    $.post("../assets/scripts/server/charts_data.php", {requestType:"order-chart-data"},
+      function (data) {
+        console.log(data);
+        if(data != null && data){
+          let ordersData = JSON.parse(data);
+
+          let cancelled = ordersData.cancelled;
+          let processing = ordersData.checking + ordersData.processing;
+          let delivered = ordersData.delivered;
+
+          allData.push(cancelled, processing, delivered);
+          const pieChart = new Chart($("#pieChart"), config);
+          $(".orders #total-orders").text(ordersData.total)
+          
+        }
+      }
+    );
+  }
 });

@@ -147,7 +147,18 @@
 
         </div><!-- /.container -->
 
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+          <div id="liveToast" class="toast log-toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-warning">
+              <img src="./assets/images/defaults/logo-only-black.png" height="30" class="rounded me-2" alt="...">
+              <strong class="me-auto text-dark">Gold Place PH</strong>
+              <button type="button" class="btn-close btn-close-black" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body text-capitalize">
 
+            </div>
+          </div>
+        </div>
         <!-- FOOTER -->
         <?php
           include './user_include/footer.php'

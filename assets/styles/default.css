@@ -74,3 +74,33 @@ td{
 .lt-space {
     letter-spacing: 0.2em;
 }
+.z-low {
+    z-index: 997;
+}
+.z-mid {
+    z-index: 998;
+}
+.z-high {
+    z-index: 999;
+}
+.z-highest {
+    z-index: 1000;
+}
+.toast-container {
+    z-index :1100;
+}
+.bg-1{
+    background-color: #ffba4a;
+}
+.bg-2{
+    background-color: #252525;
+}
+
+.bi-arrow-down-up{
+    transition: 0.4s;
+}
+.bi-arrow-down-up:hover{
+    color: var(--danger);
+    cursor: pointer;
+    transition: 0.4s;
+}

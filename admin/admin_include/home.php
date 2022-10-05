@@ -4,7 +4,7 @@
     }
 ?>
 <!--SALES-->
-<div class="container-fluid px-xl-4 pt-5" id="list-1">
+<div class="container-fluid px-xl-4 pt-5 sales" id="list-1">
     <h1 class="fs-1 fw-light lt-space pb-4 text-center text-sm-start">DASHBOARD</h1>
     <!--MAIN-->
     <div class="container-fluid p-0">
@@ -13,7 +13,7 @@
                 <div class="overflow-hidden bg-white shadow rounded-4 h-100 w-100">
                     <div class="p-4 h-75 d-flex justify-content-between align-items-center">
                         <div>
-                            <h4 class="fw-normal text-warning">10,000</h4>
+                            <h4 class="fw-normal text-warning" id="home-sales">10,000</h4>
                             <p class="m-0">TOTAL SALES</p>
                         </div>
                         <div>
@@ -21,8 +21,8 @@
                         </div>
                     </div>
                     <div class="bg-warning bg-opacity-100 px-4 h-25 d-flex align-items-center text-light">
-                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+1,000</p>
-                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>25.0%</p>
+                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+0</p>
+                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>0%</p>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <div class="overflow-hidden bg-white shadow rounded-4 h-100 w-100">
                     <div class="p-4 h-75 d-flex justify-content-between align-items-center">
                         <div>
-                            <h4 class="fw-normal text-success">10,000</h4>
+                            <h4 class="fw-normal text-success" id="home-orders">10,000</h4>
                             <p class="m-0">TOTAL ORDERS</p>
                         </div>
                         <div>
@@ -38,8 +38,8 @@
                         </div>
                     </div>
                     <div class="bg-success bg-opacity-100 px-4 h-25 d-flex align-items-center text-light">
-                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+1,000</p>
-                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>25.0%</p>
+                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+0</p>
+                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>0%</p>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <div class="overflow-hidden bg-white shadow rounded-4 h-100 w-100">
                     <div class="p-4 h-75 d-flex justify-content-between align-items-center">
                         <div>
-                            <h4 class="fw-normal text-danger">1,000</h4>
+                            <h4 class="fw-normal text-danger" id="home-stocks">1,000</h4>
                             <p class="m-0">TOTAL STOCKS</p>
                         </div>
                         <div>
@@ -55,8 +55,8 @@
                         </div>
                     </div>
                     <div class="bg-danger bg-opacity-100 px-4 h-25 d-flex align-items-center text-light">
-                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+100</p>
-                        <p class="fw-light m-0 ms-2 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">-100</p>
+                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+0</p>
+                        <p class="fw-light m-0 ms-2 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">-0</p>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                 <div class="overflow-hidden bg-white shadow rounded-4 h-100 w-100">
                     <div class="p-4 h-75 d-flex justify-content-between align-items-center">
                         <div>
-                            <h4 class="fw-normal text-primary">100</h4>
+                            <h4 class="fw-normal text-primary" id="home-users">100</h4>
                             <p class="m-0">TOTAL USERS</p>
                         </div>
                         <div>
@@ -72,8 +72,8 @@
                         </div>
                     </div>
                     <div class="bg-primary bg-opacity-100 px-4 h-25 d-flex align-items-center text-light">
-                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+10</p>
-                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>25.0%</p>
+                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+0</p>
+                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>0%</p>
                     </div>
                 </div>
             </div>
@@ -83,15 +83,15 @@
         <!--GRAPH-->
         <div class="container-fluid col-12 px-3 mb-4">
             <div class="bg-white rounded-4 overflow-hidden shadow d-flex flex-column align-items-center">
-                <div class="w-100 p-4 shadow-sm z-high">
+                <div class="w-100 p-4 shadow-sm">
                     <P class="lt-space fw-light m-0 p-0 text-center text-sm-start">SALES CHART</P>
                 </div>
                 <div class="w-100 p-4 d-flex flex-wrap justify-content-center justify-content-sm-between">
                     <div class="px-3 pe-sm-0">
-                        <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">TOTAL ORDERS <span class="text-warning fw-bold">10,000</span></P>
+                        <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">TOTAL SALES <span class="text-warning fw-bold" id="total-sales">10,000</span></P>
                     </div>
                     <div class="d-flex">
-                        <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+1,000<span class="bg-success bg-opacity-25 rounded-4 pe-1"><i class="bi bi-arrow-up-short"></i>25.0%</span></P>
+                        <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+0<span class="bg-success bg-opacity-25 rounded-4 pe-1"><i class="bi bi-arrow-up-short"></i>0%</span></P>
                         <div class="btn-group drop-down ps-2">
                             <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" data-bs-toggle="dropdown" aria-expanded="false">
                                 TODAY

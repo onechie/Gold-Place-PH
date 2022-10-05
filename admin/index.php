@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="../assets/styles/default.css">
     <link rel="stylesheet" href="../assets/styles/home-admin.css">
-    <title>Admin Panel</title>
+    <title>Gold Place PH - Admin</title>
 </head>
 
 <body>

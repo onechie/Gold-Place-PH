@@ -1,6 +1,6 @@
 <?php
 
-include 'database.php';
+include './database.php';
 
 if (isset($_POST['requestType']) && $_POST['requestType'] == "load-users") {
     $sql = "SELECT * FROM user";

@@ -1,54 +1,103 @@
 $(document).ready(function () {
-  //DISABLE THE ADD ITEM BUTTON
-  $("#add-item-btn").prop("disabled", true);
-  //CALL THE ITEMS DATA FUNCTION
+  "use strict";
+
+  //INSERT ITEM DATA MODAL EDIT/ADD
+  const addForm = $("#add-item")
+  const addId =  $("#add-item #id")
+  const addName =  $("#add-item #item-name")
+  const addCategory = $("#add-item #category")
+  const addPrice = $("#add-item #price")
+  const addStocks = $("#add-item #stocks")
+  const addDescription = $("#add-item #description")
+  const addBtn = $("#add-item #add-item-btn")
+  const editBtn = $("#add-item #edit-item-btn")
+  const addMsg = $("#add-item #messageText")
+  const addLabel = $("#add-item #modalLabel")
+  const addReqType = $("#add-item #requestType")
+  const addOutput = $("#add-item #output")
+
+  //ITEMS TABLE
+  const itemList = $("#item-list")
+  const itemAddBtnMain = $("#addItemMainButton");
+
+  $("#item-list #search-item").on("keyup", function(){
+    var value = $(this).val().toLowerCase();
+    $("#item-list tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  })
+
+  $("#sort_item_id").click(function(){
+    sortTable("id");
+  })
+  $("#sort_item_name").click(function(){
+    sortTable("name");
+  })
+  $("#sort_item_stock").click(function(){
+    sortTable("stock");
+  })
+  $("#sort_item_price").click(function(){
+    sortTable("price");
+  })
+  $("#sort_item_sold").click(function(){
+    sortTable("sold");
+  })
+
+  addBtn.prop("disabled", true);
   getItemsData();
 
   $("#refresh-items").click(function () {
     getItemsData();
   });
 
-  //IF EDIT ITEM IS CLICKED RUN THE FUNCTION
-  $("#item-list").on("click", ".editItem", function () {
+  //EDIT BUTTON
+ itemList.on("click", ".editItem", function () {
     let id = $(this).parentsUntil("tr").siblings(".id").text();
-    //DO AJAX TO GET THE ITEMS DATA FROM THE SERVER
     $.post(
       "../assets/scripts/server/item_data.php",{ 
         requestType: "load-item",
         id: id
       },
       function (data) {
-        //PUT THE JSON DATA INTO ARRAY
         let itemsInfo = JSON.parse(data);
         let itemInfo = itemsInfo[0];
-        $("#add-item #id").val(itemInfo.id);
-        $("#add-item #item-name").val(itemInfo.name);
-        $("#add-item #category").val(itemInfo.category);
-        $("#add-item #price").val(itemInfo.price);
-        $("#add-item #stocks").val(itemInfo.stocks);
-        $("#add-item #description").val(itemInfo.description);
-        $("#add-item #category").trigger("change");
+        addId.val(itemInfo.id);
+        addName.val(itemInfo.name);
+        addCategory.val(itemInfo.category);
+        addPrice.val(itemInfo.price);
+        addStocks.val(itemInfo.stocks);
+        addDescription.val(itemInfo.description);
+        addCategory.trigger("change");
 
-        //SET IMAGES TO SPECIFIED DIVIDER
-        $("#output").empty();
+        addOutput.empty();
         for (let i = 0; i < itemInfo.images.length; i++) {
-          $("#output").append(
+          addOutput.append(
             "<div class='ratio ratio-1x1 bg-light shadow rounded-4 align-self-center' style='max-width: 300px; margin:10px;'>" +
               "<img class='inputImages rounded-4' src='../assets/images/items/"+itemInfo.id+"/"+itemInfo.images[i] +"'/>" +
             "</div>"
           );
         }
-        $("#add-item #add-item-btn").hide();
-        $("#add-item #edit-item-btn").show();
-        $("#add-item #messageText").empty();
-        $("#add-item #modalLabel").text("EDIT ITEM");
-        $("#add-item #requestType").val("edit");
+        addBtn.hide();
+        editBtn.show();
+        addMsg.empty();
+        addLabel.text("EDIT ITEM");
+        addReqType.val("edit");
       }
     );
   });
-
-  //AJAX FOR ADDING ALL THE FORM DATA
-  $("#add-item").on("submit", function (e) {
+  //ADD BUTTON
+  itemAddBtnMain.click(function () {
+    addReqType.val("add");
+    addForm[0].reset();
+    addCategory.trigger("change");
+    addBtn.show();
+    editBtn.hide();
+    addMsg.empty();
+    addLabel.text("ADD ITEM");
+    addOutput.empty();
+  });
+  //AJAX FOR ADD OR EDIT ITEM
+  addForm.on("submit", function (e) {
     e.preventDefault();
     $.ajax({
       url: "../assets/scripts/server/add_edit_item.php",
@@ -62,30 +111,17 @@ $(document).ready(function () {
       getItemsData();
     });
   });
-
-  //IF ADD BUTTON IS CLICKED RESET THE FORM AND READY FOR ADDING
-  $("#addItemMainButton").click(function () {
-    $("#add-item #requestType").val("add");
-    $("#add-item")[0].reset();
-    $("#add-item #category").trigger("change");
-    $("#add-item #add-item-btn").show();
-    $("#add-item #edit-item-btn").hide();
-    $("#add-item #messageText").empty();
-    $("#add-item #modalLabel").text("ADD ITEM");
-    $("#add-item #output").empty();
-  });
-
-  //IF DELETE ITEM IS CLICKED RUN THE FUNCTION
-  $("#item-list").on("click", ".deleteItem", function () {
+  //DELETE BUTTON
+ itemList.on("click", ".deleteItem", function () {
     let id = $(this).parentsUntil("tr").siblings(".id").text();
     $("#confirmation-message").empty();
     $("#confirmation-message").append(
       "Are you sure do you want to delete item [ID = " + id + "]?"
     );
+    $("#confirmation #messageText").empty();
     $("#confirmation #id").val(id);
     $("#confirmation #requestType").val("delete-item");
   });
-
   //AJAX FOR DELETING ITEM
   $("#confirmation").on("submit", function (e) {
     e.preventDefault();
@@ -101,35 +137,28 @@ $(document).ready(function () {
       getItemsData();
     });
   });
-
   //FUNCTION FOR DISPLAYING IMAGE ON INPUT
   $("#imageInput").change(function () {
     var i = 0;
-    //REMOVE THE IMAGES DISPLAYED//
-    $("#output").empty();
+    addOutput.empty();
 
     while (i < this.files.length) {
       var file = this.files[i];
       var fileType = file["type"];
-      //VALID FILE EXTENSION LIST
       var validImageTypes = [
         "image/gif",
         "image/jpeg",
         "image/png",
         "image/jpg",
       ];
-      //CHECK IF FILE EXTENSION IS IN THE LIST
       if ($.inArray(fileType, validImageTypes) < 0) {
-        $("#add-item #messageText").empty();
-        $("#add-item #messageText").append("<span class='text-danger'>Please insert pictures only!</span>");
-        //REMOVE THE IMAGES DISPLAYED
-        $("#output").empty();
+        addMsg.empty();
+        addMsg.append("<span class='text-danger'>Please insert pictures only!</span>");
+        addOutput.empty();
         this.value = null;
       } else {
-        //REMOVE THE ERROR MESSAGES
-        $("#add-item #messageText").empty();
-        $("#output").append(
-          //GET THE URL OF INPUT IMAGE AND SET AS SOURCE IN IMAGE TAG
+        addMsg.empty();
+        addOutput.append(
           "<div class='ratio ratio-1x1 bg-light shadow rounded-4 align-self-center' style='max-width: 300px; margin:10px;'>" +
               "<img class='inputImages rounded-4' src='"+URL.createObjectURL(event.target.files[i])+"'/>" +
           "</div>"
@@ -139,59 +168,110 @@ $(document).ready(function () {
     }
   });
 
-  $("#item-name").change(function () {
+  addName.change(function () {
     updateButton();
   });
-  $("#category").change(function () {
+  addCategory.change(function () {
     updateButton();
   });
-  $("#price").change(function () {
+  addPrice.change(function () {
     updateButton();
   });
-  $("#stocks").change(function () {
+  addStocks.change(function () {
     updateButton();
   });
-  $("#description").change(function () {
+  addDescription.change(function () {
     updateButton();
   });
   
-  //CHECK IF THERE IS EMPTY VALUE
   function hasFilled() {
-    if ($("#item-name").val().length == 0) return false;
-    if ($("#category").val().length == 0) return false;
-    if ($("#price").val().length == 0) return false;
-    if ($("#stocks").val().length == 0) return false;
-    if ($("#description").val().length == 0) return false;
+    if (addName.val().length == 0) return false;
+    if (addCategory.val().length == 0) return false;
+    if (addPrice.val().length == 0) return false;
+    if (addStocks.val().length == 0) return false;
+    if (addDescription.val().length == 0) return false;
 
     return true;
   }
-  //CHECK FORM AND UPDATE THE BUTTON
+  
   function updateButton() {
     if (hasFilled()) {
-      $("#edit-item-btn").prop("disabled", false);
-      $("#add-item-btn").prop("disabled", false);
+      editBtn.prop("disabled", false);
+      addBtn.prop("disabled", false);
     } else {
-      $("#edit-item-btn").prop("disabled", true);
-      $("#add-item-btn").prop("disabled", true);
+      editBtn.prop("disabled", true);
+      addBtn.prop("disabled", true);
     }
   }
-  
-  //FUNCTION TO LOAD THE ITEMS DATA
+  function sortTable(by) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("item-list");
+    switching = true;
+
+    dir = "asc";
+
+    while (switching) {
+
+      switching = false;
+      rows = table.rows;
+
+      for (i = 0; i < (rows.length - 1); i++) {
+
+        shouldSwitch = false;
+
+        if(by=="id"){
+          x = Number($(rows[i]).children(".sort-by-id").text())
+          y = Number($(rows[i+1]).children(".sort-by-id").text())
+        } else if(by=="name"){
+          x = $(rows[i].getElementsByTagName("td")[1]).children("div").children("#sort-by-name").text().toLowerCase()
+          y = $(rows[i+1].getElementsByTagName("td")[1]).children("div").children("#sort-by-name").text().toLowerCase()
+        } else if(by=="stock"){
+          x = Number($(rows[i].getElementsByTagName("td")[2]).children("p").children(".stocks").text().toLowerCase())
+          y = Number($(rows[i+1].getElementsByTagName("td")[2]).children("p").children(".stocks").text().toLowerCase())
+        } else if(by=="price") {
+          x = Number($(rows[i].getElementsByTagName("td")[3]).children(".price").text().toLowerCase())
+          y = Number($(rows[i+1].getElementsByTagName("td")[3]).children(".price").text().toLowerCase())
+        } else {
+          x = Number($(rows[i].getElementsByTagName("td")[4]).children(".sold").text().toLowerCase())
+          y = Number($(rows[i+1].getElementsByTagName("td")[4]).children(".sold").text().toLowerCase())
+        }
+
+        if (dir == "asc") {
+          if (x > y) {
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x < y) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount ++;
+      } else {
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+
   function getItemsData() {
-    $("#item-list").empty();
-    //DO AJAX TO GET THE ITEMS DATA FROM THE SERVER
+   itemList.empty();
     $.post("../assets/scripts/server/item_data.php", {requestType:"load-items"},function (data) {
-      //CHECK IF JSON DATA IS NOT EMPTY
-      if (data) {
-        //PUT THE JSON DATA INTO ARRAY
+      if (data && data != "null") {
         let itemInfo = JSON.parse(data);
-        //GET THE DATA ON EACH JSON
+        let htmlData = ""
         for (let i = 0; i < itemInfo.length; i++) {
           let item = itemInfo[i];
           let color = "primary";
           let stocks = item.stocks;
 
-          //SET THE COLOR OF STOCKS BAR DEPENDS ON THE COUNT OF STOCKS
           if (stocks <= 25) {
             color = "danger";
           } else if (stocks <= 50) {
@@ -199,16 +279,14 @@ $(document).ready(function () {
           } else {
             color = "primary";
           }
-          //PUT THE TABLE ROW INTO ITEM LIST DIVIDER WITH THE ITEM VALUES
-          $("#item-list").append(
-            "<tr class='align-middle'>"
-            +"   <td class='ps-4 py-4 id'>"+item.id+"</td>"
+          htmlData += "<tr class='align-middle'>"
+            +"   <td class='ps-4 py-4 id sort-by-id'>"+item.id+"</td>"
             +"    <td class='ps-4'>"
             +"        <div class='d-flex align-items-center'>"
-            +"            <span class='position-relative rounded-5 bg-white shadow-sm me-2' style='width:50px; height:50px'>"
+            +"            <div class='position-relative rounded-5 bg-white shadow-sm me-2 flex-shrink-0' style='width:50px; height:50px'>"
             +"                <img class='position-absolute m-1 bg-secondary rounded-5' src='../assets/images/items/"+item.id+"/"+item.images[0]+"' alt='' style='width:42px; height:42px'>"
-            +"           </span>"
-            +"            <strong>"+item.name+"</strong>"
+            +"           </div>"
+            +"            <strong id='sort-by-name' class='text-break'>"+item.name+"</strong>"
             +"        </div>"
             +"    </td>"
             +"    <td class='ps-4 stocks-parent'>"
@@ -217,8 +295,8 @@ $(document).ready(function () {
             +"            <div class='progress-bar bg-"+color+"' role='progressbar' style='width:"+item.stocks+"%'></div>"
             +"        </div>"
             +"    </td>"
-            +"    <td class='ps-4'><strong>"+item.price+"</strong></td>"
-            +"    <td class='ps-4'><strong>"+item.sold+"</strong></td>"
+            +"    <td class='ps-4'><strong class='price text-break'>"+item.price+"</strong></td>"
+            +"    <td class='ps-4'><strong class='sold'>"+item.sold+"</strong></td>"
             +"    <td class='ps-4 d'>"
             +"        <div class='d-flex '>"
             +"            <i class='editItem bi-pencil-square fs-5 text-secondary icon-btn' data-bs-toggle='modal' data-bs-target='#items'></i>"
@@ -226,47 +304,47 @@ $(document).ready(function () {
             +"        </div>"
             +"    </td>"
             +"</tr>"
-          )
         }
+       itemList.append(htmlData);
       }
     });
   }
 
   function serverResponseTranslate(data){
-    $("#add-item #messageText").empty();
+    addMsg.empty();
     $("#confirmation #messageText").empty();
     //ADD AND EDIT FORM RESPONSES
     if(data=="addSuccess"){
-      $("#add-item #messageText").append("<span class='text-success'>Item uploaded successfully!</span>")
-      $("#add-item")[0].reset();
-      $("#add-item #output").empty();
+      addMsg.append("<span class='text-success'>Item uploaded successfully!</span>")
+      addForm[0].reset();
+      addOutput.empty();
     }
     if(data=="editSuccess"){
-      $("#add-item #messageText").append("<span class='text-success'>Item edited successfully!</span>")
+      addMsg.append("<span class='text-success'>Item edited successfully!</span>")
     }
     if(data=="addFailed"){
-      $("#add-item #messageText").append("<span class='text-danger'>Item failed to upload!</span>")
+      addMsg.append("<span class='text-danger'>Item failed to upload!</span>")
     }
     if(data=="editFailed"){
-      $("#add-item #messageText").append("<span class='text-danger'>Item failed to edit!</span>")
+      addMsg.append("<span class='text-danger'>Item failed to edit!</span>")
     }
     if(data=="noImage"){
-      $("#add-item #messageText").append("<span class='text-danger'>Please insert image!</span>")
+      addMsg.append("<span class='text-danger'>Please insert image!</span>")
     }
     if(data=="notImage"){
-      $("#add-item #messageText").append("<span class='text-danger'>File is not an image!</span>")
+      addMsg.append("<span class='text-danger'>File is not an image!</span>")
     }
     if(data=="existsImage"){
-      $("#add-item #messageText").append("<span class='text-danger'>File already existed!</span>")
+      addMsg.append("<span class='text-danger'>File already existed!</span>")
     }
     if(data=="largeImage"){
-      $("#add-item #messageText").append("<span class='text-danger'>File size is too large! (maximum size 2mb)</span>")
+      addMsg.append("<span class='text-danger'>File size is too large! (maximum size 2mb)</span>")
     }
     if(data=="formatImage"){
-      $("#add-item #messageText").append("<span class='text-danger'>Only (jpg, jpeg, png) allowed!</span>")
+      addMsg.append("<span class='text-danger'>Only (jpg, jpeg, png) allowed!</span>")
     }
     if(data=="failedImage"){
-      $("#add-item #messageText").append("<span class='text-danger'>File failed to process!</span>")
+      addMsg.append("<span class='text-danger'>File failed to process!</span>")
     }
 
     //DELETE ITEM FOR RESPONSES
@@ -278,6 +356,6 @@ $(document).ready(function () {
     }
     
     //REFRESH BUTTON
-    $("#category").trigger('change');
+    addCategory.trigger('change');
   }
 });

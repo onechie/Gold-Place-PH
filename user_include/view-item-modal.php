@@ -9,7 +9,7 @@
             <div class="modal-body overflow-auto py-4 px-2 px-sm-4 bg-light" style="max-height: 60vh;">
                 <div class="row">
                     <div class="col-12 mb-4">
-                        <div class="d-flex w-100 flex-column flex-lg-row justify-content-start align-items-start mb-3 rounded-4 py-4 px-2 px-sm-4 bg-white shadow-sm">
+                        <div class="d-flex w-100 flex-column flex-lg-row justify-content-start align-items-start rounded-4 py-4 px-2 px-sm-4 bg-white shadow-sm">
                             <!-- ITEM IMAGE
                             <div class="ratio ratio-1x1 bg-light shadow-sm rounded-4 align-self-center" style="max-width: 400px;">
                                 <img id="image" src="./assets/images/defaults/img1.jpg" alt="image" class="rounded-4" style="object-fit: cover;">
@@ -144,6 +144,7 @@
             </div>
             <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-end px-4">
                 <button type="submit" class="btn btn-sm btn-warning" id="add-cart-btn">Add to cart</button>
+                <input type="hidden" id="item-id" value="">
             </div>
         </div>
     </div>

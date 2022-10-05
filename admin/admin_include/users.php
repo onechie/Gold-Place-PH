@@ -10,7 +10,7 @@
             <!--RECENT SALES-->
             <div class="container-fluid col-12 px-3 mb-4">
                 <div class="bg-white rounded-4 overflow-hidden shadow d-flex flex-column align-items-center">
-                    <div class="p-4 shadow-sm w-100 shadow-sm z-high d-flex justify-content-center justify-content-sm-between">
+                    <div class="p-4 shadow-sm w-100 shadow-sm d-flex justify-content-center justify-content-sm-between">
                         <P class="lt-space fw-light m-0">USERS LIST</P>
                         <i class="bi bi-arrow-clockwise ms-3 icon-btn" id="refresh-users"></i>
                     </div>
@@ -38,12 +38,12 @@
                             <table class="table table-hover table-borderless table-striped fs-7 bg-white">
                                 <thead class="sticky-top bg-light z-mid bg-dark text-light">
                                     <tr class=" align-middle">
-                                        <th class="ps-4 py-4" style="width:10%">ID</th>
-                                        <th class="ps-4" style="width:30%">NAME</th>
-                                        <th class="ps-4" style="width:20%">EMAIL</th>
-                                        <th class="ps-4" style="width:20%">PHONE</th>
-                                        <th class="ps-4" style="width:10%">PURCHASED</th>
-                                        <th class="ps-4" style="width:10%">ACTION</th>
+                                        <th class="ps-4 py-4" style="width:10%"><span id="sort_user_id"><i class="px-1 py-3 bi bi-arrow-down-up"></i>ID</span></th>
+                                        <th class="ps-4" style="width:30%"><span id="sort_user_name"><i class="px-1 py-3 bi bi-arrow-down-up"></i></span>NAME</th>
+                                        <th class="ps-4" style="width:25%"><span id="sort_user_email"><i class="px-1 py-3 bi bi-arrow-down-up"></i></span>EMAIL</th>
+                                        <th class="ps-4" style="width:15%">PHONE</th>
+                                        <th class="ps-4" style="width:20%"><span id="sort_user_purchased"><i class="px-1 py-3 bi bi-arrow-down-up"></i></span>PURCHASED</th>
+                                        <th class="px-4" style="width:10%">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody id="users-list">
