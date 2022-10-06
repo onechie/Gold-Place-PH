@@ -1,10 +1,10 @@
 $(document).ready(function () {
   let labels = ["Cancelled", "Processing", "Delivered"];
   let allData = [];
+  let pieChart = new Object();
+  const mainDropDown = $(".orders #main-dropdown");
 
-  getOrdersData();
-
-  console.log(allData);
+  getOrdersData("daily");
   
   const data = {
     labels: labels,
@@ -32,10 +32,31 @@ $(document).ready(function () {
     },
   };
 
-  function getOrdersData(){
-    $.post("../assets/scripts/server/charts_data.php", {requestType:"order-chart-data"},
+  $(".orders #daily").click(function(){
+    pieChart.destroy();
+    mainDropDown.empty();
+    mainDropDown.text("TODAY");
+    getOrdersData("daily");
+  })
+  $(".orders #weekly").click(function(){
+    pieChart.destroy();
+    mainDropDown.empty();
+    mainDropDown.text("THIS WEEK");
+    getOrdersData("weekly");
+  })
+  $(".orders #monthly").click(function(){
+    pieChart.destroy();
+    mainDropDown.empty();
+    mainDropDown.text("THIS MONTH");
+    getOrdersData("monthly");
+  })
+
+  function getOrdersData(limit){
+    $.post("../assets/scripts/server/charts_data.php", {
+      requestType:"order-chart-data",
+      limit:limit
+    },
       function (data) {
-        console.log(data);
         if(data != null && data){
           let ordersData = JSON.parse(data);
 
@@ -43,8 +64,11 @@ $(document).ready(function () {
           let processing = ordersData.checking + ordersData.processing;
           let delivered = ordersData.delivered;
 
+          allData.pop();
+          allData.pop();
+          allData.pop();
           allData.push(cancelled, processing, delivered);
-          const pieChart = new Chart($("#pieChart"), config);
+          pieChart = new Chart($("#pieChart"), config);
           $(".orders #total-orders").text(ordersData.total)
           
         }

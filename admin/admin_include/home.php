@@ -21,8 +21,8 @@
                         </div>
                     </div>
                     <div class="bg-warning bg-opacity-100 px-4 h-25 d-flex align-items-center text-light">
-                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+0</p>
-                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>0%</p>
+                        <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+<span class="sales-number">0</span></p>
+                        <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short sales-arrow"></i><span class="sales-percent">0</span>%</p>
                     </div>
                 </div>
             </div>
@@ -91,14 +91,15 @@
                         <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">TOTAL SALES <span class="text-warning fw-bold" id="total-sales">10,000</span></P>
                     </div>
                     <div class="d-flex">
-                        <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+0<span class="bg-success bg-opacity-25 rounded-4 pe-1"><i class="bi bi-arrow-up-short"></i>0%</span></P>
+                        <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+<span class="me-1 sales-number">0</span><span class="bg-success bg-opacity-25 rounded-4 pe-1" id="color"><i class="bi bi-arrow-up-short sales-arrow"></i><span class="sales-percent">0</span>%</span></P>
                         <div class="btn-group drop-down ps-2">
-                            <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" data-bs-toggle="dropdown" aria-expanded="false">
-                                TODAY
+                            <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                DAILY
                             </a>
                             <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow">
-                                <li><button class="dropdown-item text-start fs-7 fw-light" type="button">THIS WEEK</button></li>
-                                <li><button class="dropdown-item text-start fs-7 fw-light" type="button">THIS MONTH</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="daily">DAILY</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="weekly">WEEKLY</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="monthly">MONTHLY</button></li>
                             </ul>
                         </div>
                     </div>

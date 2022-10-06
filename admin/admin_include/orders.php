@@ -20,12 +20,13 @@
                         <div class="d-flex">
                             <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+0<span class="bg-success bg-opacity-25 rounded-4 pe-1"><i class="bi bi-arrow-up-short"></i>0%</span></P>
                             <div class="btn-group drop-down ps-2">
-                                <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     TODAY
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow">
-                                    <li><button class="dropdown-item text-start fs-7 fw-light" type="button">THIS WEEK</button></li>
-                                    <li"><button class="dropdown-item text-start fs-7 fw-light" type="button">THIS MONTH</button></li>
+                                    <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="daily">TODAY</button></li>
+                                    <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="weekly">THIS WEEK</button></li>
+                                    <li"><button class="dropdown-item text-start fs-7 fw-light" type="button" id="monthly">THIS MONTH</button></li>
                                 </ul>
                             </div>
                         </div>

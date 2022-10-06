@@ -4,7 +4,7 @@
     }
 ?>
 <!--ORDERS-->
-<div class="container-fluid px-xl-4" id="list-3">
+<div class="container-fluid px-xl-4 items" id="list-3">
     <div class="container-fluid p-0">
         <div class="row">
             <!--RECENT SALES-->

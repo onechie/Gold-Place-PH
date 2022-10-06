@@ -2,6 +2,7 @@
 include './database.php';
 
 session_start();
+date_default_timezone_set("Asia/Manila");
 
 //REGISTRATION VALIDATIONS
 
@@ -242,6 +243,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_add") {
         $quantity = mysqli_escape_string($conn, $_POST['quantity']);
         $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
         $stocks = 0;
+        $currentDate = date("Y-m-d H:i:s");
 
         //GET THE ITEM STOCKS
         $item_sql = "SELECT * FROM items WHERE id = '$item_id'";
@@ -267,7 +269,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_add") {
                 $newQuantity = $stocks;
             }
 
-            $sql = "INSERT INTO cart(item_id, user_id, quantity) VALUES ('$item_id','$user_id','$newQuantity')";
+            $sql = "INSERT INTO cart(item_id, user_id, quantity, date_created) VALUES ('$item_id','$user_id','$newQuantity', '$currentDate')";
             if (mysqli_query($conn, $sql)) {
                 echo "success";
             } else {
@@ -330,6 +332,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_update") {
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $item_id = '';
     $stocks = 0;
+    $currentDate = date("Y-m-d H:i:s");
 
     //GET THE ITEM ID IN THE CART
     $cart_sql = "SELECT * FROM cart WHERE id = '$cart_id'";
@@ -357,13 +360,13 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_update") {
                 $newQuantity = $stocks;
             }
 
-            $sql = "UPDATE cart SET quantity = '$newQuantity' WHERE id = '$cart_id' and user_id = '$user_id'";
+            $sql = "UPDATE cart SET quantity = '$newQuantity', date_updated = '$currentDate' WHERE id = '$cart_id' and user_id = '$user_id'";
             if(mysqli_query($conn, $sql)){
                 echo "ok";
             } else {
                 echo 'failed';
             }
-
+            
         }
     } else {
         echo 'failed';
@@ -373,6 +376,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_update") {
 if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
     $cartItems = $_POST['cartItems'];
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+    $currentDate = date("Y-m-d H:i:s");
 
     if(count($cartItems) > 0 ){
         foreach($cartItems as $item){
@@ -384,8 +388,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
                     $item_id = $rows['item_id'];
                     $quantity = $rows['quantity'];
     
-                    $order_sql = "INSERT INTO orders(user_id, item_id, quantity, status) 
-                    VALUES ('$user_id','$item_id','$quantity','checking')";
+                    $order_sql = "INSERT INTO orders(user_id, item_id, quantity, status, date_created) 
+                    VALUES ('$user_id','$item_id','$quantity','checking', '$currentDate')";
                     mysqli_query($conn, $order_sql);
     
                     $cart_delete_sql = "DELETE FROM cart WHERE id = '$cartItem' and user_id = '$user_id'";

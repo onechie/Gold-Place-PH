@@ -1,8 +1,14 @@
 $(document).ready(function () {
-  const labels = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-  const allData = [0, 0, 0, 0, 0, 0];
+  let labels = [];
+  let allData = [];
+  let lineChart = new Object();
+  const mainDropDown = $(".sales #main-dropdown");
+  const percentColor = $(".sales p #color");
+  const percentArrow = $(".sales p .sales-arrow");
+  const percentNumber = $(".sales p .sales-percent");
+  const WholeNumber = $(".sales p .sales-number");
 
-  getOrdersData();
+  getOrdersData("daily");
 
   const data = {
     labels: labels,
@@ -13,7 +19,7 @@ $(document).ready(function () {
         fill: false,
         backgroundColor: "#ffc107",
         borderColor: "#ffc107",
-        tension: 0,
+        tension: 0.3,
       },
     ],
   };
@@ -37,23 +43,77 @@ $(document).ready(function () {
   };
 
   
+  $(".sales #daily").click(function(){
+    lineChart.destroy();
+    mainDropDown.empty();
+    mainDropDown.text("DAILY");
+    getOrdersData("daily");
+  })
+  $(".sales #weekly").click(function(){
+    lineChart.destroy();
+    mainDropDown.empty();
+    mainDropDown.text("WEEKLY");
+    getOrdersData("weekly");
+  })
+  $(".sales #monthly").click(function(){
+    lineChart.destroy();
+    mainDropDown.empty();
+    mainDropDown.text("MONTHLY");
+    getOrdersData("monthly");
+  })
+  function getOrdersData(limit){
 
-  function getOrdersData(){
-    $.post("../assets/scripts/server/charts_data.php", {requestType:"order-chart-data"},
+    $.post("../assets/scripts/server/charts_data.php", {
+      requestType:"line-chart-data",
+      limit:limit
+    },
       function (data) {
-        console.log(data);
         if(data != null && data){
-          let ordersData = JSON.parse(data);
-
-          allData.push(ordersData.delivered);
-
-          const pieChart = new Chart($("#lineChart"), config);
           
-          $(".sales #total-sales").text(ordersData.delivered)
-          $(".sales #home-sales").text(ordersData.delivered)
-          $(".sales #home-orders").text(ordersData.total)
-          $(".sales #home-stocks").text(ordersData.stocks)
-          $(".sales #home-users").text(ordersData.users)
+          let ordersData = JSON.parse(data);
+          for(let i = 0; i < 7; i++){
+            let order = ordersData[i];
+            allData.unshift(order.delivered);
+            labels.unshift(order.label);
+
+            if(allData.length == 8) allData.pop();
+            if(labels.length == 8) labels.pop();
+
+
+          }
+
+          console.log(allData);
+          let percent = 0;
+          
+          if(allData[5] <= 0){
+            percent = ((allData[6] / 1)*100);
+          } else {
+            percent = ((allData[6] / allData[5] -1)*100);
+          }
+
+
+          console.log(percent);
+
+          if(percent < 0){
+            percent = percent * -1;
+            percentColor.removeClass("bg-success");
+            percentColor.addClass("bg-danger");
+            percentArrow.removeClass("bi-arrow-up-short");
+            percentArrow.addClass("bi-arrow-down-short");
+          } else {
+            percent = percent * 1;
+            percentColor.addClass("bg-success");
+            percentColor.removeClass("bg-danger");
+            percentArrow.addClass("bi-arrow-up-short");
+            percentArrow.removeClass("bi-arrow-down-short");
+          }
+          
+          percentNumber.empty();
+          percentNumber.text(percent);
+          WholeNumber.empty();
+          WholeNumber.text(allData[6]);
+          
+          lineChart = new Chart($("#lineChart"), config);
           
         }
       }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2022 at 09:26 AM
+-- Generation Time: Oct 06, 2022 at 05:02 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -31,19 +31,10 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `item_id`, `user_id`, `quantity`) VALUES
-(96, 17, 45, 1),
-(97, 24, 45, 1),
-(98, 37, 45, 1),
-(99, 38, 45, 1),
-(100, 39, 45, 1);
 
 -- --------------------------------------------------------
 
@@ -66,16 +57,16 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `category`, `price`, `stocks`, `description`, `sold`) VALUES
-(17, 'Test Item Number 0', 'Ring', 1, 1, '1', 1),
-(24, 'Test Item 0', 'Ring', 1, 1, '1', 2),
-(25, 'a', 'Ring', 1, 1, '1', 3),
-(27, 'c', 'Necklace', 1, 1, '1', 0),
-(28, '2', 'Necklace', 2, 2, '2', 0),
-(29, '3', 'Ring', 3, 3, '3', 0),
-(30, '4', 'Necklace', 4, 4, '4', 0),
-(31, 'a', 'Pendant', 5, 5, '5', 0),
-(32, 'd', 'Earring', 6, 6, '6', 0),
-(33, 'e', 'Pendant', 7, 7, '7', 0),
+(17, 'Test Item Number 0', 'Ring', 1, 99, '1', 1),
+(24, 'Test Item 0', 'Ring', 1, 99, '1', 2),
+(25, 'a', 'Ring', 1, 99, '1', 3),
+(27, 'c', 'Necklace', 1, 99, '1', 0),
+(28, '2', 'Necklace', 2, 99, '2', 0),
+(29, '3', 'Ring', 3, 99, '3', 0),
+(30, '4', 'Necklace', 4, 99, '4', 0),
+(31, 'a', 'Pendant', 5, 99, '5', 0),
+(32, 'd', 'Earring', 6, 99, '6', 0),
+(33, 'e', 'Pendant', 7, 99, '7', 0),
 (34, '100', 'Necklace', 3999, 100, '100', 0),
 (35, '200', 'Pendant', 3500, 99, 'test', 0),
 (36, 'f', 'Necklace', 3500, 50, 'f', 0),
@@ -94,18 +85,37 @@ CREATE TABLE `orders` (
   `user_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `item_id`, `quantity`, `status`) VALUES
-(68, 45, 38, 1, 'checking'),
-(69, 45, 39, 1, 'checking'),
-(70, 45, 25, 1, 'checking'),
-(71, 45, 27, 1, 'checking');
+INSERT INTO `orders` (`id`, `user_id`, `item_id`, `quantity`, `status`, `date_created`) VALUES
+(93, 45, 24, 99, 'delivered', '2022-10-05 19:27:22'),
+(94, 45, 25, 1, 'delivered', '2022-10-05 19:27:22'),
+(95, 45, 27, 1, 'delivered', '2022-10-04 19:27:22'),
+(96, 45, 29, 1, 'delivered', '2022-10-04 19:28:07'),
+(97, 45, 30, 1, 'delivered', '2022-06-03 19:28:07'),
+(98, 45, 31, 1, 'delivered', '2022-06-02 19:28:07'),
+(99, 45, 28, 1, 'delivered', '2022-08-02 19:28:07'),
+(100, 45, 38, 1, 'delivered', '2022-09-01 19:28:07'),
+(101, 45, 37, 1, 'delivered', '2022-10-05 19:28:07'),
+(102, 45, 36, 1, 'delivered', '2022-10-05 19:28:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_item`
+--
+
+CREATE TABLE `order_item` (
+  `order_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -181,6 +191,13 @@ ALTER TABLE `orders`
   ADD KEY `fk_order_user` (`user_id`);
 
 --
+-- Indexes for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD KEY `fk_oitem_order` (`order_id`),
+  ADD KEY `fk_oitem_item` (`item_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -201,7 +218,7 @@ ALTER TABLE `verify`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT for table `items`
@@ -213,7 +230,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -244,6 +261,13 @@ ALTER TABLE `cart`
 ALTER TABLE `orders`
   ADD CONSTRAINT `fk_order_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
   ADD CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD CONSTRAINT `fk_oitem_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
+  ADD CONSTRAINT `fk_oitem_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 --
 -- Constraints for table `verify`

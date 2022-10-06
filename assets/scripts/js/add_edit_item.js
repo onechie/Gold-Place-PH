@@ -20,7 +20,7 @@ $(document).ready(function () {
   const itemList = $("#item-list")
   const itemAddBtnMain = $("#addItemMainButton");
 
-  $("#item-list #search-item").on("keyup", function(){
+  $(".items #search-item").on("keyup", function(){
     var value = $(this).val().toLowerCase();
     $("#item-list tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -109,6 +109,7 @@ $(document).ready(function () {
     }).done(function (data) {
       serverResponseTranslate(data);
       getItemsData();
+      $("#imageInput").val(null);
     });
   });
   //DELETE BUTTON
@@ -166,6 +167,7 @@ $(document).ready(function () {
       }
       i++;
     }
+
   });
 
   addName.change(function () {
