@@ -6,9 +6,6 @@ $(document).ready(function () {
   const orderProcessing = $("#order #processing");
   const orderTotalPrice = $("#order #total_price")
 
-  const toast = new bootstrap.Toast($("#liveToast"));
-  const toastBody = $(".toast-body");
-
   let totalPriceValue = 0;
 
   orderProcessing.hide();

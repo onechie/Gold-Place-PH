@@ -1,6 +1,6 @@
 <?php
     if(!defined('ACCESS')) {
-    header("location: dashboard.php");
+    header("location: ../");
     }
 ?>
 <!--SIDE BAR-->
@@ -11,7 +11,7 @@
     <div class="pe-3 h-100 z-high py-3 make-abs hide">
         <div class="h-100 py-5">
             <div class="d-flex flex-column flex-shrink-0 h-100 test">
-                <a href="" class="px-4 d-none d-sm-flex align-items-center justify-content-center text-decoration-none shadow rounded-4 rounded-start p-3 bg-warning">
+                <a class="px-4 d-none d-sm-flex align-items-center justify-content-center text-decoration-none shadow rounded-4 rounded-start p-3 bg-warning">
                     <img src="../assets/images/defaults/logo-only-black.png" height="40" width="40" alt="">
                     <span class="ms-1 my-auto text-center d-none d-xxl-block text-dark">MANAGEMENT</span>
                 </a>

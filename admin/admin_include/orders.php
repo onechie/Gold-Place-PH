@@ -1,6 +1,6 @@
 <?php
     if(!defined('ACCESS')) {
-    header("location: dashboard.php");
+    header("location: ../");
     }
 ?>
 <!--ORDERS-->
@@ -15,10 +15,10 @@
                     </div>
                     <div class="w-100 p-4 d-flex flex-wrap justify-content-center justify-content-sm-between">
                         <div class="px-3 pe-sm-0">
-                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">TOTAL ORDERS <span class="text-success fw-bold" id="total-orders">10,000</span></P>
+                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">TOTAL ORDERS <span class="text-success fw-bold ms-1" id="total-orders">0</span></P>
                         </div>
                         <div class="d-flex">
-                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+0<span class="bg-success bg-opacity-25 rounded-4 pe-1"><i class="bi bi-arrow-up-short"></i>0%</span></P>
+                            <P class=" fw-light m-0 p-0 flex-shrink-0 fs-7">+<span class="me-1 orders-number">0</span><span class="bg-success bg-opacity-25 rounded-4 pe-1" id="color"><i class="bi bi-arrow-up-short orders-arrow"></i><span class="orders-percent">0</span>%</span></P>
                             <div class="btn-group drop-down ps-2">
                                 <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     TODAY
@@ -27,6 +27,7 @@
                                     <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="daily">TODAY</button></li>
                                     <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="weekly">THIS WEEK</button></li>
                                     <li"><button class="dropdown-item text-start fs-7 fw-light" type="button" id="monthly">THIS MONTH</button></li>
+                                    <li"><button class="dropdown-item text-start fs-7 fw-light" type="button" id="annually">THIS YEAR</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -62,49 +63,7 @@
                                     <th class="px-4 py-4" style="width:10%">ACTION</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="align-middle">
-                                        <td class="ps-4">
-                                            <div class="d-flex align-items-center">
-                                                <span class="position-relative rounded-5 bg-white shadow-sm me-3" style="width:50px; height:50px">
-                                                    <img class="position-absolute m-1 bg-primary rounded-5" src="../assets/images/defaults/rick.jpg" alt="" style="width:42px; height:42px">
-                                                </span>
-                                                <div class="">
-                                                    <strong>Angelo Parole</strong>
-                                                    <br>
-                                                    <span class="text-muted fs-7">angeloparole@gmail.com</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="ps-4">9</td>
-                                        <td class="ps-4">1</td>
-                                        <td class="ps-4"><strong>P4,000</strong></td>
-                                        <td class="ps-4">Processing</td>
-                                        <td class="px-4">
-                                            <a class="text-success" href=""><i class="bi bi-eye fs-3"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <td class="ps-4">
-                                            <div class="d-flex align-items-center">
-                                                <span class="position-relative rounded-5 bg-white shadow-sm me-3" style="width:50px; height:50px">
-                                                    <img class="position-absolute m-1 bg-primary rounded-5" src="../assets/images/defaults/rick.jpg" alt="" style="width:42px; height:42px">
-                                                </span>
-                                                <div class="">
-                                                    <strong>Angelo Parole</strong>
-                                                    <br>
-                                                    <span class="text-muted fs-7">angeloparole@gmail.com</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="ps-4">9</td>
-                                        <td class="ps-4">1</td>
-                                        <td class="ps-4"><strong>P4,000</strong></td>
-                                        <td class="ps-4">Processing</td>
-                                        <td class="px-4">
-                                            <a class="text-success" href=""><i class="bi bi-eye fs-3"></i></a>
-                                        </td>
-                                    </tr>
+                                <tbody id="recent-orders">
                                     <tr class="align-middle">
                                         <td class="ps-4">
                                             <div class="d-flex align-items-center">

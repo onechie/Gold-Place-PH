@@ -29,7 +29,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-phone") {
     $sql = "SELECT * FROM user WHERE phone = '$tenDigitPhone' OR phone = '$withZeroDigitPhone' OR phone = '$withPlusDigitPhone'";
     $result = mysqli_query($conn, $sql);
 
-    if(mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         echo 'used';
     } else {
         echo 'ok';
@@ -161,9 +161,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-log-final") {
                 if ($verified == 'yes') {
                     if (password_verify($password, $checkPassword)) {
 
-                        $_SESSION["userId"] = $userid;  
+                        $_SESSION["userId"] = $userid;
                         echo "o_k" . $userfn . " " . $userln;
-
                     } else {
                         echo 'wrong_pass';
                     }
@@ -248,22 +247,22 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_add") {
         //GET THE ITEM STOCKS
         $item_sql = "SELECT * FROM items WHERE id = '$item_id'";
         $item_response = mysqli_query($conn, $item_sql);
-        if(mysqli_num_rows($item_response) > 0){
-            while($item_rows = mysqli_fetch_assoc($item_response)){
+        if (mysqli_num_rows($item_response) > 0) {
+            while ($item_rows = mysqli_fetch_assoc($item_response)) {
                 $stocks = $item_rows['stocks'];
             }
         }
 
         $check_sql = "SELECT * FROM cart where user_id = '$user_id' and item_id = '$item_id'";
         $check_result = mysqli_query($conn, $check_sql);
-        if(mysqli_num_rows($check_result) > 0){
+        if (mysqli_num_rows($check_result) > 0) {
             echo "already";
         } else {
             $newQuantity = 0;
 
-            if($quantity <= 0){
+            if ($quantity <= 0) {
                 $newQuantity = 1;
-            } else if($quantity <= $stocks){
+            } else if ($quantity <= $stocks) {
                 $newQuantity = $quantity;
             } else {
                 $newQuantity = $stocks;
@@ -276,7 +275,6 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_add") {
                 echo "error";
             }
         }
-
     } else {
         echo "login_required";
     }
@@ -307,8 +305,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_info") {
 
             $sql_new = "SELECT * FROM items WHERE id = '$item_id'";
             $result_new = mysqli_query($conn, $sql_new);
-            if (mysqli_num_rows($result_new) > 0){
-                while($rows_new = mysqli_fetch_assoc($result_new)){
+            if (mysqli_num_rows($result_new) > 0) {
+                while ($rows_new = mysqli_fetch_assoc($result_new)) {
                     $cartItems[] = array(
                         "id" => $item_id,
                         "cart_id" => $cart_id,
@@ -322,7 +320,6 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_info") {
         }
         echo json_encode($cartItems);
     }
-    
 }
 
 //RESPONSE FOR CART CHANGING QUANTITY
@@ -337,36 +334,35 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_update") {
     //GET THE ITEM ID IN THE CART
     $cart_sql = "SELECT * FROM cart WHERE id = '$cart_id'";
     $cart_response = mysqli_query($conn, $cart_sql);
-    if(mysqli_num_rows($cart_response) > 0){
-        while($cart_rows = mysqli_fetch_assoc($cart_response)){
+    if (mysqli_num_rows($cart_response) > 0) {
+        while ($cart_rows = mysqli_fetch_assoc($cart_response)) {
             $item_id = $cart_rows['item_id'];
-            
+
             //GET THE ITEM STOCKS
             $item_sql = "SELECT * FROM items WHERE id = '$item_id'";
             $item_response = mysqli_query($conn, $item_sql);
-            if(mysqli_num_rows($item_response) > 0){
-                while($item_rows = mysqli_fetch_assoc($item_response)){
+            if (mysqli_num_rows($item_response) > 0) {
+                while ($item_rows = mysqli_fetch_assoc($item_response)) {
                     $stocks = $item_rows['stocks'];
                 }
             }
 
             $newQuantity = 0;
 
-            if($quantity <= 0){
+            if ($quantity <= 0) {
                 $newQuantity = 1;
-            } else if($quantity <= $stocks){
+            } else if ($quantity <= $stocks) {
                 $newQuantity = $quantity;
             } else {
                 $newQuantity = $stocks;
             }
 
             $sql = "UPDATE cart SET quantity = '$newQuantity', date_updated = '$currentDate' WHERE id = '$cart_id' and user_id = '$user_id'";
-            if(mysqli_query($conn, $sql)){
+            if (mysqli_query($conn, $sql)) {
                 echo "ok";
             } else {
                 echo 'failed';
             }
-            
         }
     } else {
         echo 'failed';
@@ -378,20 +374,20 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $currentDate = date("Y-m-d H:i:s");
 
-    if(count($cartItems) > 0 ){
-        foreach($cartItems as $item){
+    if (count($cartItems) > 0) {
+        foreach ($cartItems as $item) {
             $cartItem = mysqli_escape_string($conn, $item);
             $sql = "SELECT * FROM CART where id = '$cartItem' and user_id = '$user_id'";
             $result = mysqli_query($conn, $sql);
-            if(mysqli_num_rows($result) > 0){
-                while($rows = mysqli_fetch_assoc($result)){
+            if (mysqli_num_rows($result) > 0) {
+                while ($rows = mysqli_fetch_assoc($result)) {
                     $item_id = $rows['item_id'];
                     $quantity = $rows['quantity'];
-    
+
                     $order_sql = "INSERT INTO orders(user_id, item_id, quantity, status, date_created) 
                     VALUES ('$user_id','$item_id','$quantity','checking', '$currentDate')";
                     mysqli_query($conn, $order_sql);
-    
+
                     $cart_delete_sql = "DELETE FROM cart WHERE id = '$cartItem' and user_id = '$user_id'";
                     mysqli_query($conn, $cart_delete_sql);
                 }
@@ -409,8 +405,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_remove") {
     $cartItems = $_POST['cartItems'];
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
 
-    if(count($cartItems) > 0 ){
-        foreach($cartItems as $item){
+    if (count($cartItems) > 0) {
+        foreach ($cartItems as $item) {
             $cartItem = mysqli_escape_string($conn, $item);
             $cart_delete_sql = "DELETE FROM cart WHERE id = '$cartItem' and user_id = '$user_id'";
             mysqli_query($conn, $cart_delete_sql);
@@ -447,8 +443,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_info") {
 
             $sql_new = "SELECT * FROM items WHERE id = '$item_id'";
             $result_new = mysqli_query($conn, $sql_new);
-            if (mysqli_num_rows($result_new) > 0){
-                while($rows_new = mysqli_fetch_assoc($result_new)){
+            if (mysqli_num_rows($result_new) > 0) {
+                while ($rows_new = mysqli_fetch_assoc($result_new)) {
                     $orderItems[] = array(
                         "id" => $item_id,
                         "order_id" => $order_id,
@@ -463,7 +459,6 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_info") {
         }
         echo json_encode($orderItems);
     }
-    
 }
 
 //RESPONSE FOR GET ORDER DELIVERED INFO
@@ -492,8 +487,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_delivered_in
 
             $sql_new = "SELECT * FROM items WHERE id = '$item_id'";
             $result_new = mysqli_query($conn, $sql_new);
-            if (mysqli_num_rows($result_new) > 0){
-                while($rows_new = mysqli_fetch_assoc($result_new)){
+            if (mysqli_num_rows($result_new) > 0) {
+                while ($rows_new = mysqli_fetch_assoc($result_new)) {
                     $orderItems[] = array(
                         "id" => $item_id,
                         "order_id" => $order_id,
@@ -508,7 +503,110 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_delivered_in
         }
         echo json_encode($orderItems);
     }
-    
+}
+
+//RESPONSE FOR GETTING PROFILE DATA
+if (isset($_POST['requestType']) && $_POST['requestType'] == "get_profile") {
+    $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+    $sql = "SELECT * FROM user_address where user_id = '$user_id'";
+    $address_info = array();
+    $city = array();
+    $province = array();
+
+    $userData = getUserData("SELECT * FROM user WHERE id = '$user_id'", $conn);
+
+    $result = mysqli_query($conn, "SELECT * FROM city_list");
+    if (mysqli_num_rows($result) > 0) {
+        while ($rows = mysqli_fetch_assoc($result)) {
+            $city[] = $rows['city'];
+        }
+    }
+
+    $result = mysqli_query($conn, "SELECT * FROM province_list");
+    if (mysqli_num_rows($result) > 0) {
+        while ($rows = mysqli_fetch_assoc($result)) {
+            $province[] = $rows['province'];
+        }
+    }
+
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($rows = mysqli_fetch_assoc($result)) {
+            $address_info[] = array(
+                "number" => $rows['house_number'],
+                "street" => $rows['barangay'],
+                "city" => $rows['city'],
+                "province" => $rows['province'],
+                "city_list" => $city,
+                "province_list" => $province,
+                "user_data" => $userData
+            );
+        }
+    } else {
+        $address_info[] = array(
+            "number" => '',
+            "street" => '',
+            "city" => '',
+            "province" => '',
+            "city_list" => $city,
+            "province_list" => $province,
+            "user_data" => $userData
+        );
+    }
+
+    echo json_encode($address_info);
+}
+
+//RESPONSE FOR UPDATE PROFILE
+if (isset($_POST['requestType']) && $_POST['requestType'] == "update_profile") {
+    $number = mysqli_escape_string($conn, $_POST['number']);
+    $street = mysqli_escape_string($conn, $_POST['street']);
+    $city = mysqli_escape_string($conn, $_POST['city']);
+    $province = mysqli_escape_string($conn, $_POST['province']);
+    $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+
+    $sql = "SELECT * FROM user_address where user_id = '$user_id'";
+    if (isCityExists($conn, $city) && isProvinceExists($conn, $province)) {
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $sql = "UPDATE user_address SET house_number = '$number', barangay = '$street', city = '$city', province = '$province' 
+        WHERE user_id = '$user_id'";
+            if (mysqli_query($conn, $sql)) {
+                echo 'ok';
+            } else {
+                echo 'failed';
+            }
+        } else {
+            $sql = "INSERT INTO user_address (user_id, house_number, barangay, city, province)
+        VALUES ('$user_id', '$number', '$street', '$city', '$province')";
+            if (mysqli_query($conn, $sql)) {
+                echo 'ok';
+            } else {
+                echo 'failed';
+            }
+        }
+    } else {
+        echo 'failed';
+    }
+}
+
+function isCityExists($conn, $city)
+{
+    $sql = "SELECT * FROM city_list WHERE city = '$city'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        return true;
+    }
+    return false;
+}
+function isProvinceExists($conn, $province)
+{
+    $sql = "SELECT * FROM province_list WHERE province = '$province'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        return true;
+    }
+    return false;
 }
 
 //FUNCTION TO GET ITEMS WITH SINGLE OR MULTIPLE IMAGE
@@ -551,6 +649,83 @@ function getItemData($sql, $conn, $multiple)
             );
         }
         return $itemInfo;
+    }
+}
+
+//GET USER DATA
+function getUserData($sql, $conn){
+
+    $result = mysqli_query($conn, $sql);
+    $users = array();
+    if (mysqli_num_rows($result) > 0) {
+        //GET ALL USERS DATA FROM DATABASE
+        while ($rows = mysqli_fetch_assoc($result)) {
+            $id = $rows['id'];
+            $name = $rows['firstname'] . ' ' . $rows['lastname'];
+            $email = $rows['email'];
+            $phone = $rows['phone'];
+            $purchased = $rows['purchased'];
+
+            $mainDirectory = "../../images/users";
+            $specificDirectory = "../../images/users/" . $id;
+
+            if (!is_dir($mainDirectory)) {
+                mkdir($mainDirectory);
+            }
+
+            if (!is_dir($specificDirectory)) {
+                mkdir($specificDirectory);
+            }
+
+            $files = array_diff(scandir($specificDirectory), array('..', '.'));
+            $file = '';
+            //GET THE FIRST FILE'S NAME
+            foreach ($files as $key => $value) {
+                $file = $value;
+                break;
+            }
+
+            $totalOrders = 0;
+            $cancelled = 0;
+            $delivered = 0;
+            $processing = 0;
+
+            $sqlOrders = "SELECT * FROM orders WHERE user_id = '$id'";
+            $resultOrders = mysqli_query($conn,$sqlOrders);
+            if(mysqli_num_rows($resultOrders) > 0){
+                while($rowsOrders = mysqli_fetch_assoc($resultOrders)){
+                    $s = $rowsOrders['status'];
+                    if($s == "cancelled")
+                        $cancelled++;
+                    else if($s == "delivered")
+                        $delivered++;
+                    else
+                        $processing++;
+
+                    $totalOrders++;
+                }
+            }
+
+            $orders = array(
+                "total" => $totalOrders,
+                "cancelled" => $cancelled,
+                "delivered" => $delivered,
+                "processing" => $processing
+            );
+
+            //ADD THE DATA AS JSON FORMAT IN ARRAY
+            $users[] = array(
+                "id" => $id,
+                "name" => $name,
+                "email" => $email,
+                "phone" => $phone,
+                "purchased" => $purchased,
+                "image" => $file,
+                "orders" => $orders
+            );
+        }
+        return $users;
+        
     }
 }
 

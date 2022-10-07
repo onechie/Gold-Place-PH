@@ -15,7 +15,7 @@ $(document).ready(function () {
   const pageCount =  $("#page");
   const itemSearchBar = $("#search-item")
   const toast = new bootstrap.Toast($("#liveToast"));
-  
+
   getItemsData();
 
   nextPage.click(function () {

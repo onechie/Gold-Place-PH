@@ -104,3 +104,14 @@ td{
     cursor: pointer;
     transition: 0.4s;
 }
+.inputImages{
+    object-fit: cover;
+}
+#upload-container .upload{
+    opacity: 0;
+    transition: all 0.3s;
+}
+#upload-container:hover .upload{
+    opacity: 1;
+    transition: all 0.3s
+}

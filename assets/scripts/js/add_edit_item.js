@@ -54,7 +54,7 @@ $(document).ready(function () {
  itemList.on("click", ".editItem", function () {
     let id = $(this).parentsUntil("tr").siblings(".id").text();
     $.post(
-      "../assets/scripts/server/item_data.php",{ 
+      "../assets/scripts/server/catch_admin_request.php",{ 
         requestType: "load-item",
         id: id
       },
@@ -81,13 +81,13 @@ $(document).ready(function () {
         editBtn.show();
         addMsg.empty();
         addLabel.text("EDIT ITEM");
-        addReqType.val("edit");
+        addReqType.val("edit-item");
       }
     );
   });
   //ADD BUTTON
   itemAddBtnMain.click(function () {
-    addReqType.val("add");
+    addReqType.val("add-item");
     addForm[0].reset();
     addCategory.trigger("change");
     addBtn.show();
@@ -100,7 +100,7 @@ $(document).ready(function () {
   addForm.on("submit", function (e) {
     e.preventDefault();
     $.ajax({
-      url: "../assets/scripts/server/add_edit_item.php",
+      url: "../assets/scripts/server/catch_admin_request.php",
       type: "POST",
       data: new FormData(this),
       contentType: false,
@@ -127,7 +127,7 @@ $(document).ready(function () {
   $("#confirmation").on("submit", function (e) {
     e.preventDefault();
     $.ajax({
-      url: "../assets/scripts/server/add_edit_item.php",
+      url: "../assets/scripts/server/catch_admin_request.php",
       type: "POST",
       data: new FormData(this),
       contentType: false,
@@ -136,6 +136,7 @@ $(document).ready(function () {
     }).done(function (data) {
       serverResponseTranslate(data);
       getItemsData();
+      console.log(data);
     });
   });
   //FUNCTION FOR DISPLAYING IMAGE ON INPUT
@@ -265,7 +266,7 @@ $(document).ready(function () {
 
   function getItemsData() {
    itemList.empty();
-    $.post("../assets/scripts/server/item_data.php", {requestType:"load-items"},function (data) {
+    $.post("../assets/scripts/server/catch_admin_request.php", {requestType:"load-items"},function (data) {
       if (data && data != "null") {
         let itemInfo = JSON.parse(data);
         let htmlData = ""
@@ -308,6 +309,8 @@ $(document).ready(function () {
             +"</tr>"
         }
        itemList.append(htmlData);
+       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+       const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
       }
     });
   }

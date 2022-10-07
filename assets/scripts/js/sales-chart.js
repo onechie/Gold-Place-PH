@@ -4,9 +4,10 @@ $(document).ready(function () {
   let lineChart = new Object();
   const mainDropDown = $(".sales #main-dropdown");
   const percentColor = $(".sales p #color");
-  const percentArrow = $(".sales p .sales-arrow");
-  const percentNumber = $(".sales p .sales-percent");
-  const WholeNumber = $(".sales p .sales-number");
+  const percentArrow = $(".sales-arrow");
+  const percentNumber = $(".sales-percent");
+  const WholeNumber = $(".sales-number");
+
 
   getOrdersData("daily");
 
@@ -61,9 +62,15 @@ $(document).ready(function () {
     mainDropDown.text("MONTHLY");
     getOrdersData("monthly");
   })
+  $(".sales #annually").click(function(){
+    lineChart.destroy();
+    mainDropDown.empty();
+    mainDropDown.text("ANNUALLY");
+    getOrdersData("annually");
+  })
   function getOrdersData(limit){
 
-    $.post("../assets/scripts/server/charts_data.php", {
+    $.post("../assets/scripts/server/catch_admin_request.php", {
       requestType:"line-chart-data",
       limit:limit
     },
@@ -79,20 +86,17 @@ $(document).ready(function () {
             if(allData.length == 8) allData.pop();
             if(labels.length == 8) labels.pop();
 
-
           }
 
-          console.log(allData);
           let percent = 0;
           
           if(allData[5] <= 0){
-            percent = ((allData[6] / 1)*100);
+            percent = allData[6]*100;
           } else {
-            percent = ((allData[6] / allData[5] -1)*100);
+            percent = (allData[6] / allData[5] -1)*100;
           }
 
 
-          console.log(percent);
 
           if(percent < 0){
             percent = percent * -1;

@@ -1,6 +1,6 @@
 <?php
     if(!defined('ACCESS')) {
-    header("location: dashboard.php");
+    header("location: ../");
     }
 ?>
 <!--ORDERS-->

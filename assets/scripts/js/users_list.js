@@ -35,7 +35,7 @@ $(document).ready(function () {
   userList.on("click", ".viewUser", function () {
     let id = $(this).parentsUntil("tr").siblings(".id").text();
     $.post(
-      "../assets/scripts/server/users_list.php",
+      "../assets/scripts/server/catch_admin_request.php",
       {
         id: id,
         requestType: "view-users",
@@ -123,7 +123,7 @@ $(document).ready(function () {
 
   function getUsersData() {
     $.post(
-      "../assets/scripts/server/users_list.php",
+      "../assets/scripts/server/catch_admin_request.php",
       {
         requestType: "load-users",
       },

@@ -6,8 +6,10 @@
     include '../user_include/links.php';
     define('ACCESS', TRUE);
     ?>
-    <script type="text/javascript" src="../assets/scripts/js/pie-chart.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/line-chart.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/total_values.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/recent_orders.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/orders-chart.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/sales-chart.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/add_edit_item.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/users_list.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
