@@ -85,7 +85,10 @@ $(document).ready(function () {
             toastBody.text("Items ordered successfully!");
             toast.show();
           }
-          
+          if(data == "invalid_address"){
+            toastBody.text("Please update your address in your profile!");
+            toast.show();
+          }
         }
       );
     }
@@ -120,6 +123,7 @@ $(document).ready(function () {
     }
 
   })
+  
 
   function setTotalPrice(){
     cartTotalPrice.text(totalPriceValue);

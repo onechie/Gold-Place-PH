@@ -80,7 +80,6 @@ $(document).ready(function () {
         requestType: "order_delivered_info"
       },
       function (data) {
-        console.log(data);
         orderList.empty();
         if (data && data != "null") {
 

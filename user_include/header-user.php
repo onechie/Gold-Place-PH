@@ -1,22 +1,7 @@
 <?php
   include './assets/scripts/server/database.php';
-
   $userid = $_SESSION['userId'];
-  $sql = "SELECT * FROM user WHERE id = '$userid'";
-  $result = mysqli_query($conn, $sql);
-  $firstname = NULL;
-  $lastname = NULL;
-  $email = NULL;
-  $phone = NULL;
 
-  if(mysqli_num_rows($result) > 0){
-      while($row = mysqli_fetch_assoc($result)) {
-        $firstname = $row['firstname'];
-        $lastname = $row['lastname'];
-        $email = $row['email'];
-        $phone = $row['phone'];
-      }
-  }
 ?>
 <script type="text/javascript" src="./assets/scripts/js/user_cart.js"></script>
 <script type="text/javascript" src="./assets/scripts/js/user_orders.js"></script>
@@ -54,7 +39,7 @@
 
         <div class="dropdown text-start p-0">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="./assets/images/defaults/rick.jpg" alt="profile" width="32" height="32" class="rounded-circle">
+            <img src="./assets/images/defaults/default-profile.png" id="profile-icon" alt="profile" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small bg-dark dropdown-menu-xxl-start dropdown-menu-lg-end p-0">
             <li><button class="w-100 text-start btn btn-lg btn-dark py-1 fs-6" id="cart-button" type="button" data-bs-toggle="modal" data-bs-target="#cart"><i class="bi bi-bag fs-5"></i> Cart</button></li>

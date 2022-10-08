@@ -1,82 +1,132 @@
 $(document).ready(function () {
+  const profileBtn = $("#profile-button");
+  const imageContainer = $("#profile .image-container ");
+  const updateProfile = $("#update-profile");
+  const toast = new bootstrap.Toast($("#liveToast"));
+  const toastBody = $(".toast-body");
+  getProfileData();
 
-    const toast = new bootstrap.Toast($("#liveToast"));
-    const toastBody = $(".toast-body");
-
+  profileBtn.click(() => {
     getProfileData();
+  });
 
-    $("#profile #save_profile").click(()=>{
-        let address_number = $("#profile #address_number").val();
-        let address_street = $("#profile #address_street").val();
-        let address_city = $("#profile #address_city").val();
-        let address_province = $("#profile #address_province").val();
+  //AJAX FOR ADD OR EDIT ITEM
+  updateProfile.on("submit", function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: "./assets/scripts/server/catch_customer_request.php",
+      type: "POST",
+      data: new FormData(this),
+      contentType: false,
+      cache: false,
+      processData: false,
+    }).done(function (data) {
+      if (data == "failed") {
+        toastBody.text("Error ocurred!");
+      } else {
+        toastBody.text("Profile updated successfully!");
+      }
+      toast.show();
+      getProfileData();
+      $("#imageInput").val(null);
+    });
+  });
 
-        $.post("./assets/scripts/server/catch_customer_request.php", {
-            requestType:"update_profile",
-            number: address_number,
-            street: address_street,
-            city: address_city,
-            province: address_province
-        }, function (data) {
-            if(data=="ok"){
-                toastBody.text("Profile updated successfully!");
-            }
-            if(data=="failed"){
-                toastBody.text("Profile failed to update!");
-            }
-            toast.show();
-            getProfileData()
-        })
-    })
+  //FUNCTION FOR DISPLAYING IMAGE ON INPUT
+  $("#profile #imageInput").change(function () {
+    var file = this.files[0];
+    var fileType = file["type"];
+    var validImageTypes = ["image/gif", "image/jpeg", "image/png", "image/jpg"];
 
-    function getProfileData(){
-        $.post("./assets/scripts/server/catch_customer_request.php", {
-            requestType:"get_profile"
-        }, function (data) {
-            console.log(data);
-            if(data && data != null){
-                let address_data = JSON.parse(data);
-                let address = address_data[0];
-                let city_list = address.city_list;
-                let province_list = address.province_list;
-                let user_data = address.user_data[0];
-                let city_options = '';
-                let province_options = '';
-
-                let defaultImg = "./assets/images/defaults/default-profile.png";
-                let currentImg = "";
-                if (user_data.image == "") {
-                currentImg = defaultImg;
-                } else {
-                currentImg =
-                    "./assets/images/users/" + user_data.id + "/" + user_data.image + "";
-                }
-
-                for(let i=0; i < city_list.length; i++){
-                    city_options += "<option value='"+city_list[i]+"'>"+city_list[i]+"</option>"
-                }
-                $("#profile #address_city").append(city_options);
-
-                for(let i=0; i < province_list.length; i++){
-                    province_options += "<option value='"+province_list[i]+"'>"+province_list[i]+"</option>"
-                }
-                $("#profile #address_province").append(province_options);
-
-                $("#profile #image").prop("src", currentImg);
-                $("#profile #name").text(user_data.name);
-                $("#profile #email").text(user_data.email);
-                $("#profile #phone").text(user_data.phone);
-                $("#profile #total").text(user_data.orders.total);
-                $("#profile #cancelled").text(user_data.orders.cancelled);
-                $("#profile #delivered").text(user_data.orders.delivered);
-
-                $("#profile #address_number").val(address.number);
-                $("#profile #address_street").val(address.street);
-                $("#profile #address_city").val(address.city);
-                $("#profile #address_province").val(address.province);
-            }
-            
-            
-        })
+    if ($.inArray(fileType, validImageTypes) < 0) {
+      this.value = null;
+      toastBody.text("Please input valid image file!");
+      toast.show();
+    } else {
+      imageContainer.empty();
+      imageContainer.append(
+        "<img id='image' src='" +
+          URL.createObjectURL(event.target.files[0]) +
+          "' alt='profile' class='inputImages'>"
+      );
     }
+  });
+
+  function getProfileData() {
+    $.post(
+      "./assets/scripts/server/catch_customer_request.php",
+      {
+        requestType: "get_profile",
+      },
+      function (data) {
+        if (data && data != null) {
+          let response_data = JSON.parse(data);
+          let user_info = response_data.user_info;
+          let user_address = response_data.user_address;
+          let user_orders = response_data.user_orders;
+          let address_option = response_data.address_option;
+          
+          let city_list = address_option.city_list;
+          let province_list = address_option.province_list;
+
+          let city_options = "";
+          let province_options = "";
+
+          let defaultImg = "./assets/images/defaults/default-profile.png";
+          let currentImg = "";
+
+          if (user_info.image == "") {
+            currentImg = defaultImg;
+          } else {
+            currentImg =
+              "./assets/images/users/" +
+              user_info.id +
+              "/" +
+              user_info.image +
+              "";
+          }
+
+          $("#profile #address_city").empty();
+          $("#profile #address_province").empty();
+
+          for (let i = 0; i < city_list.length; i++) {
+            city_options +=
+              "<option value='" +
+              city_list[i] +
+              "'>" +
+              city_list[i] +
+              "</option>";
+          }
+          $("#profile #address_city").append(city_options);
+
+          for (let i = 0; i < province_list.length; i++) {
+            province_options +=
+              "<option value='" +
+              province_list[i] +
+              "'>" +
+              province_list[i] +
+              "</option>";
+          }
+          $("#profile #address_province").append(province_options);
+
+          //USER INFO
+          $("#profile-icon").prop("src", currentImg);
+          $("#profile #image").prop("src", currentImg);
+          $("#profile #name").text(user_info.name);
+          $("#profile #email").text(user_info.email);
+          $("#profile #phone").text(user_info.phone);
+          //USER ORDERS
+          $("#profile #total").text(user_orders.orders);
+          $("#profile #cancelled").text(user_orders.cancelled);
+          $("#profile #delivered").text(user_orders.delivered);
+          //USER ADDRESS
+          $("#profile #address_number").val(user_address.house);
+          $("#profile #address_street").val(user_address.street);
+          $("#profile #address_city").val(user_address.city);
+          $("#profile #address_province").val(user_address.province);
+        }
+        $("#profile #imageInput").val(null);
+      }
+    );
+  }
 });

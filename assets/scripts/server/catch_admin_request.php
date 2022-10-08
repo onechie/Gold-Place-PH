@@ -1,5 +1,6 @@
 <?php
 include './database.php';
+include './User_manager.php';
 date_default_timezone_set("Asia/Manila");
 
 //ADD ITEM REQUEST
@@ -270,15 +271,15 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order-chart-data")
 //RESPONSE FOR RECENT ORDERS DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders") {
     $recent_orders = array();
+    $user_manager = new User_manager();
 
     $sql = "SELECT * FROM orders ORDER BY id DESC";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
+
             $order_id = $rows['id'];
-            $user_id = $rows['user_id'];
-            $user_data = getUserInfo($conn, $user_id);
-            $user_image = getUserImage($user_id);
+            $user_manager->fetch_user($conn, $rows['user_id']);
 
             $item_id = $rows['item_id'];
             $item_data = getItemInfo($conn, $item_id);
@@ -288,10 +289,10 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders"
 
             $recent_orders[] = array(
                 "order_id" => $order_id,
-                "user_id" => $user_id,
-                "user_name" => $user_data["firstname"] . " " . $user_data["lastname"],
-                "user_email" => $user_data["email"],
-                "user_image" => $user_image,
+                "user_id" => $user_manager->id,
+                "user_name" => $user_manager->first_name . " " . $user_manager->last_name,
+                "user_email" => $user_manager->email,
+                "user_image" => $user_manager->image,
                 "item_id" => $item_id,
                 "order_quantity" => $quantity,
                 "item_price" => $item_data['price'],
@@ -328,19 +329,39 @@ if(isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
 
 //RESPONSE FOR LOAD ALL USERS
 if (isset($_POST['requestType']) && $_POST['requestType'] == "load-users") {
-    $sql = "SELECT * FROM user";
-    $users = getUserData($sql, $conn);
-
-    echo json_encode($users);
+    $user_manager = new User_manager();
+    $user_manager->fetch_users($conn);
+    echo json_encode($user_manager->user_list);
 }
 
 //RESPONSE FOR LOAD SINGLE USER DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "view-users") {
     $id =  mysqli_escape_string($conn, $_POST['id']);
-    $sql = "SELECT * FROM user WHERE id = '$id'";
+    $user_manager = new User_manager();
+    $user_manager->fetch_user($conn, $id);
+    $user_manager->fetch_orders($conn);
 
-    $user = getUserData($sql, $conn);
-    echo json_encode($user);
+    $user_info = array(
+        "id" => $id,
+        "name" => $user_manager->first_name. " ". $user_manager->last_name,
+        "email" => $user_manager->email,
+        "phone" => $user_manager->phone,
+        "image" => $user_manager->image
+    );
+
+    $user_orders = array(
+        "orders" => $user_manager->orders,
+        "cancelled" => $user_manager->cancelled,
+        "delivered" => $user_manager->delivered,
+        "processing" => $user_manager->processing
+    );
+
+    $response_data = array(
+        "user_info" => $user_info,
+        "user_orders" => $user_orders,
+    );
+
+    echo json_encode($response_data);
 }
 
 function countSales($conn)
@@ -392,50 +413,6 @@ function countUsers($conn)
     return $users;
 }
 
-function getUserInfo($conn, $id)
-{
-    $userInfo = array();
-    $sql = "SELECT * FROM user WHERE id = '$id'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $userInfo = array(
-                "firstname" => $rows['firstname'],
-                "lastname" => $rows['lastname'],
-                "email" => $rows['email'],
-                "phone" => $rows['phone'],
-                "purchased" => $rows['purchased']
-
-            );
-        }
-    }
-    return $userInfo;
-};
-
-function getUserImage($id)
-{
-
-    $mainDirectory = "../../images/users";
-    $specificDirectory = "../../images/users/" . $id;
-
-    if (!is_dir($mainDirectory)) {
-        mkdir($mainDirectory);
-    }
-
-    if (!is_dir($specificDirectory)) {
-        mkdir($specificDirectory);
-    }
-
-    $files = array_diff(scandir($specificDirectory), array('..', '.'));
-    $file = '';
-    //GET THE FIRST FILE'S NAME
-    foreach ($files as $key => $value) {
-        $file = $value;
-        break;
-    }
-
-    return $file;
-}
 function getItemInfo($conn, $id)
 {
     $itemInfo = array();
@@ -590,81 +567,5 @@ function getItemData($sql, $conn, $multiple){
         }
         //ENCODE THE ARRAY TO JSON
         return $itemInfo;
-    }
-}
-
-function getUserData($sql, $conn){
-
-    $result = mysqli_query($conn, $sql);
-    $users = array();
-    if (mysqli_num_rows($result) > 0) {
-        //GET ALL USERS DATA FROM DATABASE
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $id = $rows['id'];
-            $name = $rows['firstname'] . ' ' . $rows['lastname'];
-            $email = $rows['email'];
-            $phone = $rows['phone'];
-            $purchased = $rows['purchased'];
-
-            $mainDirectory = "../../images/users";
-            $specificDirectory = "../../images/users/" . $id;
-
-            if (!is_dir($mainDirectory)) {
-                mkdir($mainDirectory);
-            }
-
-            if (!is_dir($specificDirectory)) {
-                mkdir($specificDirectory);
-            }
-
-            $files = array_diff(scandir($specificDirectory), array('..', '.'));
-            $file = '';
-            //GET THE FIRST FILE'S NAME
-            foreach ($files as $key => $value) {
-                $file = $value;
-                break;
-            }
-
-            $totalOrders = 0;
-            $cancelled = 0;
-            $delivered = 0;
-            $processing = 0;
-
-            $sqlOrders = "SELECT * FROM orders WHERE user_id = '$id'";
-            $resultOrders = mysqli_query($conn,$sqlOrders);
-            if(mysqli_num_rows($resultOrders) > 0){
-                while($rowsOrders = mysqli_fetch_assoc($resultOrders)){
-                    $s = $rowsOrders['status'];
-                    if($s == "cancelled")
-                        $cancelled++;
-                    else if($s == "delivered")
-                        $delivered++;
-                    else
-                        $processing++;
-
-                    $totalOrders++;
-                }
-            }
-
-            $orders = array(
-                "total" => $totalOrders,
-                "cancelled" => $cancelled,
-                "delivered" => $delivered,
-                "processing" => $processing
-            );
-
-            //ADD THE DATA AS JSON FORMAT IN ARRAY
-            $users[] = array(
-                "id" => $id,
-                "name" => $name,
-                "email" => $email,
-                "phone" => $phone,
-                "purchased" => $purchased,
-                "image" => $file,
-                "orders" => $orders
-            );
-        }
-        return $users;
-        
     }
 }

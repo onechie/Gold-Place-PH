@@ -115,3 +115,6 @@ td{
     opacity: 1;
     transition: all 0.3s
 }
+.file-upload:hover{
+    cursor: pointer;
+}

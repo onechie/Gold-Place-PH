@@ -13,19 +13,15 @@ $(document).ready(function () {
 
   $("#sort_user_id").click(function(){
     sortTable("id");
-    console.log("1");
   })
   $("#sort_user_name").click(function(){
     sortTable("name");
-    console.log(2);
   })
   $("#sort_user_email").click(function(){
     sortTable("email");
-    console.log("3");
   })
   $("#sort_user_purchased").click(function(){
     sortTable("purchased");
-    console.log("4");
   })
 
   $("#refresh-users").click(function () {
@@ -43,24 +39,25 @@ $(document).ready(function () {
       function (data) {
         if (data && data != "null") {
           let users = JSON.parse(data);
-          let user = users[0];
+          let user_info = users.user_info;
+          let user_orders = users.user_orders;
 
           let defaultImg = "../assets/images/defaults/default-profile.png";
           let currentImg = "";
 
-          if (user.image == "") {
+          if (user_info.image == "") {
             currentImg = defaultImg;
           } else {
-            currentImg = "../assets/images/users/" + user.id + "/" + user.image;
+            currentImg = "../assets/images/users/" + user_info.id + "/" + user_info.image;
           }
 
-          userName.text(user.name);
-          userEmail.text(user.email);
-          userPhone.text(user.phone);
+          userName.text(user_info.name);
+          userEmail.text(user_info.email);
+          userPhone.text(user_info.phone);
           userImage.prop("src", currentImg);
-          userTotal.text(user.orders.total);
-          userCancelled.text(user.orders.cancelled);
-          userDelivered.text(user.orders.delivered);
+          userTotal.text(user_orders.orders);
+          userCancelled.text(user_orders.cancelled);
+          userDelivered.text(user_orders.delivered);
         }
       }
     );
@@ -130,12 +127,13 @@ $(document).ready(function () {
       function (data) {
         
         if (data && data != "null") {
+          
           let users = JSON.parse(data);
           let htmlData = "";
           userList.empty();
           for (let i = 0; i < users.length; i++) {
             let user = users[i];
-
+            let name = user.first_name+" "+user.last_name;
             let defaultImg = "'../assets/images/defaults/default-profile.png'";
             let currentImg = "";
             if (user.image == "") {
@@ -151,7 +149,7 @@ $(document).ready(function () {
                         +"            <div class='position-relative rounded-5 bg-white shadow-sm me-2 flex-shrink-0' style='width:50px; height:50px;'>"
                         +"                <img class='position-absolute m-1 rounded-5' src="+currentImg+" alt='' style='width:42px; height:42px;');>"
                         +"            </div>"
-                        +"            <strong class='text-capitalize name text-break'>"+user.name+"</strong>"
+                        +"            <strong class='text-capitalize name text-break'>"+name+"</strong>"
                         +"        </div>"
                         +"    </td>"
                         +"    <td class='ps-4 email text-break'>"+user.email+"</td>"

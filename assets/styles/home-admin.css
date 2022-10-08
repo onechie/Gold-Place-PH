@@ -89,9 +89,6 @@ h2 {
 .inputImages{
     object-fit: cover;
 }
-.file-upload:hover{
-    cursor: pointer;
-}
 .icon-btn{
   scale: 1;
   transition: all 0.2s;

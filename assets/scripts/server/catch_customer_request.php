@@ -1,5 +1,6 @@
 <?php
 include './database.php';
+include './User_manager.php';
 
 session_start();
 date_default_timezone_set("Asia/Manila");
@@ -374,7 +375,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $currentDate = date("Y-m-d H:i:s");
 
-    if (count($cartItems) > 0) {
+
+    if (count($cartItems) >  0 && checkUserAddress($conn, $user_id)) {
         foreach ($cartItems as $item) {
             $cartItem = mysqli_escape_string($conn, $item);
             $sql = "SELECT * FROM CART where id = '$cartItem' and user_id = '$user_id'";
@@ -397,7 +399,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
         }
         echo 'ok';
     } else {
-        echo 'failed';
+        echo 'invalid_address';
     }
 }
 //RESPONSE FOR REMOVE ITEMS ON CART
@@ -508,12 +510,13 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_delivered_in
 //RESPONSE FOR GETTING PROFILE DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "get_profile") {
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
-    $sql = "SELECT * FROM user_address where user_id = '$user_id'";
-    $address_info = array();
+    $user_manager = new User_manager();
+    $user_manager->fetch_user($conn, $user_id);
+    $user_manager->fetch_address($conn);
+    $user_manager->fetch_orders($conn);
+
     $city = array();
     $province = array();
-
-    $userData = getUserData("SELECT * FROM user WHERE id = '$user_id'", $conn);
 
     $result = mysqli_query($conn, "SELECT * FROM city_list");
     if (mysqli_num_rows($result) > 0) {
@@ -529,65 +532,98 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get_profile") {
         }
     }
 
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $address_info[] = array(
-                "number" => $rows['house_number'],
-                "street" => $rows['barangay'],
-                "city" => $rows['city'],
-                "province" => $rows['province'],
-                "city_list" => $city,
-                "province_list" => $province,
-                "user_data" => $userData
-            );
-        }
-    } else {
-        $address_info[] = array(
-            "number" => '',
-            "street" => '',
-            "city" => '',
-            "province" => '',
-            "city_list" => $city,
-            "province_list" => $province,
-            "user_data" => $userData
-        );
-    }
+    $user_info = array(
+        "id" => $user_id,
+        "name" => $user_manager->first_name. " ". $user_manager->last_name,
+        "email" => $user_manager->email,
+        "phone" => $user_manager->phone,
+        "image" => $user_manager->image
+    );
 
-    echo json_encode($address_info);
+    $user_address = array(
+        "house" => $user_manager->house,
+        "street" => $user_manager->street,
+        "city" => $user_manager->city,
+        "province" => $user_manager->province
+    );
+
+    $user_orders = array(
+        "orders" => $user_manager->orders,
+        "cancelled" => $user_manager->cancelled,
+        "delivered" => $user_manager->delivered,
+        "processing" => $user_manager->processing
+    );
+
+    $address_option = array(
+        "city_list" => $city,
+        "province_list" => $province
+    );
+
+    $response_data = array(
+        "user_info" => $user_info,
+        "user_address" => $user_address,
+        "user_orders" => $user_orders,
+        "address_option" => $address_option
+    );
+
+    echo json_encode($response_data);
 }
 
 //RESPONSE FOR UPDATE PROFILE
 if (isset($_POST['requestType']) && $_POST['requestType'] == "update_profile") {
     $number = mysqli_escape_string($conn, $_POST['number']);
     $street = mysqli_escape_string($conn, $_POST['street']);
-    $city = mysqli_escape_string($conn, $_POST['city']);
-    $province = mysqli_escape_string($conn, $_POST['province']);
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+    $city = '';
+    $province = '';
+    
+    if(isset($_POST['city'])){
+        $city = mysqli_escape_string($conn, $_POST['city']);
+        if(!isCityExists($conn, $city)){
+            $city ='';
+        }
+    }
+    if(isset($_POST['province'])){
+        $province = mysqli_escape_string($conn, $_POST['province']);
+        if(!isProvinceExists($conn, $province)){
+            $province ='';
+        }
+    }
+    
+    $user_manager = new User_manager();
+    $user_manager->fetch_user($conn, $user_id);
+    $user_manager->fetch_address($conn);
 
-    $sql = "SELECT * FROM user_address where user_id = '$user_id'";
-    if (isCityExists($conn, $city) && isProvinceExists($conn, $province)) {
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) > 0) {
-            $sql = "UPDATE user_address SET house_number = '$number', barangay = '$street', city = '$city', province = '$province' 
-        WHERE user_id = '$user_id'";
-            if (mysqli_query($conn, $sql)) {
-                echo 'ok';
+    $user_manager->house = $number;
+    $user_manager->street = $street;
+    $user_manager->city = $city;
+    $user_manager->province = $province;
+
+    $result = mysqli_query($conn, "SELECT * FROM user_address where user_id = '$user_id'");
+
+    if (mysqli_num_rows($result) > 0) {
+        $user_manager->update_address($conn);
+    } else {
+        $user_manager->insert_address($conn);
+    }
+
+    $user_manager->update_user($conn);
+}
+
+function checkUserAddress($conn, $id)
+{
+    $sql = "SELECT * FROM user_address WHERE user_id = '$id'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($rows = mysqli_fetch_assoc($result)) {
+            if ($rows['house_number'] == '' || $rows['barangay'] == '' || $rows['city'] == '' || $rows['province'] == '') {
+                return false;
             } else {
-                echo 'failed';
-            }
-        } else {
-            $sql = "INSERT INTO user_address (user_id, house_number, barangay, city, province)
-        VALUES ('$user_id', '$number', '$street', '$city', '$province')";
-            if (mysqli_query($conn, $sql)) {
-                echo 'ok';
-            } else {
-                echo 'failed';
+                return true;
             }
         }
-    } else {
-        echo 'failed';
     }
+    return false;
 }
 
 function isCityExists($conn, $city)
@@ -649,83 +685,6 @@ function getItemData($sql, $conn, $multiple)
             );
         }
         return $itemInfo;
-    }
-}
-
-//GET USER DATA
-function getUserData($sql, $conn){
-
-    $result = mysqli_query($conn, $sql);
-    $users = array();
-    if (mysqli_num_rows($result) > 0) {
-        //GET ALL USERS DATA FROM DATABASE
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $id = $rows['id'];
-            $name = $rows['firstname'] . ' ' . $rows['lastname'];
-            $email = $rows['email'];
-            $phone = $rows['phone'];
-            $purchased = $rows['purchased'];
-
-            $mainDirectory = "../../images/users";
-            $specificDirectory = "../../images/users/" . $id;
-
-            if (!is_dir($mainDirectory)) {
-                mkdir($mainDirectory);
-            }
-
-            if (!is_dir($specificDirectory)) {
-                mkdir($specificDirectory);
-            }
-
-            $files = array_diff(scandir($specificDirectory), array('..', '.'));
-            $file = '';
-            //GET THE FIRST FILE'S NAME
-            foreach ($files as $key => $value) {
-                $file = $value;
-                break;
-            }
-
-            $totalOrders = 0;
-            $cancelled = 0;
-            $delivered = 0;
-            $processing = 0;
-
-            $sqlOrders = "SELECT * FROM orders WHERE user_id = '$id'";
-            $resultOrders = mysqli_query($conn,$sqlOrders);
-            if(mysqli_num_rows($resultOrders) > 0){
-                while($rowsOrders = mysqli_fetch_assoc($resultOrders)){
-                    $s = $rowsOrders['status'];
-                    if($s == "cancelled")
-                        $cancelled++;
-                    else if($s == "delivered")
-                        $delivered++;
-                    else
-                        $processing++;
-
-                    $totalOrders++;
-                }
-            }
-
-            $orders = array(
-                "total" => $totalOrders,
-                "cancelled" => $cancelled,
-                "delivered" => $delivered,
-                "processing" => $processing
-            );
-
-            //ADD THE DATA AS JSON FORMAT IN ARRAY
-            $users[] = array(
-                "id" => $id,
-                "name" => $name,
-                "email" => $email,
-                "phone" => $phone,
-                "purchased" => $purchased,
-                "image" => $file,
-                "orders" => $orders
-            );
-        }
-        return $users;
-        
     }
 }
 
