@@ -118,3 +118,32 @@ td{
 .file-upload:hover{
     cursor: pointer;
 }
+.custom-bg-1{
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 52%, rgba(255,193,7,1) 87%, rgba(248,249,250,1) 100%);
+}
+.gold-bg-1{
+    background: rgb(252,203,83);
+    background: linear-gradient(90deg, rgba(252,203,83,1) 8%, rgba(246,222,131,1) 23%, rgba(177,107,13,1) 50%, rgba(254,198,62,1) 80%, rgba(238,215,136,1) 98%);
+}
+.gold-bg-2{
+    background: rgb(252,203,83);
+    background: linear-gradient(90deg, rgba(252,203,83,1) 10%, rgba(246,222,131,1) 51%, rgba(177,107,13,1) 90%);
+}
+.c-1{
+    color: #b16b0d;
+}
+.c-2{
+    color: #f6de83;
+}
+.c-3   {
+    color: #fccb53;
+}
+.custom-bg-2 {
+    background-color: #2b1b06;
+}
+.s-1{
+    box-shadow: -1px 5px 11px 1px rgba(177,107,13,0.20);
+-webkit-box-shadow: -1px 5px 11px 1px rgba(177,107,13,0.20);
+}
+

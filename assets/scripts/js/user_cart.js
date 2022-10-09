@@ -76,6 +76,7 @@ $(document).ready(function () {
         requestType:"cart_checkout"
       },
         function (data) {
+          console.log(data);
           if(data == "ok"){
             getCartData();
             setTotalPrice();
@@ -146,14 +147,14 @@ $(document).ready(function () {
             for(let i = 0; i < cartItems.length; i++){
                 let item = cartItems[i];
 
-                htmlData +="<tr class='text-center align-middle fs-7 itemClick'>"
-                        +"<td><input class='form-check-input checkBox' type='checkbox' value=''></td>"
-                        +"<td><img src='./assets/images/items/"+item.id+"/"+item.images[0]+"' class='rounded-4' height='100' width='100' alt=''></td>"
-                        +"<td class='fw-light'>"+item.name+"</td>"
-                        +"<td class='fw-light'>&#8369;<span id='item_price'>"+item.price+"</span></td>"
-                        +"<td><input class='form-control input-qty mx-auto p-1' id='item_qty' type='number' value='"+item.quantity+"'></td>"
-                        +"<td id='ids_parent'>"
-                        +"    <div class='d-flex justify-content-center fs-4'>"
+                htmlData +="<tr class='align-middle fs-7 itemClick'>"
+                        +"<td class='px-4'><input class='form-check-input checkBox' type='checkbox' value=''></td>"
+                        +"<td class='px-4'><img src='./assets/images/items/"+item.id+"/"+item.images[0]+"' class='rounded-4' height='100' width='100' alt=''></td>"
+                        +"<td class='fw-light px-4'>"+item.name+"</td>"
+                        +"<td class='fw-light px-4'>&#8369;<span id='item_price'>"+item.price+"</span></td>"
+                        +"<td class='px-4'><input class='form-control input-qty p-1' id='item_qty' type='number' value='"+item.quantity+"'></td>"
+                        +"<td class='px-4' id='ids_parent'>"
+                        +"    <div class='d-flex fs-4'>"
                         +"        <input type='hidden' id='cart_id' value='"+item.cart_id+"'>"
                         +"        <input type='hidden' id='item_id' value='"+item.id+"'>"
                         +"        <i class='bi bi-eye mx-1 text-success'></i>"

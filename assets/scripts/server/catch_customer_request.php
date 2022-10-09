@@ -374,11 +374,15 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
     $cartItems = $_POST['cartItems'];
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $currentDate = date("Y-m-d H:i:s");
-
-
     if (count($cartItems) >  0 && checkUserAddress($conn, $user_id)) {
+
+        $order_sql = "INSERT INTO orders(user_id, status, date_created) 
+        VALUES ('$user_id','checking', '$currentDate')";
+        mysqli_query($conn, $order_sql);
+        $order_id = mysqli_insert_id($conn);
+
         foreach ($cartItems as $item) {
-            $cartItem = mysqli_escape_string($conn, $item);
+            $cartItem  = mysqli_escape_string($conn, $item);
             $sql = "SELECT * FROM CART where id = '$cartItem' and user_id = '$user_id'";
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
@@ -386,13 +390,14 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
                     $item_id = $rows['item_id'];
                     $quantity = $rows['quantity'];
 
-                    $order_sql = "INSERT INTO orders(user_id, item_id, quantity, status, date_created) 
-                    VALUES ('$user_id','$item_id','$quantity','checking', '$currentDate')";
-                    mysqli_query($conn, $order_sql);
+                    $sql = "INSERT INTO order_item(order_id, item_id, quantity) 
+                    VALUES ('$order_id','$item_id','$quantity')";
+                    mysqli_query($conn, $sql);
 
                     $cart_delete_sql = "DELETE FROM cart WHERE id = '$cartItem' and user_id = '$user_id'";
                     mysqli_query($conn, $cart_delete_sql);
                 }
+                
             } else {
                 echo 'failed';
             }
@@ -422,44 +427,61 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_remove") {
 //RESPONSE FOR GET ORDER INFO
 if (isset($_POST['requestType']) && $_POST['requestType'] == "order_info") {
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
-    $sql = "SELECT * FROM orders WHERE (user_id = '$user_id' and status = 'checking') OR (status = 'processing')";
+    $sql = "SELECT * FROM orders WHERE user_id = '$user_id' and ";
+    if($_POST['type'] == "processing"){
+        $sql .= "((status = 'checking') OR (status = 'processing'))";
+    } else {
+        $sql .= "(status = 'delivered')";
+    }
+
     $result = mysqli_query($conn, $sql);
-    $orderItems = array();
+    $order = array();
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
-            $item_id = $rows['item_id'];
-            $qty = $rows['quantity'];
+
+
+            $order_items = array();
+            //GET ITEMS ON ORDER
             $order_id = $rows['id'];
-            $status = $rows['status'];
+            $order_result = mysqli_query($conn, "SELECT * FROM order_item WHERE order_id = '$order_id'");
+            if (mysqli_num_rows($order_result) > 0) {
+                while ($order_rows = mysqli_fetch_assoc($order_result)) {
+                    //GET ITEM DATA
+                    $item_id = $order_rows['item_id'];
+                    $quantity = $order_rows['quantity'];
+                    $item_result = mysqli_query($conn, "SELECT * FROM items WHERE id = '$item_id'");
+                    if (mysqli_num_rows($item_result) > 0) {
+                        while ($item_rows = mysqli_fetch_assoc($item_result)) {
 
-            //GET THE ID AND SET AS DIRECTORY
-            $directory = '../../images/items/' . $item_id;
-            //SCAN THE FILES INSIDE THE DIRECTORY
-            $files = array_diff(scandir($directory), array('..', '.'));
-            $file = array();
-            //GET THE FIRST FILE'S NAME
-            foreach ($files as $key => $value) {
-                $file[] = $value;
-                break;
-            }
+                            $directory = '../../images/items/' . $item_id;
+                            $files = array_diff(scandir($directory), array('..', '.'));
+                            $file = array();
+                            //GET THE FIRST FILE'S NAME
+                            foreach ($files as $key => $value) {
+                                $file = $value;
+                                break;
+                            }
 
-            $sql_new = "SELECT * FROM items WHERE id = '$item_id'";
-            $result_new = mysqli_query($conn, $sql_new);
-            if (mysqli_num_rows($result_new) > 0) {
-                while ($rows_new = mysqli_fetch_assoc($result_new)) {
-                    $orderItems[] = array(
-                        "id" => $item_id,
-                        "order_id" => $order_id,
-                        "name" => $rows_new['name'],
-                        "price" => $rows_new['price'],
-                        "quantity" => $qty,
-                        "status" => $status,
-                        "images" => $file
-                    );
+                            $order_items[] = array(
+                                "id" => $item_id,
+                                "name" => $item_rows['name'],
+                                "price" => $item_rows['price'],
+                                "quantity" => $quantity,
+                                "image" => $file
+                            );
+                        }
+                    }
                 }
             }
+
+            $order[] = array(
+                "id" => $order_id,
+                "status" => $rows['status'],
+                "date" => date("F d Y", strtotime($rows['date_created'])),
+                "order_items" => $order_items
+            );
         }
-        echo json_encode($orderItems);
+        echo json_encode($order);
     }
 }
 
@@ -534,7 +556,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get_profile") {
 
     $user_info = array(
         "id" => $user_id,
-        "name" => $user_manager->first_name. " ". $user_manager->last_name,
+        "name" => $user_manager->first_name . " " . $user_manager->last_name,
         "email" => $user_manager->email,
         "phone" => $user_manager->phone,
         "image" => $user_manager->image
@@ -576,20 +598,20 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "update_profile") {
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $city = '';
     $province = '';
-    
-    if(isset($_POST['city'])){
+
+    if (isset($_POST['city'])) {
         $city = mysqli_escape_string($conn, $_POST['city']);
-        if(!isCityExists($conn, $city)){
-            $city ='';
+        if (!isCityExists($conn, $city)) {
+            $city = '';
         }
     }
-    if(isset($_POST['province'])){
+    if (isset($_POST['province'])) {
         $province = mysqli_escape_string($conn, $_POST['province']);
-        if(!isProvinceExists($conn, $province)){
-            $province ='';
+        if (!isProvinceExists($conn, $province)) {
+            $province = '';
         }
     }
-    
+
     $user_manager = new User_manager();
     $user_manager->fetch_user($conn, $user_id);
     $user_manager->fetch_address($conn);

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-warning shadow fixed-top gradient" aria-label="Fourth navbar example">
+<nav class="navbar navbar-expand-lg navbar-light gold-bg-2 shadow fixed-top" aria-label="Fourth navbar example">
   <div class="container-xxl">
     <a class="navbar-brand" href="#">
       <img height="40" src="./assets/images/defaults/logo-only-black.png" alt="Logo">

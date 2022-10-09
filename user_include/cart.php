@@ -1,22 +1,22 @@
 <div class="modal fade" id="cart" tabindex="-1" aria-labelledby="cartLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-warning z-high">
-        <img height="30" src="./assets/images/defaults/logo-only-black.png" alt="Logo">
+      <div class="modal-header bg-white z-high">
+        <img height="30" src="./assets/images/defaults/logo-only.png" alt="Logo">
         <h5 class="ps-3 modal-title text-dark fw-normal" id="cartLabel">Your Cart</h5>
         <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body bg-light overflow-auto p-0" style="height: 60vh;">
         <div class="w-100 h-100" style="min-width: 800px;">
           <table class="table table-hover m-0 table-striped">
-            <thead class="sticky-top bg-white shadow-sm z-mid">
-              <tr class="text-center align-middle text-dark fs-7">
-                <th height="60"><input class="form-check-input" id="check_all" type="checkbox" value=""></th>
-                <th>IMAGE</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>QUANTITY</th>
-                <th>ACTION</th>
+            <thead class="sticky-top bg-dark shadow-sm z-mid">
+              <tr class="align-middle text-light fs-7">
+                <th class="p-0 py-3 px-4"><input class="form-check-input" id="check_all" type="checkbox" value=""></th>
+                <th class="p-0 py-3 px-4">IMAGE</th>
+                <th class="p-0 py-3 px-4">NAME</th>
+                <th class="p-0 py-3 px-4">PRICE</th>
+                <th class="p-0 py-3 px-4">QUANTITY</th>
+                <th class="p-0 py-3 px-4">ACTION</th>
               </tr>
             </thead>
             <tbody id="cart-items">

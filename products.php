@@ -23,82 +23,81 @@ session_start();
     }
     ?>
     <main class="mt-5 bg-light h-100 overflow-auto" id="user-panel">
-        <div class="container-fluid p-0 pb-5 shadow">
+        <div class="container-fluid p-0 pb-5">
             <p class="pt-4 m-0"></p>
-            <p class="text-center fs-3 m-0 py-4 shadow text-warning bg-dark gradient lt-space fw-light">OUR FINEST MERCHANDISE</p>
-            <div class="container-xxl py-5">
+            <p class="text-center fs-3 m-0 py-4 s-1 c-2 bg-dark gradient fw-light">OUR FINEST MERCHANDISE</p>
+            <div class="container-xxl pt-5 pb-2">
                 <div class="d-flex flex-row justify-content-evenly">
 
-                    <div class="card d-flex mx-1 shadow bg-light p-2" style="display:none">
+                    <div class="card d-flex mx-1 s-1 bg-light p-2" style="display:none">
                         <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
                             <img src="./assets/images/defaults/img1.jpg" class="card-img-top" alt="...">
                         </div>
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
+                            <h6 class="card-text c-1 m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
+                            <i class="bi bi-star-fill c-3"></i>
                             <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
                             </span>
                         </div>
                     </div>
 
-                    <div class="card d-sm-flex mx-1 shadow bg-light p-2" style="display:none">
+                    <div class="card d-sm-flex mx-1 s-1 bg-light p-2" style="display:none">
                     <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
                             <img src="./assets/images/defaults/img2.jpg" class="card-img-top" alt="...">
                         </div>
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
+                            <h6 class="card-text c-1 m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
+                            <i class="bi bi-star-fill c-3"></i>
                             <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="card d-lg-flex mx-1 shadow-lg bg-light p-2" style="display:none">
+                    <div class="card d-lg-flex mx-1 s-1 bg-light p-2" style="display:none">
                         <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
                             <img src="./assets/images/defaults/img3.jpg" class="card-img-top" alt="...">
                         </div>
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
+                            <h6 class="card-text c-1 m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
+                            <i class="bi bi-star-fill c-3"></i>
                             <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="card d-xl-flex mx-1 shadow-lg bg-light p-2" style="display:none">
+                    <div class="card d-xl-flex mx-1 s-1 bg-light p-2" style="display:none">
                     <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>
                             <img src="./assets/images/defaults/img4.jpg" class="card-img-top" alt="...">
                         </div>
                         <div class="card-body">
                             <h6 class="card-title m-0 fs-6 fw-light text-dark">EXAMPLE PRODUCT</h6>
-                            <h6 class="card-text text-warning m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
-                            <i class="bi bi-star-fill text-warning"></i>
+                            <h6 class="card-text c-1 m-0 fs-5 fw-normal pb-2"><span>&#8369;</span>3000</h6>
+                            <i class="bi bi-star-fill c-3"></i>
                             <span>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
+                                <i class="bi bi-star-fill c-3"></i>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center"><a class="btn btn-lg btn-warning shadow px-5 fw-light" href="#">View More</a></div>
         </div>
-        <div class="container-fluid bg-warning gradient px-0 mb-5 shadow">
+        <div class="container-fluid gold-bg-2 px-0 mb-5 shadow">
             <p class="text-center fs-2 lt-space fw-light m-0 py-4 text-dark">CATEGORIES</p>
             <div class="container marketing">
                 <!-- Three columns of text below the carousel -->
