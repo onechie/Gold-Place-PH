@@ -55,10 +55,9 @@
                             <table class="table table-hover table-borderless table-striped fs-7 bg-white">
                                 <thead class="sticky-top bg-light z-mid">
                                     <tr class=" align-middle">
-                                    <th class="ps-4 py-4" style="width:40%">NAME</th>
-                                    <th class="ps-4 py-4" style="width:15%">ITEM ID</th>
-                                    <th class="ps-4 py-4" style="width:10%">QTY</th>
-                                    <th class="ps-4 py-4" style="width:10%">PRICE</th>
+                                    <th class="ps-4 py-4" style="width:35%">NAME</th>
+                                    <th class="ps-4 py-4" style="width:15%">ITEMS</th>
+                                    <th class="ps-4 py-4" style="width:15%">DATE</th>
                                     <th class="ps-4 py-4" style="width:15%">STATUS</th>
                                     <th class="px-4 py-4" style="width:10%">ACTION</th>
                                     </tr>
@@ -78,8 +77,7 @@
                                             </div>
                                         </td>
                                         <td class="ps-4">9</td>
-                                        <td class="ps-4">1</td>
-                                        <td class="ps-4"><strong>P4,000</strong></td>
+                                        <td class="ps-4">00-00-0000</td>
                                         <td class="ps-4">Processing</td>
                                         <td class="px-4">
                                             <a class="text-success" href=""><i class="bi bi-eye fs-3"></i></a>

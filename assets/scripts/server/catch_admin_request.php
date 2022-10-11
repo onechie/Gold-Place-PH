@@ -179,19 +179,26 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "line-chart-data") 
         $min = date("Y-m-d H:i:s", $temp);
         $sql = "SELECT * FROM orders WHERE date_updated > '$min' AND date_updated < '$max'";
 
-        $delivered = 0;
+        $sales = 0;
 
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
             while ($rows = mysqli_fetch_assoc($result)) {
                 if ($rows['status'] == "delivered") {
-                    $delivered++;
+                    $order_id = $rows['id'];
+                    $item_sql = "SELECT * FROM order_item WHERE order_id = '$order_id'";
+                    $item_result = mysqli_query($conn, $item_sql);
+                    if (mysqli_num_rows($item_result) > 0) {
+                        while($item_rows = mysqli_fetch_assoc($item_result)){
+                            $sales += $item_rows['quantity'];
+                        }
+                    }
                 }
             }
         }
 
         $orders[] = array(
-            "delivered" => $delivered,
+            "sales" => $sales,
             "label" => $label,
             "date" => $min . " - " . $max,
         );
@@ -280,11 +287,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders"
 
             $order_id = $rows['id'];
             $user_manager->fetch_user($conn, $rows['user_id']);
-
-            $item_id = $rows['item_id'];
-            $item_data = getItemInfo($conn, $item_id);
-
-            $quantity = $rows['quantity'];
+            $items = $rows['items'];
+            $date = $rows['date_created'];
             $status = $rows['status'];
 
             $recent_orders[] = array(
@@ -293,9 +297,8 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders"
                 "user_name" => $user_manager->first_name . " " . $user_manager->last_name,
                 "user_email" => $user_manager->email,
                 "user_image" => $user_manager->image,
-                "item_id" => $item_id,
-                "order_quantity" => $quantity,
-                "item_price" => $item_data['price'],
+                "items" => $items,
+                "date" => date("h:i:s A M d Y",strtotime($date)),
                 "order_status" => $status
             );
         }
@@ -371,7 +374,16 @@ function countSales($conn)
     $result = mysqli_query($conn, "SELECT * FROM orders WHERE status = 'delivered'");
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
-            $sales++;
+            if ($rows['status'] == "delivered") {
+                $order_id = $rows['id'];
+                $item_sql = "SELECT * FROM order_item WHERE order_id = '$order_id'";
+                $item_result = mysqli_query($conn, $item_sql);
+                if (mysqli_num_rows($item_result) > 0) {
+                    while($item_rows = mysqli_fetch_assoc($item_result)){
+                        $sales += $item_rows['quantity'];
+                    }
+                }
+            }
         }
     }
     return $sales;

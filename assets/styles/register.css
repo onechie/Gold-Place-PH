@@ -4,6 +4,9 @@ body {
   min-height: 800px;
   overflow:hidden;
 }
+.register{
+    max-height: 880px;
+}
 .form-signin {
     max-width: 330px;
     padding: 20px;
@@ -13,7 +16,7 @@ body {
     z-index: 2;
 }
 .side-content{
-    background-image: url("../images/defaults/background.jpg");
+    background-image: url("../images/defaults/sample-image.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

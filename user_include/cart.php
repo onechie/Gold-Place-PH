@@ -1,3 +1,8 @@
+<?php
+if (!defined('ACCESS')) {
+  header("location: ../");
+}
+?>
 <div class="modal fade" id="cart" tabindex="-1" aria-labelledby="cartLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
@@ -22,7 +27,6 @@
             <tbody id="cart-items">
 
             </tbody>
-
           </table>
         </div>
       </div>
@@ -30,8 +34,8 @@
         <h6 class="fw-light fs-7">Total Price :</h6>
         <h6 class="fw-normal fs-7" id="total_price">P0</h6>
         <div class="d-flex">
-            <button type="button" class="btn btn-warning btn-sm ms-5" id="checkOut">Checkout</button>
-            <button type="button" class="btn btn-dark btn-sm ms-2" id="remove">Remove</button>
+          <button type="button" class="btn btn-warning btn-sm ms-5" id="checkOut">Checkout</button>
+          <button type="button" class="btn btn-dark btn-sm ms-2" id="remove">Remove</button>
         </div>
       </div>
     </div>

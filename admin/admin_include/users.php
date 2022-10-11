@@ -4,7 +4,7 @@
     }
 ?>
 <!--ORDERS-->
-<div class="container-fluid px-xl-4" id="list-4">
+<div class="container-fluid px-xl-4 users" id="list-4">
     <div class="container-fluid p-0">
         <div class="row">
             <!--RECENT SALES-->
@@ -29,7 +29,7 @@
                         </div>
                         <div class="d-flex px-3">
                             <form class="" role="search">
-                                <input type="search" class="form-control py-0 fw-light fs-7" placeholder="Search..." aria-label="Search">
+                                <input type="search" class="form-control py-0 fw-light fs-7" id="search-user"placeholder="Search" aria-label="Search">
                             </form>
                         </div>
                     </div>

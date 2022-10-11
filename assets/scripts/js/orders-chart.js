@@ -90,7 +90,7 @@ $(document).ready(function () {
               colors.pop();
               allData.pop();
             }
-            labels.push("Empty");
+            labels.push("No data");
             colors.push("#6c757d");
             allData.push(1);
 
@@ -109,7 +109,7 @@ $(document).ready(function () {
           } else {
             percent = (ordersData[0].new / ordersData[1].new -1)*100;
           }
-
+          percent = parseInt(percent);
 
           if(percent < 0){
             percent = percent * -1;
@@ -118,13 +118,11 @@ $(document).ready(function () {
             percentArrow.removeClass("bi-arrow-up-short");
             percentArrow.addClass("bi-arrow-down-short");
           } else {
-            percent = percent * 1;
             percentColor.addClass("bg-success");
             percentColor.removeClass("bg-danger");
             percentArrow.addClass("bi-arrow-up-short");
             percentArrow.removeClass("bi-arrow-down-short");
           }
-          
           percentNumber.empty();
           percentNumber.text(percent);
           WholeNumber.empty();

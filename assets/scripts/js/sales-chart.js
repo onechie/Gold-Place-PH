@@ -80,7 +80,7 @@ $(document).ready(function () {
           let ordersData = JSON.parse(data);
           for(let i = 0; i < 7; i++){
             let order = ordersData[i];
-            allData.unshift(order.delivered);
+            allData.unshift(order.sales);
             labels.unshift(order.label);
 
             if(allData.length == 8) allData.pop();
@@ -96,7 +96,7 @@ $(document).ready(function () {
             percent = (allData[6] / allData[5] -1)*100;
           }
 
-
+          percent = parseInt(percent);
 
           if(percent < 0){
             percent = percent * -1;
@@ -105,7 +105,6 @@ $(document).ready(function () {
             percentArrow.removeClass("bi-arrow-up-short");
             percentArrow.addClass("bi-arrow-down-short");
           } else {
-            percent = percent * 1;
             percentColor.addClass("bg-success");
             percentColor.removeClass("bg-danger");
             percentArrow.addClass("bi-arrow-up-short");

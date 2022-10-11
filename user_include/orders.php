@@ -1,3 +1,8 @@
+<?php
+if (!defined('ACCESS')) {
+  header("location: ../");
+}
+?>
 <div class="modal fade" id="order" tabindex="-1" aria-labelledby="orderLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
@@ -19,7 +24,6 @@
                     <div class="col-1"><i class="bi bi-list"></i></div>
                   </div>
                 </th>
-
               </tr>
             </thead>
             <tbody id="order-items">

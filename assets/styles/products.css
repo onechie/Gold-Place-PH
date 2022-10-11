@@ -7,44 +7,43 @@ body {
   overflow:hidden;
 }
 .card{
-    transition: all 0.4s;
+    transition: all 0.3s;
     width: 276px;
 }
 .card img{
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 .card .row button{
     opacity: 1;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 .card:hover{
-    border: 1px solid #f6de83!important;
     cursor: pointer;
-    scale: 1.05;
-    transition: all 0.4s;
+    scale: 1.03;
+    transition: all 0.3s;
 }
 .card:hover .row button{
-    background-color: #fccb53;
+    background-color: var(--warning);
     color: black;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 .card .row button:hover{
     opacity: 0.7;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 .card:hover img{
-    scale: 1.1;
-    transition: all 0.4s;
+    scale: 1.05;
+    transition: all 0.3s;
 }
 .marketing .cat {
     margin-bottom: 1.5rem;
     text-align: center;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 .marketing .cat:hover {
     scale: 1.1;
     cursor: pointer;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 .marketing .cat img{
     border-radius: 50%;

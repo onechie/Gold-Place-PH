@@ -11,6 +11,14 @@ $(document).ready(function () {
 
   getUsersData();
 
+  $(".users #search-user").on("keyup", function(){
+    var value = $(this).val().toLowerCase();
+    $("#users-list tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      console.log("test")
+    });
+  })
+
   $("#sort_user_id").click(function(){
     sortTable("id");
   })

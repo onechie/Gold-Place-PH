@@ -158,11 +158,13 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-log-final") {
                 $userfn = $row['firstname'];
                 $userln = $row['lastname'];
                 $userid = $row['id'];
+                $userType = $row['type'];
                 $verified = $row['verified'];
                 if ($verified == 'yes') {
                     if (password_verify($password, $checkPassword)) {
 
                         $_SESSION["userId"] = $userid;
+                        $_SESSION["userType"] = $userType;
                         echo "o_k" . $userfn . " " . $userln;
                     } else {
                         echo 'wrong_pass';
@@ -372,12 +374,13 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_update") {
 //RESPONSE FOR CHECK OUT
 if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
     $cartItems = $_POST['cartItems'];
+    $items = count($cartItems);
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $currentDate = date("Y-m-d H:i:s");
-    if (count($cartItems) >  0 && checkUserAddress($conn, $user_id)) {
+    if ($items >  0 && checkUserAddress($conn, $user_id)) {
 
-        $order_sql = "INSERT INTO orders(user_id, status, date_created) 
-        VALUES ('$user_id','checking', '$currentDate')";
+        $order_sql = "INSERT INTO orders(user_id, items, status, date_created) 
+        VALUES ('$user_id', '$items','checking', '$currentDate')";
         mysqli_query($conn, $order_sql);
         $order_id = mysqli_insert_id($conn);
 

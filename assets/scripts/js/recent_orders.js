@@ -5,7 +5,6 @@ $(document).ready(function () {
     $.post("../assets/scripts/server/catch_admin_request.php",{
         requestType:"get-recent-orders"
     }, function (data) {
-
         $recentOrders.empty();
         
         if (data && data != "null") {
@@ -38,9 +37,8 @@ $(document).ready(function () {
                 +"        </div>"
                 +"    </div>"
                 +"</td>"
-                +"<td class='ps-4'>"+order.item_id+"</td>"
-                +"<td class='ps-4'>"+order.order_quantity+"</td>"
-                +"<td class='ps-4'><strong><span>&#8369;</span>"+order.item_price * order.order_quantity+"</strong></td>"
+                +"<td class='ps-4'>"+order.items+"</td>"
+                +"<td class='ps-4'>"+order.date+"</td>"
                 +"<td class='ps-4'>"+order.order_status+"</td>"
                 +"<td class='px-4'>"
                 +"    <a class='text-success' href=''><i class='bi bi-eye fs-3'></i></a>"

@@ -13,6 +13,7 @@ html, body {
     height: 100%;
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
+    background-color: var(--light);
 }
 .gray-text{
     color: gray;

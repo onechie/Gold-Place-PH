@@ -12,7 +12,7 @@
           <h5 class="modal-title fw-light lt-space" id="modalLabel">ADD ITEM</h5>
           <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body overflow-auto p-4" style="max-height: 60vh;">
+        <div class="modal-body overflow-auto p-4 bg-light" style="max-height: 60vh;">
           <div class="row">
             <div class="col-12">
               <label class="form-label" for="item-name">Item name</label>
@@ -47,15 +47,15 @@
               <div id="output" class="mb-3 d-flex flex-wrap justify-content-center">
 
               </div>
-              <div class="border border-2 position-relative rounded-4 d-flex flex-column justify-content-center align-items-center bg-light" style="height: 100px">
+              <div class="border border-2 position-relative rounded-4 d-flex flex-column justify-content-center align-items-center bg-white" style="height: 100px">
                 <input class="position-absolute z-highest file-upload" accept="image/*" type="file" multiple id="imageInput" style="height: 100%; width: 100%; opacity:0;" name="images[]">
-                <i class="bi bi-upload fs-1 opacity-50 z-mid"></i>
+                <i class="bi bi-upload fs-2 opacity-50 z-mid"></i>
                 <div class="px-4 text-center"><strong>Choose photos </strong>or Drag it here</div>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-between px-4">
+        <div class="modal-footer bg-white d-flex justify-content-center justify-content-sm-between px-4">
           <p class="p-0 m-0" id="messageText"></p>
           <button type="submit" class="btn btn-sm btn-danger" id="add-item-btn">Add Item</button>
           <button type="submit" class="btn btn-sm btn-danger" id="edit-item-btn">Edit Item</button>

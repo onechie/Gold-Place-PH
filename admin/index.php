@@ -3,8 +3,12 @@
 
 <head>
     <?php
-    include '../user_include/links.php';
     define('ACCESS', TRUE);
+    include '../user_include/restrict-customer.php';
+    if (!isset($_SESSION["userId"])) {
+        header('location: ../');
+    }
+    include '../user_include/links.php';
     ?>
     <script type="text/javascript" src="../assets/scripts/js/total_values.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/recent_orders.js"></script>
@@ -12,6 +16,7 @@
     <script type="text/javascript" src="../assets/scripts/js/sales-chart.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/add_edit_item.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/users_list.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/logout.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="../assets/styles/default.css">
     <link rel="stylesheet" href="../assets/styles/home-admin.css">

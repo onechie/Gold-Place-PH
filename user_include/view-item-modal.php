@@ -1,3 +1,8 @@
+<?php
+if (!defined('ACCESS')) {
+  header("location: ../");
+}
+?>
 <!-- ADD ITEM MODAL - ADMIN PANEL -->
 <div class="modal fade" id="item" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">

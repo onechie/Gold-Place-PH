@@ -1,11 +1,10 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php
+    define('ACCESS', TRUE);
+    include './user_include/restrict-admin.php';
     include './user_include/links.php';
     ?>
     <script type="text/javascript" src="./assets/scripts/js/items_page.js"></script>
@@ -24,8 +23,9 @@ session_start();
     ?>
     <main class="mt-5 bg-light h-100 overflow-auto" id="user-panel">
         <div class="container-fluid p-0 pb-5">
+            <!-- COMMENT
             <p class="pt-4 m-0"></p>
-            <p class="text-center fs-3 m-0 py-4 s-1 c-2 bg-dark gradient fw-light">OUR FINEST MERCHANDISE</p>
+            <p class="text-center fs-3 m-0 py-4  bg-light fw-light">OUR FINEST MERCHANDISE</p>
             <div class="container-xxl pt-5 pb-2">
                 <div class="d-flex flex-row justify-content-evenly">
 
@@ -100,7 +100,6 @@ session_start();
         <div class="container-fluid gold-bg-2 px-0 mb-5 shadow">
             <p class="text-center fs-2 lt-space fw-light m-0 py-4 text-dark">CATEGORIES</p>
             <div class="container marketing">
-                <!-- Three columns of text below the carousel -->
                 <div class="row justify-content-center">
                     <div class="cat col-lg-2 col-sm-4 col-6">
                         <img src="./assets/images/defaults/img3.jpg" alt="image">
@@ -122,46 +121,34 @@ session_start();
                         <img src="./assets/images/defaults/img5.jpg" alt="image">
                         <h6 class="fw-light fs-4">Bracelet</h6>
                     </div>
-                </div><!-- /.row -->
-            </div>
-        </div>
-        <div class="container-fluid bg-light px-0 pb-5">
-            <p class="text-center fs-3 fw-light m-0 py-2 text-dark">RECOMMENDED FOR YOU</p>
-            <div class="container-xxl marketing mt-5">
-                <!-- Three columns of text below the carousel -->
-                <input type="hidden" id="page" value="1">
-                <div class="d-flex flex-row justify-content-evenly flex-wrap" id="item-list">
-
                 </div>
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination pagination justify-content-center py-5">
-                    <li class="page-item shadow"><button type="button" class="btn btn-light" id="previous">Previous</button></li>
-                    <li class="page-item shadow"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item shadow"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item shadow"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item shadow"><button type="button" class="btn btn-light" id="next">Next</button></li>
-                </ul>
-            </nav>
-        </div>
-        <?php
-        include './user_include/view-item-modal.php';
-        include './user_include/footer.php';
-        ?>
+        </div> 
+-->
+            <div class="container-fluid bg-light px-0 py-4">
+                <p class="text-center fs-3 fw-light m-0 py-2 text-dark">RECOMMENDED FOR YOU</p>
+                <div class="container-xxl marketing mt-4">
+                    <input type="hidden" id="page" value="1">
+                    <div class="d-flex flex-row justify-content-evenly flex-wrap" id="item-list">
+
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination justify-content-center py-5">
+                        <li class="page-item shadow"><button type="button" class="btn btn-light" id="previous">Previous</button></li>
+                        <li class="page-item shadow"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item shadow"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item shadow"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item shadow"><button type="button" class="btn btn-light" id="next">Next</button></li>
+                    </ul>
+                </nav>
+            </div>
+            <?php
+            include './user_include/view-item-modal.php';
+            include './user_include/footer.php';
+            include './user_include/toast.php';
+            ?>
     </main>
-
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast log-toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header bg-warning">
-                <img src="./assets/images/defaults/logo-only-black.png" height="30" class="rounded me-1" alt="...">
-                <strong class="me-auto text-dark fw-normal">GOLD PLACE PH</strong>
-                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body px-4">
-
-            </div>
-        </div>
-    </div>
 
 </body>
 

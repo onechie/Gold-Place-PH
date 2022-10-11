@@ -29,7 +29,7 @@
                         </div>
                         <div class="d-flex px-3">
                             <form class="" role="search">
-                                <input type="search" class="form-control py-0 fw-light fs-7" id="search-item" placeholder="Search..." aria-label="Search">
+                                <input type="search" class="form-control py-0 fw-light fs-7" id="search-item" placeholder="Search" aria-label="Search">
                             </form>
                         </div>
                     </div>

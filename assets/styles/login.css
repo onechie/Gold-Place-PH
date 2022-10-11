@@ -4,7 +4,9 @@ body {
   min-height: 600px;
   overflow:hidden;
 }
-
+.login {
+    max-height: 700px;
+}
 .form-signin {
     max-width: 330px;
     padding: 20px;
@@ -15,7 +17,7 @@ body {
 }
 
 .side-content{
-    background-image: url("../images/defaults/background5.jpg");
+    background-image: url("../images/defaults/sample-image.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
