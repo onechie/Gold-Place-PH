@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charser="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="veiwport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<link rel="stylesheet" href="product.css">
+</head>
+<body>
+<div class="container" data-aos="slide-right" data-aos-duration="9000" data-aos-delay="250">
+	<div class="box-container">
+		<div class="box">
+			<img src="images/test1.jpg" alt="">
+			<h3>Product 1</h3>
+			<p>Price: php 3 000</p>
+			<a href="#" class="btn">BUY</a>
+		</div>
+		<div class="box">
+			<img src="images/test2.jpg" alt="">
+			<h3>Product 2</h3>
+			<p>Price: php 3 000</p>
+			<a href="#" class="btn">BUY</a>
+		</div>
+		<div class="box">
+			<img src="images/test3.jpg" alt="">
+			<h3>Product 3</h3>
+			<p>Price: php 3 000</p>
+			<a href="#" class="btn">BUY</a>
+		</div>
+		<div class="box">
+			<img src="images/test4.jpg" alt="">
+			<h3>Product 4</h3>
+			<p>Price: php 3 000</p>
+			<a href="#" class="btn">BUY</a>
+		</div>
+		<div class="box">
+			<img src="images/ring.jpg" alt="">
+			<h3>Product 5</h3>
+			<p>Price: php 3 000</p>
+			<a href="#" class="btn">BUY</a>
+		</div>
+		<div class="box">
+			<img src="images/necklace.jpg" alt="">
+			<h3>Product 6</h3>
+			<p>Price: php 3 000</p>
+			<a href="#" class="btn">BUY</a>
+		</div>
+	</div>
+</div>
+<div class="navbar" id="myNavbar">
+  <a href="grid.html">Home</a>
+  <a href="product.html">Product</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+<script>
+function myFunction() {
+  var x = document.getElementById("myNavbar");
+  if (x.className === "navbar") {
+    x.className += " responsive";
+  } else {
+    x.className = "navbar";
+  }
+}
+</script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script type="text/javascript" src="snap.js">
+  </script>
+</body>
+</html>
