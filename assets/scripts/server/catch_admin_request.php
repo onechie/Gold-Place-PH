@@ -5,7 +5,7 @@ date_default_timezone_set("Asia/Manila");
 
 //ADD ITEM REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "add-item") {
-    
+
     $name = mysqli_escape_string($conn, $_POST['name']);
     $category = mysqli_escape_string($conn, $_POST['category']);
     $price = (int)mysqli_escape_string($conn, $_POST['price']);
@@ -149,7 +149,6 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "all-total-data") {
     );
 
     echo json_encode($totals);
-
 }
 //RESPONSE FOR SALES CHART DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "line-chart-data") {
@@ -189,7 +188,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "line-chart-data") 
                     $item_sql = "SELECT * FROM order_item WHERE order_id = '$order_id'";
                     $item_result = mysqli_query($conn, $item_sql);
                     if (mysqli_num_rows($item_result) > 0) {
-                        while($item_rows = mysqli_fetch_assoc($item_result)){
+                        while ($item_rows = mysqli_fetch_assoc($item_result)) {
                             $sales += $item_rows['quantity'];
                         }
                     }
@@ -243,11 +242,11 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order-chart-data")
         if (mysqli_num_rows($result) > 0) {
             while ($rows = mysqli_fetch_assoc($result)) {
                 if ($rows['status'] == "delivered") {
-                    if($rows['date_updated'] > $min && $rows['date_updated'] < $max){
+                    if ($rows['date_updated'] > $min && $rows['date_updated'] < $max) {
                         $delivered++;
                     }
                 } else if ($rows['status'] == "cancelled") {
-                    if($rows['date_updated'] > $min && $rows['date_updated'] < $max){
+                    if ($rows['date_updated'] > $min && $rows['date_updated'] < $max) {
                         $cancelled++;
                     }
                 } else if ($rows['status'] == "processing") {
@@ -255,7 +254,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order-chart-data")
                 } else {
                     $checking++;
                 }
-                if($rows['date_created'] > $min && $rows['date_created'] < $max){
+                if ($rows['date_created'] > $min && $rows['date_created'] < $max) {
                     $new++;
                 }
             }
@@ -298,7 +297,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders"
                 "user_email" => $user_manager->email,
                 "user_image" => $user_manager->image,
                 "items" => $items,
-                "date" => date("h:i:s A M d Y",strtotime($date)),
+                "date" => date("h:i:s A M d Y", strtotime($date)),
                 "order_status" => $status
             );
         }
@@ -306,9 +305,76 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders"
 
     echo json_encode($recent_orders);
 }
+//RESPONSE FOR ORDER ITEMS
+if (isset($_POST['requestType']) && $_POST['requestType'] == "get-order-data") {
+    $items = array();
+    $order_id = mysqli_real_escape_string($conn, $_POST['order_id']);
+
+    $order_result = mysqli_fetch_assoc(mysqli_query($conn, "SELECT status FROM orders WHERE id='$order_id'"));
+    $status = $order_result['status'];
+
+    $sql = "SELECT * FROM order_item WHERE order_id = '$order_id'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($rows = mysqli_fetch_assoc($result)) {
+            $item_id = $rows['item_id'];
+            $item_qty = $rows['quantity'];
+
+            $item_sql = "SELECT * FROM items WHERE id = '$item_id'";
+            $item_result = mysqli_query($conn, $item_sql);
+            if (mysqli_num_rows($item_result)) {
+                while ($rows = mysqli_fetch_assoc($item_result)) {
+
+                    //GET THE ID AND SET AS DIRECTORY
+                    $directory = '../../images/items/' . $item_id;
+                    //SCAN THE FILES INSIDE THE DIRECTORY
+                    $files = array_diff(scandir($directory), array('..', '.'));
+                    $file = array();
+                    //GET THE FIRST FILE'S NAME
+                    foreach ($files as $key => $value) {
+                        $file = $value;
+                        break;
+                    }
+
+                    $items[] = array(
+                        "item_id" => $item_id,
+                        "status" => $status,
+                        "name" => $rows['name'],
+                        "price" => $rows['price'],
+                        "quantity" => $item_qty,
+                        "image" => $file
+                    );
+                }
+            }
+        }
+    }
+
+    echo json_encode($items);
+}
+
+//RESPONSE FOR EDIT ORDER STATUS
+if (isset($_POST['requestType']) && $_POST['requestType'] == "edit-order-status") {
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $order_id = mysqli_real_escape_string($conn, $_POST['order_id']);
+    $date = date("Y-m-d H:i:s");
+    $sql = "UPDATE orders SET 
+        status = '$status',
+        date_updated = '$date' 
+        WHERE id = '$order_id'";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "ok";
+        if ($status == "delivered") {
+            $sql = "UPDATE order_item  SET can_rate = 'yes' WHERE order_id = '$order_id'";
+            mysqli_query($conn, $sql);
+        }
+    } else {
+        echo "failed";
+    }
+}
 
 //RESPONSE FOR SINGLE ITEM INFO REQUEST
-if(isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
+if (isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
     $id =  mysqli_escape_string($conn, $_POST['id']);
     $sql = "SELECT * FROM items WHERE id = '$id'";
 
@@ -316,18 +382,17 @@ if(isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
     echo json_encode($item);
 }
 //RESPONSE FOR MULTIPLE ITEM INFO REQUEST
-if(isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
+if (isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
     $sql = "SELECT * FROM items";
-    
-    if(isset($_POST['page'])){
+
+    if (isset($_POST['page'])) {
         $page =  mysqli_escape_string($conn, $_POST['page']);
-        $offset = $page*8-8;
+        $offset = $page * 8 - 8;
         $sql .= " LIMIT 8 OFFSET $offset";
     }
 
     $items = getItemData($sql, $conn, false);
     echo json_encode($items);
-
 }
 
 //RESPONSE FOR LOAD ALL USERS
@@ -346,7 +411,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "view-users") {
 
     $user_info = array(
         "id" => $id,
-        "name" => $user_manager->first_name. " ". $user_manager->last_name,
+        "name" => $user_manager->first_name . " " . $user_manager->last_name,
         "email" => $user_manager->email,
         "phone" => $user_manager->phone,
         "image" => $user_manager->image
@@ -367,9 +432,48 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "view-users") {
     echo json_encode($response_data);
 }
 
+//RESPONSE FOR ADD USER
+if (isset($_POST['requestType']) && $_POST['requestType'] == "add-user") {
+    $first_name = mysqli_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_escape_string($conn, $_POST['email']);
+    $user_type = mysqli_escape_string($conn, $_POST['user_type']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    $user_manager = new User_manager();
+    $user_manager->first_name = $first_name;
+    $user_manager->last_name = $last_name;
+    $user_manager->email = $email;
+    $user_manager->type = $user_type;
+    $user_manager->password = $password;
+
+    if ($user_manager->insert_user($conn)) {
+        echo "ok";
+    }
+}
+//RESPONSE FOR ADD USER
+if (isset($_POST['requestType']) && $_POST['requestType'] == "add-user") {
+    $first_name = mysqli_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_escape_string($conn, $_POST['email']);
+    $user_type = mysqli_escape_string($conn, $_POST['user_type']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    $user_manager = new User_manager();
+    $user_manager->first_name = $first_name;
+    $user_manager->last_name = $last_name;
+    $user_manager->email = $email;
+    $user_manager->type = $user_type;
+    $user_manager->password = $password;
+
+    if ($user_manager->insert_user($conn)) {
+        echo "ok";
+    }
+}
+
 function countSales($conn)
 {
-    
+
     $sales = 0;
     $result = mysqli_query($conn, "SELECT * FROM orders WHERE status = 'delivered'");
     if (mysqli_num_rows($result) > 0) {
@@ -379,7 +483,7 @@ function countSales($conn)
                 $item_sql = "SELECT * FROM order_item WHERE order_id = '$order_id'";
                 $item_result = mysqli_query($conn, $item_sql);
                 if (mysqli_num_rows($item_result) > 0) {
-                    while($item_rows = mysqli_fetch_assoc($item_result)){
+                    while ($item_rows = mysqli_fetch_assoc($item_result)) {
                         $sales += $item_rows['quantity'];
                     }
                 }
@@ -390,7 +494,7 @@ function countSales($conn)
 }
 function countOrders($conn)
 {
-    
+
     $orders = 0;
     $result = mysqli_query($conn, "SELECT * FROM orders");
     if (mysqli_num_rows($result) > 0) {
@@ -404,7 +508,7 @@ function countOrders($conn)
 function countStocks($conn)
 {
     $stocks = 0;
-    $result = mysqli_query($conn,"SELECT * FROM items");
+    $result = mysqli_query($conn, "SELECT * FROM items");
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
             $stocks += $rows['stocks'];
@@ -416,7 +520,7 @@ function countStocks($conn)
 function countUsers($conn)
 {
     $users = 0;
-    $result = mysqli_query($conn,"SELECT * FROM user");
+    $result = mysqli_query($conn, "SELECT * FROM user");
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
             $users++;
@@ -539,7 +643,8 @@ function editImage($directory, $mainDirectory)
 }
 
 //GET ITEMS WITH SINGLE OR MULTIPLE IMAGE
-function getItemData($sql, $conn, $multiple){
+function getItemData($sql, $conn, $multiple)
+{
 
     $result = mysqli_query($conn, $sql);
     $itemInfo = array();
@@ -563,7 +668,7 @@ function getItemData($sql, $conn, $multiple){
             //GET THE FIRST FILE'S NAME
             foreach ($files as $key => $value) {
                 $file[] = $value;
-                if(!$multiple)break;
+                if (!$multiple) break;
             }
             //ADD THE DATA AS JSON FORMAT IN ARRAY
             $itemInfo[] = array(

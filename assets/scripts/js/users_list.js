@@ -15,7 +15,6 @@ $(document).ready(function () {
     var value = $(this).val().toLowerCase();
     $("#users-list tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      console.log("test")
     });
   })
 
@@ -70,6 +69,27 @@ $(document).ready(function () {
       }
     );
   });
+
+  $("#add-user-btn").click(function(){
+    const first_name = $("#add-user #first-name").val();
+    const last_name = $("#add-user #last-name").val();
+    const email = $("#add-user #email").val();
+    const user_type = $("#add-user #user-type").val();
+    const password = $("#add-user #password").val();
+
+    $.post("../assets/scripts/server/catch_admin_request.php",{
+      requestType:"add-user",
+      first_name,
+      last_name,
+      email,
+      user_type,
+      password
+    }, function(data){
+      console.log(data);
+    })
+  })
+
+
 
     function sortTable(by) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;

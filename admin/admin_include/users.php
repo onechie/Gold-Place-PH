@@ -52,7 +52,12 @@
                         </div>
                     </div>
                     <div class="w-100 bg-light p-4 d-flex justify-content-center justify-content-sm-end">
-                        <button type="button" class="btn btn-sm btn-primary btn-control">Add Admin</button>
+                        <?php 
+                            if($_SESSION['userType'] == 'super_admin'){
+                                echo "<button type='button' class='btn btn-sm btn-primary btn-control' data-bs-toggle='modal' data-bs-target='#add-user'>Add User</button>";
+                            }
+                        ?>
+                        
                     </div>
                 </div>
             </div>

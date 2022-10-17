@@ -19,6 +19,11 @@ $(document).ready(function () {
   const toast = new bootstrap.Toast($("#liveToast"));
   const toastBody = $(".toast-body");
 
+  //LOADING
+  const loading = $("#loading");
+  loading.toggle()
+  loading.toggleClass("d-flex");
+
   const errorIcon = "<i class='bi bi-exclamation-circle-fill'></i>";
 
   $("#log-submit").prop("disabled", true);
@@ -27,18 +32,18 @@ $(document).ready(function () {
   if ($("#verify").val() != "") {
     var getCode = $("#verify").val();
     toastBody.empty();
-    toastBody.load(
+    $.post(
       "./assets/scripts/server/catch_customer_request.php",
       {
         requestType: "verify-email",
         code: getCode,
       },
       function (data) {
-        
+        console.log(data);
         if(data == "error"){
           location.href = 'login.php';
         } else {
-          const toast = new bootstrap.Toast($("#liveToast"));
+          toastBody.append(data);
           toast.show();
         }
       }
@@ -86,12 +91,13 @@ $(document).ready(function () {
     } else {
       isPwOk = true;
     }
-
     updateButton(isEmOk, isPwOk);
   });
 
   //LOGIN CLICK
   $("#log-submit").click(function () {
+    loading.toggleClass("d-flex");
+    loading.toggle()
     toastBody.empty();
     $.post("./assets/scripts/server/catch_customer_request.php",{
       email: emValue,
@@ -99,6 +105,8 @@ $(document).ready(function () {
       requestType: "v-log-final"
     },function(data){
       let str = data;
+      loading.toggleClass("d-flex");
+      loading.toggle()
       if(data == "wrong_pass"){
         toastBody.append("Wrong Password!")
         toast.show();
@@ -107,6 +115,10 @@ $(document).ready(function () {
         toastBody.append("Please verify your email before you log in.")
         toast.show();
       }
+      if(str.includes("o_k")){
+        location.reload();
+      }
+      /*
       if(str.includes("o_k")){
         toastBody.append("Welcome, "+str.replace("o_k", "")+"!")
         toast.show();
@@ -122,6 +134,7 @@ $(document).ready(function () {
         $(".loading").hide();
         $(".loading").fadeIn();
       }
+      */
 
     })
   });

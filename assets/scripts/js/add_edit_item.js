@@ -136,7 +136,6 @@ $(document).ready(function () {
     }).done(function (data) {
       serverResponseTranslate(data);
       getItemsData();
-      console.log(data);
     });
   });
   //FUNCTION FOR DISPLAYING IMAGE ON INPUT

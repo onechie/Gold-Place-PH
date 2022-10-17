@@ -124,22 +124,101 @@
                 </div>
             </div>
         </div> 
+        
 -->
-            <div class="container-fluid bg-light px-0 py-4">
-                <p class="text-center fs-3 fw-light m-0 py-2 text-dark">RECOMMENDED FOR YOU</p>
-                <div class="container-xxl marketing mt-4">
+            <div class="container-xxl p-0 pt-3 pt-md-5">
+                <div id="banner-carousel" class="carousel slide m-0 mb-4 main-carousel" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="bg-image" style="background-image: url(./assets/images/defaults/background5.jpg);"></div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="bg-image" style="background-image: url(./assets/images/defaults/background5.jpg);"></div>
+
+                        </div>
+                        <div class="carousel-item">
+                            <div class="bg-image" style="background-image: url(./assets/images/defaults/background5.jpg);"></div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#banner-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#banner-carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="container-xxl bg-white rounded-2 text-dark px-4 py-3 fw-light fs-7 d-flex justify-content-between flex-wrap mx-auto">
+                <div class="d-flex align-items-center py-1 py-md-0">
+                    <p class="p-0 pe-1 m-0">Sort by</p>
+                    <div class="btn-group drop-down">
+                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Default
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm m-2">
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Latest</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Top Sales</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center py-1 py-md-0">
+                    <p class="p-0 pe-1 m-0">Price</p>
+                    <div class="btn-group drop-down py-1 rounded-1">
+                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Default
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm m-2">
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Low to High</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">High to Low</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center py-1 py-md-0">
+                    <p class="p-0 pe-1 m-0">Category</p>
+                    <div class="btn-group drop-down py-1 rounded-1">
+                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Default
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-start border-0 p-0 m-2 overflow-hidden shadow-sm">
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Ring</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Necklace</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Pendant</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Earring</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Bracelet</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="d-flex justify-self-end py-1 py-md-0 align-items-center">
+                    <p class="p-0 pe-1 m-0">1/50</p>
+                    <button type="button" class="btn btn-light py-1 px-3 border-0" id="previous"><</button>
+                    <button type="button" class="btn btn-light py-1 px-3 border-0" id="next">></button>
+                </div>
+            </div>
+            <div class="container-fluid bg-light p-0">
+                <div class="container-xxl marketing mt-2 p-0">
                     <input type="hidden" id="page" value="1">
                     <div class="d-flex flex-row justify-content-evenly flex-wrap" id="item-list">
 
                     </div>
                 </div>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination justify-content-center py-5">
-                        <li class="page-item shadow"><button type="button" class="btn btn-light" id="previous">Previous</button></li>
-                        <li class="page-item shadow"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item shadow"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item shadow"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item shadow"><button type="button" class="btn btn-light" id="next">Next</button></li>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination justify-content-center py-4">
+                        <li class="page-item shadow-sm"><a class="page-link">Prev</a></li>
+                        <li class="page-item shadow-sm"><a class="page-link">1</a></li>
+                        <li class="page-item shadow-sm"><a class="page-link">2</a></li>
+                        <li class="page-item shadow-sm"><a class="page-link">3</a></li>
+                        <li class="page-item shadow-sm"><a class="page-link">Next</a></li>
                     </ul>
                 </nav>
             </div>

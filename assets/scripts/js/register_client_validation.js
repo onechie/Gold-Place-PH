@@ -28,13 +28,17 @@ $(document).ready(function () {
   const emInput = $("#emInput");
   const phInput = $("#phInput");
   const pwInput = $("#pwInput");
+
+  //LOADING
+  const loading = $("#loading");
+  loading.toggle()
+  loading.toggleClass("d-flex");
   
   //TOAST OBJECT
   const toast = new bootstrap.Toast($("#liveToast"));
   const toastBody = $(".toast-body");
 
   const errorIcon = "<i class='bi bi-exclamation-circle-fill'></i>";
-
   $("#ca-submit").prop("disabled", true);
 
   //FIRSTNAME VALIDATION
@@ -162,6 +166,8 @@ $(document).ready(function () {
 
   //CREATE ACCOUNT CLICK
   $("#ca-submit").click(function () {
+    loading.toggleClass("d-flex");
+    loading.toggle()
     toastBody.empty();
     $.post(
       "./assets/scripts/server/catch_customer_request.php",
@@ -174,8 +180,10 @@ $(document).ready(function () {
         requestType: "v-reg-final",
       },
       function (data) {
+        loading.toggleClass("d-flex");
+        loading.toggle()
         if(data == "ok"){
-          toastBody.append("Registered successfully! Please check your email or verification.")
+          toastBody.append("Registered successfully! Please check your email for verification.")
           toast.show();
           reset();
         } else {

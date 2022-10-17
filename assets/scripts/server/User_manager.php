@@ -228,6 +228,15 @@ class User_manager
             return 'failed';
         }
     }
+    //INSERT USER
+    function insert_user($conn)
+    {
+        return mysqli_query(
+            $conn,
+            "INSERT INTO user (firstname, lastname, email, password, type)
+            VALUES ('$this->first_name', '$this->last_name', '$this->email', '$this->password', '$this->type')"
+        );
+    }
     //INSERT USER ADDRESS
     function insert_address($conn)
     {

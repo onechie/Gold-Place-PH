@@ -1,11 +1,56 @@
 $(document).ready(function () {
 
-    $recentOrders = $(".orders #recent-orders")
+    let recentOrders = $(".orders #recent-orders")
+    let orderItems = $("#view-order #order-items")
+    let status = $("#view-order #status")
+    let orderId = $(".modal-footer #order_id")
+
+    $(".orders").on("click", ".editOrder", function(){
+        orderItems.empty();
+        order_id = $(this).siblings("#order_id").val();
+        $.post("../assets/scripts/server/catch_admin_request.php", {
+            requestType:"get-order-data",
+            order_id: order_id,
+        }, function(data){
+            if (data && data != "null") {
+                let items = JSON.parse(data);
+                htmlData = '';
+                for (let item of items){
+                    htmlData += "<tr>"
+                    +"<td class='p-0'>"
+                    +"    <div id='order-items h-100'>"
+                    +"        <div class='px-4 row bg-light fw-light py-2'>"
+                    +"            <div class='col-3'> <img src='../assets/images/items/"+item.item_id+"/"+item.image+"' class='rounded-3' height='100' width='100' alt=''></div>"
+                    +"            <div class='col-5 my-auto'>"+item.name+"</div>"
+                    +"            <div class='col-3 my-auto'>&#8369;<span id='item_price'>"+item.price+"</span></div>"
+                    +"            <div class='col-1 my-auto'>"+item.quantity+"</div>"
+                    +"        </div>"
+                    +"    </div>"
+                    +"</td>"
+                    +"</tr>"
+                    status.val(item.status);
+                }
+                orderItems.append(htmlData);
+                orderId.val(order_id);
+
+            }
+        })
+    })
+
+    status.change(function(){
+        $.post("../assets/scripts/server/catch_admin_request.php", {
+            requestType:"edit-order-status",
+            order_id: orderId.val(),
+            status: status.val(),
+        }, function(data){
+            
+        })
+    })
 
     $.post("../assets/scripts/server/catch_admin_request.php",{
         requestType:"get-recent-orders"
     }, function (data) {
-        $recentOrders.empty();
+        recentOrders.empty();
         
         if (data && data != "null") {
             let orders = JSON.parse(data);
@@ -41,12 +86,15 @@ $(document).ready(function () {
                 +"<td class='ps-4'>"+order.date+"</td>"
                 +"<td class='ps-4'>"+order.order_status+"</td>"
                 +"<td class='px-4'>"
-                +"    <a class='text-success' href=''><i class='bi bi-eye fs-3'></i></a>"
+                +"<div class='d-flex'>"
+                +"    <input type='hidden' id='order_id' value='"+order.order_id+"'>"
+                +"    <i class='text-success icon-btn editOrder bi bi-pencil-square fs-5' data-bs-toggle='modal' data-bs-target='#view-order'></i>"
+                +"</div>"
                 +"</td>"
                 +"</tr>"
 
             }
-            $recentOrders.append(htmlData);
+            recentOrders.append(htmlData);
         }
 
 

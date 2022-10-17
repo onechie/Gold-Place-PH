@@ -1,6 +1,6 @@
 <?php
 if (!defined('ACCESS')) {
-  header("location: ../");
+    header("location: ../");
 }
 ?>
 <!-- ADD ITEM MODAL - ADMIN PANEL -->
@@ -8,7 +8,8 @@ if (!defined('ACCESS')) {
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header shadow-sm">
-                <h5 class="modal-title fw-light lt-space" id="modalLabel">VIEW ITEM</h5>
+                <img height="30" src="./assets/images/defaults/logo-only.png" alt="Logo">
+                <h5 class="ps-3 modal-title text-dark fw-normal" id="cartLabel">View Item</h5>
                 <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body overflow-auto py-4 px-2 px-sm-4 bg-light" style="max-height: 60vh;">
@@ -37,11 +38,11 @@ if (!defined('ACCESS')) {
                                 </div>
                             </div>
 
-                            
+
                             <!-- ITEM INFO-->
                             <div class="text-start ps-lg-5 px-3">
                                 <h4 class="py-3 m-0 fw-light text-capitalize" id="item-name">RING OF CRITICAL +3</h4>
-                                <span class="text-warning">
+                                <span class="text-warning average-rate fs-5">
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
@@ -73,29 +74,20 @@ if (!defined('ACCESS')) {
                     <!-- ITEM RATINGS-->
                     <div class="col-12 mb-4">
                         <div class="overflow-hidden bg-white shadow-sm rounded-4 h-100 w-100">
-                            <div class="py-4 px-2 px-sm-4 h-auto d-flex justify-content-start">
-                                <div>
-                                    <h4 class="fw-normal pb-4">Item Ratings</h4>
-                                    <div class="w-100 h-auto" id="customer-rate">
-                                        <div class="d-flex align-items-center">
-                                            <span class="position-relative rounded-5 bg-white shadow-sm me-3" style="width:50px; height:50px">
-                                                <img class="position-absolute m-1 bg-primary rounded-5" src="./assets/images/defaults/rick.jpg" alt="" style="width:42px; height:42px">
+                            <div class="py-4 px-2 px-sm-4 h-auto d-flex justify-content-start w-100">
+                                <div class="w-100">
+                                    <div class="pb-4 d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center">
+                                        <h4 class="pe-3 fw-normal">Item Ratings</h4>
+                                        <span class="ps-0 ps-sm-3 form-label text-warning fs-4 text-nowrap" for="description">
+                                            <span class="average-rate">
+                                                <i class="bi bi-star 1"></i>
+                                                <i class="bi bi-star 2"></i>
+                                                <i class="bi bi-star 3"></i>
+                                                <i class="bi bi-star 4"></i>
+                                                <i class="bi bi-star 5"></i>
                                             </span>
-                                            <div class="">
-                                                <span>Angelo Parole </span>
-                                                <p class="text-warning p-0 m-0">
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div id="rate-text" class="w-100 py-3 fw-200">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem mollis aliquam ut porttitor leo a diam. Ipsum nunc aliquet bibendum enim facilisis gravida. Magna etiam tempor orci eu. Quisque id diam vel quam elementum pulvinar etiam non.
-                                        </div>
-                                        <hr>
+                                            <span class="fs-6 fw-light text-muted average-rate-text"> 0/5</span>
+                                        </span>
                                     </div>
                                     <div class="w-100 h-auto" id="customer-rate">
                                         <div class="d-flex align-items-center">
@@ -118,28 +110,23 @@ if (!defined('ACCESS')) {
                                         </div>
                                         <hr>
                                     </div>
-                                    <div class="w-100 h-auto" id="customer-rate">
-                                        <div class="d-flex align-items-center">
-                                            <span class="position-relative rounded-5 bg-white shadow-sm me-3" style="width:50px; height:50px">
-                                                <img class="position-absolute m-1 bg-primary rounded-5" src="./assets/images/defaults/rick.jpg" alt="" style="width:42px; height:42px">
+                                    <div id="rate-input">
+                                        <textarea class="form-control h-auto mb-3" id="rate-comment" style="min-height:200px;" placeholder="Enter comment" name="description"></textarea>
+                                        <p class="d-flex justify-content-between">
+                                            <span class="form-label text-warning fs-5 m-0" for="description">
+                                                <i class="bi bi-star 1"></i>
+                                                <i class="bi bi-star 2"></i>
+                                                <i class="bi bi-star 3"></i>
+                                                <i class="bi bi-star 4"></i>
+                                                <i class="bi bi-star 5"></i>
+                                                <span class="fs-6 fw-light text-muted count">0/5</span>
                                             </span>
-                                            <div class="">
-                                                <span>Angelo Parole </span>
-                                                <p class="text-warning p-0 m-0">
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div id="rate-text" class="w-100 py-3 fw-200">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem mollis aliquam ut porttitor leo a diam. Ipsum nunc aliquet bibendum enim facilisis gravida. Magna etiam tempor orci eu. Quisque id diam vel quam elementum pulvinar etiam non.
-                                        </div>
-                                        <hr>
-                                    </div>
+                                            <button type="submit" class="btn btn-sm btn-outline-dark" id="rate-submit">
+                                                Submit
+                                            </button>
+                                        </p>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +134,7 @@ if (!defined('ACCESS')) {
 
                 </div>
             </div>
-            <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-end px-4">
+            <div class="modal-footer bg-white d-flex justify-content-center justify-content-sm-end px-4">
                 <button type="submit" class="btn btn-sm btn-warning" id="add-cart-btn">Add to cart</button>
                 <input type="hidden" id="item-id" value="">
             </div>

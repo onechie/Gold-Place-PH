@@ -15,11 +15,17 @@
   <script src="./assets/scripts/js/register_client_validation.js" type="text/javascript"></script>
   <title>Create Account</title>
 </head>
+
 <body>
   <?php
   include './user_include/header.php';
   ?>
   <main class="h-100 overflow-auto">
+    <div id="loading" class="position-absolute bg-dark bg-opacity-25 h-100 w-100 d-flex z-highest justify-content-center align-items-center">
+      <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
     <div class="container-fluid d-flex h-100 p-0 register">
       <div class="container-xxl d-flex text-center align-items-center p-0 px-sm-5">
         <div class="container-fluid d-flex justify-content-center rounded-4">
@@ -35,7 +41,7 @@
             </div>
             <div class="form-floating mb-1">
               <input type="text" class="form-control ln" id="lnInput" placeholder="Lastname">
-              <label for="lnInput" class="fs-7 style=" width:110%">
+              <label for="lnInput" class="fs-7" style="width:110%">
                 Lastname
                 <span class="text-danger ln-w"></i></span>
               </label>

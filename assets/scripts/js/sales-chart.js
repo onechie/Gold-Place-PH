@@ -17,10 +17,10 @@ $(document).ready(function () {
       {
         label: "Sales",
         data: allData,
-        fill: false,
+        fill: true,
         backgroundColor: "#ffc107",
         borderColor: "#ffc107",
-        tension: 0.3,
+        tension: 0.2,
       },
     ],
   };
@@ -75,6 +75,7 @@ $(document).ready(function () {
       limit:limit
     },
       function (data) {
+        console.log(data)
         if(data != null && data){
           
           let ordersData = JSON.parse(data);

@@ -55,9 +55,9 @@ if (!defined('ACCESS')) {
                         <strong class="d-none d-xxl-block fw-light">Admin </strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark rounded-4 rounded-start w-100 my-3 p-0 overflow-hidden shadow">
-                        <li><a class="dropdown-item py-2 px-3"><i class="bi bi-person fs-5 pe-3"></i> Profile</a></li>
-                        <li><a class="dropdown-item py-2 px-3"><i class="bi bi-gear fs-5 pe-3"></i> Settings</a></li>
-                        <li><a class="dropdown-item py-2 px-3" id="logout-a"><i class="bi bi-box-arrow-left fs-5 pe-3"></i> Sign out</a></li>
+                        <li><a class="dropdown-item py-2 px-4"><i class="bi bi-person fs-5 pe-3"></i> Profile</a></li>
+                        <li><a class="dropdown-item py-2 px-4"><i class="bi bi-gear fs-5 pe-3"></i> Settings</a></li>
+                        <li><a class="dropdown-item py-2 px-4" id="logout-a"><i class="bi bi-box-arrow-left fs-5 pe-3"></i> Sign out</a></li>
                     </ul>
                 </div>
             </div>

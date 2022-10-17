@@ -76,7 +76,6 @@ $(document).ready(function () {
         requestType:"cart_checkout"
       },
         function (data) {
-          console.log(data);
           if(data == "ok"){
             getCartData();
             setTotalPrice();

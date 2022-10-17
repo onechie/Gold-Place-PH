@@ -4,7 +4,10 @@ include './User_manager.php';
 
 session_start();
 date_default_timezone_set("Asia/Manila");
-
+$user_id = '';
+if(isset($_SESSION['userId'])){
+    $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+}
 //REGISTRATION VALIDATIONS
 
 //EMAIL REG-VALIDATION CHECK IF EXISTS
@@ -87,11 +90,12 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-final") {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $user_id = $row['id'];
                             $code = password_hash(randomString(), PASSWORD_DEFAULT);
-                            $sql = "INSERT INTO verify (code, user_id) VALUES('$code', '$user_id')";
+                            $sql = "INSERT INTO verify (code, user_email, user_id) VALUES('$code', '$email', '$user_id')";
 
                             if (mysqli_query($conn, $sql)) {
-                                sendEmail($email, $code);
-                                echo 'ok';
+                                if(sendEmail($email, $code)){
+                                    echo 'ok';
+                                }
                             } else {
                                 echoError('0ca6');
                             }
@@ -192,6 +196,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "verify-email") {
 
         while ($row = mysqli_fetch_assoc($result)) {
             $user_id = $row['user_id'];
+            $user_email = $row['user_email'];
             $sql = "SELECT * FROM user WHERE id = '$user_id'";
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
@@ -199,7 +204,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "verify-email") {
                     if ($row['verified'] == 'yes') {
                         echo 'error';
                     } else {
-                        $sql = "UPDATE user SET verified = 'yes' WHERE id = '$user_id'";
+                        $sql = "UPDATE user SET verified = 'yes' WHERE id = '$user_id' AND email ='$user_email'";
                         if (mysqli_query($conn, $sql)) {
                             echo 'Your account is successfully verified!';
                         } else {
@@ -635,6 +640,47 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "update_profile") {
     $user_manager->update_user($conn);
 }
 
+//RESPONSE FOR RATE ITEM
+if (isset($_POST['requestType']) && $_POST['requestType'] == "rate-item") {
+    $star = mysqli_escape_string($conn, $_POST['star']);
+    $comment = mysqli_escape_string($conn, $_POST['comment']);
+    $item_id = mysqli_escape_string($conn, $_POST['itemId']);
+    $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+    $rateLimit = 0;
+
+    //CHECK IF CAN RATE 
+    $sql = "SELECT * FROM orders WHERE user_id = '$user_id' AND status = 'delivered'";
+
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0){
+        while($rows = mysqli_fetch_assoc($result)){
+
+            $order_id = $rows['id'];
+            $sql_rate = "SELECT * FROM order_item WHERE order_id = '$order_id' AND item_id = '$item_id' AND can_rate = 'yes'";
+            $result_rate = mysqli_query($conn, $sql_rate);
+            if(mysqli_num_rows($result_rate) > 0){
+                $rows_rate = mysqli_fetch_assoc($result_rate);
+                $order_item_id = $rows_rate['id'];
+
+                if($rateLimit >= 1){
+                    break;
+                }
+
+                $sql = "INSERT rating(item_id, message, score, user_id)
+                VALUES('$item_id', '$comment', '$star', '$user_id')";
+                if(mysqli_query($conn, $sql)){
+                    echo 'ok';
+                    $sql = "UPDATE order_item SET can_rate = 'no' WHERE id = '$order_item_id' AND order_id = '$order_id'";
+                    mysqli_query($conn, $sql);
+                    $rateLimit++;
+                } else {
+                    echo 'failed';
+                }
+            }
+        }
+    }
+}
+
 function checkUserAddress($conn, $id)
 {
     $sql = "SELECT * FROM user_address WHERE user_id = '$id'";
@@ -673,8 +719,10 @@ function isProvinceExists($conn, $province)
 //FUNCTION TO GET ITEMS WITH SINGLE OR MULTIPLE IMAGE
 function getItemData($sql, $conn, $multiple)
 {
+    $uid = $GLOBALS['user_id'];
     $result = mysqli_query($conn, $sql);
     $itemInfo = array();
+    $canRate = "no";
 
     if (mysqli_num_rows($result) > 0) {
         //GET ALL ITEMS DATA FROM DATABASE
@@ -697,6 +745,13 @@ function getItemData($sql, $conn, $multiple)
                 $file[] = $value;
                 if (!$multiple) break;
             }
+
+            if(canRate($uid, $id, $conn)){
+                $canRate = 'yes';
+            }
+
+            $ratings = getRatingsData($id, $conn);
+
             //ADD THE DATA AS JSON FORMAT IN ARRAY
             $itemInfo[] = array(
                 "id" => $id,
@@ -706,11 +761,57 @@ function getItemData($sql, $conn, $multiple)
                 "price" => $price,
                 "sold" => $sold,
                 "description" => $description,
-                "images" => $file
+                "images" => $file,
+                "canRate" => $canRate,
+                "ratings" => $ratings
             );
         }
         return $itemInfo;
     }
+}
+
+function canRate($user_id, $item_id, $conn){
+
+    //CHECK IF CAN RATE 
+    $sql = "SELECT * FROM orders WHERE user_id = '$user_id' AND status = 'delivered'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0){
+        while($rows = mysqli_fetch_assoc($result)){
+            $order_id = $rows['id'];
+            $sql_rate = "SELECT * FROM order_item WHERE order_id = '$order_id' AND item_id = '$item_id' AND can_rate = 'yes'";
+            $result_rate = mysqli_query($conn, $sql_rate);
+            if(mysqli_num_rows($result_rate) > 0){
+                return true;
+            }
+        }
+    } 
+    return false;
+}
+
+function getRatingsData($item_id, $conn){
+
+    $ratings = array();
+    $user = new User_manager();
+
+    $sql = "SELECT * FROM rating WHERE item_id = '$item_id'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($rows = mysqli_fetch_assoc($result)){
+
+            $user_id = $rows['user_id'];
+            $user-> fetch_user($conn, $user_id);
+            $ratings[] = array(
+                "comment" => $rows['message'],
+                "score" => $rows['score'],
+                "name" => $user->first_name. " " .$user->last_name,
+                "image" => $user->image,
+                "uid" => $user_id
+
+            );
+        }
+    }
+
+    return $ratings;
 }
 
 //ECHO ERROR MESSAGE
@@ -743,42 +844,50 @@ function sendEmail($email, $code)
     <head>
         <title>Gold Place PH - Verification</title>
         <style>
-            .main{
-                width: 500px;
-                height: 250px;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-            .header{
-                width: 100%;
-                height: 50px;
-                background-color: #ffc107;
-                border-radius: 40px 40px 0 0;
-            }
-            .body{
-                width: 100%;
-                height: 150px;
-                display: flex;
-                flex-direction: column;
-                padding-top: 20px;
-                align-items: center;
-                background-color: white;
-            }
-            .body p{
-                margin: 0;
-            }
-            .footer{
-                width: 100%;
-                height: 50px;
-                background-color: #212529;
-                border-radius: 0 0 40px 40px;
-            }
-            a{
-                padding: 15px;
-                text-decoration: none;
-                color: #212529;
-                background-color: #ffc107;
-                border-radius: 10px;
-            }
+        .main{
+            width: 500px;
+            height: 250px;
+            font-family: Arial, Helvetica, sans-serif;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+        .header{
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            border-radius: 40px 40px 0 0;
+        }
+        .body{
+            width: 100%;
+            height: 120px;
+            padding-top: 20px;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+        .body p{
+            margin: 0;
+            text-align: center;
+        }
+        .body h2{
+            margin: 0;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .footer{
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            border-radius: 0 0 40px 40px;
+        }
+        a{
+            margin: auto 0px;
+            padding: 15px;
+            text-decoration: none;
+            color: black!important;
+            background-color: #ffc107;
+            border-radius: 7px;
+        }
+          
         </style>
     </head>
     <body>
@@ -787,19 +896,21 @@ function sendEmail($email, $code)
             <div class='body'>
                 <p>GOLD PLACE PH</p>
                 <h2>Click to verify</h2>
-                <a href='http://localhost/gold-place-ph/login.php?verify=" . $code . "' target='_blank'>VERIFY NOW</a>
+                <p><a href='http://localhost/gold-place-ph/login.php?verify=" . $code . "' target='_blank'>VERIFY NOW</a></p>
             </div>
             <div class='footer'></div>
         </div>
     </body>
     </html>
     ";
-    //CONTENT TYPE
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-    //HEADERS
-    $headers .= 'From: <admin@goldplaceph.com>' . "\r\n";
-
-    mail($to, $subject, $message, $headers);
+    $headers = array(
+        "MIME-Version" => "1.0",
+        "Content-Type" => "text/html;charset=UTF-8"
+    );
+    
+    if(mail($to, $subject, $message, $headers)){
+        return true;   
+    }
+    return false;
 }

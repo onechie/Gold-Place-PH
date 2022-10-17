@@ -38,6 +38,8 @@
             include './admin_include/add-item-modal.php';
             include './admin_include/confirmation-modal.php';
             include './admin_include/view-user-modal.php';
+            include './admin_include/add-user-modal.php';
+            include './admin_include/view-order-modal.php';
             ?>
         </div>
     </main>

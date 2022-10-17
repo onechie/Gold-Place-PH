@@ -6,7 +6,6 @@ $(document).ready(function () {
     });
   });
   $("#logout-a").click(function () {
-    console.log("data");
     $.get("../assets/scripts/server/logout.php", function () {
       location.reload();
     });

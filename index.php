@@ -11,6 +11,12 @@
   <link rel="stylesheet" href="./assets/styles/home-user.css">
   <link rel="stylesheet" href="./assets/styles/default.css">
   <title>Gold Place PH</title>
+
+  <style>
+    .front-page h1 {
+      font-size: 70px;
+    }
+  </style>
 </head>
 
 <body>
@@ -22,8 +28,18 @@
   }
   ?>
 
-  <main class="bg-light mt-5 h-100 overflow-auto">
-    <div class="container-fluid pt-4 p-0">
+  <main class="bg-light h-100 overflow-auto">
+    <div class="row h-100 bg-white front-page">
+      <div class="col-12 d-flex justify-content-center align-items-center">
+        <img src="./assets/images/defaults/logo-only-hd.png" class="z-mid pe-4" height="500" alt="">
+        <div class="ps-4">
+          <h1 class="z-high fw-normal pb-3">Gold Place PH</h1>
+          <h2 class="lt-space fw-light z-high text-center">ONLINE JEWELRY SHOP</h2>
+          <h2 class="lt-space fw-light z-high text-center"></h2>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid pt-3 p-0">
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -164,4 +180,5 @@
     </div>
   </main>
 </body>
+
 </html>

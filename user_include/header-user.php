@@ -13,12 +13,12 @@ if (!defined('ACCESS')) {
 <script type="text/javascript" src="./assets/scripts/js/user_profile.js"></script>
 <script src="./assets/scripts/js/logout.js" type="text/javascript"></script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top" aria-label="Fourth navbar example">
-  <div class="container-xxl">
-    <a class="navbar-brand" href="#">
-      <img height="30" src="./assets/images/defaults/logo-only.png" alt="Logo">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm" aria-label="Fourth navbar example">
+  <div class="container-xxl px-0">
+    <a class="navbar-brand p-0 px-3 m-0" href="#">
+      <img height="40" src="./assets/images/defaults/logo-only.png" alt="Logo">
     </a>
-    <button class="navbar-toggler mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler mx-2 py-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -27,19 +27,19 @@ if (!defined('ACCESS')) {
         <li class="nav-item">
           <a class="nav-link active fs-7 px-3 " aria-current="page" href="./">Home</a>
         </li>
-        <li class="nav-item fs-7 px-3 ">
-          <a class="nav-link" aria-current="page" href="./products.php">Items</a>
+        <li class="nav-item">
+          <a class="nav-link fs-7 px-3" aria-current="page" href="./products.php">Items</a>
         </li>
-        <li class="nav-item fs-7 px-3 ">
-          <a class="nav-link" aria-current="page" href="#">Contact us</a>
+        <li class="nav-item">
+          <a class="nav-link fs-7 px-3" aria-current="page" href="#">Contact us</a>
         </li>
-        <li class="nav-item fs-7 px-3 ">
-          <a class="nav-link" aria-current="page" href="#">About</a>
+        <li class="nav-item">
+          <a class="nav-link fs-7 px-3" aria-current="page" href="#">About</a>
         </li>
       </ul>
 
       <form class="px-3 py-2" role="search">
-        <input type="search" class="form-control py-1 bg-light fs-7" placeholder="Search" aria-label="Search">
+        <input type="search" class="form-control py-1 bg-white fs-7" placeholder="Search" aria-label="Search">
       </form>
 
       <div class="dropdown text-start p-0">

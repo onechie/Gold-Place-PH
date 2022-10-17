@@ -53,7 +53,7 @@ $(document).ready(function () {
                           +"<td class='p-0'>"
                           +"  <div class='accordion accordion-flush'>"
                           +"    <div class='accordion-item fw-200 fs-7'>"
-                          +"      <div class='accordion-header row py-3 px-4 bg-white' data-bs-toggle='collapse' data-bs-target='#flush-"+i+"'>"
+                          +"      <div class='accordion-header fw-normal row py-3 px-4 bg-white' data-bs-toggle='collapse' data-bs-target='#flush-"+i+"'>"
                           +"        <div class='col-2'>"+(i+1)+"</div>"
                           +"        <div class='col-5'>"+order.date+"</div>"
                           +"        <div class='col-4'>"+order.status+"</div>"

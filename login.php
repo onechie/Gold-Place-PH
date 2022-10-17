@@ -33,6 +33,11 @@
   include './user_include/header.php';
   ?>
   <main class="h-100 overflow-auto">
+    <div id="loading" class="position-absolute bg-dark bg-opacity-25 h-100 w-100 d-flex z-highest justify-content-center align-items-center">
+      <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
     <div class="container-fluid d-flex h-100 p-0 loading login">
       <div class="container-xxl d-flex text-center align-items-center p-0 px-sm-5">
         <div class="container-fluid d-flex justify-content-center rounded-5">
