@@ -64,7 +64,7 @@ $(document).ready(function () {
 
   //CHECKOUT 
   cartCheckOut.click(function () {
-    let  checkoutArray = [];
+    let checkoutArray = [];
     $(".checkBox").each(function(){
       if($(this).is(":checked")){
         checkoutArray.push($(this).parent().siblings("td").find("#cart_id").val())

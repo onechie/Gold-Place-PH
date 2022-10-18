@@ -115,7 +115,7 @@ $(document).ready(function () {
         toastBody.append("Please verify your email before you log in.")
         toast.show();
       }
-      if(str.includes("o_k")){
+      if(data == "ok"){
         location.reload();
       }
       /*

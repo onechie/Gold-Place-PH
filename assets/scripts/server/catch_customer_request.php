@@ -1,17 +1,29 @@
 <?php
 include './database.php';
+include './functions.php';
 include './User_manager.php';
+
+include './database/database.php';
+include './user_model.php';
+include './item_model.php';
+include './cart_model.php';
+include './order_model.php';
+include './address_model.php';
+
+
 
 session_start();
 date_default_timezone_set("Asia/Manila");
 $user_id = '';
-if(isset($_SESSION['userId'])){
+if (isset($_SESSION['userId'])) {
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
 }
+
 //REGISTRATION VALIDATIONS
 
 //EMAIL REG-VALIDATION CHECK IF EXISTS
 if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-email") {
+    /*
     $email = mysqli_escape_string($conn, $_POST['email']);
 
     $sql = "SELECT * FROM user WHERE email = '$email'";
@@ -21,11 +33,22 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-email") {
     } else {
         echo 'ok';
     }
+    */
+    $email = $_POST['email'];
+    $um = new UserModel();
+    $um->getUserByEmail($email);
+
+    if (count($um->getUserByEmail($email)) > 0) {
+        echo "used";
+        exit();
+    }
+    echo "ok";
 }
 
 //PHONE REG-VALIDATION CHECK IF EXISTS
 if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-phone") {
-    $phone = mysqli_escape_string($conn, $_POST['phone']);
+    /*
+    $phone = $_POST['phone'];
     $tenDigitPhone = substr($phone, -10);
     $withZeroDigitPhone = '0' . $tenDigitPhone;
     $withPlusDigitPhone =  '+63' . $tenDigitPhone;
@@ -38,16 +61,28 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-phone") {
     } else {
         echo 'ok';
     }
+
+    */
+
+    $phone = $_POST['phone'];
+    $um = new UserModel();
+    $um->getUserByEmail($phone);
+
+    if (count($um->getUserByPhone($phone)) > 0) {
+        echo "used";
+        exit();
+    }
+    echo "ok";
 }
 
 //FINAL REG-VALIDATION
 if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-final") {
-
-    $firstname = mysqli_escape_string($conn, $_POST['firstname']);
-    $lastname = mysqli_escape_string($conn, $_POST['lastname']);
-    $email = mysqli_escape_string($conn, $_POST['email']);
-    $phone = mysqli_escape_string($conn, $_POST['phone']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    /*
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $password = $_POST['password'];
 
     //REGULAR EXPRESSIONS PATTERN
     $emailPattern = "/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})$/";
@@ -67,6 +102,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-final") {
 
     //CHECK IF VALUES ARE VALID FROM PATTERN
     if ($testFname && $testLname && $testEmail && $testPhone) {
+        
         $sql = "SELECT * FROM user WHERE email = '$email'";
         $result = mysqli_query($conn, $sql);
 
@@ -78,30 +114,12 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-final") {
 
             //CHECK PHONE NUMBER IN DIFFERENT FORMAT IF ALREADY EXISTS
             if (mysqli_num_rows($resultPhone) == 0) {
-
-                $sql = "INSERT INTO user (firstname, lastname, email, phone, password, verified, type) VALUES('$firstname', '$lastname', '$email', '$phone', '$password', 'no', 'customer')";
-
+                $code = password_hash(randomString(), PASSWORD_DEFAULT);
+                $sql = "INSERT INTO user (firstname, lastname, email, phone, password, verified, type, verification_code) VALUES('$firstname', '$lastname', '$email', '$phone', '$password', 'no', 'customer', '$code')";
                 if (mysqli_query($conn, $sql)) {
-                    $sql = "SELECT * FROM user WHERE email = '$email'";
-                    $result = mysqli_query($conn, $sql);
 
-                    if (mysqli_num_rows($result) > 0) {
-
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $user_id = $row['id'];
-                            $code = password_hash(randomString(), PASSWORD_DEFAULT);
-                            $sql = "INSERT INTO verify (code, user_email, user_id) VALUES('$code', '$email', '$user_id')";
-
-                            if (mysqli_query($conn, $sql)) {
-                                if(sendEmail($email, $code)){
-                                    echo 'ok';
-                                }
-                            } else {
-                                echoError('0ca6');
-                            }
-                        }
-                    } else {
-                        echoError('0ca5');
+                    if (sendEmail($email, $code)) {
+                        echo 'ok';
                     }
                 } else {
                     echoError('0ca4');
@@ -115,6 +133,49 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-final") {
     } else {
         echoError('0ca1');
     }
+*/
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $password = $_POST['password'];
+
+    if (!isNameValid($firstname)) {
+        echo 'error';
+        exit();
+    }
+    if (!isNameValid($lastname)) {
+        echo 'error';
+        exit();
+    }
+    if (!isEmailValid($email)) {
+        echo 'error';
+        exit();
+    }
+    if (!isPhoneValid($phone)) {
+        echo 'error';
+        exit();
+    }
+    if (!isPassValid($phone)) {
+        echo 'error';
+        exit();
+    }
+
+    $code = password_hash(randomString(), PASSWORD_DEFAULT);
+    $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+
+    $userData = [$firstname, $lastname, $email, $phone, $passwordHashed, 'no', 'customer', $code];
+
+    $um = new UserModel();
+    if (!$um->setUser($userData)) {
+        echo 'error';
+        exit();
+    }
+    if (sendEmail($email, $code)) {
+        echo 'ok';
+        exit();
+    }
+    echo 'error';
 }
 
 
@@ -122,6 +183,23 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-final") {
 
 //EMAIL LOG-VALIDATION
 if (isset($_POST['requestType']) && $_POST['requestType'] == "v-log-email") {
+
+    $email = $_POST['email'];
+    $um = new UserModel();
+    $returnData = $um->getUserByEmail($email);
+
+    if (count($returnData) == 0) {
+        echo 'not_registered';
+        exit();
+    }
+    if ($returnData[0]['verified'] == 'yes') {
+        echo 'ok';
+        exit();
+    }
+    echo 'not_verified';
+
+
+    /*
     $email = mysqli_escape_string($conn, $_POST['email']);
 
     $sql = "SELECT * FROM user WHERE email = '$email'";
@@ -138,9 +216,37 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-log-email") {
             }
         }
     }
+    */
 }
 //FINAL LOG-VALIDATION
 if (isset($_POST['requestType']) && $_POST['requestType'] == "v-log-final") {
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $um = new UserModel();
+    $returnData = $um->getUserByEmail($email);
+
+    if (count($returnData) == 0) {
+        echo 'error';
+        exit();
+    }
+    if ($returnData[0]['verified'] == 'no') {
+        echo 'not_verified';
+        exit();
+    }
+    if (password_verify($password,  $returnData[0]['password'])) {
+
+        $_SESSION["userId"] = $returnData[0]['id'];
+        $_SESSION["userEmail"] = $returnData[0]['email'];
+        $_SESSION["userType"] = $returnData[0]['type'];
+        $_SESSION["userName"] = $returnData[0]['firstname'] . " " . $returnData[0]['lastname'];
+        echo "ok";
+        exit();
+    }
+    echo 'wrong_pass';
+
+    /*
     $email = mysqli_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
@@ -183,11 +289,27 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-log-final") {
     } else {
         echoError('0l1');
     }
+    */
 }
 
 //EMAIL VERIFICATION
 if (isset($_POST['requestType']) && $_POST['requestType'] == "verify-email") {
 
+    $code = $_POST['code'];
+    $um = new UserModel();
+    $returnData = $um->getUserByCode($code);
+
+    if (count($returnData) == 0) {
+        echo 'error';
+        exit();
+    }
+
+    if ($um->setUserVerified($returnData[0]['id'])) {
+        echo 'Your account is successfully verified!';
+        exit();
+    }
+    echo 'error';
+    /*
     $code = mysqli_escape_string($conn, $_POST['code']);
     $sql = "SELECT * FROM verify WHERE code = '$code'";
     $result = mysqli_query($conn, $sql);
@@ -219,18 +341,42 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "verify-email") {
     } else {
         echo 'error';
     }
+    */
 }
+
 
 //RESPONSE FOR SINGLE ITEM INFO REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
+
+    $im = new ItemModel();
+
+    if (isset($_SESSION['userId'])) {
+        echo json_encode($im->getItemById($_POST['id'], $_SESSION['userId']));
+        exit();
+    }
+    echo json_encode($im->getItemS($_POST['id']));
+
+    /*
     $id = mysqli_escape_string($conn, $_POST['id']);
     $sql = "SELECT * FROM items WHERE id = '$id'";
 
     $item = getItemData($sql, $conn, true);
     echo json_encode($item);
+    */
 }
+
 //RESPONSE FOR MULTIPLE ITEM INFO REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
+
+    $im = new ItemModel();
+
+    if (isset($_SESSION['userId'])) {
+        echo json_encode($im->getItemS($_POST['page'], $_SESSION['userId']));
+        exit();
+    }
+    echo json_encode($im->getItemS($_POST['page']));
+
+    /*
     $sql = "SELECT * FROM items";
 
     if (isset($_POST['page'])) {
@@ -241,17 +387,43 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
 
     $items = getItemData($sql, $conn, false);
     echo json_encode($items);
+
+    */
 }
 
 //RESPONSE FOR ADD TO CART
 if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_add") {
     if (isset($_SESSION['userId'])) {
-        $item_id = mysqli_escape_string($conn, $_POST['id']);
-        $quantity = mysqli_escape_string($conn, $_POST['quantity']);
-        $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+
+        $item_id = $_POST['id'];
+        $quantity = $_POST['quantity'];
+        $user_id = $_SESSION['userId'];
         $stocks = 0;
         $currentDate = date("Y-m-d H:i:s");
 
+        $im = new ItemModel();
+        $item = $im->getItemById($item_id);
+        $stocks = $item[0]['stocks'];
+
+        $cm = new CartModel();
+        if (count($cm->getUserCart($user_id, $item_id)) > 0) {
+            echo "already";
+            exit();
+        }
+
+        $newQuantity = 0;
+
+        if ($quantity <= 0) $newQuantity = 1;
+        else if ($quantity <= $stocks) $newQuantity = $quantity;
+        else $newQuantity = $stocks;
+
+        if ($cm->setCart($item_id, $user_id, $newQuantity, $currentDate)) {
+            echo 'success';
+            exit();
+        }
+        echo 'error';
+
+        /*
         //GET THE ITEM STOCKS
         $item_sql = "SELECT * FROM items WHERE id = '$item_id'";
         $item_response = mysqli_query($conn, $item_sql);
@@ -283,6 +455,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_add") {
                 echo "error";
             }
         }
+        */
     } else {
         echo "login_required";
     }
@@ -290,10 +463,39 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_add") {
 
 //RESPONSE FOR GET CART INFO
 if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_info") {
-    $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
+    $user_id = $_SESSION['userId'];
+
+    $cartItems = array();
+    $cm = new CartModel();
+    $im = new ItemModel();
+    $carts = $cm->getUserCartByUid($user_id);
+    if (count($carts) > 0) {
+        foreach ($carts as $cart) {
+            $item_id = $cart['item_id'];
+            $qty = $cart['quantity'];
+            $cart_id = $cart['id'];
+
+            $image = $im->getItemImage($item_id, false);
+            $items = $im->getItemById($item_id);
+            foreach ($items as $item) {
+                $cartItems[] = array(
+                    "id" => $item_id,
+                    "cart_id" => $cart_id,
+                    "name" => $item['name'],
+                    "price" => $item['price'],
+                    "quantity" => $qty,
+                    "images" => $image
+                );
+            }
+        }
+        echo json_encode($cartItems);
+    }
+    /*
     $sql = "SELECT * FROM cart WHERE user_id = '$user_id'";
     $result = mysqli_query($conn, $sql);
+
     $cartItems = array();
+
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
             $item_id = $rows['item_id'];
@@ -328,10 +530,41 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_info") {
         }
         echo json_encode($cartItems);
     }
+    */
 }
 
 //RESPONSE FOR CART CHANGING QUANTITY
 if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_update") {
+
+    $quantity = $_POST['value'];
+    $cart_id = $_POST['cart_id'];
+    $user_id = $_SESSION['userId'];
+    $item_id = '';
+    $stocks = 0;
+    $currentDate = date("Y-m-d H:i:s");
+
+    $cm = new CartModel();
+    $cart = $cm->getUserCartById($cart_id);
+    $item_id = $cart[0]['item_id'];
+
+    $im = new ItemModel();
+    $item = $im->getItemById($item_id);
+    $stocks = $item[0]['stocks'];
+
+    $newQuantity = 0;
+
+    if ($quantity <= 0) $newQuantity = 1;
+    else if ($quantity <= $stocks) $newQuantity = $quantity;
+    else $newQuantity = $stocks;
+
+    if ($cm->updateCart($newQuantity, $currentDate, $cart_id, $user_id)) {
+        echo 'ok';
+        exit();
+    }
+    echo 'failed';
+
+
+    /*
     $quantity = mysqli_escape_string($conn, $_POST['value']);
     $cart_id = mysqli_escape_string($conn, $_POST['cart_id']);
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
@@ -375,9 +608,55 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_update") {
     } else {
         echo 'failed';
     }
+    */
 }
 //RESPONSE FOR CHECK OUT
 if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
+
+    $cartItems = $_POST['cartItems'];
+    $items = count($cartItems);
+    $user_id = $_SESSION['userId'];
+    $currentDate = date("Y-m-d H:i:s");
+    $status = 'checking';
+    $can_rate = 'no';
+
+    $am = new AddressModel();
+    $om = new OrderModel();
+    $cm = new CartModel();
+
+    if ($items > 0 && $am->isAddressValid($user_id)) {
+
+        $order_id = $om->setOrder($user_id, $items, $status, $currentDate);
+        if ($order_id == false) {
+            echo 'failed1';
+            exit();
+        }
+
+        foreach ($cartItems as $item) {
+            $cart = $cm->getUserCartByUC($user_id, $item);
+            if (count($cart) > 0) {
+                $item_id = $cart[0]['item_id'];
+                $quantity = $cart[0]['quantity'];
+
+                if (!$om->setOrderItems($order_id, $item_id, $quantity, $can_rate)) {
+                    echo 'failed2';
+                    exit();
+                }
+                if (!$cm->deleteCart($item, $user_id)) {
+                    echo 'failed3';
+                    exit();
+                }
+            } else {
+                echo 'failed4';
+                exit();
+            }
+        }
+        echo 'ok';
+        exit();
+    }
+    echo 'invalid_address';
+
+    /*
     $cartItems = $_POST['cartItems'];
     $items = count($cartItems);
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
@@ -405,7 +684,6 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
                     $cart_delete_sql = "DELETE FROM cart WHERE id = '$cartItem' and user_id = '$user_id'";
                     mysqli_query($conn, $cart_delete_sql);
                 }
-                
             } else {
                 echo 'failed';
             }
@@ -414,9 +692,23 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_checkout") {
     } else {
         echo 'invalid_address';
     }
+    */
 }
 //RESPONSE FOR REMOVE ITEMS ON CART
 if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_remove") {
+    $cartItems = $_POST['cartItems'];
+    $user_id = $_SESSION['userId'];
+    $cm = new CartModel();
+    if (count($cartItems) > 0) {
+        foreach ($cartItems as $item) {
+            $cm->deleteCart($item, $user_id);
+        }
+        echo 'ok';
+        exit();
+    }
+    echo 'failed';
+
+    /*
     $cartItems = $_POST['cartItems'];
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
 
@@ -430,13 +722,54 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_remove") {
     } else {
         echo 'failed';
     }
+    */
 }
 
 //RESPONSE FOR GET ORDER INFO
 if (isset($_POST['requestType']) && $_POST['requestType'] == "order_info") {
+    $user_id = $_SESSION['userId'];
+    $type = $_POST['type'];
+
+    $orderData = array();
+    $order_items = array();
+
+    $om = new OrderModel();
+    $im = new ItemModel();
+
+    $orders = $om->getUserOrders($user_id, $type);
+    if (count($orders) > 0) {
+        foreach ($orders as $order) {
+            $order_id = $order['id'];
+            $orderItems = $om->getOrderItems($order_id);
+            foreach ($orderItems as $item) {
+                $item_id = $item['item_id'];
+                $quantity = $item['quantity'];
+                $image = $im->getItemImage($item_id, false);
+                $itemData = $im->getItemById($item_id);
+
+                $order_items[] = array(
+                    "id" => $item_id,
+                    "name" => $itemData[0]['name'],
+                    "price" => $itemData[0]['price'],
+                    "quantity" => $quantity,
+                    "image" => $image
+                );
+            }
+            $orderData[] = array(
+                "id" => $order_id,
+                "status" => $order['status'],
+                "date" => date("F d Y", strtotime($order['date_created'])),
+                "order_items" => $order_items
+            );
+        }
+        echo json_encode($orderData);
+    }
+
+    /*
+
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $sql = "SELECT * FROM orders WHERE user_id = '$user_id' and ";
-    if($_POST['type'] == "processing"){
+    if ($_POST['type'] == "processing") {
         $sql .= "((status = 'checking') OR (status = 'processing'))";
     } else {
         $sql .= "(status = 'delivered')";
@@ -491,54 +824,52 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_info") {
         }
         echo json_encode($order);
     }
-}
-
-//RESPONSE FOR GET ORDER DELIVERED INFO
-if (isset($_POST['requestType']) && $_POST['requestType'] == "order_delivered_info") {
-    $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
-    $sql = "SELECT * FROM orders WHERE user_id = '$user_id' and status = 'delivered'";
-    $result = mysqli_query($conn, $sql);
-    $orderItems = array();
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $item_id = $rows['item_id'];
-            $qty = $rows['quantity'];
-            $order_id = $rows['id'];
-            $status = $rows['status'];
-
-            //GET THE ID AND SET AS DIRECTORY
-            $directory = '../../images/items/' . $item_id;
-            //SCAN THE FILES INSIDE THE DIRECTORY
-            $files = array_diff(scandir($directory), array('..', '.'));
-            $file = array();
-            //GET THE FIRST FILE'S NAME
-            foreach ($files as $key => $value) {
-                $file[] = $value;
-                break;
-            }
-
-            $sql_new = "SELECT * FROM items WHERE id = '$item_id'";
-            $result_new = mysqli_query($conn, $sql_new);
-            if (mysqli_num_rows($result_new) > 0) {
-                while ($rows_new = mysqli_fetch_assoc($result_new)) {
-                    $orderItems[] = array(
-                        "id" => $item_id,
-                        "order_id" => $order_id,
-                        "name" => $rows_new['name'],
-                        "price" => $rows_new['price'],
-                        "quantity" => $qty,
-                        "status" => $status,
-                        "images" => $file
-                    );
-                }
-            }
-        }
-        echo json_encode($orderItems);
-    }
+    */
 }
 
 //RESPONSE FOR GETTING PROFILE DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "get_profile") {
+
+    $user_id = $_SESSION['userId'];
+    $um = new UserModel();
+    $am = new AddressModel();
+    $om = new OrderModel();
+
+    $userData = $um->getUserById($user_id);
+    $userAddress = $am->getAddressById($user_id);
+    $userOrders = $om->getOrderCount($user_id);
+    $cityList = $am->getCityList();
+    $provinceList = $am->getProvinceList();
+
+    $user_info = array(
+        "id" => $user_id,
+        "name" => $userData[0]['firstname'] . " " .  $userData[0]['lastname'],
+        "email" => $userData[0]['email'],
+        "phone" => $userData[0]['phone'],
+        "image" => $um->getUserImage($user_id)
+    );
+
+    $user_address = array(
+        "house" => $userAddress[0]['house_number'],
+        "street" => $userAddress[0]['barangay'],
+        "city" => $userAddress[0]['city'],
+        "province" => $userAddress[0]['province'],
+    );
+    $address_option = array(
+        "city_list" => $cityList,
+        "province_list" => $provinceList
+    );
+
+    $response_data = array(
+        "user_info" => $user_info,
+        "user_address" => $user_address,
+        "user_orders" => $userOrders,
+        "address_option" => $address_option
+    );
+
+    echo json_encode($response_data);
+
+    /*
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
     $user_manager = new User_manager();
     $user_manager->fetch_user($conn, $user_id);
@@ -597,10 +928,27 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get_profile") {
     );
 
     echo json_encode($response_data);
+
+    */
 }
 
 //RESPONSE FOR UPDATE PROFILE
 if (isset($_POST['requestType']) && $_POST['requestType'] == "update_profile") {
+
+
+    $number = $_POST['number'];
+    $street = $_POST['street'];
+    $user_id = $_SESSION['userId'];
+    $city = $_POST['city'];
+    $province =  $_POST['province'];
+
+    $am = new AddressModel();
+    if(!$am->isCityExists($city)) $city = '';
+    if(!$am->isProvinceExists($province)) $province = '';
+    
+    $am->updateAddress($user_id, $number, $street, $city, $province);
+    update_image($user_id);
+    /*
     $number = mysqli_escape_string($conn, $_POST['number']);
     $street = mysqli_escape_string($conn, $_POST['street']);
     $user_id = mysqli_escape_string($conn, $_SESSION['userId']);
@@ -638,10 +986,42 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "update_profile") {
     }
 
     $user_manager->update_user($conn);
+    */
 }
 
 //RESPONSE FOR RATE ITEM
 if (isset($_POST['requestType']) && $_POST['requestType'] == "rate-item") {
+    $star = $_POST['star'];
+    $comment = $_POST['comment'];
+    $item_id = $_POST['itemId'];
+    $user_id = $_SESSION['userId'];
+    $rateLimit = 0;
+
+    $im = new ItemModel();
+    $om = new OrderModel();
+
+    $canRate = $im->canRate($item_id, $user_id);
+
+    if($canRate == "no"){
+        echo 'failed';
+        exit();
+    }
+
+    if(!$im->setRate($item_id, $comment, $star, $user_id)){
+        echo 'failed';
+        exit();
+    }
+
+    if(!$om->updateOrderItem($canRate, 'no')){
+        echo 'failed';
+        exit();
+    }
+
+    echo 'ok';
+
+
+
+    /*
     $star = mysqli_escape_string($conn, $_POST['star']);
     $comment = mysqli_escape_string($conn, $_POST['comment']);
     $item_id = mysqli_escape_string($conn, $_POST['itemId']);
@@ -652,23 +1032,23 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "rate-item") {
     $sql = "SELECT * FROM orders WHERE user_id = '$user_id' AND status = 'delivered'";
 
     $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0){
-        while($rows = mysqli_fetch_assoc($result)){
+    if (mysqli_num_rows($result) > 0) {
+        while ($rows = mysqli_fetch_assoc($result)) {
 
             $order_id = $rows['id'];
             $sql_rate = "SELECT * FROM order_item WHERE order_id = '$order_id' AND item_id = '$item_id' AND can_rate = 'yes'";
             $result_rate = mysqli_query($conn, $sql_rate);
-            if(mysqli_num_rows($result_rate) > 0){
+            if (mysqli_num_rows($result_rate) > 0) {
                 $rows_rate = mysqli_fetch_assoc($result_rate);
                 $order_item_id = $rows_rate['id'];
 
-                if($rateLimit >= 1){
+                if ($rateLimit >= 1) {
                     break;
                 }
 
                 $sql = "INSERT rating(item_id, message, score, user_id)
                 VALUES('$item_id', '$comment', '$star', '$user_id')";
-                if(mysqli_query($conn, $sql)){
+                if (mysqli_query($conn, $sql)) {
                     echo 'ok';
                     $sql = "UPDATE order_item SET can_rate = 'no' WHERE id = '$order_item_id' AND order_id = '$order_id'";
                     mysqli_query($conn, $sql);
@@ -679,238 +1059,5 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "rate-item") {
             }
         }
     }
-}
-
-function checkUserAddress($conn, $id)
-{
-    $sql = "SELECT * FROM user_address WHERE user_id = '$id'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            if ($rows['house_number'] == '' || $rows['barangay'] == '' || $rows['city'] == '' || $rows['province'] == '') {
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-function isCityExists($conn, $city)
-{
-    $sql = "SELECT * FROM city_list WHERE city = '$city'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        return true;
-    }
-    return false;
-}
-function isProvinceExists($conn, $province)
-{
-    $sql = "SELECT * FROM province_list WHERE province = '$province'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        return true;
-    }
-    return false;
-}
-
-//FUNCTION TO GET ITEMS WITH SINGLE OR MULTIPLE IMAGE
-function getItemData($sql, $conn, $multiple)
-{
-    $uid = $GLOBALS['user_id'];
-    $result = mysqli_query($conn, $sql);
-    $itemInfo = array();
-    $canRate = "no";
-
-    if (mysqli_num_rows($result) > 0) {
-        //GET ALL ITEMS DATA FROM DATABASE
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $id = $rows['id'];
-            $name = $rows['name'];
-            $category = $rows['category'];
-            $stocks = $rows['stocks'];
-            $price = $rows['price'];
-            $sold = $rows['sold'];
-            $description = $rows['description'];
-
-            //GET THE ID AND SET AS DIRECTORY
-            $directory = '../../images/items/' . $id;
-            //SCAN THE FILES INSIDE THE DIRECTORY
-            $files = array_diff(scandir($directory), array('..', '.'));
-            $file = array();
-            //GET THE FIRST FILE'S NAME
-            foreach ($files as $key => $value) {
-                $file[] = $value;
-                if (!$multiple) break;
-            }
-
-            if(canRate($uid, $id, $conn)){
-                $canRate = 'yes';
-            }
-
-            $ratings = getRatingsData($id, $conn);
-
-            //ADD THE DATA AS JSON FORMAT IN ARRAY
-            $itemInfo[] = array(
-                "id" => $id,
-                "name" => $name,
-                "category" => $category,
-                "stocks" => $stocks,
-                "price" => $price,
-                "sold" => $sold,
-                "description" => $description,
-                "images" => $file,
-                "canRate" => $canRate,
-                "ratings" => $ratings
-            );
-        }
-        return $itemInfo;
-    }
-}
-
-function canRate($user_id, $item_id, $conn){
-
-    //CHECK IF CAN RATE 
-    $sql = "SELECT * FROM orders WHERE user_id = '$user_id' AND status = 'delivered'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0){
-        while($rows = mysqli_fetch_assoc($result)){
-            $order_id = $rows['id'];
-            $sql_rate = "SELECT * FROM order_item WHERE order_id = '$order_id' AND item_id = '$item_id' AND can_rate = 'yes'";
-            $result_rate = mysqli_query($conn, $sql_rate);
-            if(mysqli_num_rows($result_rate) > 0){
-                return true;
-            }
-        }
-    } 
-    return false;
-}
-
-function getRatingsData($item_id, $conn){
-
-    $ratings = array();
-    $user = new User_manager();
-
-    $sql = "SELECT * FROM rating WHERE item_id = '$item_id'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        while($rows = mysqli_fetch_assoc($result)){
-
-            $user_id = $rows['user_id'];
-            $user-> fetch_user($conn, $user_id);
-            $ratings[] = array(
-                "comment" => $rows['message'],
-                "score" => $rows['score'],
-                "name" => $user->first_name. " " .$user->last_name,
-                "image" => $user->image,
-                "uid" => $user_id
-
-            );
-        }
-    }
-
-    return $ratings;
-}
-
-//ECHO ERROR MESSAGE
-function echoError($level)
-{
-    echo 'Error occurred, Please reload the page! code : ' . $level;
-}
-//GET RANDOM STRING FOR VERIFICATION CODE
-function randomString()
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < 10; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-//SEND EMAIL VERIFICATION
-function sendEmail($email, $code)
-{
-    $to = $email;
-    $subject = "Gold Place PH - Verification";
-
-    $message = "
-    <!DOCTYPE html>
-
-    <html lang='en'>
-
-    <head>
-        <title>Gold Place PH - Verification</title>
-        <style>
-        .main{
-            width: 500px;
-            height: 250px;
-            font-family: Arial, Helvetica, sans-serif;
-            border: 1px solid gray;
-            border-radius: 10px;
-        }
-        .header{
-            width: 100%;
-            height: 50px;
-            background-color: white;
-            border-radius: 40px 40px 0 0;
-        }
-        .body{
-            width: 100%;
-            height: 120px;
-            padding-top: 20px;
-            align-items: center;
-            background-color: #f8f9fa;
-        }
-        .body p{
-            margin: 0;
-            text-align: center;
-        }
-        .body h2{
-            margin: 0;
-            text-align: center;
-            padding-bottom: 20px;
-        }
-        .footer{
-            width: 100%;
-            height: 50px;
-            background-color: white;
-            border-radius: 0 0 40px 40px;
-        }
-        a{
-            margin: auto 0px;
-            padding: 15px;
-            text-decoration: none;
-            color: black!important;
-            background-color: #ffc107;
-            border-radius: 7px;
-        }
-          
-        </style>
-    </head>
-    <body>
-        <div class='main'>
-            <div class='header'></div>
-            <div class='body'>
-                <p>GOLD PLACE PH</p>
-                <h2>Click to verify</h2>
-                <p><a href='http://localhost/gold-place-ph/login.php?verify=" . $code . "' target='_blank'>VERIFY NOW</a></p>
-            </div>
-            <div class='footer'></div>
-        </div>
-    </body>
-    </html>
-    ";
-
-    $headers = array(
-        "MIME-Version" => "1.0",
-        "Content-Type" => "text/html;charset=UTF-8"
-    );
-    
-    if(mail($to, $subject, $message, $headers)){
-        return true;   
-    }
-    return false;
+    */
 }

@@ -7,7 +7,7 @@ class DbHelper
     private $password = '';
     private $dbname = 'newgoldplaceph';
 
-    protected function connect()
+    public function connect()
     {
 
         try {

@@ -293,7 +293,7 @@ $(document).ready(function () {
           itemList.fadeIn();
         }
         
-        if (cardCount == 7) {
+        if (cardCount == 11) {
             nextPage.prop("disabled", false);
         } else {
             nextPage.prop("disabled", true);
