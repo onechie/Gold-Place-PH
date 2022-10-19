@@ -75,7 +75,6 @@ $(document).ready(function () {
       limit:limit
     },
       function (data) {
-        console.log(data)
         if(data != null && data){
           
           let ordersData = JSON.parse(data);

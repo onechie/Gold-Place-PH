@@ -1,6 +1,6 @@
 <?php
 include './database.php';
-include './functions.php';
+include './validations.php';
 include './User_manager.php';
 
 include './database/database.php';
@@ -354,7 +354,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
         echo json_encode($im->getItemById($_POST['id'], $_SESSION['userId']));
         exit();
     }
-    echo json_encode($im->getItemS($_POST['id']));
+    echo json_encode($im->getItemById($_POST['id']));
 
     /*
     $id = mysqli_escape_string($conn, $_POST['id']);
@@ -731,7 +731,6 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_info") {
     $type = $_POST['type'];
 
     $orderData = array();
-    $order_items = array();
 
     $om = new OrderModel();
     $im = new ItemModel();
@@ -739,6 +738,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order_info") {
     $orders = $om->getUserOrders($user_id, $type);
     if (count($orders) > 0) {
         foreach ($orders as $order) {
+            $order_items = array();
             $order_id = $order['id'];
             $orderItems = $om->getOrderItems($order_id);
             foreach ($orderItems as $item) {

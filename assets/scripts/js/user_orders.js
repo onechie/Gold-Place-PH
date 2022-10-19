@@ -44,7 +44,6 @@ $(document).ready(function () {
         totalPriceValue = 0;
         if (data && data != "null") {
           let orders = JSON.parse(data);
-
           for(let i = 0; i < orders.length; i++){
             let order = orders[i];
             let order_items = order.order_items;
@@ -78,11 +77,10 @@ $(document).ready(function () {
                       +"</td>"
                       +"</tr>"
           }
-
-          setTotalPrice();
           orderList.append(htmlData);
 
         }
+        setTotalPrice();
       }
     );
   }

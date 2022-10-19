@@ -2,6 +2,57 @@
 
 class ItemModel extends DbHelper
 {
+    public function setItem($name, $category, $price, $stocks, $description)
+    {
+        $sql = "INSERT items(name, category, price, stocks, description) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($name, $category, $price, $stocks, $description))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
+
+    public function updateItem($name, $category, $price, $stocks, $description, $id)
+    {
+        $sql = "UPDATE items set name = ?, category = ?, price = ?, stocks = ?, description = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($name, $category, $price, $stocks, $description, $id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
+
+    public function deleteItemById($id)
+    {
+        $sql = "DELETE FROM items WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
+    public function getLastItemId()
+    {
+        $sql = "SELECT * FROM items ORDER BY id DESC LIMIT 1";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute()) {
+            $stmt = null;
+            return false;
+        }
+
+        $result = $stmt->fetchAll();
+        $stmt = null;
+        return $result[0]['id'];
+    }
+
     //GET SINGLE ITEM DATA BY ID
     public function getItemById($id, $uid = '')
     {
@@ -25,15 +76,15 @@ class ItemModel extends DbHelper
             $stocks = $result['stocks'];
             $price = $result['price'];
             $sold = $result['sold'];
-            $description = $result['description'];
+            $description = nl2br($result['description']);
             $canRate = "no";
 
             $file = $this->getItemImage($id, true);
-            
-            if($this->canRate($id, $uid) != 'no'){
+
+            if ($this->canRate($id, $uid) != 'no') {
                 $canRate = 'yes';
             }
-            
+
             $ratings = $this->getRatings($id);
 
             $itemInfo[] = array(
@@ -53,16 +104,21 @@ class ItemModel extends DbHelper
     }
 
     //GET ALL ITEM DATA
-    public function getItemS($page, $uid = '')
+    public function getItemS($page = 0, $uid = '')
     {
-        $offset = strval($page * 12 - 12);
 
+        $sql = "SELECT * FROM items";
+        $offset = strval($page * 12 - 12);
         $itemInfo = array();
         $canRate = "no";
-
-        $sql = "SELECT * FROM items LIMIT 12 OFFSET :off";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->bindValue(':off', $offset, PDO::PARAM_INT);
+
+        if ($page > 0) {
+            $stmt = null;
+            $sql = "SELECT * FROM items LIMIT 12 OFFSET :off";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindValue(':off', $offset, PDO::PARAM_INT);
+        }
 
         if (!$stmt->execute()) {
             $stmt = null;
@@ -83,7 +139,7 @@ class ItemModel extends DbHelper
 
             $file = $this->getItemImage($id, false);
 
-            if($this->canRate($id, $uid) != 'no'){
+            if ($this->canRate($id, $uid) != 'no') {
                 $canRate = 'yes';
             }
 
@@ -213,7 +269,7 @@ class ItemModel extends DbHelper
             $image = $this->getUserImage($uid);
 
             $ratings[] = array(
-                "comment" => $result['message'],
+                "comment" => nl2br($result['message']),
                 "score" => $result['score'],
                 "name" => $name,
                 "image" => $image,
@@ -223,5 +279,23 @@ class ItemModel extends DbHelper
         }
 
         return $ratings;
+    }
+    public function countItemStocks()
+    {
+        $sql = "SELECT * FROM items";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute()) {
+            $stmt = null;
+            return false;
+        }
+
+        $results = $stmt->fetchAll();
+        $count = 0;
+        foreach ($results as $result) {
+            $count += $result['stocks'];
+        }
+        $stmt = null;
+        return $count;
     }
 }

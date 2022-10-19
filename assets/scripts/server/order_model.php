@@ -21,6 +21,35 @@ class OrderModel extends DbHelper
         return $results;
     }
 
+    public function getOrdersByUID($user_id)
+    {
+        $sql = "SELECT * FROM orders WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($user_id))) {
+            $stmt = null;
+            return false;
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+
+    public function getOrderById($order_id)
+    {
+        $sql = "SELECT * FROM orders WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($order_id))) {
+            $stmt = null;
+            return false;
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+
     //INSERT ORDER
     public function setOrder($user_id, $items, $status, $date_created)
     {
@@ -42,6 +71,20 @@ class OrderModel extends DbHelper
 
         $order_id = $stmt->fetchAll()[0]['id'];
         return $order_id;
+    }
+
+    public function updateOrderStatus($status, $date, $id)
+    {
+        $sql = "UPDATE orders SET status = ?, date_updated = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($status, $date, $id))) {
+            $stmt = null;
+            return false;
+        }
+
+        $stmt = null;
+        return true;
     }
 
     //INSERT ITEMS OF SPECIFIC ORDER
@@ -114,6 +157,19 @@ class OrderModel extends DbHelper
     }
 
     //UPDATE CAN_RATE STATUS OF ORDER ITEM
+    public function updateOrderItemByOrderId($orderItemId, $status)
+    {
+        $sql = "UPDATE order_item SET can_rate = ? WHERE order_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($status, $orderItemId))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
+
+    //UPDATE CAN_RATE STATUS OF ORDER ITEM
     public function updateOrderItem($orderItemId, $status)
     {
         $sql = "UPDATE order_item SET can_rate = ? WHERE id = ?";
@@ -124,5 +180,98 @@ class OrderModel extends DbHelper
         }
         $stmt = null;
         return true;
+    }
+
+    public function countOrdersByStatus($status)
+    {
+        $sql = "SELECT * FROM orders WHERE status = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($status))) {
+            $stmt = null;
+            return false;
+        }
+
+        $results = $stmt->fetchAll();
+        $count = 0;
+        foreach ($results as $result) {
+            $count++;
+        }
+        $stmt = null;
+        return $count;
+    }
+    public function getOrders()
+    {
+        $sql = "SELECT * FROM orders";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute()) {
+            $stmt = null;
+            return false;
+        }
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+    public function getOrdersByDate($min_date, $max_date)
+    {
+        $sql = "SELECT * FROM orders WHERE date_updated > ? AND date_updated < ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($min_date, $max_date))) {
+            $stmt = null;
+            return false;
+        }
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+
+    public function countOrderItems($status)
+    {
+        $sql = "SELECT * FROM orders WHERE status = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($status))) {
+            $stmt = null;
+            return false;
+        }
+        $count = 0;
+        $results = $stmt->fetchAll();
+        $stmt = null;
+
+        $sql = "SELECT * FROM order_item WHERE order_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        foreach ($results as $result) {
+            $order_id = $result['id'];
+            if (!$stmt->execute(array($order_id))) {
+                $stmt = null;
+                return false;
+            }
+            $items = $stmt->fetchAll();
+            foreach ($items as $item) {
+                $count += $item['quantity'];
+            }
+        }
+        return $count;
+    }
+    public function countOrders()
+    {
+        $sql = "SELECT * FROM orders";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute()) {
+            $stmt = null;
+            return false;
+        }
+
+        $results = $stmt->fetchAll();
+        $count = 0;
+        foreach ($results as $result) {
+            $count++;
+        }
+        $stmt = null;
+        return $count;
     }
 }

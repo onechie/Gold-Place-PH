@@ -226,7 +226,7 @@ $(document).ready(function () {
           modalPrice.text(item.price);
           modalSold.text(item.sold);
           modalStocks.text(item.stocks);
-          modalDescription.text(item.description);
+          modalDescription.html(item.description);
           if(item.canRate == 'yes'){
             $("#rate-input").show();
           }

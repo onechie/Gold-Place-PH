@@ -1,11 +1,53 @@
 <?php
 include './database.php';
+include './validations.php';
 include './User_manager.php';
+
+include './database/database.php';
+include './user_model.php';
+include './item_model.php';
+include './cart_model.php';
+include './order_model.php';
+include './address_model.php';
+
+include './file_model.php';
+
 date_default_timezone_set("Asia/Manila");
 
 //ADD ITEM REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "add-item") {
+    $name = $_POST['name'];
+    $category = $_POST['category'];
+    $price = $_POST['price'];
+    $stocks = $_POST['stocks'];
+    $description = $_POST['description'];
 
+    $im = new ItemModel();
+
+    if (!checkAddItemInputs($name, $category, $price, $stocks, $description)) {
+        echo 'addFailed';
+        exit();
+    }
+
+    if ($_FILES["images"]["tmp_name"][0] == null) {
+        echo 'noImage';
+        exit();
+    }
+
+    if (!$im->setItem($name, $category, $price, $stocks, $description)) {
+        echo 'addFailed';
+        exit();
+    }
+
+    $lastItemId = $im->getLastItemId();
+
+    if (editItemImage($lastItemId)) {
+        echo "addSuccess";
+        exit();
+    }
+    echo "addFailed";
+
+    /*
     $name = mysqli_escape_string($conn, $_POST['name']);
     $category = mysqli_escape_string($conn, $_POST['category']);
     $price = (int)mysqli_escape_string($conn, $_POST['price']);
@@ -52,10 +94,49 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "add-item") {
             echo "addFailed";
         }
     }
+    */
 }
 
 //EDIT ITEM REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "edit-item") {
+
+
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $category = $_POST['category'];
+    $price = $_POST['price'];
+    $stocks = $_POST['stocks'];
+    $description = $_POST['description'];
+
+    $im = new ItemModel();
+
+    if (!checkAddItemInputs($name, $category, $price, $stocks, $description)) {
+        echo 'editFailed';
+        exit();
+    }
+
+    if ($_FILES["images"]["tmp_name"][0] == null) {
+        if ($im->updateItem($name, $category, $price, $stocks, $description, $id)) {
+            echo 'editSuccess';
+            exit();
+        }
+        echo 'editFailed';
+        exit();
+    }
+
+    if (!$im->updateItem($name, $category, $price, $stocks, $description, $id)) {
+        echo 'editFailed';
+        exit();
+    }
+
+    if (editItemImage($id)) {
+        echo "editSuccess";
+        exit();
+    }
+    echo "editFailed";
+
+    /*
+
     $id = mysqli_escape_string($conn, $_POST['id']);
     $name = mysqli_escape_string($conn, $_POST['name']);
     $category = mysqli_escape_string($conn, $_POST['category']);
@@ -106,10 +187,28 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "edit-item") {
             echo 'editFailed';
         }
     }
+    */
 }
 
 //DELETE ITEM REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "delete-item") {
+
+    $id = $_POST['id'];
+
+    $im = new ItemModel();
+
+    if (!$im->deleteItemById($id)) {
+        echo 'deleteFailed';
+        exit();
+    }
+    deleteItemImage($id);
+    echo 'deleteSuccess';
+
+
+
+
+
+    /*
     $id =  mysqli_escape_string($conn, $_POST['id']);
     $sql = "DELETE FROM items WHERE id = '$id'";
     if (mysqli_query($conn, $sql)) {
@@ -132,10 +231,30 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "delete-item") {
     } else {
         echo 'deleteFailed';
     }
+    */
 }
 
 //RESPONSE FOR GETTING ALL TOTAL DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "all-total-data") {
+
+    $om = new OrderModel();
+    $im = new ItemModel();
+    $um = new UserModel();
+
+    $totalSales = $om->countOrderItems('delivered');
+    $totalOrders = $om->countOrders();
+    $totalStocks = $im->countItemStocks();
+    $totalUsers = $um->countUsers();
+
+    $totals = array(
+        "sales" => $totalSales,
+        "orders" => $totalOrders,
+        "stocks" => $totalStocks,
+        "users" => $totalUsers
+    );
+
+    echo json_encode($totals);
+    /*
     $totalSales = countSales($conn);
     $totalOrders = countOrders($conn);
     $totalStocks = countStocks($conn);
@@ -149,9 +268,64 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "all-total-data") {
     );
 
     echo json_encode($totals);
+    */
 }
 //RESPONSE FOR SALES CHART DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "line-chart-data") {
+
+    $limitText = $_POST['limit'];
+    $min = date("Y-m-d H:i:s");
+    $max = date("Y-m-d H:i:s");
+    $temp = 0;
+    $label = "";
+    $ordersData = array();
+
+    $om = new OrderModel();
+
+    for ($i = 0; $i < 7; $i++) {
+
+        if ($limitText == "daily") {
+            $temp = strtotime("-1 day", strtotime($min));
+            $label = date("D", strtotime($min));
+        } else if ($limitText == "weekly") {
+            $temp = strtotime("-1 week", strtotime($min));
+            $label = date("W", strtotime($min));
+        } else if ($limitText == "monthly") {
+            $temp = strtotime("-1 month", strtotime($min));
+            $label = date("W", strtotime($min));
+        } else {
+            $temp = strtotime("-1 year", strtotime($min));
+            $label = date("Y", strtotime($min));
+        }
+
+        $min = date("Y-m-d H:i:s", $temp);
+        $sales = 0;
+
+        $orders = $om->getOrdersByDate($min, $max);
+
+        if (count($orders) > 0) {
+            foreach ($orders as $order) {
+                if ($order['status'] == 'delivered') {
+                    $order_id = $order['id'];
+
+                    $order_items = $om->getOrderItems($order_id);
+                    foreach ($order_items as $order_item) {
+                        $sales += $order_item['quantity'];
+                    }
+                }
+            }
+        }
+
+        $ordersData[] = array(
+            "sales" => $sales,
+            "label" => $label,
+            "date" => $min . " - " . $max,
+        );
+        $max = $min;
+    }
+
+    echo json_encode($ordersData);
+    /*
     $orders = array();
     $limitText =  mysqli_escape_string($conn, $_POST['limit']);
     $min = date("Y-m-d H:i:s");
@@ -205,12 +379,75 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "line-chart-data") 
     }
 
     echo json_encode($orders);
+    */
 }
 
 //RESPONSE FOR ORDERS CHART DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "order-chart-data") {
 
+    $ordersData = array();
+    $limitText =  mysqli_escape_string($conn, $_POST['limit']);
+    $min = date("Y-m-d H:i:s");
+    $max = date("Y-m-d H:i:s");
+    $temp = 0;
 
+    $om = new OrderModel();
+
+    for ($i = 0; $i < 2; $i++) {
+
+        if ($limitText == "daily") {
+            $temp = strtotime("-1 day", strtotime($min));
+        } else if ($limitText == "weekly") {
+            $temp = strtotime("-1 week", strtotime($min));
+        } else if ($limitText == "monthly") {
+            $temp = strtotime("-1 month", strtotime($min));
+        } else {
+            $temp = strtotime("-1 year", strtotime($min));
+        }
+
+        $min = date("Y-m-d H:i:s", $temp);
+
+        $new = 0;
+        $checking = 0;
+        $processing = 0;
+        $cancelled = 0;
+        $delivered = 0;
+
+        $orders = $om->getOrders();
+
+        foreach ($orders as $order) {
+            if ($order['status'] == "delivered") {
+                if ($order['date_updated'] > $min && $order['date_updated'] < $max) {
+                    $delivered++;
+                }
+            } else if ($order['status'] == "cancelled") {
+                if ($order['date_updated'] > $min && $order['date_updated'] < $max) {
+                    $cancelled++;
+                }
+            } else if ($order['status'] == "processing") {
+                $processing++;
+            } else {
+                $checking++;
+            }
+            if ($order['date_created'] > $min && $order['date_created'] < $max) {
+                $new++;
+            }
+        }
+
+        $ordersData[] = array(
+            "checking" => $checking,
+            "processing" => $processing,
+            "cancelled" => $cancelled,
+            "delivered" => $delivered,
+            "new" => $new,
+
+        );
+        $max = $min;
+    }
+
+    echo json_encode($ordersData);
+
+    /*
     $orders = array();
     $limitText =  mysqli_escape_string($conn, $_POST['limit']);
     $min = date("Y-m-d H:i:s");
@@ -272,10 +509,45 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "order-chart-data")
     }
 
     echo json_encode($orders);
+    */
 };
 
 //RESPONSE FOR RECENT ORDERS DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders") {
+
+    $recentOrdersData = array();
+
+    $om = new OrderModel();
+    $um = new UserModel();
+
+    $orders = $om->getOrders();
+
+    foreach ($orders as $order) {
+        $order_id = $order['id'];
+        $user_id = $order['user_id'];
+        $items = $order['items'];
+        $date = $order['date_created'];
+        $status = $order['status'];
+
+        $users = $um->getUserById($user_id);
+        $user = $users[0];
+        $image = $um->getUserImage($user_id);
+
+        array_unshift($recentOrdersData, array(
+            "order_id" => $order_id,
+            "user_id" => $user['id'],
+            "user_name" => $user['firstname'] . " " . $user['lastname'],
+            "user_email" => $user['email'],
+            "user_image" => $image,
+            "items" => $items,
+            "date" => date("h:i:s A M d Y", strtotime($date)),
+            "order_status" => $status
+
+        ));
+    }
+    echo json_encode($recentOrdersData);
+
+    /*
     $recent_orders = array();
     $user_manager = new User_manager();
 
@@ -304,9 +576,39 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get-recent-orders"
     }
 
     echo json_encode($recent_orders);
+    */
 }
 //RESPONSE FOR ORDER ITEMS
 if (isset($_POST['requestType']) && $_POST['requestType'] == "get-order-data") {
+
+    $itemsData = array();
+    $order_id = $_POST['order_id'];
+    $om = new OrderModel();
+    $im = new ItemModel();
+
+    $order = $om->getOrderById($order_id)[0];
+    $status = $order['status'];
+
+    $order_items = $om->getOrderItems($order_id);
+    foreach ($order_items as $order_item) {
+        $item_id = $order_item['item_id'];
+        $item_qty = $order_item['quantity'];
+
+        $item = $im->getItemById($item_id)[0];
+        $image = $im->getItemImage($item_id, false);
+
+        $itemsData[] = array(
+            "item_id" => $item_id,
+            "status" => $status,
+            "name" => $item['name'],
+            "price" => $item['price'],
+            "quantity" => $item_qty,
+            "image" => $image
+        );
+    }
+
+    echo json_encode($itemsData);
+    /*
     $items = array();
     $order_id = mysqli_real_escape_string($conn, $_POST['order_id']);
 
@@ -350,10 +652,30 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "get-order-data") {
     }
 
     echo json_encode($items);
+    */
 }
 
 //RESPONSE FOR EDIT ORDER STATUS
 if (isset($_POST['requestType']) && $_POST['requestType'] == "edit-order-status") {
+    $status = $_POST['status'];
+    $order_id = $_POST['order_id'];
+    $date = date("Y-m-d H:i:s");
+
+    $om = new OrderModel();
+
+    if (!$om->updateOrderStatus($status, $date, $order_id)) {
+        echo 'failed';
+        exit();
+    }
+
+    if (!$om->updateOrderItemByOrderId($order_id, 'yes')) {
+        echo 'failed';
+        exit();
+    }
+
+    echo 'ok';
+
+    /*
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $order_id = mysqli_real_escape_string($conn, $_POST['order_id']);
     $date = date("Y-m-d H:i:s");
@@ -371,18 +693,29 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "edit-order-status"
     } else {
         echo "failed";
     }
+    */
 }
 
 //RESPONSE FOR SINGLE ITEM INFO REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "load-item") {
+    $id =  $_POST['id'];
+    $im = new ItemModel();
+    echo json_encode($im->getItemById($id));
+
+    /*
     $id =  mysqli_escape_string($conn, $_POST['id']);
     $sql = "SELECT * FROM items WHERE id = '$id'";
 
     $item = getItemData($sql, $conn, true);
     echo json_encode($item);
+    */
 }
 //RESPONSE FOR MULTIPLE ITEM INFO REQUEST
 if (isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
+    $im = new ItemModel();
+    echo json_encode($im->getItemS());
+
+    /*
     $sql = "SELECT * FROM items";
 
     if (isset($_POST['page'])) {
@@ -393,17 +726,58 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "load-items") {
 
     $items = getItemData($sql, $conn, false);
     echo json_encode($items);
+    */
 }
 
 //RESPONSE FOR LOAD ALL USERS
 if (isset($_POST['requestType']) && $_POST['requestType'] == "load-users") {
+    $um = new UserModel();
+    echo json_encode($um->getUsers());
+
+    /*
     $user_manager = new User_manager();
     $user_manager->fetch_users($conn);
     echo json_encode($user_manager->user_list);
+    */
 }
 
 //RESPONSE FOR LOAD SINGLE USER DATA
 if (isset($_POST['requestType']) && $_POST['requestType'] == "view-users") {
+    $id = $_POST['id'];
+    $um = new UserModel();
+    $om = new OrderModel();
+
+    $user = $um->getUserById($id)[0];
+    $orders = $om->getOrdersByUID($id);
+
+    $cancelled = count($om->getUserOrders($id, 'cancelled'));
+    $delivered = count($om->getUserOrders($id, 'delivered'));
+    $processing = count($om->getUserOrders($id, 'processing'));
+    $totalOrders = $cancelled+$delivered+$processing;
+
+    $user_info = array(
+        "id" => $id,
+        "name" => $user['firstname'] . " " . $user['lastname'],
+        "email" => $user['email'],
+        "phone" => $user['phone'],
+        "image" => $um->getUserImage($id)
+    );
+
+    $user_orders = array(
+        "orders" => $totalOrders,
+        "cancelled" => $cancelled,
+        "delivered" => $delivered,
+        "processing" => $processing
+    );
+
+    $response_data = array(
+        "user_info" => $user_info,
+        "user_orders" => $user_orders,
+    );
+
+    echo json_encode($response_data);
+
+    /*
     $id =  mysqli_escape_string($conn, $_POST['id']);
     $user_manager = new User_manager();
     $user_manager->fetch_user($conn, $id);
@@ -430,10 +804,19 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "view-users") {
     );
 
     echo json_encode($response_data);
+    */
 }
 
 //RESPONSE FOR ADD USER
 if (isset($_POST['requestType']) && $_POST['requestType'] == "add-user") {
+
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $user_type = $_POST['user_type'];
+    $password = $_POST['password'];
+
+
     $first_name = mysqli_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_escape_string($conn, $_POST['last_name']);
     $email = mysqli_escape_string($conn, $_POST['email']);
@@ -468,221 +851,5 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "add-user") {
 
     if ($user_manager->insert_user($conn)) {
         echo "ok";
-    }
-}
-
-function countSales($conn)
-{
-
-    $sales = 0;
-    $result = mysqli_query($conn, "SELECT * FROM orders WHERE status = 'delivered'");
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            if ($rows['status'] == "delivered") {
-                $order_id = $rows['id'];
-                $item_sql = "SELECT * FROM order_item WHERE order_id = '$order_id'";
-                $item_result = mysqli_query($conn, $item_sql);
-                if (mysqli_num_rows($item_result) > 0) {
-                    while ($item_rows = mysqli_fetch_assoc($item_result)) {
-                        $sales += $item_rows['quantity'];
-                    }
-                }
-            }
-        }
-    }
-    return $sales;
-}
-function countOrders($conn)
-{
-
-    $orders = 0;
-    $result = mysqli_query($conn, "SELECT * FROM orders");
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $orders++;
-        }
-    }
-    return $orders;
-}
-
-function countStocks($conn)
-{
-    $stocks = 0;
-    $result = mysqli_query($conn, "SELECT * FROM items");
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $stocks += $rows['stocks'];
-        }
-    }
-    return $stocks;
-}
-
-function countUsers($conn)
-{
-    $users = 0;
-    $result = mysqli_query($conn, "SELECT * FROM user");
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $users++;
-        }
-    }
-    return $users;
-}
-
-function getItemInfo($conn, $id)
-{
-    $itemInfo = array();
-    $sql = "SELECT * FROM items WHERE id = '$id'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $itemInfo = array(
-                "name" => $rows['name'],
-                "category" => $rows['category'],
-                "price" => $rows['price'],
-                "stocks" => $rows['price'],
-                "sold" => $rows['sold']
-            );
-        }
-    }
-    return $itemInfo;
-}
-function addItem($conn, $readyToProcess, $name, $category, $price, $stocks, $description)
-{
-    if ($readyToProcess) {
-        $sql = "INSERT INTO items(name, stocks, price, sold, category, description) 
-        VALUES('$name','$stocks','$price', 0, '$category', '$description')";
-
-        if (mysqli_query($conn, $sql)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-function editItem($conn, $readyToProcess, $id, $name, $category, $price, $stocks, $description)
-{
-    if ($readyToProcess) {
-        $sql = "UPDATE items SET 
-        name = '$name', 
-        category = '$category',
-        price = '$price',
-        stocks = '$stocks',
-        description = '$description'
-        WHERE id = '$id'";
-
-        if (mysqli_query($conn, $sql)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-function editImage($directory, $mainDirectory)
-{
-
-    $len = count($_FILES['images']['name']);
-
-    // CREATE MAIN DIRECTORY IF ITS NOT EXISTED
-    if (!is_dir($mainDirectory)) {
-        mkdir($mainDirectory);
-    }
-
-    if (!is_dir($directory)) {
-        mkdir($directory);
-    }
-
-    for ($i = 0; $i < $len; $i++) {
-
-        $target_file = $directory . basename($_FILES["images"]["name"][$i]);
-
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        //CHECK IF TRUE IMAGE USING "getimagesize"
-        $check = getimagesize($_FILES["images"]["tmp_name"][$i]);
-
-        if ($check) {
-        } else {
-            echo 'notImage';
-            return false;
-        }
-
-        // CHECK IF FILE ALREADY EXISTS
-        if (file_exists($target_file)) {
-            echo "existsImage";
-            return false;
-        }
-
-        // CHECK FILE SIZE
-        if ($_FILES["images"]["size"][$i] > 2000000) {
-            echo "largeImage";
-            return false;
-        }
-
-        // CHECK FILE FORMAT
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            echo "formatImage";
-            return false;
-        }
-    }
-
-    //VALIDATION PASSED NOW TRY TO INSERT INTO SERVER
-    for ($i = 0; $i < $len; $i++) {
-
-        $new_file_name = $directory . md5($_FILES["images"]["name"][$i]) . "." . strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        //INSERT FILE TO SERVER
-        if (move_uploaded_file($_FILES["images"]["tmp_name"][$i], $new_file_name)) {
-        } else {
-            echo 'failedImage';
-            return false;
-        }
-    }
-
-    return true;
-}
-
-//GET ITEMS WITH SINGLE OR MULTIPLE IMAGE
-function getItemData($sql, $conn, $multiple)
-{
-
-    $result = mysqli_query($conn, $sql);
-    $itemInfo = array();
-
-    if (mysqli_num_rows($result) > 0) {
-        //GET ALL ITEMS DATA FROM DATABASE
-        while ($rows = mysqli_fetch_assoc($result)) {
-            $id = $rows['id'];
-            $name = $rows['name'];
-            $category = $rows['category'];
-            $stocks = $rows['stocks'];
-            $price = $rows['price'];
-            $sold = $rows['sold'];
-            $description = $rows['description'];
-
-            //GET THE ID AND SET AS DIRECTORY
-            $directory = '../../images/items/' . $id;
-            //SCAN THE FILES INSIDE THE DIRECTORY
-            $files = array_diff(scandir($directory), array('..', '.'));
-            $file = array();
-            //GET THE FIRST FILE'S NAME
-            foreach ($files as $key => $value) {
-                $file[] = $value;
-                if (!$multiple) break;
-            }
-            //ADD THE DATA AS JSON FORMAT IN ARRAY
-            $itemInfo[] = array(
-                "id" => $id,
-                "name" => $name,
-                "category" => $category,
-                "stocks" => $stocks,
-                "price" => $price,
-                "sold" => $sold,
-                "description" => $description,
-                "images" => $file
-            );
-        }
-        //ENCODE THE ARRAY TO JSON
-        return $itemInfo;
     }
 }
