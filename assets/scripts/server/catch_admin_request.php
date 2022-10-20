@@ -292,7 +292,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "line-chart-data") 
             $label = date("W", strtotime($min));
         } else if ($limitText == "monthly") {
             $temp = strtotime("-1 month", strtotime($min));
-            $label = date("W", strtotime($min));
+            $label = date("M", strtotime($min));
         } else {
             $temp = strtotime("-1 year", strtotime($min));
             $label = date("Y", strtotime($min));
@@ -813,10 +813,49 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "add-user") {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
+    $phone = $_POST['phone'];
     $user_type = $_POST['user_type'];
     $password = $_POST['password'];
+    $verRequired = $_POST['verRequired'];
 
+    $code = password_hash(randomString(), PASSWORD_DEFAULT);
+    $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+    $userData = [$first_name, $last_name, $email, $phone, $passwordHashed, 'yes', $user_type, $code];
+    $um = new UserModel();
 
+    if (!isNameValid($first_name)) {
+        echo 'Invalid firstname!';
+        exit();
+    }
+    if (!isNameValid($last_name)) {
+        echo 'Invalid lastname!';
+        exit();
+    }
+    if (!isEmailValid($email)) {
+        echo 'Invalid Email!';
+        exit();
+    }
+    if (!isPhoneValid($phone)) {
+        echo 'Invalid Phone!';
+        exit();
+    }
+    if (!isPassValid($password)) {
+        echo 'Invalid password!';
+        exit();
+    }
+    if ($verRequired == 'yes'){
+        $userData = [$first_name, $last_name, $email, $phone, $passwordHashed, 'no', $user_type, $code];
+        if (!sendEmail($email, $code)) {
+            echo 'error';
+            exit();
+        }
+    }
+    if (!$um->setUser($userData)) {
+        echo 'error';
+        exit();
+    }
+    echo 'ok';
+    /*
     $first_name = mysqli_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_escape_string($conn, $_POST['last_name']);
     $email = mysqli_escape_string($conn, $_POST['email']);
@@ -833,23 +872,6 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "add-user") {
     if ($user_manager->insert_user($conn)) {
         echo "ok";
     }
+    */
 }
-//RESPONSE FOR ADD USER
-if (isset($_POST['requestType']) && $_POST['requestType'] == "add-user") {
-    $first_name = mysqli_escape_string($conn, $_POST['first_name']);
-    $last_name = mysqli_escape_string($conn, $_POST['last_name']);
-    $email = mysqli_escape_string($conn, $_POST['email']);
-    $user_type = mysqli_escape_string($conn, $_POST['user_type']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $user_manager = new User_manager();
-    $user_manager->first_name = $first_name;
-    $user_manager->last_name = $last_name;
-    $user_manager->email = $email;
-    $user_manager->type = $user_type;
-    $user_manager->password = $password;
-
-    if ($user_manager->insert_user($conn)) {
-        echo "ok";
-    }
-}

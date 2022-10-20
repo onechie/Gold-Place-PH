@@ -9,6 +9,7 @@ include './item_model.php';
 include './cart_model.php';
 include './order_model.php';
 include './address_model.php';
+include './file_model.php';
 
 
 
@@ -156,7 +157,7 @@ if (isset($_POST['requestType']) && $_POST['requestType'] == "v-reg-final") {
         echo 'error';
         exit();
     }
-    if (!isPassValid($phone)) {
+    if (!isPassValid($password)) {
         echo 'error';
         exit();
     }

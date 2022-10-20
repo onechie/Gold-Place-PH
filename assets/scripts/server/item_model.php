@@ -76,7 +76,7 @@ class ItemModel extends DbHelper
             $stocks = $result['stocks'];
             $price = $result['price'];
             $sold = $result['sold'];
-            $description = nl2br($result['description']);
+            $description = $result['description'];
             $canRate = "no";
 
             $file = $this->getItemImage($id, true);
