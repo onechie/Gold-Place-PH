@@ -7,7 +7,10 @@
     include './user_include/restrict-admin.php';
     include './user_include/links.php';
     ?>
-    <script type="text/javascript" src="./assets/scripts/js/items_page.js"></script>
+    <script type="text/javascript" src="./assets/scripts/js/controller/items_page_controller.js"></script>
+    <script type="text/javascript" src="./assets/scripts/js/controller/view_item_controller.js"></script>
+    <script type="text/javascript" src="./assets/scripts/js/controller/cart_controller.js"></script>
+    
     <link rel="stylesheet" href="./assets/styles/products.css">
     <link rel="stylesheet" href="./assets/styles/default.css">
     <title>View Products</title>

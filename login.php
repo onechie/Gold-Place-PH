@@ -15,7 +15,7 @@
   ?>
   <link rel="stylesheet" href="./assets/styles/login.css">
   <link rel="stylesheet" href="./assets/styles/default.css">
-  <script src="./assets/scripts/js/login_client_validation.js" type="text/javascript"></script>
+  <script src="./assets/scripts/js/controller/login_controller.js" type="text/javascript"></script>
   <title>Login</title>
   <style>
     .loading {

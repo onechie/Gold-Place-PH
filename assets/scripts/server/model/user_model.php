@@ -2,8 +2,26 @@
 
 class UserModel extends DbHelper
 {
+    use UserTrait;
+}
 
-    //GET ALL USER DATA
+trait UserTrait
+{
+    //CREATE
+    protected function setUser($userData)
+    {
+        $sql = "INSERT user(firstname, lastname, email, phone, password, verified, type, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute($userData)) {
+            $stmt = null;
+            exit();
+        }
+
+        $stmt = null;
+        return true;
+    }
+    //READ
     protected function getUsers()
     {
         $sql = "SELECT * FROM user";
@@ -17,13 +35,11 @@ class UserModel extends DbHelper
         $stmt = null;
         return $results;
     }
-
-    //GET SINGLE USER DATA WITH ID
-    protected function getUser($id)
+    protected function getUserById($id)
     {
         $sql = "SELECT * FROM user WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
-        if (!$stmt->execute($id)) {
+        if (!$stmt->execute(array($id))) {
             $stmt = null;
             exit();
         }
@@ -32,67 +48,62 @@ class UserModel extends DbHelper
         $stmt = null;
         return $results;
     }
-
-    //INSERT USER DATA
-    protected function setUser($userData)
-    {
-        $sql = "INSERT user(firstname, lastname, email, phone, password, verified, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->connect()->prepare($sql);
-
-        if (!$stmt->execute($userData)) {
-            $stmt = null;
-            exit();
-        }
-
-        $stmt = null;
-    }
-
-    //CHECK USER EMAIL IF EXISTS
-    protected function isEmailExists($email)
+    protected function getUserByEmail($email)
     {
         $sql = "SELECT * FROM user WHERE email = ?";
         $stmt = $this->connect()->prepare($sql);
-
         if (!$stmt->execute(array($email))) {
             $stmt = null;
             exit();
         }
 
-        if ($stmt->rowCount() > 0) {
-            return true;
-        }
+        $results = $stmt->fetchAll();
         $stmt = null;
-        return false;
+        return $results;
     }
-
-    //CHECK USER PHONE IF EXISTS
-    protected function isPhoneExists($phone)
+    protected function getUserByPhone($phone)
     {
-        $tenDigitPhone = substr($phone, -10);
-        $withZeroDigitPhone = '0' . $tenDigitPhone;
-        $withPlusDigitPhone =  '+63' . $tenDigitPhone;
-
-        $sql = "SELECT * FROM user WHERE phone = ? OR phone = ? OR phone = ?";
+        $sql = "SELECT * FROM user WHERE phone = ?";
         $stmt = $this->connect()->prepare($sql);
-
-        if (!$stmt->execute(array($tenDigitPhone, $withZeroDigitPhone, $withPlusDigitPhone))) {
+        if (!$stmt->execute(array($phone))) {
             $stmt = null;
             exit();
         }
 
-        if ($stmt->rowCount() > 0) {
-            return true;
-        }
+        $results = $stmt->fetchAll();
         $stmt = null;
-        return false;
+        return $results;
     }
-
-    //UPDATE USER VERIFIED COLUMN
-    protected function setVerified($email)
+    protected function getUserByCode($code)
     {
-        $sql = "UPDATE user SET verified='yes' WHERE email= ? ";
+        $sql = "SELECT * FROM user WHERE verification_code = ?";
         $stmt = $this->connect()->prepare($sql);
-        if (!$stmt->execute(array($email))) {
+        if (!$stmt->execute(array($code))) {
+            $stmt = null;
+            exit();
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+    protected function getUserImage($id)
+    {
+        $directory = '../../../images/users/' . $id;
+        $files = array_diff(scandir($directory), array('..', '.'));
+        $file = array();
+        foreach ($files as $value) {
+            $file[] = $value;
+            break;
+        }
+        return $file;
+    }
+    //UPDATE
+    protected function updateUserVerById($id)
+    {
+        $sql = "UPDATE user set verified = 'yes' WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($id))) {
             $stmt = null;
             exit();
         }
@@ -100,4 +111,5 @@ class UserModel extends DbHelper
         $stmt = null;
         return true;
     }
+    //DELETE
 }

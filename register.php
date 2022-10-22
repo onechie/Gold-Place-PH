@@ -12,7 +12,7 @@
   ?>
   <link rel="stylesheet" href="./assets/styles/register.css">
   <link rel="stylesheet" href="./assets/styles/default.css">
-  <script src="./assets/scripts/js/register_client_validation.js" type="text/javascript"></script>
+  <script src="./assets/scripts/js/controller/register_controller.js" type="text/javascript"></script>
   <title>Create Account</title>
 </head>
 
@@ -36,35 +36,35 @@
               <input type="text" class="form-control fn fs-7" id="fnInput" placeholder="Firstname">
               <label for="fnInput" class="fs-7" style="width:110%">
                 Firstname
-                <span class="text-danger fn-w"></i></span>
+                <span class="text-danger fn-w"></span>
               </label>
             </div>
             <div class="form-floating mb-1">
               <input type="text" class="form-control ln" id="lnInput" placeholder="Lastname">
               <label for="lnInput" class="fs-7" style="width:110%">
                 Lastname
-                <span class="text-danger ln-w"></i></span>
+                <span class="text-danger ln-w"></span>
               </label>
             </div>
             <div class="form-floating mb-1">
               <input type="email" class="form-control ea" id="emInput" placeholder="Email address">
               <label for="emInput" class="fs-7" style="width:110%">
                 Email address
-                <span class="text-danger em-w"></i></span>
+                <span class="text-danger em-w"></span>
               </label>
             </div>
             <div class="form-floating mb-1">
               <input type="text" class="form-control ea" id="phInput" placeholder="Phone number">
               <label for="phInput" class="fs-7" style="width:110%">
                 Phone number
-                <span class="text-danger ph-w"></i></span>
+                <span class="text-danger ph-w"></span>
               </label>
             </div>
             <div class="form-floating mb-1">
               <input type="password" class="form-control pw" id="pwInput" placeholder="Password">
               <label for="pwInput" class="fs-7" style="width:110%">
                 Password
-                <span class="text-danger pw-w"></i></span>
+                <span class="text-danger pw-w"></span>
               </label>
             </div>
             <p class="mt-3 mb-3 text-dark fs-7">Already have an account? <a href="login.php" class="link-secondary">login now</a></p>

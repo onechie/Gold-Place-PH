@@ -8,7 +8,7 @@ if (!defined('ACCESS')) {
 
 
 ?>
-<script type="text/javascript" src="./assets/scripts/js/user_cart.js"></script>
+<script type="text/javascript" src="./assets/scripts/js/controller/cart_controller.js"></script>
 <script type="text/javascript" src="./assets/scripts/js/user_orders.js"></script>
 <script type="text/javascript" src="./assets/scripts/js/user_profile.js"></script>
 <script src="./assets/scripts/js/logout.js" type="text/javascript"></script>
