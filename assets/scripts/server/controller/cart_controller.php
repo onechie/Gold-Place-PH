@@ -49,6 +49,11 @@ class CartController extends ItemModel
     {
         $cartData = array();
         $carts = $this->getCartBy_UID($user_id);
+
+        if (count($carts) == 0) {
+            return false;
+        }
+
         foreach ($carts as $cart) {
             $item_id = $cart['item_id'];
             $qty = $cart['quantity'];

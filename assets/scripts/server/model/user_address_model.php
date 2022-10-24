@@ -23,7 +23,17 @@ trait UserAddressTrait
         return $results;
     }
     //UPDATE
-
+    protected function updateUserAddress($number, $street, $city, $province, $user_id)
+    {
+        $sql = "UPDATE user_address SET house_number = ?, barangay = ?, city = ?, province = ? WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($number, $street, $city, $province, $user_id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
     //DELETE
 }
 

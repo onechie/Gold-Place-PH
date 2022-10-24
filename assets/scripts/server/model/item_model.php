@@ -8,7 +8,18 @@ class ItemModel extends DbHelper
 trait ItemTrait
 {
     //CREATE
+    protected function setItem($name, $category, $price, $stocks, $description)
+    {
+        $sql = "INSERT items(name, category, price, stocks, description) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->connect()->prepare($sql);
 
+        if (!$stmt->execute(array($name, $category, $price, $stocks, $description))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
     //READ
     protected function getItems()
     {
@@ -62,7 +73,125 @@ trait ItemTrait
         }
         return $file;
     }
+
+    protected function getItemId($name, $category, $price, $stocks, $description){
+        $sql = "SELECT * FROM items WHERE name = ? AND category = ? AND price = ? AND stocks = ? AND description = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($name, $category, $price, $stocks, $description))) {
+            $stmt = null;
+            return false;
+        }
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
     //UPDATE
+    protected function updateItem($name, $category, $price, $stocks, $description, $id)
+    {
+        $sql = "UPDATE items set name = ?, category = ?, price = ?, stocks = ?, description = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($name, $category, $price, $stocks, $description, $id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
+    protected function updateItemImage($id)
+    {
+
+        $len = count($_FILES['images']['name']);
+
+        $directory = "../../../images/items/" . $id . "/";
+
+        if (!is_dir($directory)) {
+            mkdir($directory);
+        } else {
+            $files = glob($directory . '*');
+            foreach ($files as $file) {
+                //CHECK IF TRUE FILE
+                if (is_file($file)) {
+                    //DELETE THE FILE
+                    unlink($file);
+                }
+            }
+        }
+
+        for ($i = 0; $i < $len; $i++) {
+
+            $target_file = $directory . basename($_FILES["images"]["name"][$i]);
+
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            //CHECK IF TRUE IMAGE USING "getimagesize"
+            $check = getimagesize($_FILES["images"]["tmp_name"][$i]);
+
+            if ($check) {
+            } else {
+                //echo 'notImage';
+                return false;
+            }
+
+            // CHECK IF FILE ALREADY EXISTS
+            if (file_exists($target_file)) {
+                //echo "existsImage";
+                return false;
+            }
+
+            // CHECK FILE SIZE
+            if ($_FILES["images"]["size"][$i] > 2000000) {
+                //echo "largeImage";
+                return false;
+            }
+
+            // CHECK FILE FORMAT
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                //echo "formatImage";
+                return false;
+            }
+        }
+
+        //VALIDATION PASSED NOW TRY TO INSERT INTO SERVER
+        for ($i = 0; $i < $len; $i++) {
+
+            $new_file_name = $directory . md5($_FILES["images"]["name"][$i]) . "." . strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            //INSERT FILE TO SERVER
+            if (move_uploaded_file($_FILES["images"]["tmp_name"][$i], $new_file_name)) {
+            } else {
+                //echo 'failedImage';
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     //DELETE
+    protected function deleteItemById($id)
+    {
+        $sql = "DELETE FROM items WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
+
+    protected function deleteItemImage($id)
+    {
+        $directory = "../../../images/items/" . $id . "/";
+        $files = glob($directory . '*');
+        foreach ($files as $file) {
+            //CHECK IF TRUE FILE
+            if (is_file($file)) {
+                //DELETE THE FILE
+                unlink($file);
+            }
+        }
+        return true;
+    }
 }

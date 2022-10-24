@@ -56,7 +56,7 @@ $(document).ready(function () {
       let comment = $("#rate-input #rate-comment").val();
       let itemId = modalId.val();
       
-      $.post("./assets/scripts/server/catch_customer_request.php", {
+      $.post(viewItemUrl, {
         requestType: "rate-item",
         star:star,
         comment:comment,

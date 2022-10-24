@@ -36,7 +36,13 @@ if ($_POST['requestType'] == "cart_add") {
 if ($_POST['requestType'] == "cart_info") {
     $user_id = $_SESSION['userId'];
     $cc = new CartController();
-    echo json_encode($cc->cartData($user_id));
+    
+    $cartData = $cc->cartData($user_id);
+
+    if(!$cartData){
+        exit();
+    }
+    echo json_encode($cartData);
 }
 
 if ($_POST['requestType'] == "cart_update") {

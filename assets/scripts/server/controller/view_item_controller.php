@@ -14,11 +14,11 @@ class ViewItemController extends ItemModel
         $stocks = $item['stocks'];
         $price = $item['price'];
         $sold = $item['sold'];
-        $description = $item['description'];
-        $canRate = "no";
+        $description = nl2br($item['description']);
+        $canRate = "yes";
 
-        if ($this->isCanRate($item_id, $uid)) {
-            $canRate = 'yes';
+        if (!$this->isCanRate($item_id, $uid)) {
+            $canRate = 'no';
         }
 
         $image = $this->getItemImage($item_id, true);
@@ -57,18 +57,40 @@ class ViewItemController extends ItemModel
         return $itemWithRatingData;
     }
 
-    private function isCanRate($id, $user_id)
+    public function submitRate($item_id, $comment, $star, $user_id)
     {
-        if ($user_id == '') {
+        $orderItemId = $this->isCanRate($item_id, $user_id);
+        if(!$orderItemId){
             return false;
         }
 
+        if(!$this->setRating($item_id, $comment, $star, $user_id)){
+            return false;
+        }
+
+        if(!$this->updateOrderItem($orderItemId, 'no')){
+           return false;
+        }
+    
+        return true;
+
+    }
+
+    private function isCanRate($id, $user_id)
+    {
+        
+        if ($user_id == '') {
+            return false;
+        }
         $orders = $this->getOrderByUidAndStatus($user_id, 'delivered');
         foreach ($orders as $order) {
-            if (count($this->getOrderItem($order['id'], $id)) > 0) {
-                return true;
+            $order_item = $this->getOrderItem($order['id'], $id);
+            
+            if (count($order_item) > 0) {
+                return $order_item[0]['id'];
             }
         }
         return false;
     }
+
 }

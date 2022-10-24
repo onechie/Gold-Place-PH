@@ -3,6 +3,7 @@ if (!defined('ACCESS')) {
   header("location: ../");
 }
 ?>
+<script type="text/javascript" src="./assets/scripts/js/controller/cart_controller.js"></script>
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm" aria-label="Fourth navbar example">
   <div class="container-xxl px-0">
     <a class="navbar-brand p-0 px-3 m-0" href="#">

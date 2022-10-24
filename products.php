@@ -9,7 +9,6 @@
     ?>
     <script type="text/javascript" src="./assets/scripts/js/controller/items_page_controller.js"></script>
     <script type="text/javascript" src="./assets/scripts/js/controller/view_item_controller.js"></script>
-    <script type="text/javascript" src="./assets/scripts/js/controller/cart_controller.js"></script>
     
     <link rel="stylesheet" href="./assets/styles/products.css">
     <link rel="stylesheet" href="./assets/styles/default.css">

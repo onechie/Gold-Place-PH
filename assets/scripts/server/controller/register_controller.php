@@ -88,8 +88,10 @@ class RegisterController extends UserModel
         $code = $this->generateCode();
         $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
 
-        if (!$this->sendEmail($email, $code)) {
-            return false;
+        if ($verified == 'no') {
+            if (!$this->sendEmail($email, $code)) {
+                return false;
+            }
         }
 
         $userData = [$firstname, $lastname, $email, $phone, $passwordHashed, $verified, $type, $code];

@@ -1,5 +1,4 @@
 <?php
-include './assets/scripts/server/database.php';
 $userid = $_SESSION['userId'];
 
 if (!defined('ACCESS')) {
@@ -9,9 +8,9 @@ if (!defined('ACCESS')) {
 
 ?>
 <script type="text/javascript" src="./assets/scripts/js/controller/cart_controller.js"></script>
-<script type="text/javascript" src="./assets/scripts/js/user_orders.js"></script>
-<script type="text/javascript" src="./assets/scripts/js/user_profile.js"></script>
-<script src="./assets/scripts/js/logout.js" type="text/javascript"></script>
+<script type="text/javascript" src="./assets/scripts/js/controller/order_controller.js"></script>
+<script type="text/javascript" src="./assets/scripts/js/controller/profile_controller.js"></script>
+<script type="text/javascript" src="./assets/scripts/js/controller/logout_controller.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm" aria-label="Fourth navbar example">
   <div class="container-xxl px-0">

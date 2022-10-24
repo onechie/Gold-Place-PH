@@ -8,7 +8,7 @@ class OrderModel extends DbHelper
 trait OrderTrait
 {
     //CREATE
-    public function setOrder($user_id, $items, $status, $date_created)
+    protected function setOrder($user_id, $items, $status, $date_created)
     {
         $sql = "INSERT orders(user_id, items, status, date_created) VALUES (?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
@@ -21,9 +21,26 @@ trait OrderTrait
         return true;
     }
     //READ
+    public function getOrderBy_OID($order_id)
+    {
+        $sql = "SELECT * FROM orders WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($order_id))) {
+            $stmt = null;
+            return false;
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
     protected function getOrderByUidAndStatus($user_id, $status)
     {
         $sql = "SELECT * FROM orders WHERE user_id = ? AND status = ?";
+        if ($status == 'processing') {
+            $sql = "SELECT * FROM orders WHERE user_id = ? AND (status = ? OR status = 'checking')";
+        }
         $stmt = $this->connect()->prepare($sql);
         if (!$stmt->execute(array($user_id, $status))) {
             $stmt = null;
@@ -35,7 +52,8 @@ trait OrderTrait
         return $results;
     }
 
-    protected function getOrderId($user_id, $items, $status, $date_created){
+    protected function getOrderId($user_id, $items, $status, $date_created)
+    {
         $sql = "SELECT * FROM orders WHERE user_id = ? AND items = ? AND status = ? AND date_created = ?";
         $stmt = $this->connect()->prepare($sql);
         if (!$stmt->execute(array($user_id, $items, $status, $date_created))) {
@@ -46,7 +64,60 @@ trait OrderTrait
         $results = $stmt->fetchAll();
         return $results;
     }
-    //UPDATE
 
+    protected function getOrderBy_UID($user_id)
+    {
+        $sql = "SELECT * FROM orders WHERE user_id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($user_id))) {
+            $stmt = null;
+            exit();
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+    public function getOrdersByDate($min_date, $max_date)
+    {
+        $sql = "SELECT * FROM orders WHERE date_updated > ? AND date_updated < ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($min_date, $max_date))) {
+            $stmt = null;
+            return false;
+        }
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+    public function getOrders()
+    {
+        $sql = "SELECT * FROM orders ";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute()) {
+            $stmt = null;
+            return false;
+        }
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
+    //UPDATE
+    public function updateOrderStatus($status, $date, $id)
+    {
+        $sql = "UPDATE orders SET status = ?, date_updated = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($status, $date, $id))) {
+            $stmt = null;
+            return false;
+        }
+
+        $stmt = null;
+        return true;
+    }
     //DELETE
 }

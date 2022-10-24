@@ -10,13 +10,13 @@
     }
     include '../user_include/links.php';
     ?>
-    <script type="text/javascript" src="../assets/scripts/js/total_values.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/recent_orders.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/orders-chart.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/sales-chart.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/add_edit_item.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/users_list.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/logout.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_total_values_controller.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_recent_order_controller.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_orders_chart_request.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_sales_chart_controller.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_item_list_controller.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_user_list_controller.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/logout_controller.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="../assets/styles/default.css">
     <link rel="stylesheet" href="../assets/styles/home-admin.css">

@@ -7,7 +7,7 @@ class CartModel extends DbHelper
 trait CartTrait
 {
     //CREATE
-    public function setCart($item_id, $user_id, $quantity, $date)
+    protected function setCart($item_id, $user_id, $quantity, $date)
     {
         $sql = "INSERT INTO cart(item_id, user_id, quantity, date_created) VALUES (?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
@@ -56,7 +56,7 @@ trait CartTrait
         return $results;
     }
     //UPDATE
-    public function updateCart($quantity, $date, $cart_id, $user_id)
+    protected function updateCart($quantity, $date, $cart_id, $user_id)
     {
         $sql = "UPDATE cart SET quantity = ?, date_updated = ? WHERE id = ? and user_id = ?";
         $stmt = $this->connect()->prepare($sql);
@@ -68,7 +68,7 @@ trait CartTrait
         return true;
     }
     //DELETE
-    public function deleteCart($id, $user_id)
+    protected function deleteCart($id, $user_id)
     {
         $sql = "DELETE FROM cart WHERE id = ? AND user_id = ?";
         $stmt = $this->connect()->prepare($sql);
