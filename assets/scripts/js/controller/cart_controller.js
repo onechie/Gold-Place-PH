@@ -115,6 +115,14 @@ $(document).ready(function () {
               toastBody.text("Please update your address in your profile!");
               toast.show();
             }
+            if(data == "zero_value"){
+              toastBody.text("Add at least 1 quantity to checkout!");
+              toast.show();
+            }
+            if(data == "out_of_stock"){
+              toastBody.text("Item out of stock!");
+              toast.show();
+            }
           }
         );
       }

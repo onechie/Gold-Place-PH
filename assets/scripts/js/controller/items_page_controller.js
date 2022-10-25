@@ -3,23 +3,30 @@ $(document).ready(function () {
 
   const itemList = $("#user-panel #item-list");
   const toastBody = $(".toast-body");
-  const nextPage = $("#next");
-  const prevPage = $("#previous");
+  const nextPage = $(".next");
+  const prevPage = $(".previous");
   const pageCount = $("#page");
+  const sortBy = $(".sort-by #sort-dropdown");
+  const price = $(".price #price-dropdown");
+  const category = $(".category #category-dropdown");
   const itemSearchBar = $("#search-item");
+
+  let sortOption = "Default";
+  let priceOption = "Default";
+  let catOption = "Default";
   const toast = new bootstrap.Toast($("#liveToast"));
 
   const itemsPageUrl = "./assets/scripts/server/request/items_page_request.php";
 
   $("#rate-input #rate-submit").prop("disabled", true);
 
-  getItemsData();
+  getItemsData(sortOption, priceOption, catOption);
 
   nextPage.click(function () {
     let page = parseInt(pageCount.val());
     page += 1;
     pageCount.val(page);
-    getItemsData();
+    getItemsData(sortOption, priceOption, catOption);
   });
 
   prevPage.click(function () {
@@ -28,7 +35,26 @@ $(document).ready(function () {
       page -= 1;
       pageCount.val(page);
     }
-    getItemsData();
+    getItemsData(sortOption, priceOption, catOption);
+  });
+
+  $(".sort-by .dropdown-item").click(function () {
+    pageCount.val(1);
+    sortOption = $(this).attr("id");
+    sortBy.text(sortOption);
+    getItemsData(sortOption, priceOption, catOption);
+  });
+  $(".price .dropdown-item").click(function () {
+    pageCount.val(1);
+    priceOption = $(this).attr("id");
+    price.text(priceOption);
+    getItemsData(sortOption, priceOption, catOption);
+  });
+  $(".category .dropdown-item").click(function () {
+    pageCount.val(1);
+    catOption = $(this).attr("id");
+    category.text(catOption);
+    getItemsData(sortOption, priceOption, catOption);
   });
 
   function setStar(score) {
@@ -43,12 +69,18 @@ $(document).ready(function () {
     return htmlStars;
   }
 
-  function getItemsData() {
+  function getItemsData(sort, price, category) {
     let page = pageCount.val();
 
     $.post(
       itemsPageUrl,
-      { requestType: "load-items", page: page },
+      {
+        requestType: "load-items",
+        page: page,
+        sort: sort,
+        price: price,
+        category: category,
+      },
       function (data) {
         let cardCount = 0;
         if (data && data != "null") {
@@ -75,7 +107,7 @@ $(document).ready(function () {
             }
 
             htmlData +=
-              "<div class='card shadow-sm my-3 bg-white p-2 rounded-2 mx-1 border-0'>" +
+              "<div class='card shadow-sm bg-white p-2 rounded-2 m-1 border-0'>" +
               "    <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>" +
               "        <img src='./assets/images/items/" +
               item.id +
@@ -123,7 +155,7 @@ $(document).ready(function () {
             page--;
           }
         }
-        if (page == 1) {
+        if (page <= 1) {
           prevPage.prop("disabled", true);
         } else {
           prevPage.prop("disabled", false);

@@ -1,5 +1,12 @@
 :root {
+  --primary: #0d6efd;
+  --secondary: #6c757d;
+  --success: #198754;
+  --info: #0dcaf0;
   --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #212529;
 }
 html,
 body {
@@ -70,7 +77,7 @@ body {
 }
 .card .row button {
   opacity: 1;
-  color: #ffc107!important;
+  color: var(--secondary)!important;
   transition: all 0.3s;
 }
 .card:hover {
@@ -80,7 +87,7 @@ body {
 }
 .card:hover .row button {
   transition: all 0.3s;
-  color: #212529!important;
+  color: var(--warning)!important;
 }
 .card .row button:hover {
   transition: all 0.3s;

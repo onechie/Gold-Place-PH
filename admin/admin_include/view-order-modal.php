@@ -47,11 +47,11 @@ if (!defined('ACCESS')) {
             </div>
             <div class="modal-footer">
                 <h6 class="fw-light fs-7">Total price :</h6>
-                <h6 class="fw-normal fs-7" id="total_price">P0</h6>
+                <h6 class="fw-normal fs-7 text-success" id="total_price">P0</h6>
                 <input type="hidden" id="order_id">
-                <div class="d-flex align-items-center fw-light ms-5">
-                    Status :
-                    <select class="py-1 px-1 rounded-1 fs-7 bg-success w-auto ms-2 border-0 text-light" id="status" name="status">
+                <div class="d-flex align-items-center fw-light ms-5 fs-7">
+                    <h6 class="fw-light fs-7 my-auto">Status :</h6>
+                    <select class="py-1 px-1 rounded-1 fs-7 btn btn-success w-auto ms-2 border-0 text-light" id="status" name="status">
                         <option value="checking">Checking</option>
                         <option value="processing">Processing</option>
                         <option value="delivered">Delivered</option>

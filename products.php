@@ -9,7 +9,7 @@
     ?>
     <script type="text/javascript" src="./assets/scripts/js/controller/items_page_controller.js"></script>
     <script type="text/javascript" src="./assets/scripts/js/controller/view_item_controller.js"></script>
-    
+
     <link rel="stylesheet" href="./assets/styles/products.css">
     <link rel="stylesheet" href="./assets/styles/default.css">
     <title>View Products</title>
@@ -159,68 +159,67 @@
                 </div>
             </div>
 
-            <div class="container-xxl bg-white rounded-2 text-dark px-4 py-3 fw-light fs-7 d-flex justify-content-between flex-wrap mx-auto">
-                <div class="d-flex align-items-center py-1 py-md-0">
+            <div class="container-xxl bg-white rounded-2 text-dark px-3 py-2 fw-light fs-7 d-flex justify-content-between flex-wrap mx-auto">
+                <div class="d-flex align-items-center py-1 py-md-0 sort-by">
                     <p class="p-0 pe-1 m-0">Sort by</p>
                     <div class="btn-group drop-down">
-                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Default
-                        </a>
+                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="sort-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Default</a>
                         <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm m-2">
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Latest</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Top Sales</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Latest' type="button">Latest</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Oldest' type="button">Oldest</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Top-sales' type="button">Top Sales</button></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center py-1 py-md-0">
+                <div class="d-flex align-items-center py-1 py-md-0 price">
                     <p class="p-0 pe-1 m-0">Price</p>
                     <div class="btn-group drop-down py-1 rounded-1">
-                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Default
-                        </a>
+                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="price-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Default</a>
                         <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm m-2">
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Low to High</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">High to Low</button></li>
+                        <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Low-to-high' type="button">Low to High</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='High-to-low' type="button">High to Low</button></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center py-1 py-md-0">
+                <div class="d-flex align-items-center py-1 py-md-0 category">
                     <p class="p-0 pe-1 m-0">Category</p>
                     <div class="btn-group drop-down py-1 rounded-1">
-                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="main-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Default
-                        </a>
+                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="category-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Default</a>
                         <ul class="dropdown-menu dropdown-menu-start border-0 p-0 m-2 overflow-hidden shadow-sm">
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Ring</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Necklace</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Pendant</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Earring</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" type="button">Bracelet</button></li>
+                        <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Ring' type="button">Ring</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Necklace' type="button">Necklace</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Pendant' type="button">Pendant</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Earring' type="button">Earring</button></li>
+                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Bracelet' type="button">Bracelet</button></li>
                         </ul>
                     </div>
                 </div>
                 <div class="d-flex justify-self-end py-1 py-md-0 align-items-center">
                     <p class="p-0 pe-1 m-0">1/50</p>
-                    <button type="button" class="btn btn-light py-1 px-3 border-0" id="previous"><</button>
-                    <button type="button" class="btn btn-light py-1 px-3 border-0" id="next">></button>
+                    <button type="button" class="btn btn-light py-1 px-3 border-0 previous" id="previous">
+                        <</button>
+                            <button type="button" class="btn btn-light py-1 px-3 border-0 next" id="next">></button>
                 </div>
             </div>
             <div class="container-fluid bg-light p-0">
                 <div class="container-xxl marketing mt-2 p-0">
                     <input type="hidden" id="page" value="1">
-                    <div class="d-flex flex-row justify-content-evenly flex-wrap" id="item-list">
-
+                    <div class="d-flex flex-wrap justify-content-center" id="item-list">
+                        <!-- ITEM CARD -->
                     </div>
                 </div>
                 <nav aria-label="Page navigation">
-                    <ul class="pagination pagination justify-content-center py-4">
-                        <li class="page-item shadow-sm"><a class="page-link">Prev</a></li>
-                        <li class="page-item shadow-sm"><a class="page-link">1</a></li>
-                        <li class="page-item shadow-sm"><a class="page-link">2</a></li>
-                        <li class="page-item shadow-sm"><a class="page-link">3</a></li>
-                        <li class="page-item shadow-sm"><a class="page-link">Next</a></li>
+                    <ul class="pagination justify-content-center py-4">
+                        <button type="button" class="btn btn-light py-1 mx-2 px-2 border-0 previous text-secondary" id="previous">Prev</button>
+                        <button type="button" class="btn btn-light py-1 mx-2 px-2 border-0 next text-secondary" id="next">Next</button>
                     </ul>
                 </nav>
             </div>

@@ -49,6 +49,65 @@ trait ItemTrait
         $stmt = null;
         return $results;
     }
+    protected function getItemsWithPageAndOption($page, $category, $sort, $price,)
+    {
+        $offset = strval($page * 12 - 12);
+        $sql = "SELECT * FROM items ";
+        if ($category != 'Default') {
+            $sql .= 'WHERE category = :cat ';
+        }
+
+        if ($sort != 'Default' && $price != 'Default') {
+            if($price == 'Low-to-high'){
+                $sql .= 'ORDER BY price,';
+            }else {
+                $sql .= 'ORDER BY price DESC,';
+            }
+            if($sort == 'Latest'){
+                $sql .= 'id DESC ';
+            }else if($sort =='Top-sales'){
+                $sql .= 'sold DESC ';
+            }
+            else{
+                $sql .= 'id ';
+            }
+
+        } else if ($sort != 'Default') {
+            if($sort == 'Latest'){
+                $sql .= 'ORDER BY id DESC ';
+            }else if($sort =='Top-sales'){
+                $sql .= 'ORDER BY sold DESC ';
+            }
+            else{
+                $sql .= 'ORDER BY id ';
+            }
+        } else if ($price != 'Default') {
+            if($price == 'Low-to-high'){
+                $sql .= 'ORDER BY price ';
+            }else {
+                $sql .= 'ORDER BY price DESC ';
+            }
+        } else {
+            $sql .= '';
+        }
+
+        $sql .= 'LIMIT 12 OFFSET :off';
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindValue(':off', $offset, PDO::PARAM_INT);
+
+
+        if ($category != 'Default') {
+            $stmt->bindValue(':cat', $category, PDO::PARAM_STR);
+        }
+        if (!$stmt->execute()) {
+            $stmt = null;
+            exit();
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
     protected function getItemById($id)
     {
         $sql = "SELECT * FROM items WHERE id = ?";
@@ -74,7 +133,8 @@ trait ItemTrait
         return $file;
     }
 
-    protected function getItemId($name, $category, $price, $stocks, $description){
+    protected function getItemId($name, $category, $price, $stocks, $description)
+    {
         $sql = "SELECT * FROM items WHERE name = ? AND category = ? AND price = ? AND stocks = ? AND description = ?";
         $stmt = $this->connect()->prepare($sql);
         if (!$stmt->execute(array($name, $category, $price, $stocks, $description))) {
@@ -92,6 +152,18 @@ trait ItemTrait
         $stmt = $this->connect()->prepare($sql);
 
         if (!$stmt->execute(array($name, $category, $price, $stocks, $description, $id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
+    protected function updateItemStocks($stocks, $id)
+    {
+        $sql = "UPDATE items set stocks = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($stocks, $id))) {
             $stmt = null;
             return false;
         }

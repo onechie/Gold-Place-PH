@@ -1,17 +1,30 @@
 <?php 
- 
+
+$myToken = '5BFA2DB65D899FD1AA548C07E4815889666E262A';
+$myAddress = 'Balanga, Bataan';
+
 $curl = curl_init(); 
 curl_setopt($curl, CURLOPT_URL, 'https://robotapitest-ph.borzodelivery.com/api/business/1.2/calculate-order'); 
 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST'); 
-curl_setopt($curl, CURLOPT_HTTPHEADER, ['X-DV-Auth-Token: 5BFA2DB65D899FD1AA548C07E4815889666E262A']); 
+curl_setopt($curl, CURLOPT_HTTPHEADER, ['X-DV-Auth-Token: '. $myToken]); 
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); 
  
 $data = [ 
-    'matter' => 'Documents', 
+    'matter' => 'This is Test item number 1', 
     'points' => [ 
         [ 
-            'address' => 'Palapat, Hagonoy, Bulacan, Philippines'
-        ]
+            'address' =>'Palapat,Hagonoy, Bulacan', 
+            'contact_person' => [ 
+                'phone' => '639195380326', 
+            ], 
+        ], 
+        [ 
+            'address' =>'Malolos Sports & Convention Center, MacArthur Highway, Malolos, Bulacan, Philippines', 
+            'contact_person' => [ 
+                'phone' => '639195380326', 
+            ],
+        ], 
+        
     ], 
 ]; 
  
@@ -24,11 +37,3 @@ if ($result === false) {
 } 
  
 echo $result; 
-?>
-<script>
-    console.log(<?php echo $result ?>);
-</script>
-
-<?php
-?>
-

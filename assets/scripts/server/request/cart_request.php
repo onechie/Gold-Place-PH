@@ -77,6 +77,14 @@ if ($_POST['requestType'] == "cart_checkout") {
     if($items == 0){
         exit();
     }
+    if(!$cc->isItemsOnStock($cartItems)){
+        echo 'out_of_stock';
+        exit();
+    }
+    if(!$cc->isQuantityValid($cartItems)){
+        echo 'zero_value';
+        exit();
+    }
 
     if(!$cc->checkOut($user_id, $items, $status, $currentDate, $cartItems)){
         echo 'error';

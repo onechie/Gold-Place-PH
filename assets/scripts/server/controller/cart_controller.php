@@ -8,8 +8,9 @@ class CartController extends ItemModel
     {
         $stocks = $this->getItemById($item_id)[0]['stocks'];
         $newQuantity = 0;
-        if ($quantity <= 0) $newQuantity = 1;
-        else if ($quantity <= $stocks) $newQuantity = $quantity;
+       
+        if ($quantity <= $stocks) $newQuantity = $quantity;
+        else if ($quantity <= 0) $newQuantity = 1;
         else $newQuantity = $stocks;
 
         return $newQuantity;
@@ -24,6 +25,24 @@ class CartController extends ItemModel
 
         if ($address[0]['house_number'] == '' || $address[0]['barangay'] == '' || $address[0]['city'] == '' || $address[0]['province'] == '') {
             return false;
+        }
+        return true;
+    }
+
+    public function isItemsOnStock($cart_items){
+        foreach($cart_items as $cart_item){
+            $item_id = $this->getCartBy_ID($cart_item)[0]['item_id'];
+            if($this->getItemById($item_id)[0]['stocks'] <= 0){
+                return false;
+            }
+        }
+        return true;
+    }
+    public function isQuantityValid($cart_items){
+        foreach($cart_items as $cart_item){
+            if($this->getCartBy_ID($cart_item)[0]['quantity'] <= 0){
+                return false;
+            }
         }
         return true;
     }
@@ -56,7 +75,15 @@ class CartController extends ItemModel
 
         foreach ($carts as $cart) {
             $item_id = $cart['item_id'];
+
             $qty = $cart['quantity'];
+            $newQuantity = $this->validateQuantity($item_id, $qty);
+
+            if($qty != $newQuantity){
+                $this->updateCartQuantity($newQuantity, date("Y-m-d H:i:s"), $cart['id'], $user_id);
+                $qty = $newQuantity;
+            }
+
             $cart_id = $cart['id'];
 
             $image = $this->getItemImage($item_id, false);
@@ -97,9 +124,13 @@ class CartController extends ItemModel
         foreach($cart_items as $cart_item){
             $cart = $this->getCartBy_ID($cart_item)[0];
             $item_id = $cart['item_id'];
-            $quantity = $cart['quantity'];
+
+            $quantity = $this->validateQuantity($item_id, $cart['quantity']);
 
             if(!$this->setOrderItems($order_id, $item_id, $quantity, $can_rate)){
+                return false;
+            }
+            if(!$this->updateStocks($item_id, $quantity)){
                 return false;
             }
             if(!$this->deleteCart($cart_item, $user_id)){
@@ -114,6 +145,15 @@ class CartController extends ItemModel
             if(!$this->deleteCart($cart_item, $user_id)){
                 return false;
             }
+        }
+        return true;
+    }
+
+    private function updateStocks($item_id, $quantity){
+        $stocks = $this->getItemById($item_id)[0]['stocks'];
+        $stocks -= $quantity;
+        if(!$this->updateItemStocks($stocks, $item_id)){
+            return false;
         }
         return true;
     }

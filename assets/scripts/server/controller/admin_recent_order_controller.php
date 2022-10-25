@@ -75,6 +75,17 @@ class AdminRecentOrderController extends OrderModel
                 return false;
             }
         }
+        if ($status == 'cancelled') {
+            $orderItems = $this->getOrderItemBy_OID($order_id);
+            foreach($orderItems as $orderItem){
+                $item_id = $orderItem['item_id'];
+                $quantity = $orderItem['quantity'];
+                $item_stocks = $this->getItemById($item_id)[0]['stocks'] + $quantity;
+                if(!$this->updateItemStocks($item_stocks, $item_id)){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 }
