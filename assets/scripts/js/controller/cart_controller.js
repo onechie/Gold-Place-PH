@@ -10,6 +10,8 @@ $(document).ready(function () {
   const cartTotalPrice = $("#cart #total_price")
   const cartRemove = $("#cart #remove");
 
+  const token = $('.token').val();
+
   const cartUrl = "./assets/scripts/server/request/cart_request.php";
 
   let totalPriceValue = 0;
@@ -22,6 +24,7 @@ $(document).ready(function () {
         id: id,
         quantity: 1,
         requestType: "cart_add",
+        token: token
       },
       function (data) {
         if (data == "login_required") {
@@ -50,6 +53,7 @@ $(document).ready(function () {
         id: id,
         quantity: qty,
         requestType: "cart_add",
+        token: token
       },
       function (data) {
         if (data == "login_required") {
@@ -81,6 +85,7 @@ $(document).ready(function () {
       value: value,
       cart_id: cart_id,
       requestType: "cart_update",
+      token: token
     },
       function (data) {
         getCartData();
@@ -99,7 +104,8 @@ $(document).ready(function () {
       if(checkoutArray.length > 0){
         $.post(cartUrl, {
           cartItems:checkoutArray,
-          requestType:"cart_checkout"
+          requestType:"cart_checkout",
+          token: token
         },
           function (data) {
             if(data == "ok"){
@@ -140,7 +146,8 @@ $(document).ready(function () {
     if(removeArray.length > 0){
       $.post(cartUrl, {
         cartItems:removeArray,
-        requestType:"cart_remove"
+        requestType:"cart_remove",
+        token: token
       },
         function (data) {
           if(data == "ok"){
@@ -199,7 +206,8 @@ $(document).ready(function () {
     $.post(
       cartUrl,
       {
-        requestType: "cart_info"
+        requestType: "cart_info",
+        token: token
       },
       function (data) {
         cartList.empty();

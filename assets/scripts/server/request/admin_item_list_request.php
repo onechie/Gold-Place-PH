@@ -2,9 +2,11 @@
 include '../database/database.php';
 include '../model/item_model.php';
 include '../controller/admin_item_list_controller.php';
+include './check_token.php';
 
 session_start();
 date_default_timezone_set("Asia/Manila");
+checkToken();
 
 
 //RESPONSE FOR SINGLE ITEM INFO REQUEST

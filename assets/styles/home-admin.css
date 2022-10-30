@@ -50,19 +50,14 @@ main {
   .test {
     width: 80px;
   }
+  .make-abs{
+    display: block;
+  }
 }
 @media screen and (max-width: 576px) {
   .make-abs {
     position: absolute;
     background-color: none !important;
-  }
-  .hide {
-    display: none;
-  }
-}
-@media screen and (min-width: 575px) {
-  .make-abs {
-    background-color: #f8f9fa !important;
   }
 }
 .big-btn {

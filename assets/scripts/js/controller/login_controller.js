@@ -26,6 +26,8 @@ $(document).ready(function () {
 
   const loginUrl = "./assets/scripts/server/request/login_request.php";
   const verifyUrl = "./assets/scripts/server/request/verify_request.php";
+  
+  const token = $('.token').val();
 
   const errorIcon = "<i class='bi bi-exclamation-circle-fill'></i>";
 
@@ -70,6 +72,7 @@ $(document).ready(function () {
         {
           requestType: "validate_email",
           email: emValue,
+          token: token
         },
         function (data) {
           if (data == "not_registered") {
@@ -112,6 +115,7 @@ $(document).ready(function () {
         email: emValue,
         password: pwValue,
         requestType: "login",
+        token: token
       },
       function (data) {
         let str = data;

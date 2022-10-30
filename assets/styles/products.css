@@ -14,60 +14,6 @@ body {
   overflow: hidden;
 }
 
-/* Carousel base class */
-#banner-carousel .carousel {
-  margin-bottom: 4rem;
-}
-/* Since positioning the image, we need to help out the caption */
-#banner-carousel .carousel-caption {
-  bottom: 3rem;
-  z-index: 10;
-}
-
-/* Declare heights because of positioning of img element */
-#banner-carousel .carousel-item {
-  height: 12rem;
-  position: relative;
-  background-color: black;
-}
-@media screen and (min-width: 576px) {
-    #banner-carousel .carousel-item {
-    height: 17rem;
-    position: relative;
-    background-color: black;
-    }
-}
-@media screen and (min-width: 768px) {
-    #banner-carousel .carousel-item {
-    height: 22rem;
-    position: relative;
-    background-color: black;
-    }
-}
-@media screen and (min-width: 992px) {
-    #banner-carousel .carousel-item {
-    height: 27rem;
-    position: relative;
-    background-color: black;
-    }
-}
-@media screen and (min-width: 1200px) {
-    #banner-carousel .carousel-item {
-    height: 32rem;
-    position: relative;
-    background-color: black;
-    }
-}
-#banner-carousel .carousel-item .bg-image {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
 .card {
   transition: all 0.3s;
   width: 276px;

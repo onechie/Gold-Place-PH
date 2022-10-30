@@ -1,7 +1,6 @@
 $(document).ready(function () {
     "use strict";
-  
-    const toastBody = $(".toast-body");
+
     const modalId = $("#item #item-id")
     const modalName = $("#item #item-name");
     const modalPrice = $("#item #item-price");
@@ -9,6 +8,8 @@ $(document).ready(function () {
     const modalStocks = $("#item #item-stocks");
     const modalDescription = $("#item #item-description");
     const modalImage = $("#image-carousel .carousel-inner");
+
+    const token = $(".token").val();
 
     const viewItemUrl = "./assets/scripts/server/request/view_item_request.php";
   
@@ -60,7 +61,8 @@ $(document).ready(function () {
         requestType: "rate-item",
         star:star,
         comment:comment,
-        itemId:itemId
+        itemId:itemId,
+        token:token
       }, function(data){
         loadItem(itemId);
       })
@@ -89,7 +91,7 @@ $(document).ready(function () {
       $("#rate-input").hide();
       $.post(
         viewItemUrl,
-        { requestType: "load-item", id: id },
+        { requestType: "load-item", id: id, token:token},
         function (data) {
           if (data && data != "null") {
             let item = JSON.parse(data);

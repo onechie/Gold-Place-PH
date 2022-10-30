@@ -7,11 +7,12 @@ include '../model/province_list_model.php';
 include '../model/user_address_model.php';
 include '../model/order_model.php';
 include '../model/order_item_model.php';
-
 include '../controller/profile_controller.php';
+include './check_token.php';
 
 session_start();
 date_default_timezone_set("Asia/Manila");
+checkToken();
 
 //RESPONSE FOR GETTING PROFILE DATA
 if ($_POST['requestType'] == "get_profile") {
@@ -24,7 +25,7 @@ if ($_POST['requestType'] == "get_profile") {
 }
 
 //RESPONSE FOR UPDATE PROFILE
-if (isset($_POST['requestType']) && $_POST['requestType'] == "update_profile") {
+if ($_POST['requestType'] == "update_profile") {
 
     $number = $_POST['number'];
     $street = $_POST['street'];

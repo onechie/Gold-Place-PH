@@ -16,6 +16,8 @@ $(document).ready(function () {
   let catOption = "Default";
   const toast = new bootstrap.Toast($("#liveToast"));
 
+  const token = $('.token').val();
+
   const itemsPageUrl = "./assets/scripts/server/request/items_page_request.php";
 
   $("#rate-input #rate-submit").prop("disabled", true);
@@ -71,6 +73,7 @@ $(document).ready(function () {
 
   function getItemsData(sort, price, category) {
     let page = pageCount.val();
+    itemList.hide();
 
     $.post(
       itemsPageUrl,
@@ -80,6 +83,7 @@ $(document).ready(function () {
         sort: sort,
         price: price,
         category: category,
+        token: token
       },
       function (data) {
         let cardCount = 0;
@@ -87,7 +91,6 @@ $(document).ready(function () {
           let itemInfo = JSON.parse(data);
           let htmlData = "";
 
-          itemList.hide();
           itemList.empty();
           for (let i = 0; i < itemInfo.length; i++) {
             let item = itemInfo[i];

@@ -128,87 +128,148 @@
         </div> 
         
 -->
-            <div class="container-xxl p-0 pt-3 pt-md-5">
-                <div id="banner-carousel" class="carousel slide m-0 mb-4 main-carousel" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <div class="container-xxl p-0 pt-3 pt-md-4 pb-3">
+                <div class="ratio ratio-21x9 bg-light overflow-hidden">
+                    <div id="banner-carousel" class="carousel slide m-0 mb-4 main-carousel" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#banner-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active ratio ratio-21x9">
+                                <img src="./assets/images/defaults/background5.jpg" class="d-block" alt="image" style="object-fit: cover;">
+                            </div>
+                            <div class="carousel-item ratio ratio-21x9">
+                                <img src="./assets/images/defaults/background5.jpg" class="d-block" alt="image" style="object-fit: cover;">
+                            </div>
+                            <div class="carousel-item ratio ratio-21x9">
+                                <img src="./assets/images/defaults/background5.jpg" class="d-block" alt="image" style="object-fit: cover;">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#banner-carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#banner-carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="bg-image" style="background-image: url(./assets/images/defaults/background5.jpg);"></div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="bg-image" style="background-image: url(./assets/images/defaults/background5.jpg);"></div>
-
-                        </div>
-                        <div class="carousel-item">
-                            <div class="bg-image" style="background-image: url(./assets/images/defaults/background5.jpg);"></div>
-                        </div>
-                    </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#banner-carousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#banner-carousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
 
             <div class="container-xxl bg-white rounded-2 text-dark px-3 py-2 fw-light fs-7 d-flex justify-content-between flex-wrap mx-auto">
-                <div class="d-flex align-items-center py-1 py-md-0 sort-by">
-                    <p class="p-0 pe-1 m-0">Sort by</p>
-                    <div class="btn-group drop-down">
-                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="sort-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Default</a>
-                        <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm m-2">
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Latest' type="button">Latest</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Oldest' type="button">Oldest</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Top-sales' type="button">Top Sales</button></li>
-                        </ul>
+                <div class="d-flex d-md-none justify-self-end py-1 py-md-0 align-items-center">
+                    <button class="btn btn-light py-1 px-3 border-0 fw-light fs-7" type="button" data-bs-toggle="offcanvas" data-bs-target="#oc-filter" aria-controls="oc-filter">
+                        <i class="bi bi-filter-left fs-6"></i> Filter
+                    </button>
+                </div>
+                <div class="d-none d-md-flex">
+                    <div class="d-none d-md-flex align-items-center py-1 py-md-0 sort-by me-4">
+                        <p class="p-0 pe-1 m-0">Sort by</p>
+                        <div class="btn-group drop-down">
+                            <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="sort-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Default</a>
+                            <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm my-2">
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Latest' type="button">Latest</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Oldest' type="button">Oldest</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Top-sales' type="button">Top Sales</button></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-none d-md-flex align-items-center py-1 py-md-0 price me-4">
+                        <p class="p-0 pe-1 m-0">Price</p>
+                        <div class="btn-group drop-down py-1 rounded-1">
+                            <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="price-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Default</a>
+                            <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm my-2">
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Low-to-high' type="button">Low to High</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='High-to-low' type="button">High to Low</button></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-none d-md-flex align-items-center py-1 py-md-0 category me-4">
+                        <p class="p-0 pe-1 m-0">Category</p>
+                        <div class="btn-group drop-down py-1 rounded-1">
+                            <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="category-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Default</a>
+                            <ul class="dropdown-menu dropdown-menu-start border-0 p-0 my-2 overflow-hidden shadow-sm">
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Ring' type="button">Ring</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Necklace' type="button">Necklace</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Pendant' type="button">Pendant</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Earring' type="button">Earring</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Bracelet' type="button">Bracelet</button></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center py-1 py-md-0 price">
-                    <p class="p-0 pe-1 m-0">Price</p>
-                    <div class="btn-group drop-down py-1 rounded-1">
-                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="price-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Default</a>
-                        <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm m-2">
-                        <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Low-to-high' type="button">Low to High</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='High-to-low' type="button">High to Low</button></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-center py-1 py-md-0 category">
-                    <p class="p-0 pe-1 m-0">Category</p>
-                    <div class="btn-group drop-down py-1 rounded-1">
-                        <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="category-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Default</a>
-                        <ul class="dropdown-menu dropdown-menu-start border-0 p-0 m-2 overflow-hidden shadow-sm">
-                        <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Ring' type="button">Ring</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Necklace' type="button">Necklace</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Pendant' type="button">Pendant</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Earring' type="button">Earring</button></li>
-                            <li><button class="dropdown-item text-start fs-7 fw-light" id='Bracelet' type="button">Bracelet</button></li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="d-flex justify-self-end py-1 py-md-0 align-items-center">
                     <p class="p-0 pe-1 m-0">1/50</p>
                     <button type="button" class="btn btn-light py-1 px-3 border-0 previous" id="previous">
-                        <</button>
+                        < </button>
                             <button type="button" class="btn btn-light py-1 px-3 border-0 next" id="next">></button>
                 </div>
             </div>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="oc-filter" aria-labelledby="oc-filter-Label">
+                <div class="offcanvas-header shadow-sm">
+                    <h5 class="offcanvas-title" id="oc-filter-Label">Filter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="d-flex align-items-center sort-by">
+                        <p class="p-0 pe-1 m-0">Sort by</p>
+                        <div class="btn-group drop-down py-1 rounded-1">
+                            <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="sort-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Default</a>
+                            <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm my-2">
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Latest' type="button">Latest</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Oldest' type="button">Oldest</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Top-sales' type="button">Top Sales</button></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center price">
+                        <p class="p-0 pe-1 m-0">Price</p>
+                        <div class="btn-group drop-down py-1 rounded-1">
+                            <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="price-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Default</a>
+                            <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow-sm my-2">
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Low-to-high' type="button">Low to High</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='High-to-low' type="button">High to Low</button></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center category">
+                        <p class="p-0 pe-1 m-0">Category</p>
+                        <div class="btn-group drop-down py-1 rounded-1">
+                            <a type="button" class="btn p-0 dropdown-toggle border-0 text-dark fs-7 fw-light btn-light px-2 py-1 rounded-1" id="category-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Default</a>
+                            <ul class="dropdown-menu dropdown-menu-start border-0 p-0 my-2 overflow-hidden shadow-sm">
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Default' type="button">Default</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Ring' type="button">Ring</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Necklace' type="button">Necklace</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Pendant' type="button">Pendant</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Earring' type="button">Earring</button></li>
+                                <li><button class="dropdown-item text-start fs-7 fw-light" id='Bracelet' type="button">Bracelet</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="container-fluid bg-light p-0">
                 <div class="container-xxl marketing mt-2 p-0">
                     <input type="hidden" id="page" value="1">
@@ -224,6 +285,7 @@
                 </nav>
             </div>
             <?php
+            include './user_include/csrf_token.php';
             include './user_include/view-item-modal.php';
             include './user_include/footer.php';
             include './user_include/toast.php';

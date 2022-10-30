@@ -6,8 +6,11 @@ include '../model/rating_model.php';
 include '../model/order_model.php';
 include '../model/order_item_model.php';
 include '../controller/view_item_controller.php';
+include './check_token.php';
 
 session_start();
+date_default_timezone_set("Asia/Manila");
+checkToken();
 
 //RESPONSE FOR SINGLE ITEM INFO REQUEST
 if ($_POST['requestType'] == "load-item") {
@@ -22,7 +25,7 @@ if ($_POST['requestType'] == "load-item") {
     echo json_encode($vic->itemData($item_id));
 }
 //RESPONSE FOR RATE ITEM
-if (isset($_POST['requestType']) && $_POST['requestType'] == "rate-item") {
+if ($_POST['requestType'] == "rate-item") {
     $star = $_POST['star'];
     $comment = $_POST['comment'];
     $item_id = $_POST['itemId'];

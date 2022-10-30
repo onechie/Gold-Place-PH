@@ -5,6 +5,8 @@ $(document).ready(function () {
   let orderId = $(".modal-footer #order_id");
   const totalPrice = $(".modal-footer #total_price");
 
+  const token = $(".token").val();
+
   const adminRC_URL =
     "../assets/scripts/server/request/admin_recent_order_request.php";
 
@@ -20,6 +22,7 @@ $(document).ready(function () {
       {
         requestType: "get-order-data",
         order_id: order_id,
+        token: token
       },
       function (data) {
         if (data && data != "null") {
@@ -74,6 +77,7 @@ $(document).ready(function () {
         requestType: "edit-order-status",
         order_id: orderId.val(),
         status: status.val(),
+        token: token
       },
       function (data) {
         loadRecentOrders();
@@ -86,6 +90,7 @@ $(document).ready(function () {
       adminRC_URL,
       {
         requestType: "get-recent-orders",
+        token:token
       },
       function (data) {
         recentOrders.empty();

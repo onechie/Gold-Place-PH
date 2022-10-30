@@ -1,8 +1,10 @@
 $(document).ready(function () {
 
+    const token = $(".token").val();
 
     $.post("../assets/scripts/server/request/admin_total_values_request.php", {
-        requestType:"all-total-data"
+        requestType:"all-total-data",
+        token: token
     },function(data){
         if(data != null && data){
             let totals = JSON.parse(data);

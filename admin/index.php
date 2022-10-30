@@ -31,6 +31,7 @@
         <!--DASHBOARD-->
         <div class="container-fluid p-0 bg-light overflow-auto scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
             <?php
+            include '../user_include/csrf_token.php';
             include './admin_include/home.php';
             include './admin_include/orders.php';
             include './admin_include/items.php';

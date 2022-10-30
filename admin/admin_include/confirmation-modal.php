@@ -15,6 +15,7 @@
         <div class="modal-body overflow-auto p-4" style="max-height: 60vh;">
             <input type="hidden" id="id" name="id" value="">
             <input type="hidden" id="requestType" name="requestType" value="">
+            <?php include '../user_include/csrf_token.php'?>
             <div id="confirmation-message">Are you sure?</div>
         </div>
         <div class="modal-footer bg-light d-flex justify-content-center justify-content-sm-between px-4">

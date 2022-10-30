@@ -38,6 +38,8 @@ $(document).ready(function () {
   const pwInput = $("#add-user #password");
   $("#add-user-btn").prop("disabled", true);
 
+  const token = $(".token").val();
+
   const adminUL_URL =
     "../assets/scripts/server/request/admin_user_list_request.php";
 
@@ -131,6 +133,7 @@ $(document).ready(function () {
         {
           email: emValue,
           requestType: "validate_email",
+          token: token
         },
         function (data) {
           if (data == "used") {
@@ -162,6 +165,7 @@ $(document).ready(function () {
         {
           phone: phValue,
           requestType: "validate_phone",
+          token: token
         },
         function (data) {
           if (data == "used") {
@@ -205,6 +209,7 @@ $(document).ready(function () {
       {
         id: id,
         requestType: "view-users",
+        token: token
       },
       function (data) {
         if (data && data != "null") {
@@ -261,6 +266,7 @@ $(document).ready(function () {
         user_type,
         password,
         verRequired,
+        token:token
       },
       function (data) {
         if (data == "ok") {
@@ -365,6 +371,7 @@ $(document).ready(function () {
       adminUL_URL,
       {
         requestType: "load-users",
+        token: token
       },
       function (data) {
         if (data && data != "null") {

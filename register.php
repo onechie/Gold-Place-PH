@@ -78,6 +78,7 @@
 
     </div>
     <?php
+    include './user_include/csrf_token.php';
     include './user_include/footer.php';
     include './user_include/toast.php';
     ?>

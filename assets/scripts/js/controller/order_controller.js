@@ -6,6 +6,8 @@ $(document).ready(function () {
     const orderProcessing = $("#order #processing");
     const orderTotalPrice = $("#order #total_price");
 
+    const token = $('.token').val();
+
     const orderUrl = "./assets/scripts/server/request/order_request.php";
   
     let totalPriceValue = 0;
@@ -37,7 +39,8 @@ $(document).ready(function () {
         orderUrl,
         {
           type:type,
-          requestType: "order_info"
+          requestType: "order_info",
+          token:token
         },
         function (data) {
           //orderList.empty();

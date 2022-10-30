@@ -32,8 +32,7 @@ class LoginController extends UserModel
         if (!password_verify($password, $user['password'])) {
             return false;
         }
-
-        session_start();
+        
         $_SESSION["userId"] = $user['id'];
         $_SESSION["userEmail"] = $user['email'];
         $_SESSION["userType"] = $user['type'];

@@ -2,6 +2,11 @@
 include '../database/database.php';
 include '../model/user_model.php';
 include '../controller/login_controller.php';
+include './check_token.php';
+
+session_start();
+date_default_timezone_set("Asia/Manila");
+checkToken();
 
 if ($_POST['requestType'] == "validate_email") {
     $email = $_POST['email'];

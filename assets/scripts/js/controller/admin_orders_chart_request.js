@@ -9,6 +9,8 @@ $(document).ready(function () {
     const percentNumber = $(".orders-percent");
     const WholeNumber = $(".orders-number");
 
+    const token = $(".token").val();
+
     const adminOC_URL = "../assets/scripts/server/request/admin_orders_chart_request.php";
   
     getOrdersData("daily");
@@ -67,7 +69,8 @@ $(document).ready(function () {
     function getOrdersData(limit){
       $.post(adminOC_URL, {
         requestType:"order-chart-data",
-        limit:limit
+        limit:limit,
+        token:token
       },
         function (data) {
           if(data != null && data){

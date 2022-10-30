@@ -5,11 +5,14 @@ $(document).ready(function () {
     const toast = new bootstrap.Toast($("#liveToast"));
     const toastBody = $(".toast-body");
 
+    const token = $(".token").val();
+
     const profileUrl = "./assets/scripts/server/request/profile_request.php";
     getProfileData();
   
     profileBtn.click(() => {
       getProfileData();
+
     });
   
     updateProfile.on("submit", function (e) {
@@ -38,7 +41,6 @@ $(document).ready(function () {
       var file = this.files[0];
       var fileType = file["type"];
       var validImageTypes = ["image/gif", "image/jpeg", "image/png", "image/jpg"];
-  
       if ($.inArray(fileType, validImageTypes) < 0) {
         this.value = null;
         toastBody.text("Please input valid image file!");
@@ -58,6 +60,7 @@ $(document).ready(function () {
         profileUrl,
         {
           requestType: "get_profile",
+          token:token
         },
         function (data) {
           if (data && data != null) {

@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="./assets/styles/home-user.css">
   <link rel="stylesheet" href="./assets/styles/default.css">
   <title>Gold Place PH</title>
-
   <style>
     .front-page h1 {
       font-size: 70px;
@@ -27,7 +26,7 @@
     include './user_include/header.php';
   }
   ?>
-
+  
   <main class="bg-light h-100 overflow-auto">
     <div class="row h-100 bg-white front-page">
       <div class="col-12 d-flex justify-content-center align-items-center">
@@ -175,6 +174,7 @@
       </div>
       <!-- FOOTER -->
       <?php
+      include './user_include/csrf_token.php';
       include './user_include/footer.php';
       ?>
     </div>

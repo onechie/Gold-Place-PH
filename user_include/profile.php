@@ -54,6 +54,9 @@ if (!defined('ACCESS')) {
               </select>
               <label class="px-4" for="address_province">Province</label>
             </div>
+            <?php
+            include './user_include/csrf_token.php';
+            ?>
             <div class="col-12 mb-4 sm-box px-3">
               <div class="overflow-hidden bg-white shadow-sm rounded-4 h-100 w-100">
                 <div class="p-4 h-100 d-flex justify-content-between align-items-center">

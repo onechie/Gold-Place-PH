@@ -16,6 +16,8 @@ $(document).ready(function () {
   const addReqType = $("#add-item #requestType");
   const addOutput = $("#add-item #output");
 
+  const token = $(".token").val();
+
   const adminIL_URL =
     "../assets/scripts/server/request/admin_item_list_request.php";
 
@@ -61,6 +63,7 @@ $(document).ready(function () {
       {
         requestType: "load-item",
         id: id,
+        token: token
       },
       function (data) {
         if (data && data != "null") {
@@ -327,7 +330,7 @@ $(document).ready(function () {
 
   function getItemsData() {
     itemList.empty();
-    $.post(adminIL_URL, { requestType: "load-items" }, function (data) {
+    $.post(adminIL_URL, { requestType: "load-items", token: token}, function (data) {
       if (data && data != "null") {
         let itemInfo = JSON.parse(data);
         let htmlData = "";

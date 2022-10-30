@@ -50,6 +50,7 @@
               <div class="border border-2 position-relative rounded-4 d-flex flex-column justify-content-center align-items-center bg-white" style="height: 100px">
                 <input class="position-absolute z-highest file-upload" accept="image/*" type="file" multiple id="imageInput" style="height: 100%; width: 100%; opacity:0;" name="images[]">
                 <i class="bi bi-upload fs-2 opacity-50 z-mid"></i>
+                <?php include '../user_include/csrf_token.php'?>
                 <div class="px-4 text-center"><strong>Choose photos </strong>or Drag it here</div>
               </div>
             </div>

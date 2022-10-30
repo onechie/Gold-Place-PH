@@ -28,6 +28,9 @@ $(document).ready(function () {
   const emInput = $("#emInput");
   const phInput = $("#phInput");
   const pwInput = $("#pwInput");
+  
+  //CSRFT TOKEN
+  const token = $(".token").val();
 
   const registerUrl = "./assets/scripts/server/request/register_request.php";
 
@@ -100,6 +103,7 @@ $(document).ready(function () {
         {
           email: emValue,
           requestType: "validate_email",
+          token: token
         },
         function (data) {
           if (data == "used") {
@@ -131,6 +135,7 @@ $(document).ready(function () {
         {
           phone: phValue,
           requestType: "validate_phone",
+          token: token
         },
         function (data) {
           if (data == "used") {
@@ -180,6 +185,7 @@ $(document).ready(function () {
         phone: phValue,
         password: pwValue,
         requestType: "create_account",
+        token: token
       },
       function (data) {
         loading.toggleClass("d-flex");

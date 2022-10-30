@@ -6,7 +6,6 @@
   <?php
   define('ACCESS', TRUE);
   include './user_include/restrict-admin.php';
-
   if (isset($_SESSION["userId"])) {
     header('location: ./');
   }
@@ -17,15 +16,6 @@
   <link rel="stylesheet" href="./assets/styles/default.css">
   <script src="./assets/scripts/js/controller/login_controller.js" type="text/javascript"></script>
   <title>Login</title>
-  <style>
-    .loading {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  </style>
 </head>
 
 <body>
@@ -69,6 +59,7 @@
 
     </div>
     <?php
+    include './user_include/csrf_token.php';
     include './user_include/footer.php';
     include './user_include/toast.php';
     ?>

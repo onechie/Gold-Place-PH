@@ -8,6 +8,8 @@ $(document).ready(function () {
   const percentNumber = $(".sales-percent");
   const WholeNumber = $(".sales-number");
 
+  const token = $(".token").val();
+
   const adminSC_URL =
     "../assets/scripts/server/request/admin_sales_chart_request.php";
 
@@ -75,6 +77,8 @@ $(document).ready(function () {
       {
         requestType: "line-chart-data",
         limit: limit,
+        token: token
+
       },
       function (data) {
         if (data != null && data) {

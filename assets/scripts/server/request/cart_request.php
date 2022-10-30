@@ -6,8 +6,11 @@ include '../model/user_address_model.php';
 include '../model/order_model.php';
 include '../model/order_item_model.php';
 include '../controller/cart_controller.php';
+include './check_token.php';
+
 session_start();
 date_default_timezone_set("Asia/Manila");
+checkToken();
 
 if ($_POST['requestType'] == "cart_add") {
     if (isset($_SESSION['userId'])) {
@@ -93,7 +96,7 @@ if ($_POST['requestType'] == "cart_checkout") {
     echo 'ok';
 }
 
-if (isset($_POST['requestType']) && $_POST['requestType'] == "cart_remove") {
+if ($_POST['requestType'] == "cart_remove") {
     $cartItems = $_POST['cartItems'];
     $user_id = $_SESSION['userId'];
 

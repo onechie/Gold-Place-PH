@@ -5,8 +5,11 @@ include '../model/item_model.php';
 include '../model/order_model.php';
 include '../model/order_item_model.php';
 include '../controller/admin_recent_order_controller.php';
+include './check_token.php';
 
+session_start();
 date_default_timezone_set("Asia/Manila");
+checkToken();
 
 
 
