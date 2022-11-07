@@ -74,6 +74,15 @@ class AdminRecentOrderController extends OrderModel
             if (!$this->updateOrderItemsBy_OID($order_id, 'yes')) {
                 return false;
             }
+            $orderItems = $this->getOrderItemBy_OID($order_id);
+            foreach($orderItems as $orderItem){
+                $item_id = $orderItem['item_id'];
+                $quantity = $orderItem['quantity'];
+                $total_sold = $this->getItemById($item_id)[0]['sold'] + $quantity;
+                if(!$this->updateItemSold($total_sold, $item_id)){
+                    return false;
+                }
+            }
         }
         if ($status == 'cancelled') {
             $orderItems = $this->getOrderItemBy_OID($order_id);

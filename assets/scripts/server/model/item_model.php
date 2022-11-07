@@ -170,6 +170,18 @@ trait ItemTrait
         $stmt = null;
         return true;
     }
+    protected function updateItemSold($sold, $id)
+    {
+        $sql = "UPDATE items set sold = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($sold, $id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
     protected function updateItemImage($id)
     {
 

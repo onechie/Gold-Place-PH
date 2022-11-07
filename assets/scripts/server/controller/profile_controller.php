@@ -19,13 +19,16 @@ class ProfileController extends UserModel
             "phone" => $userData[0]['phone'],
             "image" => $userImage
         );
+        $user_address = array();
+        if (count($userAddress) > 0) {
+            $user_address = array(
+                "house" => $userAddress[0]['house_number'],
+                "street" => $userAddress[0]['barangay'],
+                "city" => $userAddress[0]['city'],
+                "province" => $userAddress[0]['province'],
+            );
+        }
 
-        $user_address = array(
-            "house" => $userAddress[0]['house_number'],
-            "street" => $userAddress[0]['barangay'],
-            "city" => $userAddress[0]['city'],
-            "province" => $userAddress[0]['province'],
-        );
         $address_option = array(
             "city_list" => $cityList,
             "province_list" => $provinceList
@@ -49,11 +52,16 @@ class ProfileController extends UserModel
         if (!$this->isProvinceExists($province)) {
             return false;
         }
-
-        if(!$this->updateUserAddress($number, $street, $city, $province, $user_id)){
-            return false;
+        if (count($this->getAddressBy_UID($user_id)) == 0) {
+            if (!$this->setUserAddress($number, $street, $city, $province, $user_id)) {
+                return false;
+            }
+        } else {
+            if (!$this->updateUserAddress($number, $street, $city, $province, $user_id)) {
+                return false;
+            }
         }
-        if(!$this->updateUserImage($user_id)){
+        if (!$this->updateUserImage($user_id)) {
             return false;
         }
         return true;

@@ -10,7 +10,13 @@ session_start();
 date_default_timezone_set("Asia/Manila");
 checkToken();
 
-//RESPONSE FOR LOAD ALL USERS
+if($_SESSION['userType'] == 'admin' || $_SESSION['userType'] == 'super_admin'){
+
+} else {
+    exit();
+}
+
+//RESPONSE FOR LOAD ALL USERS   
 if ($_POST['requestType'] == "load-users") {
     $aulc = new AdminUserListController();
     echo json_encode($aulc->usersData());
@@ -43,7 +49,7 @@ if ($_POST['requestType'] == "add-user") {
         $verified = 'yes';
     }
 
-    if (!$uc->createAccount($first_name, $last_name, $email, $phone, $password, $verified, 'customer')) {
+    if (!$uc->createAccount($first_name, $last_name, $email, $phone, $password, $verified, $user_type)) {
         echo 'error';
         exit();
     }

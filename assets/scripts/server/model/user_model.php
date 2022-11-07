@@ -35,6 +35,19 @@ trait UserTrait
         $stmt = null;
         return $results;
     }
+    protected function getUsersByType($type)
+    {
+        $sql = "SELECT * FROM user WHERE type = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($type))) {
+            $stmt = null;
+            exit();
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
     protected function getUserById($id)
     {
         $sql = "SELECT * FROM user WHERE id = ?";

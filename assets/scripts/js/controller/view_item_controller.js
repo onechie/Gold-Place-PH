@@ -143,10 +143,10 @@ $(document).ready(function () {
             }
   
             $(".average-rate").empty();
-            $(".average-rate").append(setStar(avgRate));
+            $(".average-rate").append(setStar(Math.round(avgRate)));
   
             $(".average-rate-text").empty();
-            $(".average-rate-text").text(avgRate + "/5");
+            $(".average-rate-text").text(avgRate.toFixed(1) + "/5");
             
             $("#customer-rate").empty();
             $("#customer-rate").append(rateHtml);

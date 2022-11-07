@@ -5,6 +5,7 @@
     <?php
     define('ACCESS', TRUE);
     include './user_include/restrict-admin.php';
+    include './user_include/restrict-driver.php';
     include './user_include/links.php';
     ?>
     <script type="text/javascript" src="./assets/scripts/js/controller/items_page_controller.js"></script>

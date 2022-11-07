@@ -1,6 +1,6 @@
 <?php
     
-    $to = "louenrypeanut@gmail.com";
+    $to = "angeloparole23@gmail.com";
     $subject = "Gold Place PH - Verification";
 
     $message = "

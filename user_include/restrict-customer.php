@@ -11,8 +11,8 @@ if (session_status() === PHP_SESSION_NONE) {
     if (isset($_SESSION['userId'])) {
         if ($_SESSION['userType'] == 'customer') {
             http_response_code(403);
-            die('Forbidden');
             header('location: ../');
         }
     }
 }
+?>

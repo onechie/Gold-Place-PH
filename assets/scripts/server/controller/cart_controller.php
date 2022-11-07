@@ -9,8 +9,8 @@ class CartController extends ItemModel
         $stocks = $this->getItemById($item_id)[0]['stocks'];
         $newQuantity = 0;
        
-        if ($quantity <= $stocks) $newQuantity = $quantity;
-        else if ($quantity <= 0) $newQuantity = 1;
+        if ($quantity <= $stocks && $quantity >= 1) $newQuantity = $quantity;
+        else if ($quantity <= 0) $newQuantity = 0;
         else $newQuantity = $stocks;
 
         return $newQuantity;
@@ -112,9 +112,9 @@ class CartController extends ItemModel
         return false;
     }
 
-    public function checkOut($user_id, $items, $status, $date, $cart_items)
+    public function checkOut($user_id, $items, $status, $date, $cart_items, $available)
     {
-        if(!$this->setOrder($user_id,$items, $status, $date)){
+        if(!$this->setOrder($user_id,$items, $status, $date, $available)){
             return false;
         }
 

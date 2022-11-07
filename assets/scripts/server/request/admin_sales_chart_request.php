@@ -9,6 +9,12 @@ session_start();
 date_default_timezone_set("Asia/Manila");
 checkToken();
 
+if($_SESSION['userType'] == 'admin' || $_SESSION['userType'] == 'super_admin'){
+    
+} else {
+    exit();
+}
+
 //RESPONSE FOR SALES CHART DATA
 if ($_POST['requestType'] == "line-chart-data") {
 

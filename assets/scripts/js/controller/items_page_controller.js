@@ -128,7 +128,7 @@ $(document).ready(function () {
               "        <div class='row justify-content-between'>" +
               "            <div class='col-6 my-auto'>" +
               "                <span class='align-middle text-warning'>" +
-              setStar(avgRate) +
+              setStar(Math.round(avgRate)) +
               "                </span>" +
               "            </div>" +
               "            <div class='col-6 text-end'>" +

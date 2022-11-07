@@ -52,15 +52,15 @@ $(document).ready(function () {
             for(let i = 0; i < orders.length; i++){
               let order = orders[i];
               let order_items = order.order_items;
-              
+
               htmlData += "<tr>"
                             +"<td class='p-0'>"
                             +"  <div class='accordion accordion-flush'>"
                             +"    <div class='accordion-item fw-200 fs-7'>"
                             +"      <div class='accordion-header fw-normal row py-3 px-4 bg-white' data-bs-toggle='collapse' data-bs-target='#flush-"+i+"'>"
                             +"        <div class='col-2'>"+(i+1)+"</div>"
-                            +"        <div class='col-5'>"+order.date+"</div>"
-                            +"        <div class='col-4'>"+order.status+"</div>"
+                            +"        <div class='col-4'>"+order.date+"</div>"
+                            +"        <div class='col-5 text-break fw-200'><span class='text-secondary fw-normal'>"+order.status+"</span><br>"+order.status_message+"</div>"
                             +"        <div class='col-1'><i class='bi bi-chevron-down'></i></div>"
                             +"      </div>"
   

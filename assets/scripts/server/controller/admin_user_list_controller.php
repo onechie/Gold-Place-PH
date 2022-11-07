@@ -5,17 +5,11 @@ class AdminUserListController extends UserModel
     use OrderTrait;
     public function usersData()
     {
-
-        $sql = "SELECT * FROM user";
-        $stmt = $this->connect()->prepare($sql);
-
-        if (!$stmt->execute()) {
-            $stmt = null;
-            return false;
+        $results = $this->getUsers();
+        
+        if($_SESSION['userType'] == 'admin'){
+            $results = $this->getUsersByType('customer');
         }
-
-        $results = $stmt->fetchAll();
-        $stmt = null;
 
         $usersData = array();
 

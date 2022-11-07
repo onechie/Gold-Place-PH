@@ -69,6 +69,7 @@ if ($_POST['requestType'] == "cart_checkout") {
     $user_id = $_SESSION['userId'];
     $currentDate = date("Y-m-d H:i:s");
     $status = 'checking';
+    $available = 'yes';
     $cc = new CartController();
     $items = count($cartItems);
 
@@ -89,7 +90,7 @@ if ($_POST['requestType'] == "cart_checkout") {
         exit();
     }
 
-    if(!$cc->checkOut($user_id, $items, $status, $currentDate, $cartItems)){
+    if(!$cc->checkOut($user_id, $items, $status, $currentDate, $cartItems, $available)){
         echo 'error';
         exit();
     }

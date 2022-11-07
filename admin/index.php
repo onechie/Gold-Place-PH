@@ -4,7 +4,7 @@
 <head>
     <?php
     define('ACCESS', TRUE);
-    include '../user_include/restrict-customer.php';
+    include './admin_include/check-user-type.php';
     if (!isset($_SESSION["userId"])) {
         header('location: ../');
     }
@@ -12,7 +12,7 @@
     ?>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_total_values_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_recent_order_controller.js"></script>
-    <script type="text/javascript" src="../assets/scripts/js/controller/admin_orders_chart_request.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_orders_chart_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_sales_chart_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_item_list_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_user_list_controller.js"></script>
@@ -29,7 +29,7 @@
         include './admin_include/sidebar.php';
         ?>
         <!--DASHBOARD-->
-        <div class="container-fluid p-0 bg-light overflow-auto scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+        <div class="container-fluid p-0 bg-light overflow-auto" data-bs-spy="scroll" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
             <?php
             include '../user_include/csrf_token.php';
             include './admin_include/home.php';

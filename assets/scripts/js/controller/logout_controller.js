@@ -10,4 +10,9 @@ $(document).ready(function () {
       location.reload();
     });
   });
+  $("#logout-d").click(function () {
+    $.get("../assets/scripts/server/request/logout_request.php", function () {
+      location.reload();
+    });
+  });
 });

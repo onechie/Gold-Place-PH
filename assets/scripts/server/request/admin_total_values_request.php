@@ -11,6 +11,12 @@ session_start();
 date_default_timezone_set("Asia/Manila");
 checkToken();
 
+if($_SESSION['userType'] == 'admin' || $_SESSION['userType'] == 'super_admin'){
+    
+} else {
+    exit();
+}
+
 //RESPONSE FOR GETTING ALL TOTAL DATA
 if ($_POST['requestType'] == "all-total-data") {
 

@@ -8,11 +8,11 @@ class OrderModel extends DbHelper
 trait OrderTrait
 {
     //CREATE
-    protected function setOrder($user_id, $items, $status, $date_created)
+    protected function setOrder($user_id, $items, $status, $date_created, $available)
     {
-        $sql = "INSERT orders(user_id, items, status, date_created) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT orders(user_id, items, status, date_created, available) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
-        if (!$stmt->execute(array($user_id, $items, $status, $date_created))) {
+        if (!$stmt->execute(array($user_id, $items, $status, $date_created, $available))) {
             $stmt = null;
             return false;
         }
@@ -112,6 +112,32 @@ trait OrderTrait
         $stmt = $this->connect()->prepare($sql);
 
         if (!$stmt->execute(array($status, $date, $id))) {
+            $stmt = null;
+            return false;
+        }
+
+        $stmt = null;
+        return true;
+    }
+    public function updateOrderStatusAndMessage($status, $status_message, $date, $id)
+    {
+        $sql = "UPDATE orders SET status = ?, status_message = ?, date_updated = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($status, $status_message, $date, $id))) {
+            $stmt = null;
+            return false;
+        }
+
+        $stmt = null;
+        return true;
+    }
+    public function updateOrderAvailable($available, $id)
+    {
+        $sql = "UPDATE orders SET available = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($available, $id))) {
             $stmt = null;
             return false;
         }

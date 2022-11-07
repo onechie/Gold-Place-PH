@@ -10,7 +10,7 @@
             <!--RECENT SALES-->
             <div class="container-fluid col-12 px-3 mb-4">
                 <div class="bg-white rounded-4 overflow-hidden shadow d-flex flex-column align-items-center">
-                    <div class="p-4 shadow-sm w-100 shadow-sm d-flex justify-content-center justify-content-sm-between">
+                    <div class="p-4 w-100 shadow-sm d-flex justify-content-center justify-content-sm-between">
                         <P class="lt-space fw-light m-0">ITEMS LIST</P>
                         <i class="bi bi-arrow-clockwise ms-3 icon-btn" id="refresh-items" data-bs-toggle="tooltip" data-bs-title="Refresh"></i>
                     </div>

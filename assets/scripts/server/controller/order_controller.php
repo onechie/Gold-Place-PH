@@ -33,6 +33,7 @@ class OrderController extends ItemModel
             $orderData[] = array(
                 "id" => $order_id,
                 "status" => $order['status'],
+                "status_message" => $order['status_message'],
                 "date" => date("F d Y", strtotime($order['date_created'])),
                 "order_items" => $orderItemsData
             );

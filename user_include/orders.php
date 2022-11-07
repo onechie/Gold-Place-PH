@@ -19,8 +19,8 @@ if (!defined('ACCESS')) {
                 <th class="p-0">
                   <div class="row fw-light py-3 fs-7 bg-dark px-4 text-light">
                     <div class="col-2">#</div>
-                    <div class="col-5">DATE</div>
-                    <div class="col-4">STATUS</div>
+                    <div class="col-4">DATE</div>
+                    <div class="col-5">STATUS</div>
                     <div class="col-1"><i class="bi bi-list"></i></div>
                   </div>
                 </th>
