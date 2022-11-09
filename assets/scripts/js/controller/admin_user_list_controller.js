@@ -117,7 +117,6 @@ $(document).ready(function () {
 
   //EMAIL VALIDATION
   emInput.keyup(function () {
-    console.log("test");
     emWarning.empty();
     isEmOk = false;
     emValue = emInput.val();
@@ -142,6 +141,7 @@ $(document).ready(function () {
           if (data == "ok") {
             isEmOk = true;
           }
+          updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
         }
       );
     }
@@ -174,6 +174,7 @@ $(document).ready(function () {
           if (data == "ok") {
             isPhOk = true;
           }
+          updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
         }
       );
     }
@@ -245,7 +246,6 @@ $(document).ready(function () {
     } else {
       verRequired = "no";
     }
-    console.log("test");
   });
   $("#add-user-btn").click(function () {
     const first_name = $("#add-user #first-name").val();

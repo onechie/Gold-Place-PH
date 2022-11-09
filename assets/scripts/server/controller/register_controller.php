@@ -55,7 +55,17 @@ class RegisterController extends UserModel
 
     public function isPhoneExist($phone)
     {
-        if (count($this->getUserByPhone($phone)) > 0) {
+        $tenDigitPhone = substr($phone, -10);
+        $withZeroDigitPhone = '0' . $tenDigitPhone;
+        $withPlusDigitPhone =  '+63' . $tenDigitPhone;
+
+        if (count($this->getUserByPhone($tenDigitPhone)) > 0) {
+            return true;
+        }
+        if (count($this->getUserByPhone($withZeroDigitPhone)) > 0) {
+            return true;
+        }
+        if (count($this->getUserByPhone($withPlusDigitPhone)) > 0) {
             return true;
         }
         return false;

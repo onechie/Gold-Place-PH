@@ -223,7 +223,6 @@ $(document).ready(function () {
     } else {
       $("#ca-submit").prop("disabled", true);
     }
-    console.log(fn, ln, em, ph, pw);
   }
   function reset() {
     fnInput.val("");
