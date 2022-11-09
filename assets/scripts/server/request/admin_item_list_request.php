@@ -54,6 +54,10 @@ if ($_POST['requestType'] == "add-item") {
         echo 'noImage';
         exit();
     }
+    if(!$aitc->isImagesValid()){
+        echo 'notValidImage';
+        exit();
+    }
 
     if (!$aitc->createNewItem($name, $category, $price, $stocks, $description)) {
         echo 'addFailed';

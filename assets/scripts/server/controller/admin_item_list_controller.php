@@ -94,6 +94,40 @@ class AdminItemListController extends ItemModel
         return true;
     }
 
+    public function isImagesValid(){
+        $len = count($_FILES['images']['name']);
+        $directory = "../../../images/items/temp/";
+
+        for ($i = 0; $i < $len; $i++) {
+
+            $target_file = $directory . basename($_FILES["images"]["name"][$i]);
+
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            //CHECK IF TRUE IMAGE USING "getimagesize"
+            $check = getimagesize($_FILES["images"]["tmp_name"][$i]);
+
+            if ($check) {
+            } else {
+                //echo 'notImage';
+                return false;
+            }
+
+            // CHECK FILE SIZE
+            if ($_FILES["images"]["size"][$i] > 2000000) {
+                //echo "largeImage";
+                return false;
+            }
+
+            // CHECK FILE FORMAT
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                //echo "formatImage";
+                return false;
+            }
+        }
+        return true;
+    }
+
     public function removeItem($item_id)
     {
         if (!$this->deleteItemImage($item_id)) {

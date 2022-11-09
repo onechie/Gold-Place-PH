@@ -427,6 +427,10 @@ $(document).ready(function () {
     if (data == "noImage") {
       addMsg.append("<span class='text-danger'>Please insert image!</span>");
     }
+    if (data == "notValidImage") {
+      addMsg.append("<span class='text-danger'>Image not valid!</span>");
+      addOutput.empty();
+    }
     if (data == "notImage") {
       addMsg.append("<span class='text-danger'>File is not an image!</span>");
     }
