@@ -10,6 +10,7 @@
     }
     include '../user_include/links.php';
     ?>
+    <script type="text/javascript" src="../assets/scripts/js/controller/qrcode.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_total_values_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_recent_order_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_orders_chart_controller.js"></script>
@@ -41,6 +42,7 @@
             include './admin_include/view-user-modal.php';
             include './admin_include/add-user-modal.php';
             include './admin_include/view-order-modal.php';
+            include './admin_include/view-receipt-modal.php';
             ?>
         </div>
     </main>

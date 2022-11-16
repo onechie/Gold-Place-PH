@@ -47,6 +47,7 @@ if ($_POST['requestType'] == "add-item") {
     $price = $_POST['price'];
     $stocks = $_POST['stocks'];
     $description = $_POST['description'];
+    $currentDate = date("Y-m-d H:i:s");
 
     $aitc = new AdminItemListController();
 
@@ -59,7 +60,7 @@ if ($_POST['requestType'] == "add-item") {
         exit();
     }
 
-    if (!$aitc->createNewItem($name, $category, $price, $stocks, $description)) {
+    if (!$aitc->createNewItem($name, $category, $price, $stocks, $description, $currentDate)) {
         echo 'addFailed';
         exit();
     }

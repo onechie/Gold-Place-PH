@@ -12,9 +12,15 @@ if (!defined('ACCESS')) {
                 <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body bg-light overflow-auto p-3" style="height: 60vh;">
-            
-                <div class='text-center'>Search for Order</div>
-            <!--
+                <div id='hint' class='text-center'>Enter order ID or Scan QR code</div>
+                <div id="qr-reader" class='w-auto border-0 fw-light'>
+                </div>
+                <div id='modal-body' style='min-height:20px;'>
+                </div>
+                <hr>
+                <p id='scan-again' class='text-center'><button type="button" class='btn btn-sm btn-dark'>Scan Again</button></p>
+                <p id='scan-open' class='text-center'><button type="button" class='btn btn-sm btn-dark'>Scan QR Code</button></p>
+                <!--
                 <p class='fs-5'>ID : <span class='fw-normal text-success'>0Z014012X4</span></p>
                 <p>Items : <span class='fw-200'>4</span></p>
                 <ul class='fw-200'>

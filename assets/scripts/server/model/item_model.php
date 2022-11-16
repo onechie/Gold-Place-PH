@@ -8,12 +8,12 @@ class ItemModel extends DbHelper
 trait ItemTrait
 {
     //CREATE
-    protected function setItem($name, $category, $price, $stocks, $description)
+    protected function setItem($name, $category, $price, $stocks, $description, $date_created)
     {
-        $sql = "INSERT items(name, category, price, stocks, description) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT items(name,date_created, category, price, stocks, description) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
 
-        if (!$stmt->execute(array($name, $category, $price, $stocks, $description))) {
+        if (!$stmt->execute(array($name, $date_created, $category, $price, $stocks, $description))) {
             $stmt = null;
             return false;
         }
@@ -58,33 +58,30 @@ trait ItemTrait
         }
 
         if ($sort != 'Default' && $price != 'Default') {
-            if($price == 'Low-to-high'){
+            if ($price == 'Low-to-high') {
                 $sql .= 'ORDER BY price,';
-            }else {
+            } else {
                 $sql .= 'ORDER BY price DESC,';
             }
-            if($sort == 'Latest'){
+            if ($sort == 'Latest') {
                 $sql .= 'id DESC ';
-            }else if($sort =='Top-sales'){
+            } else if ($sort == 'Top-sales') {
                 $sql .= 'sold DESC ';
-            }
-            else{
+            } else {
                 $sql .= 'id ';
             }
-
         } else if ($sort != 'Default') {
-            if($sort == 'Latest'){
+            if ($sort == 'Latest') {
                 $sql .= 'ORDER BY id DESC ';
-            }else if($sort =='Top-sales'){
+            } else if ($sort == 'Top-sales') {
                 $sql .= 'ORDER BY sold DESC ';
-            }
-            else{
+            } else {
                 $sql .= 'ORDER BY id ';
             }
         } else if ($price != 'Default') {
-            if($price == 'Low-to-high'){
+            if ($price == 'Low-to-high') {
                 $sql .= 'ORDER BY price ';
-            }else {
+            } else {
                 $sql .= 'ORDER BY price DESC ';
             }
         } else {
@@ -133,11 +130,11 @@ trait ItemTrait
         return $file;
     }
 
-    protected function getItemId($name, $category, $price, $stocks, $description)
+    protected function getItemId($name, $category, $price, $stocks, $description, $date_created)
     {
-        $sql = "SELECT * FROM items WHERE name = ? AND category = ? AND price = ? AND stocks = ? AND description = ?";
+        $sql = "SELECT * FROM items WHERE name = ? AND date_created = ? AND category = ? AND price = ? AND stocks = ? AND description = ?";
         $stmt = $this->connect()->prepare($sql);
-        if (!$stmt->execute(array($name, $category, $price, $stocks, $description))) {
+        if (!$stmt->execute(array($name, $date_created, $category, $price, $stocks, $description))) {
             $stmt = null;
             return false;
         }
@@ -186,7 +183,6 @@ trait ItemTrait
     {
 
         $len = count($_FILES['images']['name']);
-
         $directory = "../../../images/items/" . $id . "/";
 
         if (!is_dir($directory)) {
@@ -202,43 +198,10 @@ trait ItemTrait
             }
         }
 
-        for ($i = 0; $i < $len; $i++) {
-
-            $target_file = $directory . basename($_FILES["images"]["name"][$i]);
-
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-            //CHECK IF TRUE IMAGE USING "getimagesize"
-            $check = getimagesize($_FILES["images"]["tmp_name"][$i]);
-
-            if ($check) {
-            } else {
-                //echo 'notImage';
-                return false;
-            }
-
-            // CHECK IF FILE ALREADY EXISTS
-            if (file_exists($target_file)) {
-                //echo "existsImage";
-                return false;
-            }
-
-            // CHECK FILE SIZE
-            if ($_FILES["images"]["size"][$i] > 2000000) {
-                //echo "largeImage";
-                return false;
-            }
-
-            // CHECK FILE FORMAT
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-                //echo "formatImage";
-                return false;
-            }
-        }
-
         //VALIDATION PASSED NOW TRY TO INSERT INTO SERVER
         for ($i = 0; $i < $len; $i++) {
 
+            $target_file = $_FILES["images"]["name"][$i];
             $new_file_name = $directory . md5($_FILES["images"]["name"][$i]) . "." . strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
             //INSERT FILE TO SERVER

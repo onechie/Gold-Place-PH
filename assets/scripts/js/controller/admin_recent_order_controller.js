@@ -1,9 +1,16 @@
 $(document).ready(function () {
   let recentOrders = $(".orders #recent-orders");
   let orderItems = $("#view-order #order-items");
+  const receiptContent = $("#view-receipt .receipt-content")
   let status = $("#view-order #status");
   let orderId = $(".modal-footer #order_id");
   const totalPrice = $(".modal-footer #total_price");
+  const qrCode = $("#view-receipt #qrcode");
+
+  let currency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+});
 
   const token = $(".token").val();
 
@@ -14,6 +21,81 @@ $(document).ready(function () {
 
   loadRecentOrders();
 
+  $(".orders").on("click", ".viewReceipt", function () {
+    order_id = $(this).siblings("#order_id").val();
+    receiptContent.empty();
+    $.post(
+      adminRC_URL,
+      {
+        requestType: "get-full-order-data",
+        order_id: order_id,
+        token: token,
+      },
+      function (data) {
+        if (data && data != "null") {
+          let orderData = JSON.parse(data);
+          let orderItems = orderData.order.items_data;
+          let customer = orderData.customer;
+          let address = orderData.address;
+          htmlData = "<h5 class='m-0 fw-normal text-start mb-2'>ITEMS</h5>";
+          totalPriceValue = 0;
+          for (let item of orderItems) {
+            totalPriceValue += item.price * item.quantity;
+            
+            htmlData += 
+            "<div class='row fs-7'>"+
+                "<div class=' col-8 text-start text-break fw-200'>"+item.name+" - x"+item.quantity+"</div>"+
+                "<div class='col-4 text-start text-break'>"+currency.format(item.price * item.quantity)+"</div>"+
+            "</div>";
+
+          }
+          htmlData += 
+          "<div class='row fs-7 mt-3'>"+
+              "<div class=' col-8 text-start text-break fw-200'>Shipping Fee</div>"+
+              "<div class='col-4 text-start text-break'>"+currency.format(0)+"</div>"+
+          "</div>"+
+          "<div class='row'>"+
+              "<div class=' col-8 text-start text-break'>Total</div>"+
+              "<div class='col-4 text-start text-break'>"+currency.format(totalPriceValue)+"</div>"+
+          "</div>"+
+          "<hr>"+
+          "<h5 class='m-0 fw-normal text-start mb-2'>SHIP TO</h5>"+
+          "<div class='row fs-7'>"+
+              "<div class=' col-4 text-start text-break fw-200'>Name: </div>"+
+              "<div class='col-8 text-start text-break'>"+customer.name+"</div>"+
+          "</div>"+
+          "<div class='row fs-7'>"+
+              "<div class=' col-4 text-start text-break fw-200'>Address: </div>"+
+              "<div class='col-8 text-start text-break'>"+address+"</div>"+
+          "</div>"+
+          "<div class='row fs-7'>"+
+              "<div class=' col-4 text-start text-break fw-200'>Phone: </div>"+
+              "<div class='col-8 text-start text-break'>"+customer.contact+"</div>"+
+          "</div>"+
+          "<div class='row fs-7 mt-3'>"+
+              "<div class=' col-4 text-start text-break fw-200'>Order ID: </div>"+
+              "<div class='col-8 text-start text-break'>"+order_id+"</div>"+
+          "</div>"
+
+
+          receiptContent.append(htmlData);
+          
+          qrCode.empty();
+          var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: order_id,
+            width: 100,
+            height: 100,
+            colorDark : "black",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+          });
+
+          orderId.val(order_id);
+        }
+      }
+    );
+  });
+
   $(".orders").on("click", ".editOrder", function () {
     orderItems.empty();
     order_id = $(this).siblings("#order_id").val();
@@ -22,7 +104,7 @@ $(document).ready(function () {
       {
         requestType: "get-order-data",
         order_id: order_id,
-        token: token
+        token: token,
       },
       function (data) {
         if (data && data != "null") {
@@ -64,6 +146,7 @@ $(document).ready(function () {
           }
           setTotalPrice();
           orderItems.append(htmlData);
+
           orderId.val(order_id);
         }
       }
@@ -77,7 +160,7 @@ $(document).ready(function () {
         requestType: "edit-order-status",
         order_id: orderId.val(),
         status: status.val(),
-        token: token
+        token: token,
       },
       function (data) {
         loadRecentOrders();
@@ -90,7 +173,7 @@ $(document).ready(function () {
       adminRC_URL,
       {
         requestType: "get-recent-orders",
-        token:token
+        token: token,
       },
       function (data) {
         recentOrders.empty();
@@ -149,7 +232,8 @@ $(document).ready(function () {
               "    <input type='hidden' id='order_id' value='" +
               order.order_id +
               "'>" +
-              "    <i class='text-success icon-btn editOrder bi bi-pencil-square fs-5' data-bs-toggle='modal' data-bs-target='#view-order'></i>" +
+              "    <i class='text-secondary icon-btn editOrder bi bi-pencil-square fs-5' data-bs-toggle='modal' data-bs-target='#view-order'></i>" +
+              "    <i class='text-success icon-btn viewReceipt bi bi-receipt fs-5' data-bs-toggle='modal' data-bs-target='#view-receipt'></i>" +
               "</div>" +
               "</td>" +
               "</tr>";

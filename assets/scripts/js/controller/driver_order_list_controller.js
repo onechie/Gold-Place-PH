@@ -90,27 +90,30 @@ $(document).ready(function () {
       driverOL_URL,
       { requestType: "order-list", token: token },
       function (data) {
-        if (data && data != "null") {
-          const ordersData = JSON.parse(data);
-          let htmlData = "";
+        if (data == "failed") {
+        } else {
+          if (data && data != "null") {
+            const ordersData = JSON.parse(data);
+            let htmlData = "";
 
-          for (let order of ordersData) {
-            htmlData +=
-              "<tr class='align-middle'>" +
-              "   <td class='ps-4 text-wrap order-id'>" +
-              order +
-              "</td>" +
-              "   <td class='px-4'>" +
-              "     <i" +
-              "      class='text-success icon-btn bi bi-pencil-square fs-5 view-order-btn'" +
-              "      data-bs-toggle='modal'" +
-              "      data-bs-target='#update-order'" +
-              "    ></i>" +
-              "  </td>" +
-              "</tr>";
+            for (let order of ordersData) {
+              htmlData +=
+                "<tr class='align-middle'>" +
+                "   <td class='ps-4 text-wrap order-id'>" +
+                order +
+                "</td>" +
+                "   <td class='px-4'>" +
+                "     <i" +
+                "      class='text-success icon-btn bi bi-pencil-square fs-5 view-order-btn'" +
+                "      data-bs-toggle='modal'" +
+                "      data-bs-target='#update-order'" +
+                "    ></i>" +
+                "  </td>" +
+                "</tr>";
+            }
+
+            orderList.append(htmlData);
           }
-
-          orderList.append(htmlData);
         }
       }
     );

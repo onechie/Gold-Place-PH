@@ -13,6 +13,8 @@
     <script type="text/javascript" src="../assets/scripts/js/controller/driver_add_order_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/driver_order_list_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/driver_done_order_list_controller.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <link rel="stylesheet" href="../assets/styles/qr-code.css">
     <link rel="stylesheet" href="../assets/styles/default.css">
     <link rel="stylesheet" href="../assets/styles/home-admin.css">
     <title>Gold Place PH - Driver</title>

@@ -158,6 +158,7 @@ $(document).ready(function () {
     while (i < this.files.length) {
       var file = this.files[i];
       var fileType = file["type"];
+      console.log(fileType);
       var validImageTypes = [
         "image/gif",
         "image/jpeg",
@@ -428,7 +429,7 @@ $(document).ready(function () {
       addMsg.append("<span class='text-danger'>Please insert image!</span>");
     }
     if (data == "notValidImage") {
-      addMsg.append("<span class='text-danger'>Image not valid!</span>");
+      addMsg.append("<span class='text-danger'>File size or format is not valid!</span>");
       addOutput.empty();
     }
     if (data == "notImage") {

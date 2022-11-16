@@ -16,7 +16,7 @@ $(document).ready(function () {
   let catOption = "Default";
   const toast = new bootstrap.Toast($("#liveToast"));
 
-  const token = $('.token').val();
+  const token = $(".token").val();
 
   const itemsPageUrl = "./assets/scripts/server/request/items_page_request.php";
 
@@ -83,7 +83,7 @@ $(document).ready(function () {
         sort: sort,
         price: price,
         category: category,
-        token: token
+        token: token,
       },
       function (data) {
         let cardCount = 0;
@@ -91,62 +91,64 @@ $(document).ready(function () {
           let itemInfo = JSON.parse(data);
           let htmlData = "";
 
-          itemList.empty();
-          for (let i = 0; i < itemInfo.length; i++) {
-            let item = itemInfo[i];
-            cardCount = i;
+          if (itemInfo.length != 0) {
+            itemList.empty();
+            for (let i = 0; i < itemInfo.length; i++) {
+              let item = itemInfo[i];
+              cardCount = i + 1;
 
-            let ratingsCount = 0;
-            let ratingsTotal = 0;
+              let ratingsCount = 0;
+              let ratingsTotal = 0;
 
-            for (let rating of item.ratings) {
-              ratingsTotal += parseInt(rating.score);
-              ratingsCount++;
+              for (let rating of item.ratings) {
+                ratingsTotal += parseInt(rating.score);
+                ratingsCount++;
+              }
+
+              let avgRate = 0;
+              if (ratingsCount > 0) {
+                avgRate = ratingsTotal / ratingsCount;
+              }
+
+              htmlData +=
+                "<div class='card shadow-sm bg-white p-2 rounded-2 m-1 border-0'>" +
+                "    <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>" +
+                "        <img src='./assets/images/items/" +
+                item.id +
+                "/" +
+                item.images[0] +
+                "' class='card-img-top' alt='...'>" +
+                "     </div>" +
+                "    <div class='card-body pb-0 px-1'>" +
+                "        <h6 class='card-title m-0 fs-6 fw-light text-secondary'>" +
+                item.name +
+                "</h6>" +
+                "        <h6 class='card-text c-1 m-0 fs-5 fw-200'><span>&#8369; </span>" +
+                item.price +
+                "</h6>" +
+                "        <div class='row justify-content-between'>" +
+                "            <div class='col-6 my-auto'>" +
+                "                <span class='align-middle text-warning'>" +
+                setStar(Math.round(avgRate)) +
+                "                </span>" +
+                "            </div>" +
+                "            <div class='col-6 text-end'>" +
+                "                <input type='hidden' class='id' value='" +
+                item.id +
+                "'>" +
+                "                <button type='button' class='addCart btn btn-light text-muted'><i class='bi bi-bag-plus'></i></button>" +
+                "                <button type='button' class='viewItem btn btn-light text-muted' data-bs-toggle='modal' data-bs-target='#item'><i class='bi bi-search'></i></button>" +
+                "            </div>" +
+                "        </div>" +
+                "    </div>" +
+                "</div>";
             }
-
-            let avgRate = 0;
-            if (ratingsCount > 0) {
-              avgRate = ratingsTotal / ratingsCount;
-            }
-
-            htmlData +=
-              "<div class='card shadow-sm bg-white p-2 rounded-2 m-1 border-0'>" +
-              "    <div class='ratio ratio-1x1 rounded-top overflow-hidden' style='max-width: 300px;'>" +
-              "        <img src='./assets/images/items/" +
-              item.id +
-              "/" +
-              item.images[0] +
-              "' class='card-img-top' alt='...'>" +
-              "     </div>" +
-              "    <div class='card-body pb-0 px-1'>" +
-              "        <h6 class='card-title m-0 fs-6 fw-light text-secondary'>" +
-              item.name +
-              "</h6>" +
-              "        <h6 class='card-text c-1 m-0 fs-5 fw-200'><span>&#8369; </span>" +
-              item.price +
-              "</h6>" +
-              "        <div class='row justify-content-between'>" +
-              "            <div class='col-6 my-auto'>" +
-              "                <span class='align-middle text-warning'>" +
-              setStar(Math.round(avgRate)) +
-              "                </span>" +
-              "            </div>" +
-              "            <div class='col-6 text-end'>" +
-              "                <input type='hidden' class='id' value='" +
-              item.id +
-              "'>" +
-              "                <button type='button' class='addCart btn btn-light text-muted'><i class='bi bi-bag-plus'></i></button>" +
-              "                <button type='button' class='viewItem btn btn-light text-muted' data-bs-toggle='modal' data-bs-target='#item'><i class='bi bi-search'></i></button>" +
-              "            </div>" +
-              "        </div>" +
-              "    </div>" +
-              "</div>";
+            itemList.append(htmlData);
+            itemList.fadeIn();
           }
-          itemList.append(htmlData);
-          itemList.fadeIn();
         }
 
-        if (cardCount == 11) {
+        if (cardCount == 12) {
           nextPage.prop("disabled", false);
         } else {
           nextPage.prop("disabled", true);

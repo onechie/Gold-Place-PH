@@ -1,0 +1,15 @@
+.html5-qrcode-element{
+    background-color: #212529;
+    text-decoration: none!important;
+    padding: .5rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin: 10px;
+}
+#qr-code{
+    width: auto!important;
+}
+#qr-reader__dashboard_section_csr span{
+    margin: 0!important;
+}

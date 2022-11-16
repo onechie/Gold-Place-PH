@@ -1,18 +1,61 @@
 $(document).ready(function () {
   const addOrderModal = $("#add-order");
-  const modalBody = $("#add-order .modal-body");
+  const modalBody = $("#add-order #modal-body");
   const orderId = $("#add-order #order-id");
   const inputId = $("#add-order #input-id");
+  const hint = $("#add-order #hint");
   const searchBtn = $("#add-order #search-btn");
+  const scanAgain = $("#add-order #scan-again");
+  const scanOpen = $("#add-order #scan-open");
   const token = $(".token").val();
 
   const toastBody = $(".toast-body");
   const toast = new bootstrap.Toast($("#liveToast"));
 
+  let ableToScan = true;
+
   const driverAO_URL =
     "../assets/scripts/server/request/driver_add_order_request.php";
 
+  scanAgain.hide();
+
+  var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+    fps: 20,
+    qrbox: 200,
+  });
+
+  function onScanSuccess(decodedText, decodedResult) {
+    if (ableToScan) {
+      console.log(`Code scanned = ${decodedText}`, decodedResult);
+      inputId.val(decodedText);
+      findOrder();
+      ableToScan = false;
+
+      $("#add-order #qr-reader").hide();
+      hint.hide();
+
+      scanAgain.show();
+    }
+  }
+  scanOpen.click(function () {
+    html5QrcodeScanner.render(onScanSuccess);
+    scanOpen.hide();
+  });
+
+  scanAgain.click(function () {
+    $("#add-order #qr-reader").show();
+    hint.show();
+
+    scanAgain.hide();
+    modalBody.empty();
+    ableToScan = true;
+  });
+
   searchBtn.click(function () {
+    findOrder();
+  });
+
+  function findOrder() {
     modalBody.empty();
     $.post(
       driverAO_URL,
@@ -78,8 +121,7 @@ $(document).ready(function () {
         modalBody.append(htmlData);
       }
     );
-  });
-
+  }
   addOrderModal.on("click", "#add-btn", function () {
     $.post(
       driverAO_URL,
@@ -90,7 +132,7 @@ $(document).ready(function () {
       },
       function (data) {
         if (data && data != "null") {
-          if(data=='ok'){
+          if (data == "ok") {
             toastBody.text("Order added successfully!");
             toast.show();
           }

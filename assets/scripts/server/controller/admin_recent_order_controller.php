@@ -2,7 +2,7 @@
 
 class AdminRecentOrderController extends OrderModel
 {
-    use UserTrait, ItemTrait, OrderItemTrait;
+    use UserTrait, ItemTrait, OrderItemTrait, UserAddressTrait;
     public function recentOrdersData()
     {
         $recentOrdersData = array();
@@ -63,6 +63,65 @@ class AdminRecentOrderController extends OrderModel
 
         return $orderData;
     }
+    public function fullOrderData($order_id)
+    {
+        $orderData = array();
+        $itemsData = array();
+
+        $order = $this->getOrderBy_OID($order_id);
+
+        if (count($order) > 0) {
+            $order = $order[0];
+        } else {
+            return false;
+        }
+
+        $status = $order['status'];
+        $user_id = $order['user_id'];
+        $items_count = $order['items'];
+        $available = $order['available'];
+
+        $user_address = $this->getAddressBy_UID($user_id)[0];
+        $user_data = $this->getUserById($user_id)[0];
+        $order_items = $this->getOrderItemBy_OID($order_id);
+
+        foreach ($order_items as $order_item) {
+            $item_id = $order_item['item_id'];
+            $item_qty = $order_item['quantity'];
+
+            $item = $this->getItemById($item_id)[0];
+            $image = $this->getItemImage($item_id, false);
+
+            $itemsData[] = array(
+                "item_id" => $item_id,
+                "name" => $item['name'],
+                "price" => $item['price'],
+                "quantity" => $item_qty,
+                "image" => $image
+            );
+        }
+
+        $userInfo = array(
+            "name" => $user_data['firstname'] . " " . $user_data['lastname'],
+            "contact" => $user_data['phone']
+        );
+
+        $orderInfo = array(
+            "id" => $order_id,
+            "items_count" => $items_count,
+            "items_data" => $itemsData,
+            "status" => $status,
+            "available" => $available
+        );
+
+        $orderData = array(
+            "address" => $user_address['house_number'] . " " . $user_address['barangay'] . ", " . $user_address['city'] . ", " . $user_address['province'],
+            "customer" => $userInfo,
+            "order" => $orderInfo
+        );
+
+        return $orderData;
+    }
 
     public function updateOrder($order_id, $date, $status)
     {
@@ -75,22 +134,22 @@ class AdminRecentOrderController extends OrderModel
                 return false;
             }
             $orderItems = $this->getOrderItemBy_OID($order_id);
-            foreach($orderItems as $orderItem){
+            foreach ($orderItems as $orderItem) {
                 $item_id = $orderItem['item_id'];
                 $quantity = $orderItem['quantity'];
                 $total_sold = $this->getItemById($item_id)[0]['sold'] + $quantity;
-                if(!$this->updateItemSold($total_sold, $item_id)){
+                if (!$this->updateItemSold($total_sold, $item_id)) {
                     return false;
                 }
             }
         }
         if ($status == 'cancelled') {
             $orderItems = $this->getOrderItemBy_OID($order_id);
-            foreach($orderItems as $orderItem){
+            foreach ($orderItems as $orderItem) {
                 $item_id = $orderItem['item_id'];
                 $quantity = $orderItem['quantity'];
                 $item_stocks = $this->getItemById($item_id)[0]['stocks'] + $quantity;
-                if(!$this->updateItemStocks($item_stocks, $item_id)){
+                if (!$this->updateItemStocks($item_stocks, $item_id)) {
                     return false;
                 }
             }

@@ -4,6 +4,7 @@ include '../model/user_model.php';
 include '../model/item_model.php';
 include '../model/order_model.php';
 include '../model/order_item_model.php';
+include '../model/user_address_model.php';
 include '../controller/admin_recent_order_controller.php';
 include './check_token.php';
 
@@ -36,6 +37,16 @@ if ($_POST['requestType'] == "get-order-data") {
     $aroc = new AdminRecentOrderController();
     $orderData = $aroc->orderData($order_id);
     echo json_encode($orderData);
+
+}
+
+if ($_POST['requestType'] == "get-full-order-data") {
+
+    $order_id = $_POST['order_id'];
+
+    $aroc = new AdminRecentOrderController();
+    $fullOrderData = $aroc->fullOrderData($order_id);
+    echo json_encode($fullOrderData);
 
 }
 

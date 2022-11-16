@@ -62,15 +62,15 @@ class AdminItemListController extends ItemModel
         return $itemData;
     }
 
-    public function createNewItem($name, $category, $price, $stocks, $description)
+    public function createNewItem($name, $category, $price, $stocks, $description, $date_created)
     {
         if (!$this->checkAddItemInputs($name, $category, $price, $stocks, $description)) {
             return false;
         }
-        if (!$this->setItem($name, $category, $price, $stocks, $description)) {
+        if (!$this->setItem($name, $category, $price, $stocks, $description, $date_created)) {
             return false;
         }
-        $item_id = $this->getItemId($name, $category, $price, $stocks, $description)[0]['id'];
+        $item_id = $this->getItemId($name, $category, $price, $stocks, $description, $date_created)[0]['id'];
 
         if (!$this->updateItemImage($item_id)) {
             return false;
@@ -96,13 +96,12 @@ class AdminItemListController extends ItemModel
 
     public function isImagesValid(){
         $len = count($_FILES['images']['name']);
-        $directory = "../../../images/items/temp/";
 
         for ($i = 0; $i < $len; $i++) {
 
-            $target_file = $directory . basename($_FILES["images"]["name"][$i]);
+            $target_file = $_FILES["images"]["name"][$i];
 
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $fType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
             //CHECK IF TRUE IMAGE USING "getimagesize"
             $check = getimagesize($_FILES["images"]["tmp_name"][$i]);
@@ -120,7 +119,7 @@ class AdminItemListController extends ItemModel
             }
 
             // CHECK FILE FORMAT
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            if ($fType != "jpg" && $fType != "png" && $fType != "jpeg" && $fType != "gif") {
                 //echo "formatImage";
                 return false;
             }
