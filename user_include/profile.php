@@ -36,21 +36,26 @@ if (!defined('ACCESS')) {
             </div>
             <div class="col-12 col-sm-6 mt-2 form-floating">
               <input type="text" class="form-control fn" id="address_number" name="number" placeholder="Bldg./ House No." value="">
-              <label class="px-4" for="address_number">Bldg./ House #</label>
+              <label class="px-4" for="address_number">Bldg./ House # & Subd</label>
             </div>
             <div class="col-12 col-sm-6 mt-2 form-floating">
-              <input type="text" class="form-control fn" id="address_street" name="street" placeholder="Street/Barangay" value="">
-              <label class="px-4" for="address_street">Street/Barangay</label>
-            </div>
-            <div class="col-12 col-sm-6 mt-2 form-floating">
-              <select class="form-select" id="address_city" name="city" value="">
-
+              <input type="hidden" id='hidden_street'>
+              <select class="form-select" id="address_street" name="street" value="">
+                <option selected value="">Barangay</option>
               </select>
-              <label class="px-4" for="address_city">Municipality/City</label>
+              <label class="px-4" for="address_street">Barangay</label>
+            </div>
+            <div class="col-12 col-sm-6 mt-2 form-floating">
+              <input type="hidden" id='hidden_city'>
+              <select class="form-select" id="address_city" name="city" value="">
+                <option selected value="">City/Municipality</option>
+              </select>
+              <label class="px-4" for="address_city">City/Municipality</label>
             </div>
             <div class="col-12 col-sm-6 mt-2 mb-4 form-floating">
+              <input type="hidden" id='hidden_province'>
               <select class="form-select" id="address_province" name="province" value="">
-
+                <option selected value="">Province</option>
               </select>
               <label class="px-4" for="address_province">Province</label>
             </div>

@@ -18,9 +18,10 @@ if (!defined('ACCESS')) {
               <tr>
                 <th class="p-0">
                   <div class="row fw-light py-3 fs-7 bg-dark px-4 text-light">
-                    <div class="col-2">#</div>
-                    <div class="col-4">DATE</div>
-                    <div class="col-5">STATUS</div>
+                    <div class="col-1">#</div>
+                    <div class="col-3">DATE</div>
+                    <div class="col-3">Total Price</div>
+                    <div class="col-4">STATUS</div>
                     <div class="col-1"><i class="bi bi-list"></i></div>
                   </div>
                 </th>
@@ -56,8 +57,8 @@ if (!defined('ACCESS')) {
         </div>
       </div>
       <div class="modal-footer">
-        <h6 class="fw-light fs-7">Total price :</h6>
-        <h6 class="fw-normal fs-7" id="total_price">P0</h6>
+        <h6 class="fw-light fs-7">Overall price :</h6>
+        <h6 class="fw-normal fs-7 text-success" id="total_price">P0</h6>
         <div class="d-flex">
           <button type="button" class="btn btn-warning  btn-sm ms-5" id="delivered">Received</button>
           <button type="button" class="btn btn-warning btn-sm ms-5" id="processing">Processing</button>

@@ -8,6 +8,10 @@ $(document).ready(function () {
 
   const modalBody = $("#view-order .modal-body");
 
+  let currency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
   const driverDOL_URL =
     "../assets/scripts/server/request/driver_done_order_list_request.php";
 
@@ -49,6 +53,12 @@ $(document).ready(function () {
               "<ul class='fw-200'>" +
               itemList +
               "</ul>" +
+              "<p>Items Price : <span class='fw-200 text-success'>" +
+              currency.format(orderPriceData) +
+              "</span></p>" +
+              "<p>Shipping Fee : <span class='fw-200 text-danger'>" +
+              currency.format(orderData.shipping_fee) +
+              "</span></p>" +
               "<p>Address : <span class='fw-200'>" +
               orderData.address +
               "</span></p>" +
@@ -71,7 +81,9 @@ $(document).ready(function () {
                 "</span></p>";
             }
             orderId.val(orderData.order.id);
-            orderPrice.text(orderPriceData);
+            orderPrice.text(
+              currency.format(orderPriceData + orderData.shipping_fee)
+            );
           }
         }
         modalBody.append(htmlData);
@@ -86,27 +98,30 @@ $(document).ready(function () {
       driverDOL_URL,
       { requestType: "order-list", token: token },
       function (data) {
-        if (data && data != "null") {
-          const ordersData = JSON.parse(data);
-          let htmlData = "";
+        if (data == "failed") {
+        } else {
+          if (data && data != "null") {
+            const ordersData = JSON.parse(data);
+            let htmlData = "";
 
-          for (let order of ordersData) {
-            htmlData +=
-              "<tr class='align-middle'>" +
-              "   <td class='ps-4 text-wrap order-id'>" +
-              order +
-              "</td>" +
-              "   <td class='px-4'>" +
-              "     <i" +
-              "      class='text-success icon-btn bi bi-eye fs-5 view-order-btn'" +
-              "      data-bs-toggle='modal'" +
-              "      data-bs-target='#view-order'" +
-              "    ></i>" +
-              "  </td>" +
-              "</tr>";
+            for (let order of ordersData) {
+              htmlData +=
+                "<tr class='align-middle'>" +
+                "   <td class='ps-4 text-wrap order-id'>" +
+                order +
+                "</td>" +
+                "   <td class='px-4'>" +
+                "     <i" +
+                "      class='text-success icon-btn bi bi-eye fs-5 view-order-btn'" +
+                "      data-bs-toggle='modal'" +
+                "      data-bs-target='#view-order'" +
+                "    ></i>" +
+                "  </td>" +
+                "</tr>";
+            }
+
+            orderList.append(htmlData);
           }
-
-          orderList.append(htmlData);
         }
       }
     );

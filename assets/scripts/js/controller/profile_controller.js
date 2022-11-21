@@ -1,137 +1,265 @@
 $(document).ready(function () {
-    const profileBtn = $("#profile-button");
-    const imageContainer = $("#profile .image-container ");
-    const updateProfile = $("#update-profile");
-    const toast = new bootstrap.Toast($("#liveToast"));
-    const toastBody = $(".toast-body");
+  const profileBtn = $("#profile-button");
+  const imageContainer = $("#profile .image-container ");
+  const updateProfile = $("#update-profile");
+  const toast = new bootstrap.Toast($("#liveToast"));
+  const toastBody = $(".toast-body");
+  const brgyDrop = $("#profile #address_street");
+  const cityDrop = $("#profile #address_city");
+  const provDrop = $("#profile #address_province");
 
-    const token = $(".token").val();
+  const brgyHidden = $("#profile #hidden_street");
+  const cityHidden = $("#profile #hidden_city");
+  const provHidden = $("#profile #hidden_province");
 
-    const profileUrl = "./assets/scripts/server/request/profile_request.php";
-    getProfileData();
-  
-    profileBtn.click(() => {
-      getProfileData();
+  let userAddress;
 
-    });
-  
-    updateProfile.on("submit", function (e) {
-      e.preventDefault();
-      $.ajax({
-        url: profileUrl,
-        type: "POST",
-        data: new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-      }).done(function (data) {
-        if (data == "error") {
-          toastBody.text("Error ocurred!");
-        } else {
-          toastBody.text("Profile updated successfully!");
-        }
-        toast.show();
-        getProfileData();
-        $("#imageInput").val(null);
-      });
-    });
-  
-    //FUNCTION FOR DISPLAYING IMAGE ON INPUT
-    $("#profile #imageInput").change(function () {
-      var file = this.files[0];
-      var fileType = file["type"];
-      var validImageTypes = ["image/gif", "image/jpeg", "image/png", "image/jpg"];
-      if ($.inArray(fileType, validImageTypes) < 0) {
-        this.value = null;
-        toastBody.text("Please input valid image file!");
-        toast.show();
-      } else {
-        imageContainer.empty();
-        imageContainer.append(
-          "<img id='image' src='" +
-            URL.createObjectURL(event.target.files[0]) +
-            "' alt='profile' class='inputImages'>"
-        );
-      }
-    });
-  
-    function getProfileData() {
-      $.post(
-        profileUrl,
-        {
-          requestType: "get_profile",
-          token:token
-        },
-        function (data) {
-          if (data && data != null) {
-            let response_data = JSON.parse(data);
-            let user_info = response_data.user_info;
-            let user_address = response_data.user_address;
-            let user_orders = response_data.user_orders;
-            let address_option = response_data.address_option;
-            
-            let city_list = address_option.city_list;
-            let province_list = address_option.province_list;
-  
-            let city_options = "";
-            let province_options = "";
-  
-            let defaultImg = "./assets/images/defaults/default-profile.png";
-            let currentImg = "";
-  
-            if (user_info.image == "") {
-              currentImg = defaultImg;
-            } else {
-              currentImg =
-                "./assets/images/users/" +
-                user_info.id +
-                "/" +
-                user_info.image +
-                "";
-            }
-  
-            $("#profile #address_city").empty();
-            $("#profile #address_province").empty();
-  
-            for (let i = 0; i < city_list.length; i++) {
+  const token = $(".token").val();
+
+  const profileUrl = "./assets/scripts/server/request/profile_request.php";
+
+  getProfileData();
+
+  function cityList(province, type) {
+    $.post(
+      profileUrl,
+      {
+        requestType: "city_list",
+        province: province,
+        token: token,
+      },
+      function (data) {
+        let city_options = "<option value=''>City/Municipality</option>";
+        if (data && data != null) {
+          let cityList = JSON.parse(data);
+          if (cityList.length > 0) {
+            for (let city of cityList) {
               city_options +=
-                "<option value='" +
-                city_list[i].city +
-                "'>" +
-                city_list[i].city +
-                "</option>";
+                "<option value='" + city + "'>" + city + "</option>";
             }
-            $("#profile #address_city").append(city_options);
-  
-            for (let i = 0; i < province_list.length; i++) {
-              province_options +=
-                "<option value='" +
-                province_list[i].province +
-                "'>" +
-                province_list[i].province +
-                "</option>";
-            }
-            $("#profile #address_province").append(province_options);
-  
-            //USER INFO
-            $("#profile-icon").prop("src", currentImg);
-            $("#profile #image").prop("src", currentImg);
-            $("#profile #name").text(user_info.name);
-            $("#profile #email").text(user_info.email);
-            $("#profile #phone").text(user_info.phone);
-            //USER ORDERS
-            $("#profile #total").text(user_orders.orders);
-            $("#profile #cancelled").text(user_orders.cancelled);
-            $("#profile #delivered").text(user_orders.delivered);
-            //USER ADDRESS
-            $("#profile #address_number").val(user_address.house);
-            $("#profile #address_street").val(user_address.street);
-            $("#profile #address_city").val(user_address.city);
-            $("#profile #address_province").val(user_address.province);
           }
-          $("#profile #imageInput").val(null);
         }
+        cityDrop.html(city_options);
+        if (type == "load") {
+          cityDrop.val(userAddress.city);
+        } else {
+          cityDrop.val("");
+        }
+      }
+    );
+  }
+
+  function brgyList(city, type) {
+    $.post(
+      profileUrl,
+      {
+        requestType: "brgy_list",
+        city: city,
+        token: token,
+      },
+      function (data) {
+        let brgy_options = "<option value=''>Barangay</option>";
+        if (data && data != null) {
+          let brgyList = JSON.parse(data);
+
+          if (brgyList.length > 0) {
+            for (let brgy of brgyList) {
+              brgy_options +=
+                "<option value='" + brgy + "'>" + brgy + "</option>";
+            }
+          }
+        }
+        brgyDrop.html(brgy_options);
+        if (type == "load") {
+          brgyDrop.val(userAddress.street);
+        } else {
+          brgyDrop.val("");
+        }
+      }
+    );
+  }
+
+  provDrop.change(function () {
+    if (provDrop.val() == "" || provDrop.val() == null) {
+      cityDrop.prop("disabled", true);
+      brgyDrop.prop("disabled", true);
+      cityDrop.val("");
+      brgyDrop.val("");
+    } else {
+      cityDrop.prop("disabled", false);
+      brgyDrop.prop("disabled", true);
+      brgyDrop.val("");
+      cityList(provDrop.val(), "reload");
+    }
+  });
+  cityDrop.change(function () {
+    if (cityDrop.val() == "" || cityDrop.val() == null) {
+      brgyDrop.prop("disabled", true);
+      brgyDrop.val("");
+    } else {
+      brgyDrop.prop("disabled", false);
+      brgyList(cityDrop.val(), "reload");
+    }
+
+  });
+
+  function updateDropDowns() {
+    if (provDrop.val() == "" || provDrop.val() == null) {
+      cityDrop.prop("disabled", true);
+    } else {
+      cityDrop.prop("disabled", false);
+    }
+
+    if (cityDrop.val() == "" || cityDrop.val() == null) {
+      brgyDrop.prop("disabled", true);
+    } else {
+      brgyDrop.prop("disabled", false);
+    }
+  }
+
+  profileBtn.click(() => {
+    getProfileData();
+  });
+
+  updateProfile.on("submit", function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: profileUrl,
+      type: "POST",
+      data: new FormData(this),
+      contentType: false,
+      cache: false,
+      processData: false,
+    }).done(function (data) {
+      if (data == "error") {
+        toastBody.text("Error ocurred!");
+      } else {
+        toastBody.text("Profile updated successfully!");
+      }
+      toast.show();
+      getProfileData();
+      $("#imageInput").val(null);
+    });
+  });
+
+  //FUNCTION FOR DISPLAYING IMAGE ON INPUT
+  $("#profile #imageInput").change(function () {
+    var file = this.files[0];
+    var fileType = file["type"];
+    var validImageTypes = ["image/gif", "image/jpeg", "image/png", "image/jpg"];
+    if ($.inArray(fileType, validImageTypes) < 0) {
+      this.value = null;
+      toastBody.text("Please input valid image file!");
+      toast.show();
+    } else {
+      imageContainer.empty();
+      imageContainer.append(
+        "<img id='image' src='" +
+          URL.createObjectURL(event.target.files[0]) +
+          "' alt='profile' class='inputImages'>"
       );
     }
   });
-  
+
+  function getProfileData() {
+    $.post(
+      profileUrl,
+      {
+        requestType: "get_profile",
+        token: token,
+      },
+      function (data) {
+        if (data && data != null) {
+          let response_data = JSON.parse(data);
+
+          let user_info = response_data.user_info;
+          userAddress = response_data.user_address;
+          let user_orders = response_data.user_orders;
+          let address_option = response_data.address_option;
+
+          let city_list = address_option.city_list;
+          let province_list = address_option.province_list;
+          let barangay_list = address_option.barangay_list;
+
+          let city_options = "";
+          let province_options = "<option value=''>Province</option>";
+          let brgy_options = "";
+
+          let defaultImg = "./assets/images/defaults/default-profile.png";
+          let currentImg = "";
+
+          if (user_info.image == "") {
+            currentImg = defaultImg;
+          } else {
+            currentImg =
+              "./assets/images/users/" +
+              user_info.id +
+              "/" +
+              user_info.image +
+              "";
+          }
+
+          for (let i = 0; i < province_list.length; i++) {
+            province_options +=
+              "<option value='" +
+              province_list[i].province +
+              "'>" +
+              province_list[i].province +
+              "</option>";
+          }
+
+          provHidden.val(userAddress.province);
+          cityHidden.val(userAddress.city);
+          brgyHidden.val(userAddress.street);
+
+          provDrop.html(province_options);
+          provDrop.val(userAddress.province);
+          cityList(userAddress.province, "load");
+          brgyList(userAddress.city, "load");
+
+          /*
+
+          for (let i = 0; i < city_list.length; i++) {
+            city_options +=
+              "<option value='" +
+              city_list[i].city +
+              "'>" +
+              city_list[i].city +
+              "</option>";
+          }
+
+          cityDrop.html(city_options);
+          $("#profile #address_city").val(user_address.city);
+
+          for (let i = 0; i < barangay_list.length; i++) {
+            brgy_options +=
+              "<option value='" +
+              barangay_list[i].barangay +
+              "'>" +
+              barangay_list[i].barangay +
+              "</option>";
+          }
+
+          brgyDrop.html(brgy_options);
+          $("#profile #address_street").val(user_address.street);
+          */
+
+          //USER INFO
+          $("#profile-icon").prop("src", currentImg);
+          $("#profile #image").prop("src", currentImg);
+          $("#profile #name").text(user_info.name);
+          $("#profile #email").text(user_info.email);
+          $("#profile #phone").text(user_info.phone);
+          //USER ORDERS
+          $("#profile #total").text(user_orders.orders);
+          $("#profile #cancelled").text(user_orders.cancelled);
+          $("#profile #delivered").text(user_orders.delivered);
+          //USER ADDRESS
+          $("#profile #address_number").val(userAddress.house);
+        }
+        $("#profile #imageInput").val(null);
+        updateDropDowns();
+      }
+    );
+  }
+});

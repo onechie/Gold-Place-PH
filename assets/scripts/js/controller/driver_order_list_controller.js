@@ -7,6 +7,8 @@ $(document).ready(function () {
   const orderCount = $("#update-order .order-count");
   const orderItems = $("#update-order .order-items");
   const orderPrice = $("#update-order .total-price");
+  const itemsPrice = $("#update-order .items-price");
+  const shippingFee = $("#update-order .shipping-fee");
   const orderAddress = $("#update-order .order-address");
   const orderContact = $("#update-order .order-contact");
   const orderName = $("#update-order .order-name");
@@ -15,6 +17,10 @@ $(document).ready(function () {
 
   const updateButton = $("#update-order .update-button");
 
+  let currency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+});
   const toastBody = $(".toast-body");
   const toast = new bootstrap.Toast($("#liveToast"));
 
@@ -49,7 +55,9 @@ $(document).ready(function () {
           }
           orderItems.empty();
           orderItems.append(orderItemsData);
-          orderPrice.text(orderPriceData);
+          itemsPrice.text(currency.format(orderPriceData));
+          shippingFee.text(currency.format(orderData.shipping_fee));
+          orderPrice.text(currency.format(orderPriceData+ orderData.shipping_fee));
           orderAddress.text(orderData.address);
           orderContact.text(orderData.customer.contact);
           orderName.text(orderData.customer.name);

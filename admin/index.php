@@ -15,6 +15,7 @@
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_recent_order_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_orders_chart_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_sales_chart_controller.js"></script>
+    <script type="text/javascript" src="../assets/scripts/js/controller/admin_location_list_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_item_list_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/admin_user_list_controller.js"></script>
     <script type="text/javascript" src="../assets/scripts/js/controller/logout_controller.js"></script>
@@ -35,14 +36,18 @@
             include '../user_include/csrf_token.php';
             include './admin_include/home.php';
             include './admin_include/orders.php';
+            include './admin_include/locations.php';
             include './admin_include/items.php';
             include './admin_include/users.php';
             include './admin_include/add-item-modal.php';
             include './admin_include/confirmation-modal.php';
+            include './admin_include/confirm-modal.php';
             include './admin_include/view-user-modal.php';
             include './admin_include/add-user-modal.php';
             include './admin_include/view-order-modal.php';
             include './admin_include/view-receipt-modal.php';
+            include './admin_include/add-city-modal.php';
+            include './admin_include/add-barangay-modal.php';
             ?>
         </div>
     </main>

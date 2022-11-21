@@ -8,7 +8,13 @@ $(document).ready(function () {
   const cartList = $("#cart-items");
   const cartCheckOut = $("#cart #checkOut");
   const cartTotalPrice = $("#cart #total_price")
+  const cartShippingFee = $("#cart #shipping_fee")
   const cartRemove = $("#cart #remove");
+
+  let currency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+});
 
   const token = $('.token').val();
 
@@ -75,6 +81,7 @@ $(document).ready(function () {
 
   $(cartBtn).click(function () {
     getCartData();
+    setShippingFee();
   });
 
   //CHANGE QUANTITY REQUEST
@@ -198,7 +205,19 @@ $(document).ready(function () {
 
   
   function setTotalPrice(){
-    cartTotalPrice.text(totalPriceValue);
+    cartTotalPrice.text(currency.format(totalPriceValue));
+  }
+  function setShippingFee(){
+    $.post(cartUrl, {
+      requestType:"user_shipping_fee",
+      token:token
+    }, function(data){
+      if(data >= 0){
+        cartShippingFee.text(currency.format(data));
+      } else {
+        cartShippingFee.text(data);
+      }
+    })
   }
 
   function getCartData(){
@@ -223,7 +242,7 @@ $(document).ready(function () {
                         +"<td class='px-4'><input class='form-check-input checkBox' type='checkbox' value=''></td>"
                         +"<td class='px-4'><img src='./assets/images/items/"+item.id+"/"+item.images[0]+"' class='rounded-4' height='100' width='100' alt=''></td>"
                         +"<td class='fw-light px-4'>"+item.name+"</td>"
-                        +"<td class='fw-light px-4'>&#8369;<span id='item_price'>"+item.price+"</span></td>"
+                        +"<td class='fw-light px-4'>"+currency.format(item.price)+"<span id='item_price' class='d-none'>"+item.price+"</span></td>"
                         +"<td class='px-4'><input class='form-control input-qty p-1' id='item_qty' type='number' value='"+item.quantity+"'></td>"
                         +"<td class='px-4' id='ids_parent'>"
                         +"    <div class='d-flex fs-4'>"

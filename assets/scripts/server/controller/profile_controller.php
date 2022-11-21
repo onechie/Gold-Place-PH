@@ -2,7 +2,7 @@
 
 class ProfileController extends UserModel
 {
-    use UserAddressTrait, OrderTrait, OrderItemTrait, CityListTrait, ProvinceListTrait;
+    use UserAddressTrait, OrderTrait, OrderItemTrait, CityListTrait, ProvinceListTrait, BarangayListTrait;
     public function profileData($user_id)
     {
         $userData = $this->getUserById($user_id);
@@ -11,6 +11,8 @@ class ProfileController extends UserModel
         $userOrders = $this->OrderCountData($user_id);
         $cityList = $this->getCityList();
         $provinceList = $this->getProvinceList();
+        $barangayList = $this->getBarangayList();
+
 
         $user_info = array(
             "id" => $user_id,
@@ -31,7 +33,9 @@ class ProfileController extends UserModel
 
         $address_option = array(
             "city_list" => $cityList,
-            "province_list" => $provinceList
+            "province_list" => $provinceList,
+            "barangay_list" => $barangayList,
+
         );
 
         $profileData = array(
@@ -46,18 +50,27 @@ class ProfileController extends UserModel
 
     public function updateAddress($user_id, $number, $street, $city, $province)
     {
-        if (!$this->isCityExists($city)) {
+        $shipping_fee = 0;
+
+        if (!$this->isBarangayValid($street)) {
             return false;
         }
-        if (!$this->isProvinceExists($province)) {
+        if (!$this->isCityValid($city)) {
             return false;
         }
+        if (!$this->isProvinceValid($province)) {
+            return false;
+        }
+        if($street != ''){
+            $shipping_fee = $this->getBarangay($street)[0]['shipping_fee'];
+        }
+        
         if (count($this->getAddressBy_UID($user_id)) == 0) {
-            if (!$this->setUserAddress($number, $street, $city, $province, $user_id)) {
+            if (!$this->setUserAddress($number, $street, $city, $province, $user_id, $shipping_fee)) {
                 return false;
             }
         } else {
-            if (!$this->updateUserAddress($number, $street, $city, $province, $user_id)) {
+            if (!$this->updateUserAddress($number, $street, $city, $province, $user_id, $shipping_fee)) {
                 return false;
             }
         }
@@ -66,16 +79,47 @@ class ProfileController extends UserModel
         }
         return true;
     }
-
-    private function isCityExists($city)
+    public function cityList($province){
+        $cityList = $this->getCityListByProvince($province);
+        $returnData = array();
+        foreach($cityList as $city){
+            array_push($returnData, $city['city']);
+        }
+        return $returnData;
+    }
+    public function brgyList($city){
+        $brgyList = $this->getBarangayListByCity($city);
+        $returnData = array();
+        foreach($brgyList as $brgy){
+            array_push($returnData, $brgy['barangay']);
+        }
+        return $returnData;
+    }
+    private function isBarangayValid($street)
     {
+        if($street == ''){
+            return true;
+        }
+        if (count($this->getBarangay($street)) > 0) {
+            return true;
+        }
+        return false;
+    }
+    private function isCityValid($city)
+    {
+        if($city == ''){
+            return true;
+        }
         if (count($this->getCity($city)) > 0) {
             return true;
         }
         return false;
     }
-    private function isProvinceExists($province)
+    private function isProvinceValid($province)
     {
+        if($province == ''){
+            return true;
+        }
         if (count($this->getProvince($province)) > 0) {
             return true;
         }

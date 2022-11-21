@@ -34,6 +34,14 @@ if (!defined('ACCESS')) {
                     </li>
                     <li>
                         <a class="nav-link text-white d-flex justify-content-center justify-content-xxl-start px-4" href="#list-3">
+                            <i class="bi bi-geo-alt fs-5 text-dark"></i>
+                            <div class="ms-3 my-auto d-none d-xxl-block">
+                                <span class="fw-light text-dark">Locations</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-white d-flex justify-content-center justify-content-xxl-start px-4" href="#list-4">
                             <i class="bi bi-grid fs-5 text-dark"></i>
                             <div class="ms-3 my-auto d-none d-xxl-block">
                                 <span class="fw-light text-dark">Items</span>
@@ -41,7 +49,7 @@ if (!defined('ACCESS')) {
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white d-flex justify-content-center justify-content-xxl-start px-4" href="#list-4">
+                        <a class="nav-link text-white d-flex justify-content-center justify-content-xxl-start px-4" href="#list-5">
                             <i class="bi bi-people fs-5 text-dark"></i>
                             <div class="ms-3 my-auto d-none d-xxl-block">
                                 <span class="fw-light text-dark">Users</span>

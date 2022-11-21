@@ -212,7 +212,7 @@
                 </div>
 
                 <div class="d-flex justify-self-end py-1 py-md-0 align-items-center">
-                    <p class="p-0 pe-1 m-0">1/50</p>
+                    <p class="p-0 pe-1 m-0 page-count">1/-</p>
                     <button type="button" class="btn btn-light py-1 px-3 border-0 previous" id="previous">
                         < </button>
                             <button type="button" class="btn btn-light py-1 px-3 border-0 next" id="next">></button>

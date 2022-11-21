@@ -5,6 +5,9 @@ include '../model/item_model.php';
 include '../model/user_address_model.php';
 include '../model/order_model.php';
 include '../model/order_item_model.php';
+include '../model/province_list_model.php';
+include '../model/city_list_model.php';
+include '../model/barangay_list_model.php';
 include '../controller/cart_controller.php';
 include './check_token.php';
 
@@ -39,10 +42,10 @@ if ($_POST['requestType'] == "cart_add") {
 if ($_POST['requestType'] == "cart_info") {
     $user_id = $_SESSION['userId'];
     $cc = new CartController();
-    
+
     $cartData = $cc->cartData($user_id);
 
-    if(!$cartData){
+    if (!$cartData) {
         exit();
     }
     echo json_encode($cartData);
@@ -56,7 +59,7 @@ if ($_POST['requestType'] == "cart_update") {
     $currentDate = date("Y-m-d H:i:s");
 
     $cc = new CartController();
-    if($cc->updateCartQuantity($quantity, $currentDate, $cart_id, $user_id)){
+    if ($cc->updateCartQuantity($quantity, $currentDate, $cart_id, $user_id)) {
         echo 'ok';
         exit();
     }
@@ -73,24 +76,24 @@ if ($_POST['requestType'] == "cart_checkout") {
     $cc = new CartController();
     $items = count($cartItems);
 
-    if(!$cc->isAddressValid($user_id)){
+    if (!$cc->isAddressValid($user_id)) {
         echo 'invalid_address';
         exit();
     }
 
-    if($items == 0){
+    if ($items == 0) {
         exit();
     }
-    if(!$cc->isItemsOnStock($cartItems)){
+    if (!$cc->isItemsOnStock($cartItems)) {
         echo 'out_of_stock';
         exit();
     }
-    if(!$cc->isQuantityValid($cartItems)){
+    if (!$cc->isQuantityValid($cartItems)) {
         echo 'zero_value';
         exit();
     }
 
-    if(!$cc->checkOut($user_id, $items, $status, $currentDate, $cartItems, $available)){
+    if (!$cc->checkOut($user_id, $items, $status, $currentDate, $cartItems, $available)) {
         echo 'error';
         exit();
     }
@@ -103,9 +106,22 @@ if ($_POST['requestType'] == "cart_remove") {
 
     $cc = new CartController();
 
-    if($cc->removeItemsOnCart($cartItems, $user_id)){
+    if ($cc->removeItemsOnCart($cartItems, $user_id)) {
         echo 'ok';
         exit();
     }
     echo 'error';
+}
+if ($_POST['requestType'] == "user_shipping_fee") {
+
+    $user_id = $_SESSION['userId'];
+    $cc = new CartController();
+
+    $fee = $cc->getShippingFee($user_id);
+
+    if (!$fee) {
+        echo 'Invalid Address!';
+        exit();
+    }
+    echo $fee;
 }

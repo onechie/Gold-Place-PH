@@ -11,17 +11,17 @@ body {
   
   /* Carousel base class */
   .carousel {
-    margin-bottom: 4rem;
+    /*margin-bottom: 4rem;*/
   }
   /* Since positioning the image, we need to help out the caption */
   .carousel-caption {
-    bottom: 3rem;
+    bottom: 30%;
     z-index: 10;
   }
   
   /* Declare heights because of positioning of img element */
   .carousel-item {
-    height: 32rem;
+    height: 100vh;
     position: relative;
     background-color: black;
   }
@@ -42,11 +42,11 @@ body {
   -------------------------------------------------- */
   
   /* Center align the text within the three columns below the carousel */
-  .marketing .col-lg-4 {
+  .marketing .col-md-4 {
     margin-bottom: 1.5rem;
     text-align: center;
   }
-  .marketing .col-lg-4 img{
+  .marketing .col-md-4 img{
     border-radius: 50%;
     height: 140px;
     width: 140px;
@@ -55,7 +55,7 @@ body {
     background-position: center;
   }
   /* rtl:begin:ignore */
-  .marketing .col-lg-4 p {
+  .marketing .col-md-4 p {
     margin-right: .75rem;
     margin-left: .75rem;
   }

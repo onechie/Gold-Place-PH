@@ -9,6 +9,11 @@ $(document).ready(function () {
   const scanOpen = $("#add-order #scan-open");
   const token = $(".token").val();
 
+  let currency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+});
+
   const toastBody = $(".toast-body");
   const toast = new bootstrap.Toast($("#liveToast"));
 
@@ -34,18 +39,26 @@ $(document).ready(function () {
       $("#add-order #qr-reader").hide();
       hint.hide();
 
+      scanOpen.hide();
       scanAgain.show();
     }
   }
   scanOpen.click(function () {
     html5QrcodeScanner.render(onScanSuccess);
+    $("#add-order #qr-reader").show();
+    hint.show();
+    
     scanOpen.hide();
+    scanAgain.hide();
+    modalBody.empty();
+    ableToScan = true;
   });
 
   scanAgain.click(function () {
     $("#add-order #qr-reader").show();
     hint.show();
 
+    scanOpen.hide();
     scanAgain.hide();
     modalBody.empty();
     ableToScan = true;
@@ -90,8 +103,14 @@ $(document).ready(function () {
               "<ul class='fw-200'>" +
               itemList +
               "</ul>" +
+              "<p>Items Price : <span class='fw-200'>" +
+              currency.format(orderPrice) +
+              "</span></p>" +
+              "<p>Shipping Fee : <span class='fw-200'>" +
+              currency.format(orderData.shipping_fee) +
+              "</span></p>" +
               "<p>Total Price : <span class='fw-200'>" +
-              orderPrice +
+              currency.format(orderPrice+orderData.shipping_fee) +
               "</span></p>" +
               "<p>Address : <span class='fw-200'>" +
               orderData.address +
@@ -119,6 +138,9 @@ $(document).ready(function () {
           }
         }
         modalBody.append(htmlData);
+        $("#add-order #qr-reader").hide();
+        hint.hide();
+        scanOpen.show();
       }
     );
   }

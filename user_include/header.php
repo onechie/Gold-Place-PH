@@ -4,7 +4,7 @@ if (!defined('ACCESS')) {
 }
 ?>
 <script type="text/javascript" src="./assets/scripts/js/controller/cart_controller.js"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm" aria-label="Fourth navbar example">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" aria-label="Fourth navbar example">
   <div class="container-xxl">
 
     <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#oc-menu" aria-controls="oc-menu">

@@ -20,6 +20,18 @@ if (!defined('ACCESS')) {
                     <li>text item x3</li>
                     <li>text item x4</li>
                 </ul>
+                <p>
+                    Items Price :
+                    <span class='fw-200 text-success items-price'>
+
+                    </span>
+                </p>
+                <p>
+                    Shipping Fee :
+                    <span class='fw-200 text-danger shipping-fee'>
+
+                    </span>
+                </p>
                 <p>Address : <span class='fw-200 order-address'>test address jupiter malolos bulacan</span></p>
                 <p>Contact no : <span class='fw-200 order-contact'>908124724247</span></p>
                 <p>Name : <span class='fw-200 order-name'>test user</span></p>

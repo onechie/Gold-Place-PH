@@ -2,7 +2,7 @@
 
 class CartController extends ItemModel
 {
-    use CartTrait, UserAddressTrait, OrderTrait, OrderItemTrait;
+    use CartTrait, UserAddressTrait, OrderTrait, OrderItemTrait, BarangayListTrait, CityListTrait, ProvinceListTrait;
 
     private function validateQuantity($item_id, $quantity)
     {
@@ -22,8 +22,16 @@ class CartController extends ItemModel
         if(count($address) == 0){
             return false;
         }
-
-        if ($address[0]['house_number'] == '' || $address[0]['barangay'] == '' || $address[0]['city'] == '' || $address[0]['province'] == '') {
+        if ($address[0]['house_number'] == '') {
+            return false;
+        }
+        if(!$this->isBrgyExist($address[0]['barangay'])){
+            return false;
+        }
+        if(!$this->isCityExist($address[0]['city'])){
+            return false;
+        }
+        if(!$this->isProvinceExist($address[0]['province'])){
             return false;
         }
         return true;
@@ -114,7 +122,12 @@ class CartController extends ItemModel
 
     public function checkOut($user_id, $items, $status, $date, $cart_items, $available)
     {
-        if(!$this->setOrder($user_id,$items, $status, $date, $available)){
+        $user_address = $this->getAddressBy_UID($user_id)[0];
+        $user_address_whole = $user_address['house_number'] . " " . $user_address['barangay'] . ", " . $user_address['city'] . ", " . $user_address['province'];
+        $shipping_fee = $user_address['shipping_fee'];
+        
+
+        if(!$this->setOrder($user_id,$items, $status, $date, $available, $user_address_whole, $shipping_fee)){
             return false;
         }
 
@@ -140,6 +153,18 @@ class CartController extends ItemModel
         return true;
     }
 
+    public function getShippingFee($user_id){
+        if(!$this->isAddressValid($user_id)){
+            return false;
+        }
+        $user_address = $this->getAddressBy_UID($user_id)[0];
+        $user_barangay = $user_address['barangay'];
+        $user_city = $user_address['city'];
+        $shipping_fee = $this->getBarangayWithCity($user_barangay, $user_city)[0]['shipping_fee'];
+        return $shipping_fee;
+    }
+
+
     public function removeItemsOnCart($cart_items, $user_id){
         foreach($cart_items as $cart_item){
             if(!$this->deleteCart($cart_item, $user_id)){
@@ -157,4 +182,23 @@ class CartController extends ItemModel
         }
         return true;
     }
+    private function isBrgyExist($barangay){
+        if(count($this->getBarangay($barangay)) > 0){
+            return true;
+        }
+        return false;
+    }
+    private function isCityExist($city){
+        if(count($this->getCity($city)) > 0){
+            return true;
+        }
+        return false;
+    }
+    private function isProvinceExist($province){
+        if(count($this->getProvince($province)) > 0){
+            return true;
+        }
+        return false;
+    }
+    
 }

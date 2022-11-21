@@ -8,11 +8,11 @@ class OrderModel extends DbHelper
 trait OrderTrait
 {
     //CREATE
-    protected function setOrder($user_id, $items, $status, $date_created, $available)
+    protected function setOrder($user_id, $items, $status, $date_created, $available, $user_address, $shipping_fee)
     {
-        $sql = "INSERT orders(user_id, items, status, date_created, available) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT orders(user_id, items, status, date_created, available, address, shipping_fee) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
-        if (!$stmt->execute(array($user_id, $items, $status, $date_created, $available))) {
+        if (!$stmt->execute(array($user_id, $items, $status, $date_created, $available, $user_address, $shipping_fee))) {
             $stmt = null;
             return false;
         }

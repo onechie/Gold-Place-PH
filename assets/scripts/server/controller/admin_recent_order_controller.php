@@ -115,7 +115,8 @@ class AdminRecentOrderController extends OrderModel
         );
 
         $orderData = array(
-            "address" => $user_address['house_number'] . " " . $user_address['barangay'] . ", " . $user_address['city'] . ", " . $user_address['province'],
+            "address" => $order['address'],
+            "shipping_fee" => $order['shipping_fee'],
             "customer" => $userInfo,
             "order" => $orderInfo
         );

@@ -9,6 +9,7 @@ $(document).ready(function () {
   const sortBy = $(".sort-by #sort-dropdown");
   const price = $(".price #price-dropdown");
   const category = $(".category #category-dropdown");
+  const currentPage = $("#user-panel .page-count");
   const itemSearchBar = $("#search-item");
 
   let sortOption = "Default";
@@ -165,6 +166,7 @@ $(document).ready(function () {
         } else {
           prevPage.prop("disabled", false);
         }
+        currentPage.text(page+'/-')
         cardCount = 0;
       }
     );
