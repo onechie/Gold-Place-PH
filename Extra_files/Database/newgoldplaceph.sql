@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2022 at 10:34 AM
+-- Generation Time: Nov 21, 2022 at 10:00 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,6 +24,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `barangay_list`
+--
+
+CREATE TABLE `barangay_list` (
+  `id` int(11) NOT NULL,
+  `barangay` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `shipping_fee` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `barangay_list`
+--
+
+INSERT INTO `barangay_list` (`id`, `barangay`, `city`, `shipping_fee`) VALUES
+(31, 'longos', 'malolos', 50),
+(32, 'san vicente', 'malolos', 55),
+(33, 'tikay', 'malolos', 60),
+(34, 'talisay', 'balanga', 50),
+(35, 'san jose', 'balanga', 55),
+(36, 'munting batangas', 'balanga', 60),
+(37, 'Alasas', 'san fernando', 50),
+(38, 'dolores', 'san fernando', 55),
+(39, 'panipuan', 'san fernando', 60);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cart`
 --
 
@@ -36,14 +64,6 @@ CREATE TABLE `cart` (
   `date_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `item_id`, `user_id`, `quantity`, `date_created`, `date_updated`) VALUES
-(284, 45, 93, 1, '2022-11-16 16:47:10', '0000-00-00 00:00:00'),
-(286, 47, 93, 1, '2022-11-16 16:47:11', '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -52,17 +72,19 @@ INSERT INTO `cart` (`id`, `item_id`, `user_id`, `quantity`, `date_created`, `dat
 
 CREATE TABLE `city_list` (
   `id` int(11) NOT NULL,
-  `city` varchar(255) NOT NULL
+  `city` varchar(255) NOT NULL,
+  `province` varchar(255) NOT NULL,
+  `shipping_fee` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `city_list`
 --
 
-INSERT INTO `city_list` (`id`, `city`) VALUES
-(1, 'hagonoy'),
-(2, 'malolos'),
-(5, 'calumpit');
+INSERT INTO `city_list` (`id`, `city`, `province`, `shipping_fee`) VALUES
+(39, 'balanga', 'bataan', 0),
+(40, 'malolos', 'bulacan', 0),
+(41, 'san fernando', 'pampanga', 0);
 
 -- --------------------------------------------------------
 
@@ -86,7 +108,7 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `date_created`, `category`, `price`, `stocks`, `description`, `sold`) VALUES
-(45, 'Ring of Critical ', '2022-11-16 17:21:18', 'Ring', 3999, 95, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 5),
+(45, 'Ring of Critical ', '2022-11-16 17:21:18', 'Ring', 3999, 93, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 5),
 (46, 'Ring of Luck', '2022-11-16 17:21:19', 'Ring', 5000, 94, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 5),
 (47, 'Ring of Protection', '2022-11-16 17:21:20', 'Ring', 3500, 97, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
 (48, 'Necklace of Crypt', '2022-11-16 17:21:21', 'Necklace', 4000, 96, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
@@ -126,17 +148,10 @@ CREATE TABLE `orders` (
   `date_created` datetime NOT NULL,
   `date_updated` datetime NOT NULL,
   `status_message` varchar(255) NOT NULL,
-  `available` varchar(10) NOT NULL
+  `available` varchar(10) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `shipping_fee` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `items`, `quantity`, `status`, `date_created`, `date_updated`, `status_message`, `available`) VALUES
-(220, 93, 2, 0, 'delivered', '2022-11-07 20:09:48', '2022-11-07 20:12:04', 'Thanks for purchasing!', 'no'),
-(221, 93, 3, 0, 'checking', '2022-11-14 15:49:16', '0000-00-00 00:00:00', '', 'no'),
-(222, 93, 1, 0, 'checking', '2022-11-16 16:47:25', '0000-00-00 00:00:00', '', 'yes');
 
 -- --------------------------------------------------------
 
@@ -151,14 +166,6 @@ CREATE TABLE `order_handler` (
   `available` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `order_handler`
---
-
-INSERT INTO `order_handler` (`id`, `driver_id`, `order_id`, `available`) VALUES
-(10, 94, 220, ''),
-(11, 94, 221, '');
-
 -- --------------------------------------------------------
 
 --
@@ -172,18 +179,6 @@ CREATE TABLE `order_item` (
   `quantity` int(11) NOT NULL,
   `can_rate` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `order_item`
---
-
-INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `can_rate`) VALUES
-(106, 220, 45, 5, 'no'),
-(107, 220, 46, 5, 'yes'),
-(108, 221, 50, 2, 'no'),
-(109, 221, 47, 3, 'no'),
-(110, 221, 48, 4, 'no'),
-(111, 222, 46, 1, 'no');
 
 -- --------------------------------------------------------
 
@@ -201,10 +196,9 @@ CREATE TABLE `province_list` (
 --
 
 INSERT INTO `province_list` (`id`, `province`) VALUES
-(1, 'bulacan'),
-(2, 'jupiter'),
-(3, 'mars'),
-(4, 'uranus');
+(27, 'bulacan'),
+(28, 'pampanga'),
+(29, 'bataan');
 
 -- --------------------------------------------------------
 
@@ -220,13 +214,6 @@ CREATE TABLE `rating` (
   `status` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `rating`
---
-
-INSERT INTO `rating` (`id`, `item_id`, `message`, `score`, `status`, `user_id`) VALUES
-(28, 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In ornare quam viverra orci sagittis eu volutpat. Velit dignissim sodales ut eu sem integer vitae justo. Arcu non odio euismod lacinia at quis risus. Ullamcorper malesuada proin libero nunc consequat interdum varius sit amet. Arcu felis bibendum ut tristique. Non consectetur a erat nam at lectus urna duis convallis. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus. Tellus orci ac auctor augue mauris augue. Amet venenatis urna cursus eget nunc scelerisque viverra. Nibh ipsum consequat nisl vel pretium lectus quam id. Purus sit amet volutpat consequat. Massa tincidunt dui ut ornare lectus.', 5, '', 93);
 
 -- --------------------------------------------------------
 
@@ -269,19 +256,26 @@ CREATE TABLE `user_address` (
   `barangay` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `province` varchar(255) NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `shipping_fee` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user_address`
 --
 
-INSERT INTO `user_address` (`user_id`, `house_number`, `barangay`, `city`, `province`, `id`) VALUES
-(93, '215', 'palapat', 'hagonoy', 'bulacan', 6);
+INSERT INTO `user_address` (`user_id`, `house_number`, `barangay`, `city`, `province`, `id`, `shipping_fee`) VALUES
+(93, '', '', '', '', 8, 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `barangay_list`
+--
+ALTER TABLE `barangay_list`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cart`
@@ -353,16 +347,22 @@ ALTER TABLE `user_address`
 --
 
 --
+-- AUTO_INCREMENT for table `barangay_list`
+--
+ALTER TABLE `barangay_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
 
 --
 -- AUTO_INCREMENT for table `city_list`
 --
 ALTER TABLE `city_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `items`
@@ -374,25 +374,25 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
 
 --
 -- AUTO_INCREMENT for table `order_handler`
 --
 ALTER TABLE `order_handler`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `province_list`
 --
 ALTER TABLE `province_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -410,7 +410,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_address`
 --
 ALTER TABLE `user_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
