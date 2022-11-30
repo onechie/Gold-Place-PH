@@ -4,7 +4,7 @@ if (!defined('ACCESS')) {
 }
 ?>
 <script type="text/javascript" src="./assets/scripts/js/controller/cart_controller.js"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" aria-label="Fourth navbar example">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm" aria-label="Fourth navbar example">
   <div class="container-xxl">
 
     <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#oc-menu" aria-controls="oc-menu">
@@ -23,17 +23,18 @@ if (!defined('ACCESS')) {
       <div class="offcanvas-body">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active fs-7" aria-current="page" href="./">Home</a>
+            <a class="nav-link fs-7" aria-current="page" href="./">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-7" aria-current="page" href="./products.php">Items</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-7" aria-current="page" href="#">Contact us</a>
+            <a class="nav-link fs-7" aria-current="page" href="./products.php">Products</a>
           </li>
           <li class="nav-item">
             <a class="nav-link fs-7" aria-current="page" href="#">About</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link fs-7" aria-current="page" href="#">Contact us</a>
+          </li>
+          
         </ul>
       </div>
     </div>

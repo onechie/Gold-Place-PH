@@ -1,5 +1,5 @@
 <?php
-include '../database/database.php';
+include '../../../../database/database.php';
 include '../model/order_model.php';
 include '../controller/admin_orders_chart_controller.php';
 include './check_token.php';

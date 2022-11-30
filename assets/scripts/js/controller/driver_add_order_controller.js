@@ -110,7 +110,7 @@ $(document).ready(function () {
               currency.format(orderData.shipping_fee) +
               "</span></p>" +
               "<p>Total Price : <span class='fw-200'>" +
-              currency.format(orderPrice+orderData.shipping_fee) +
+              currency.format(parseInt(orderPrice)+parseInt(orderData.shipping_fee)) +
               "</span></p>" +
               "<p>Address : <span class='fw-200'>" +
               orderData.address +

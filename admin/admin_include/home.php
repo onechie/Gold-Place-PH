@@ -55,8 +55,10 @@
                         </div>
                     </div>
                     <div class="bg-danger bg-opacity-100 px-4 h-25 d-flex align-items-center text-light">
+                        <!--
                         <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+0</p>
                         <p class="fw-light m-0 ms-2 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">-0</p>
+                        -->
                     </div>
                 </div>
             </div>
@@ -72,8 +74,10 @@
                         </div>
                     </div>
                     <div class="bg-primary bg-opacity-100 px-4 h-25 d-flex align-items-center text-light">
+                        <!--
                         <p class="fw-light m-0 bg-dark bg-opacity-25 rounded-4 px-2 flex-shrink-0">+0</p>
                         <p class="fw-light m-0 ms-2 flex-shrink-0"><i class="bi bi-arrow-up-short"></i>0%</p>
+                        -->
                     </div>
                 </div>
             </div>

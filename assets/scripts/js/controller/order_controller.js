@@ -75,10 +75,9 @@ $(document).ready(function () {
                 htmlData += "<div id='flush-"+i+"' class='accordion-collapse collapse'>"
                             +"  <div class='accordion-body py-2 px-5 row bg-light'>"
                             +"    <div class='col-2'> <img src='./assets/images/items/"+item.id+"/"+item.image+"' class='rounded-3' height='100' width='100' alt=''></div>"
-                            +"    <div class='col-4 my-auto'>"+item.name+"</div>"
+                            +"    <div class='col-5 my-auto'>"+item.name+"</div>"
                             +"    <div class='col-3 my-auto'>"+currency.format(item.price)+"</div>"
-                            +"    <div class='col-2 my-auto'>"+item.quantity+"</div>"
-                            +"    <div class='col-1 my-auto'><i class='bi bi-eye mx-1 text-success fs-4'></i></div>"
+                            +"    <div class='col-2 my-auto'>x"+item.quantity+"</div>"
                             +"  </div>"
                             +"</div>"
               }

@@ -25,7 +25,6 @@
 
     .scroll-page {
       scroll-snap-align: start;
-      scroll-margin-top: 50px;
       scroll-snap-stop: always;
     }
 
@@ -86,9 +85,9 @@
           <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image.png);"></div>
           <div class="container">
             <div class="carousel-caption text-start">
-              <h1>Test headline.</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. </p>
-              <p><a class="btn btn-lg btn-warning" href="#">Sign up today</a></p>
+              <h1>Order now</h1>
+              <p>Have you found a fit accessory for you? Sign up, add to cart, and place an order for your desired product!</p>
+              <p><a class="btn btn-lg btn-warning" href="./register.php">Sign up today</a></p>
             </div>
           </div>
         </div>
@@ -96,8 +95,8 @@
           <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image.png);"></div>
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another Test headline.</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Tortor vitae purus faucibus ornare suspendisse.</p>
+              <h1>Online Jewelry Shop</h1>
+              <p>est. 2020. Trusted seller of 18k saudi gold jewelry!</p>
               <p><a class="btn btn-lg btn-warning" href="#">Learn more</a></p>
             </div>
           </div>
@@ -106,9 +105,9 @@
           <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image.png);"></div>
           <div class="container">
             <div class="carousel-caption text-end">
-              <h1>One more for good measure.</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <p><a class="btn btn-lg btn-warning" href="#">Browse products</a></p>
+              <h1>Looking for something?</h1>
+              <p>Are you looking for jewelry that suits for you? check out our products now!</p>
+              <p><a class="btn btn-lg btn-warning" href="./products.php">Browse products</a></p>
             </div>
           </div>
         </div>
@@ -127,46 +126,45 @@
     <!-- Marketing messaging and featurettes
         ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-
+    <!--
     <div class="container marketing bg scroll-page overflow-auto h-100 pt-5">
 
-      <!-- Three columns of text below the carousel -->
+
       <div class="row pt-5">
         <div class="col-md-4">
           <img src="./assets/images/defaults/img1.jpg" alt="image">
           <h2 class="fw-normal">Necklace</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           <p><a class="btn btn-outline-dark" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
+        </div>
         <div class="col-md-4">
           <img src="./assets/images/defaults/img2.jpg" alt="image">
           <h2 class="fw-normal">Pendant</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           <p><a class="btn btn-outline-dark" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
+        </div>
         <div class="col-md-4">
           <img src="./assets/images/defaults/img3.jpg" alt="image">
           <h2 class="fw-normal">Ring</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
           <p><a class="btn btn-outline-dark" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
+        </div>
+      </div>
       <div class="row ">
         <div class="col-md-4">
           <img src="./assets/images/defaults/img4.jpg" alt="image">
           <h2 class="fw-normal">Earring</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           <p><a class="btn btn-outline-dark" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
+        </div>
         <div class="col-md-4">
           <img src="./assets/images/defaults/img5.jpg" alt="image">
           <h2 class="fw-normal">Bracelet</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           <p><a class="btn btn-outline-dark" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
+        </div>
+      </div>
 
-      <!-- START THE FEATURETTES -->
     </div>
     <div class="container marketing bg scroll-page overflow-auto h-100">
 
@@ -206,11 +204,8 @@
 
       <hr class="featurette-divider">
 
-      <!-- /END THE FEATURETTES -->
-
-    </div><!-- /.container -->
-
-    <!-- FOOTER -->
+    </div>
+    -->
     <?php
     include './user_include/toast.php';
     include './user_include/csrf_token.php';

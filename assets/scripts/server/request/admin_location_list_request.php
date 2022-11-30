@@ -1,5 +1,5 @@
 <?php
-include '../database/database.php';
+include '../../../../database/database.php';
 include '../model/province_list_model.php';
 include '../model/city_list_model.php';
 include '../model/barangay_list_model.php';

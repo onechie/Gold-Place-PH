@@ -53,13 +53,13 @@ $(document).ready(function () {
     isFnOk = false;
     fnValue = fnInput.val();
     if (!isNameValid(fnValue)) {
-      fnWarning.append("is not valid " + errorIcon);
+      fnWarning.html("is not valid " + errorIcon);
       if (fnValue.length <= 0) {
         fnWarning.empty();
-        fnWarning.append(errorIcon);
+        fnWarning.html(errorIcon);
       }
     } else if (fnValue.length >= 20) {
-      fnWarning.append("is too long " + errorIcon);
+      fnWarning.html("is too long " + errorIcon);
     } else {
       isFnOk = true;
     }
@@ -72,13 +72,13 @@ $(document).ready(function () {
     isLnOk = false;
     lnValue = lnInput.val();
     if (!isNameValid(lnValue)) {
-      lnWarning.append("is not valid " + errorIcon);
+      lnWarning.html("is not valid " + errorIcon);
       if (lnValue.length <= 0) {
         lnWarning.empty();
-        lnWarning.append(errorIcon);
+        lnWarning.html(errorIcon);
       }
     } else if (lnValue.length >= 20) {
-      lnWarning.append("is too long " + errorIcon);
+      lnWarning.html("is too long " + errorIcon);
     } else {
       isLnOk = true;
     }
@@ -92,10 +92,10 @@ $(document).ready(function () {
     isEmOk = false;
     emValue = emInput.val();
     if (!isEmailValid(emValue)) {
-      emWarning.append("is not valid " + errorIcon);
+      emWarning.html("is not valid " + errorIcon);
       if (emValue.length <= 0) {
         emWarning.empty();
-        emWarning.append(errorIcon);
+        emWarning.html(errorIcon);
       }
     } else {
       $.post(
@@ -107,9 +107,10 @@ $(document).ready(function () {
         },
         function (data) {
           if (data == "used") {
-            emWarning.append("is already used " + errorIcon);
+            emWarning.html("is already used " + errorIcon);
           }
           if (data == "ok") {
+              emWarning.empty();
             isEmOk = true;
           }
         }
@@ -124,10 +125,10 @@ $(document).ready(function () {
     isPhOk = false;
     phValue = phInput.val();
     if (!isPhoneValid(phValue)) {
-      phWarning.append("is not valid " + errorIcon);
+      phWarning.html("is not valid " + errorIcon);
       if (phValue.length <= 0) {
         phWarning.empty();
-        phWarning.append(errorIcon);
+        phWarning.html(errorIcon);
       }
     } else {
       $.post(
@@ -139,9 +140,10 @@ $(document).ready(function () {
         },
         function (data) {
           if (data == "used") {
-            phWarning.append("is already used " + errorIcon);
+            phWarning.html("is already used " + errorIcon);
           }
           if (data == "ok") {
+            phWarning.empty();
             isPhOk = true;
           }
         }
@@ -157,13 +159,13 @@ $(document).ready(function () {
     isPwOk = false;
     pwValue = pwInput.val();
     if (pwValue.length <= 7) {
-      pwWarning.append("is too short " + errorIcon);
+      pwWarning.html("is too short " + errorIcon);
       if (pwValue.length <= 0) {
         pwWarning.empty();
-        pwWarning.append(errorIcon);
+        pwWarning.html(errorIcon);
       }
     } else if (pwValue.length >= 50) {
-      pwWarning.append("is too long " + errorIcon);
+      pwWarning.html("is too long " + errorIcon);
     } else {
       isPwOk = true;
     }
@@ -213,7 +215,7 @@ $(document).ready(function () {
     return regex.test(email);
   }
   function isPhoneValid(phone) {
-    var regex = /((^(\+63)(\d{10}))|(^(0)(\d{10}))|(^(9)(\d{9})))$/;
+    var regex = /((^(\+63)(\d{10}))|(^(09)(\d{9}))|(^(9)(\d{9})))$/;
     return regex.test(phone);
   }
 

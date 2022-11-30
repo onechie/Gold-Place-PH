@@ -49,7 +49,7 @@ $(document).ready(function () {
             "</div>";
 
           }
-          totalPriceValue+=orderData.shipping_fee;
+          totalPriceValue+=parseInt(orderData.shipping_fee);
           htmlData += 
           "<div class='row fs-7 mt-3'>"+
               "<div class=' col-8 text-start text-break fw-200'>Shipping Fee</div>"+

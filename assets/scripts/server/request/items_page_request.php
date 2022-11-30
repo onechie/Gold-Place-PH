@@ -1,5 +1,5 @@
 <?php
-include '../database/database.php';
+include '../../../../database/database.php';
 include '../model/item_model.php';
 include '../model/user_model.php';
 include '../model/rating_model.php';
@@ -25,3 +25,4 @@ if ($_POST['requestType'] == "load-items") {
     
     echo json_encode($ic->itemsDataWithPage($page));
 }
+echo 'test';

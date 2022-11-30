@@ -7,43 +7,30 @@ if (!defined('ACCESS')) {
     <div class="container">
         <footer class="py-5">
             <div class="row fw-light">
-                <div class="col-6 col-md-2 mb-3 fs-7 text-muted">
-                    <h5>Home</h5>
+                <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
+                    <h6>Gold Place PH</h6>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 1</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 2</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 3</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categories</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">What's New</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Top Sales</a></li>
                     </ul>
                 </div>
 
-                <div class="col-6 col-md-2 mb-3 fs-7 text-muted">
-                    <h5>Features</h5>
+                <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
+                    <h6>About Us</h6>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 1</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 2</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 3</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Terms of Service</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Privacy Policy</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Help</a></li>
                     </ul>
                 </div>
-
-                <div class="col-6 col-md-2 mb-3 fs-7 text-muted">
-                    <h5>About</h5>
+                <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
+                    <h6>Contact Us</h6>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 1</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 2</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Menu 3</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+09214722043</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">shop@goldplaceph.com</a></li>
                     </ul>
-                </div>
-
-                <div class="col-md-5 offset-md-1 mb-3 text-muted fs-7">
-                    <form>
-                        <h5>Subscribe to our newsletter</h5>
-                        <p>Monthly digest of what's new and exciting from us.</p>
-                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                            <label for="newsletter1" class="visually-hidden">Email address</label>
-                            <input id="newsletter1" type="text" class="form-control py-1 bg-light" placeholder="Email address">
-                            <button class="btn btn-outline-dark btn-sm" type="button">Subscribe</button>
-                        </div>
-                    </form>
                 </div>
             </div>
 

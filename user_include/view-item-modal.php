@@ -50,7 +50,6 @@ if (!defined('ACCESS')) {
                                     <i class="bi bi-star-fill"></i>
                                 </span>
                                 <h2 class="py-3 m-0 text-warning fw-normal text-capitalize">&#8369;<span id="item-price"></span></h2>
-                                <h5 class="py-3 m-0 fw-200 text-capitalize" id="item-shipping">Shipping fee : <strong>P0 - P100</strong></h5>
                                 <p class="py-1 fw-200 m-0">Sold : <strong id="item-sold">200</strong></p>
                                 <p class="py-1 fw-200 m-0" id="item-rating">Ratings : <strong>100</strong></p>
                                 <div class="pt-3">

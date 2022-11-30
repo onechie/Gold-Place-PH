@@ -248,7 +248,6 @@ $(document).ready(function () {
                         +"    <div class='d-flex fs-4'>"
                         +"        <input type='hidden' id='cart_id' value='"+item.cart_id+"'>"
                         +"        <input type='hidden' id='item_id' value='"+item.id+"'>"
-                        +"        <i class='bi bi-eye mx-1 text-success'></i>"
                         +"    </div>"
                         +"</td>"
                         +"</tr>"

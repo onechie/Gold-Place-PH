@@ -82,7 +82,7 @@ $(document).ready(function () {
             }
             orderId.val(orderData.order.id);
             orderPrice.text(
-              currency.format(orderPriceData + orderData.shipping_fee)
+              currency.format(parseInt(orderPriceData) + parseInt(orderData.shipping_fee))
             );
           }
         }

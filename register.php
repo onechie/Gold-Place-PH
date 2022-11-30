@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="./assets/styles/register.css">
   <link rel="stylesheet" href="./assets/styles/default.css">
   <script src="./assets/scripts/js/controller/register_controller.js" type="text/javascript"></script>
-  <title>Create Account</title>
+  <title>Gold Place PH - Sign up</title>
 </head>
 
 <body>

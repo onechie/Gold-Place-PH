@@ -1,5 +1,5 @@
 <?php
-include '../database/database.php';
+include '../../../../database/database.php';
 include '../model/user_model.php';
 include '../controller/login_controller.php';
 include './check_token.php';

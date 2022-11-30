@@ -57,7 +57,7 @@ $(document).ready(function () {
           orderItems.append(orderItemsData);
           itemsPrice.text(currency.format(orderPriceData));
           shippingFee.text(currency.format(orderData.shipping_fee));
-          orderPrice.text(currency.format(orderPriceData+ orderData.shipping_fee));
+          orderPrice.text(currency.format(parseInt(orderPriceData)+ parseInt(orderData.shipping_fee)));
           orderAddress.text(orderData.address);
           orderContact.text(orderData.customer.contact);
           orderName.text(orderData.customer.name);

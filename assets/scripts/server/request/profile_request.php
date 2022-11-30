@@ -1,6 +1,5 @@
 <?php
-include '../database/database.php';
-
+include '../../../../database/database.php';
 include '../model/user_model.php';
 include '../model/city_list_model.php';
 include '../model/province_list_model.php';

@@ -61,10 +61,9 @@ $(document).ready(function () {
     isEmOk = false;
     emValue = emInput.val();
     if (!isEmailValid(emValue)) {
-      emWarning.append("is not valid " + errorIcon);
+      emWarning.html("is not valid " + errorIcon);
       if (emValue.length <= 0) {
-        emWarning.empty();
-        emWarning.append(errorIcon);
+        emWarning.html(errorIcon);
       }
     } else {
       $.post(
@@ -76,12 +75,13 @@ $(document).ready(function () {
         },
         function (data) {
           if (data == "not_registered") {
-            emWarning.append("is not registered " + errorIcon);
+            emWarning.html("is not registered " + errorIcon);
           }
           if (data == "not_verified") {
-            emWarning.append("is not verified " + errorIcon);
+            emWarning.html("is not verified " + errorIcon);
           }
           if (data == "ok") {
+            emWarning.empty();
             isEmOk = true;
           }
           updateButton(isEmOk, isPwOk);
@@ -97,7 +97,7 @@ $(document).ready(function () {
     isPwOk = false;
     pwValue = pwInput.val();
     if (pwValue.length <= 0) {
-      pwWarning.append(errorIcon);
+      pwWarning.html(errorIcon);
     } else {
       isPwOk = true;
     }
@@ -163,5 +163,6 @@ $(document).ready(function () {
     } else {
       $("#log-submit").prop("disabled", true);
     }
+    console.log(em, pw);
   }
 });

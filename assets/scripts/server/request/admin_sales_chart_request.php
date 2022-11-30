@@ -1,5 +1,5 @@
 <?php
-include '../database/database.php';
+include '../../../../database/database.php';
 include '../model/order_model.php';
 include '../model/order_item_model.php';
 include '../controller/admin_sales_chart_controller.php';

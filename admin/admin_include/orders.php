@@ -63,6 +63,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="recent-orders">
+                                    <!--
                                     <tr class="align-middle">
                                         <td class="ps-4">
                                             <div class="d-flex align-items-center">
@@ -83,7 +84,7 @@
                                             <a class="text-success" href=""><i class="bi bi-eye fs-3"></i></a>
                                         </td>
                                     </tr>
-                                    
+                                    -->
                                 </tbody>
                             </table>
                         </div>

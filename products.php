@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="./assets/styles/products.css">
     <link rel="stylesheet" href="./assets/styles/default.css">
-    <title>View Products</title>
+    <title>Gold Place PH - Items</title>
 </head>
 
 <body>
@@ -139,13 +139,13 @@
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active ratio ratio-21x9">
-                                <img src="./assets/images/defaults/background5.jpg" class="d-block" alt="image" style="object-fit: cover;">
+                                <img src="./assets/images/defaults/banner1.png" class="d-block" alt="image" style="object-fit: cover;">
                             </div>
                             <div class="carousel-item ratio ratio-21x9">
-                                <img src="./assets/images/defaults/background5.jpg" class="d-block" alt="image" style="object-fit: cover;">
+                                <img src="./assets/images/defaults/banner2.png" class="d-block" alt="image" style="object-fit: cover;">
                             </div>
                             <div class="carousel-item ratio ratio-21x9">
-                                <img src="./assets/images/defaults/background5.jpg" class="d-block" alt="image" style="object-fit: cover;">
+                                <img src="./assets/images/defaults/banner3.png" class="d-block" alt="image" style="object-fit: cover;">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#banner-carousel" data-bs-slide="prev">
