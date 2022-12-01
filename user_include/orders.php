@@ -60,8 +60,14 @@ if (!defined('ACCESS')) {
         <h6 class="fw-light fs-7">Overall price :</h6>
         <h6 class="fw-normal fs-7 text-success" id="total_price">P0</h6>
         <div class="d-flex">
-          <button type="button" class="btn btn-warning  btn-sm ms-5" id="delivered">Received</button>
-          <button type="button" class="btn btn-warning btn-sm ms-5" id="processing">Processing</button>
+          <select class="p-1 ms-5 rounded-1 fs-7 w-auto btn btn-dark border-0 order-status">
+            <option value="default">All</option>
+            <option value="checking">Checking</option>
+            <option value="processing">Processing</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@
   define('ACCESS', TRUE);
   include './user_include/restrict-admin.php';
   include './user_include/restrict-driver.php';
+  $_SESSION['menu'] = 'login';
   if (isset($_SESSION["userId"])) {
     header('location: ./');
   }

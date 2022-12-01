@@ -6,8 +6,14 @@ class OrderController extends ItemModel
     public function orderData($user_id, $type)
     {
         $orderData = array();
-        $orders = $this->getOrderByUidAndStatus($user_id, $type);
-
+        $orders = '';
+        if($type=='default'){
+            $orders = $this->getOrderBy_UID($user_id);
+        } else {
+            $orders = $this->getOrderByUidAndStatus($user_id, $type);
+            
+        }
+        
         if (count($orders) == 0) {
             return false;
         }

@@ -4,6 +4,7 @@ $(document).ready(function () {
     const orderList = $("#order-items");
     const orderDelivered = $("#order #delivered");
     const orderProcessing = $("#order #processing");
+    const orderStatus = $(".order-status");
     const orderTotalPrice = $("#order #total_price");
 
     let currency = new Intl.NumberFormat('en-US', {
@@ -20,22 +21,13 @@ $(document).ready(function () {
     orderProcessing.hide();
   
     orderBtn.click(function () {
-      getOrderData("processing");
+      getOrderData(orderStatus.val());
     });
-  
-  
     function setTotalPrice(){
       orderTotalPrice.text(currency.format(totalPriceValue));
     }
-    orderDelivered.click(function(){
-      orderDelivered.toggle();
-      getOrderData("delivered");
-      orderProcessing.toggle();
-    })
-    orderProcessing.click(function(){
-      orderDelivered.toggle();
-      getOrderData("processing");
-      orderProcessing.toggle();
+    orderStatus.change(function(){
+      getOrderData(orderStatus.val());
     })
   
     function getOrderData(type){

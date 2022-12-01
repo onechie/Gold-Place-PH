@@ -8,6 +8,7 @@
   include './user_include/restrict-admin.php';
   include './user_include/restrict-driver.php';
   include './user_include/links.php';
+  $_SESSION['menu'] = 'home';
   ?>
   <script src="anime-master/lib/anime.min.js"></script>
   <script src="./assets/scripts/js/controller/home_controller.js"></script>

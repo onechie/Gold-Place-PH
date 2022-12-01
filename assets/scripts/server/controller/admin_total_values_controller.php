@@ -11,7 +11,7 @@ class AdminTotalValuesController extends OrderModel
             "stocks" => $this->countStocks(),
             "users" => $this->countUsers()
         );
-    
+
         return $totalValues;
     }
 
@@ -53,6 +53,14 @@ class AdminTotalValuesController extends OrderModel
     private function countUsers()
     {
         $users = $this->getUsers();
-        return count($users);
+        $usersCount = 0;
+        if (count($users) > 0) {
+            foreach ($users as $user) {
+                if ($user['type'] == 'customer') {
+                    $usersCount++;
+                }
+            }
+        }
+        return $usersCount;
     }
 }

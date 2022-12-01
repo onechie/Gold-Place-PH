@@ -18,13 +18,13 @@ if($_SESSION['userType'] == 'admin' || $_SESSION['userType'] == 'super_admin'){
 
 //RESPONSE FOR LOAD ALL USERS   
 if ($_POST['requestType'] == "load-users") {
+    $user_type = $_POST['user_type'];
     $aulc = new AdminUserListController();
-    echo json_encode($aulc->usersData());
-
+    echo json_encode($aulc->usersData($user_type));
 }
 
 //RESPONSE FOR LOAD SINGLE USER DATA
-if ($_POST['requestType'] == "view-users") {
+if ($_POST['requestType'] == "view-user") {
     $id = $_POST['id'];
 
     $aulc = new AdminUserListController();

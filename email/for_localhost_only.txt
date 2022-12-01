@@ -1,0 +1,1 @@
+this email config is for localhost only

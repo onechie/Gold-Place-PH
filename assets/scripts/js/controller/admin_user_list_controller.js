@@ -8,6 +8,7 @@ $(document).ready(function () {
   const userTotal = $("#users #total");
   const userCancelled = $("#users #cancelled");
   const userDelivered = $("#users #delivered");
+  const userType = $('.users .user-type');
 
   //VALUES
   var fnValue = "";
@@ -45,7 +46,11 @@ $(document).ready(function () {
 
   let verRequired = "no";
 
-  getUsersData();
+  getUsersData(userType.val());
+
+  userType.change(function(){
+    getUsersData(userType.val());
+  })
 
   $(".users #search-user").on("keyup", function () {
     var value = $(this).val().toLowerCase();
@@ -68,7 +73,7 @@ $(document).ready(function () {
   });
 
   $("#refresh-users").click(function () {
-    getUsersData();
+    getUsersData(userType.val());
   });
   //VALIDATION START
 
@@ -209,7 +214,7 @@ $(document).ready(function () {
       adminUL_URL,
       {
         id: id,
-        requestType: "view-users",
+        requestType: "view-user",
         token: token
       },
       function (data) {
@@ -366,11 +371,12 @@ $(document).ready(function () {
     }
   }
 
-  function getUsersData() {
+  function getUsersData(user_type) {
     $.post(
       adminUL_URL,
       {
         requestType: "load-users",
+        user_type: user_type,
         token: token
       },
       function (data) {

@@ -29,18 +29,18 @@ if (!defined('ACCESS')) {
       <div class="offcanvas-body">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link fs-7" aria-current="page" href="./">Home</a>
+            <a class="nav-link fs-7 home" aria-current="page" href="./">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-7" aria-current="page" href="./products.php">Products</a>
+            <a class="nav-link fs-7 products" aria-current="page" href="./products.php">Products</a>
+          </li>
+          <li class="nav-item about">
+            <a class="nav-link fs-7 about" aria-current="page" href="./about.php">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-7" aria-current="page" href="#">About</a>
+            <a class="nav-link fs-7 contact" aria-current="page" href="./contact.php">Contact us</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link fs-7" aria-current="page" href="#">Contact us</a>
-          </li>
-          
+
         </ul>
       </div>
     </div>
@@ -67,6 +67,24 @@ if (!defined('ACCESS')) {
 <!-- User Order Modal -->
 
 <?php
+if (isset($_SESSION['menu'])) {
+  $menu = $_SESSION['menu'];
+?>
+  <script>
+    let menu = '<?php echo $menu; ?>';
+    if (menu == 'home') {
+      $('.home').addClass('active');
+    } else if (menu == 'products') {
+      $('.products').addClass('active');
+    } else if (menu == 'about') {
+      $('.about').addClass('active');
+    } else if (menu == 'contact') {
+      $('.contact').addClass('active');
+    }
+  </script>
+<?php
+}
+
 include './user_include/profile.php';
 include './user_include/cart.php';
 include './user_include/orders.php';

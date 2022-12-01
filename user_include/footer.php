@@ -18,15 +18,16 @@ if (!defined('ACCESS')) {
                 </div>
 
                 <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
-                    <h6>About Us</h6>
+                    <h6>Information</h6>
                     <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About us</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Terms of Service</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Privacy Policy</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Help</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
-                    <h6>Contact Us</h6>
+                    <h6>Contact us</h6>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+09214722043</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">shop@goldplaceph.com</a></li>

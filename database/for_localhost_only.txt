@@ -1,0 +1,1 @@
+this database config is for localhost only

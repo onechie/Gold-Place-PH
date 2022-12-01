@@ -38,9 +38,6 @@ trait OrderTrait
     protected function getOrderByUidAndStatus($user_id, $status)
     {
         $sql = "SELECT * FROM orders WHERE user_id = ? AND status = ?";
-        if ($status == 'processing') {
-            $sql = "SELECT * FROM orders WHERE user_id = ? AND (status = ? OR status = 'checking')";
-        }
         $stmt = $this->connect()->prepare($sql);
         if (!$stmt->execute(array($user_id, $status))) {
             $stmt = null;

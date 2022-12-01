@@ -7,6 +7,7 @@
     include './user_include/restrict-admin.php';
     include './user_include/restrict-driver.php';
     include './user_include/links.php';
+    $_SESSION['menu'] = 'products';
     ?>
     <script type="text/javascript" src="./assets/scripts/js/controller/items_page_controller.js"></script>
     <script type="text/javascript" src="./assets/scripts/js/controller/view_item_controller.js"></script>

@@ -3,12 +3,18 @@
 class AdminUserListController extends UserModel
 {
     use OrderTrait;
-    public function usersData()
+    public function usersData($user_type)
     {
-        $results = $this->getUsers();
+        $results = '';
         
-        if($_SESSION['userType'] == 'admin'){
-            $results = $this->getUsersByType('customer');
+        if($user_type == 'driver'){
+            $results = $this->getUsersByType($user_type);
+        } else if($user_type == 'admin' && $_SESSION['userType'] == 'super_admin'){
+            $results = $this->getUsersByType($user_type);
+        } else if($user_type == 'super_admin' && $_SESSION['userType'] == 'super_admin'){
+            $results = $this->getUsersByType($user_type);
+        } else {
+            $results = $this->getUsersByType('customer');;
         }
 
         $usersData = array();

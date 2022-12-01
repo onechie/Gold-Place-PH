@@ -1,7 +1,7 @@
 <?php
-    if(!defined('ACCESS')) {
+if (!defined('ACCESS')) {
     header("location: ../");
-    }
+}
 ?>
 <!--ORDERS-->
 <div class="container-fluid px-xl-4 users" id="list-5">
@@ -16,20 +16,20 @@
                     </div>
                     <div class="p-4 shadow-sm w-100 bg-light-sm d-flex justify-content-center justify-content-sm-between flex-wrap">
                         <div class="d-flex">
-                            <P class="fw-normal m-0 text-center text-sm-start fs-7 flex-shrink-0 px-3 px-sm-0 pe-sm-3">SORT BY</P>
-                            <div class="btn-group drop-down ps-2">
-                                <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" data-bs-toggle="dropdown" aria-expanded="false">
-                                    DEFAULT
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-start border-0 p-0 overflow-hidden shadow">
-                                    <li><button class="dropdown-item text-start fs-7 fw-light" type="button">TOP BUYERS</button></li>
-                                    <li><button class="dropdown-item text-start fs-7 fw-light" type="button">ADMINS</button></li>
-                                </ul>
-                            </div>
+                            <select class="p-0 px-1 ms-1 rounded-1 fs-7 w-auto user-type btn btn-light border text-start">
+                                <option selected value="customer">Customer</option>
+                                <option value="driver">Driver</option>
+                                <?php
+                                if ($_SESSION['userType'] == 'super_admin') {
+                                    echo "<option value='admin'>Admin</option>
+                                    <option value='super_admin'>Super Admin</option>";
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="d-flex px-3">
                             <form class="" role="search">
-                                <input type="search" class="form-control py-0 fw-light fs-7" id="search-user"placeholder="Search" aria-label="Search">
+                                <input type="search" class="form-control py-0 fw-light fs-7" id="search-user" placeholder="Search" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -52,12 +52,12 @@
                         </div>
                     </div>
                     <div class="w-100 bg-light p-4 d-flex justify-content-center justify-content-sm-end">
-                        <?php 
-                            if($_SESSION['userType'] == 'super_admin'){
-                                echo "<button type='button' class='btn btn-sm btn-primary btn-control' data-bs-toggle='modal' data-bs-target='#add-user'>Add User</button>";
-                            }
+                        <?php
+                        if ($_SESSION['userType'] == 'super_admin') {
+                            echo "<button type='button' class='btn btn-sm btn-primary btn-control' data-bs-toggle='modal' data-bs-target='#add-user'>Add User</button>";
+                        }
                         ?>
-                        
+
                     </div>
                 </div>
             </div>
