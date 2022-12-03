@@ -98,7 +98,7 @@
             <div class="carousel-caption">
               <h1>Online Jewelry Shop</h1>
               <p>est. 2020. Trusted seller of 18k saudi gold jewelry!</p>
-              <p><a class="btn btn-lg btn-warning" href="#">Learn more</a></p>
+              <p><a class="btn btn-lg btn-warning" href="./about.php">Learn more</a></p>
             </div>
           </div>
         </div>

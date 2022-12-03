@@ -10,26 +10,27 @@ if (!defined('ACCESS')) {
                 <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
                     <h6>Gold Place PH</h6>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categories</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">What's New</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Top Sales</a></li>
+                        <li class="nav-item mb-2"><a href="./" class="nav-link p-0 text-muted">Home</a></li>
+                        <li class="nav-item mb-2"><a href="./" class="nav-link p-0 text-muted">Categories</a></li>
+                        <li class="nav-item mb-2"><a href="./" class="nav-link p-0 text-muted">What's New</a></li>
+                        <li class="nav-item mb-2"><a href="./" class="nav-link p-0 text-muted">Top Sales</a></li>
                     </ul>
                 </div>
 
                 <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
                     <h6>Information</h6>
                     <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About us</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Terms of Service</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Privacy Policy</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Help</a></li>
+                    <li class="nav-item mb-2"><a href="./about.php" class="nav-link p-0 text-muted">About us</a></li>
+                        <li class="nav-item mb-2"><a href="./about.php" class="nav-link p-0 text-muted">Terms of Service</a></li>
+                        <li class="nav-item mb-2"><a href="./about.php" class="nav-link p-0 text-muted">Privacy Policy</a></li>
+                        <li class="nav-item mb-2"><a href="./about.php" class="nav-link p-0 text-muted">Help</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md-4 mb-3 fs-7 text-muted">
                     <h6>Contact us</h6>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+09214722043</a></li>
+                    <li class="nav-item mb-2"><a href="./contact.php" class="nav-link p-0 text-muted">Instant email</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">09214722043</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">shop@goldplaceph.com</a></li>
                     </ul>
                 </div>
