@@ -126,11 +126,20 @@ class AdminRecentOrderController extends OrderModel
 
     public function updateOrder($order_id, $date, $status)
     {
+        $current_status = $this->getOrderBy_OID($order_id)[0]['status'];
+
         if (!$this->updateOrderStatus($status, $date, $order_id)) {
+            return false;
+        }
+        
+        if ($current_status  == 'delivered' || $current_status == 'cancelled'){
             return false;
         }
 
         if ($status == 'delivered') {
+            $user_id = $this->getOrderBy_OID($order_id)[0]['user_id'];
+            $current_purchased = $this->getUserById($user_id)[0]['purchased'];
+            
             if (!$this->updateOrderItemsBy_OID($order_id, 'yes')) {
                 return false;
             }
@@ -138,11 +147,16 @@ class AdminRecentOrderController extends OrderModel
             foreach ($orderItems as $orderItem) {
                 $item_id = $orderItem['item_id'];
                 $quantity = $orderItem['quantity'];
+                $current_purchased += $quantity;
                 $total_sold = $this->getItemById($item_id)[0]['sold'] + $quantity;
                 if (!$this->updateItemSold($total_sold, $item_id)) {
                     return false;
                 }
             }
+            if(!$this->updateUserPurchased($current_purchased, $user_id)){
+                return false;
+            }
+            $this->updateOrderAvailable('no', $order_id);
         }
         if ($status == 'cancelled') {
             $orderItems = $this->getOrderItemBy_OID($order_id);
@@ -154,6 +168,7 @@ class AdminRecentOrderController extends OrderModel
                     return false;
                 }
             }
+            $this->updateOrderAvailable('no', $order_id);
         }
         return true;
     }

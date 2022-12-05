@@ -59,12 +59,23 @@ if (!defined('ACCESS')) {
                 </ul>
                 <div class="dropup">
                     <a href="#" class="d-flex align-items-center bg-dark shadow text-light text-decoration-none dropdown-toggle p-3 rounded-4 rounded-start mt-3" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../assets/images/defaults/rick.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong class="d-none d-xxl-block fw-light">Admin </strong>
+                        <img src="../assets/images/defaults/default-profile.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong class="d-none d-xxl-block fw-light"><?php 
+                        if($_SESSION['userType'] == 'super_admin'){
+                            echo 'Super Admin';
+                        }
+                        if($_SESSION['userType'] == 'admin'){
+                            echo 'Admin';
+                        }
+                        
+                        
+                        ?></strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark rounded-4 rounded-start w-100 my-3 p-0 overflow-hidden shadow">
+                        <!--
                         <li><a class="dropdown-item py-2 px-4"><i class="bi bi-person fs-5 pe-2"></i> Profile</a></li>
                         <li><a class="dropdown-item py-2 px-4"><i class="bi bi-gear fs-5 pe-2"></i> Settings</a></li>
+                        -->
                         <li><a class="dropdown-item py-2 px-4" id="logout-a"><i class="bi bi-box-arrow-left fs-5 pe-2"></i> Sign out</a></li>
                     </ul>
                 </div>

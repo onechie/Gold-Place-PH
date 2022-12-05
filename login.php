@@ -51,7 +51,7 @@
               </label>
             </div>
             <p class="mt-3 mb-3 text-dark fs-7">Don't have an account? <a href="register.php" class="link-secondary">register now</a></p>
-            <button class="w-100 btn btn-lg btn-dark fs-6" id="log-submit" type="button">Sign-in</button>
+            <button class="w-100 btn btn-lg btn-dark fs-6" id="log-submit" type="submit">Sign-in</button>
           </form>
           <div class="container-fluid ms-3 shadow bg-dark rounded-4 d-md-flex d-none side-content">
 

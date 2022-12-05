@@ -49,7 +49,7 @@ if ($_POST['requestType'] == "add-user") {
         $verified = 'yes';
     }
 
-    if (!$uc->createAccount($first_name, $last_name, $email, $phone, $password, $verified, $user_type)) {
+    if (!$uc->createAccount($first_name, $last_name, $email, $phone, $password, $password, $verified, $user_type)) {
         echo 'error';
         exit();
     }

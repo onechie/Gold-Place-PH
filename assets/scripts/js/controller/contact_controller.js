@@ -39,12 +39,12 @@ $(document).ready(function () {
         loading.toggleClass("d-flex");
         loading.toggle();
         if (data == "ok") {
-          toastBody.append("Your email sent successfully!");
+          toastBody.html("Your email sent successfully!");
           toast.show();
           console.log("ok");
           reset();
         } else {
-          toastBody.append("Failed to send the email!");
+          toastBody.html("Failed to send the email!");
           toast.show();
         }
       }

@@ -155,6 +155,11 @@ $(document).ready(function () {
   });
 
   status.change(function () {
+    if (status.val() == "cancelled" || status.val() == "delivered") {
+      status.prop("disabled", true);
+    } else {
+      status.prop("disabled", false);
+    }
     $.post(
       adminRC_URL,
       {

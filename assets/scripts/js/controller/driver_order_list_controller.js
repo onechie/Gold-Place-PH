@@ -72,6 +72,11 @@ $(document).ready(function () {
 
   updateButton.click(function () {
     let order_id = $("#update-order #order-id").val();
+    if (orderStatus.val() == "cancelled" || orderStatus.val() == "delivered") {
+      updateButton.prop("disabled", true);
+    } else {
+      updateButton.prop("disabled", false);
+    }
     $.post(
       driverOL_URL,
       {
@@ -108,7 +113,10 @@ $(document).ready(function () {
               htmlData +=
                 "<tr class='align-middle'>" +
                 "   <td class='ps-4 text-wrap order-id'>" +
-                order +
+                order.id +
+                "</td>" +
+                "   <td class='ps-4 text-wrap order-id'>" +
+                order.status +
                 "</td>" +
                 "   <td class='px-4'>" +
                 "     <i" +

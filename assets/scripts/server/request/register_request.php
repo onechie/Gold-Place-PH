@@ -37,10 +37,11 @@ if ($_POST['requestType'] == "create_account") {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
     $uc = new RegisterController();
 
-    if (!$uc->createAccount($firstname, $lastname, $email, $phone, $password, 'no', 'customer')) {
+    if (!$uc->createAccount($firstname, $lastname, $email, $phone, $password, $confirm_password, 'no', 'customer')) {
         echo 'error';
         exit();
     }

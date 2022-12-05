@@ -21,7 +21,7 @@ class DriverOrderListController extends OrderModel
             $order_id = $order['order_id'];
             $status = $this->getOrderBy_OID($order_id)[0]['status'];
             if ($status == 'checking' || $status == 'processing') {
-                array_unshift($orderHandlersData, $order_id);
+                array_unshift($orderHandlersData, array("id" => $order_id, "status"=>$status));
             }
         }
         return $orderHandlersData;
@@ -89,22 +89,34 @@ class DriverOrderListController extends OrderModel
 
     public function updateOrder($status, $status_message, $date, $order_id, $driver_id)
     {
+        $current_status = $this->getOrderBy_OID($order_id)[0]['status'];
+
         if (!$this->isUserDriver($driver_id)) {
+            return false;
+        }
+        if ($current_status  == 'delivered' || $current_status == 'cancelled'){
             return false;
         }
 
         if ($status == 'delivered') {
+            $user_id = $this->getOrderBy_OID($order_id)[0]['user_id'];
+            $current_purchased = $this->getUserById($user_id)[0]['purchased'];
+            
             if (!$this->updateOrderItemsBy_OID($order_id, 'yes')) {
                 return false;
             }
             $orderItems = $this->getOrderItemBy_OID($order_id);
-            foreach($orderItems as $orderItem){
+            foreach ($orderItems as $orderItem) {
                 $item_id = $orderItem['item_id'];
                 $quantity = $orderItem['quantity'];
+                $current_purchased += $quantity;
                 $total_sold = $this->getItemById($item_id)[0]['sold'] + $quantity;
-                if(!$this->updateItemSold($total_sold, $item_id)){
+                if (!$this->updateItemSold($total_sold, $item_id)) {
                     return false;
                 }
+            }
+            if(!$this->updateUserPurchased($current_purchased, $user_id)){
+                return false;
             }
         }
         if ($status == 'cancelled') {

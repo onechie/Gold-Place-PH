@@ -108,7 +108,10 @@ $(document).ready(function () {
               htmlData +=
                 "<tr class='align-middle'>" +
                 "   <td class='ps-4 text-wrap order-id'>" +
-                order +
+                order.id +
+                "</td>" +
+                "   <td class='ps-4 text-wrap order-id'>" +
+                order.status +
                 "</td>" +
                 "   <td class='px-4'>" +
                 "     <i" +

@@ -16,6 +16,7 @@
                     </div>
                     <div class="p-4 shadow-sm w-100 bg-light-sm d-flex justify-content-center justify-content-sm-between flex-wrap">
                         <div class="d-flex">
+                            <!--
                             <P class="fw-normal m-0 text-center text-sm-start fs-7 flex-shrink-0 px-3 px-sm-0 pe-sm-3">SORT BY</P>
                             <div class="btn-group drop-down ps-2">
                                 <a type="button" class="btn p-0 dropdown-toggle bg-none border-0 text-dark fs-7 fw-light" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,6 +27,7 @@
                                     <li><button class="dropdown-item text-start fs-7 fw-light" type="button">ON SALE</button></li>
                                 </ul>
                             </div>
+-->
                         </div>
                         <div class="d-flex px-3">
                             <form class="" role="search">

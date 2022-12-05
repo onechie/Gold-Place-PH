@@ -7,6 +7,7 @@ $(document).ready(function () {
   var emValue = "";
   var phValue = "";
   var pwValue = "";
+  var cpwValue = "";
 
   //VALID INDICATOR
   var isFnOk = false;
@@ -14,6 +15,7 @@ $(document).ready(function () {
   var isEmOk = false;
   var isPhOk = false;
   var isPwOk = false;
+  var isCpwOk = false;
 
   //SELECTORS FOR WARNING TEXT
   const fnWarning = $(".fn-w");
@@ -21,6 +23,7 @@ $(document).ready(function () {
   const emWarning = $(".em-w");
   const phWarning = $(".ph-w");
   const pwWarning = $(".pw-w");
+  const cpwWarning = $(".cpw-w");
 
   //SELECTORS FOR INPUT
   const fnInput = $("#fnInput");
@@ -28,7 +31,8 @@ $(document).ready(function () {
   const emInput = $("#emInput");
   const phInput = $("#phInput");
   const pwInput = $("#pwInput");
-  
+  const cpwInput = $("#cpwInput");
+
   //CSRFT TOKEN
   const token = $(".token").val();
 
@@ -63,7 +67,7 @@ $(document).ready(function () {
     } else {
       isFnOk = true;
     }
-    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
+    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
   });
 
   //LASTNAME VALIDATION
@@ -83,7 +87,7 @@ $(document).ready(function () {
       isLnOk = true;
     }
 
-    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
+    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
   });
 
   //EMAIL VALIDATION
@@ -103,20 +107,21 @@ $(document).ready(function () {
         {
           email: emValue,
           requestType: "validate_email",
-          token: token
+          token: token,
         },
         function (data) {
           if (data == "used") {
             emWarning.html("is already used " + errorIcon);
           }
           if (data == "ok") {
-              emWarning.empty();
+            emWarning.empty();
             isEmOk = true;
           }
+          updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
         }
       );
     }
-    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
+    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
   });
 
   //PHONE NUMBER VALIDATION
@@ -136,7 +141,7 @@ $(document).ready(function () {
         {
           phone: phValue,
           requestType: "validate_phone",
-          token: token
+          token: token,
         },
         function (data) {
           if (data == "used") {
@@ -146,11 +151,12 @@ $(document).ready(function () {
             phWarning.empty();
             isPhOk = true;
           }
+          updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
         }
       );
     }
 
-    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
+    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
   });
 
   //PASSWORD VALIDATION
@@ -169,12 +175,29 @@ $(document).ready(function () {
     } else {
       isPwOk = true;
     }
+    cpwInput.trigger("keyup");
+    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
+  });
+  //PASSWORD VALIDATION
+  cpwInput.keyup(function () {
+    cpwWarning.empty();
+    isCpwOk = false;
+    cpwValue = cpwInput.val();
+    if (cpwValue.length <= 0) {
+      cpwWarning.empty();
+      cpwWarning.html(errorIcon);
+    }else if(cpwValue != pwValue){
+      cpwWarning.html("not matched " + errorIcon);
+    } else {
+      isCpwOk = true;
+    }
 
-    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
+    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
   });
 
   //CREATE ACCOUNT CLICK
-  $("#ca-submit").click(function () {
+  $("#ca-submit").click(function (e) {
+    e.preventDefault();
     loading.toggleClass("d-flex");
     loading.toggle();
     toastBody.empty();
@@ -186,8 +209,9 @@ $(document).ready(function () {
         email: emValue,
         phone: phValue,
         password: pwValue,
+        confirm_password: cpwValue,
         requestType: "create_account",
-        token: token
+        token: token,
       },
       function (data) {
         loading.toggleClass("d-flex");
@@ -219,8 +243,8 @@ $(document).ready(function () {
     return regex.test(phone);
   }
 
-  function updateButton(fn, ln, em, ph, pw) {
-    if (fn && ln && em && ph && pw) {
+  function updateButton(fn, ln, em, ph, pw, cpw) {
+    if (fn && ln && em && ph && pw && cpw) {
       $("#ca-submit").prop("disabled", false);
     } else {
       $("#ca-submit").prop("disabled", true);
@@ -232,13 +256,23 @@ $(document).ready(function () {
     emInput.val("");
     phInput.val("");
     pwInput.val("");
+    cpwInput.val("");
+
+    fnWarning.html('');
+    lnWarning.html('');
+    emWarning.html('');
+    phWarning.html('');
+    pwWarning.html('');
+    cpwWarning.html('');
+
 
     isFnOk = false;
     isLnOk = false;
     isEmOk = false;
     isPhOk = false;
     isPwOk = false;
+    isCpwOk = false;
 
-    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk);
+    updateButton(isFnOk, isLnOk, isEmOk, isPhOk, isPwOk, isCpwOk);
   }
 });

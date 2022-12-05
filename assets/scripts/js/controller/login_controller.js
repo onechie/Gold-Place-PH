@@ -105,7 +105,8 @@ $(document).ready(function () {
   });
 
   //LOGIN CLICK
-  $("#log-submit").click(function () {
+  $("#log-submit").click(function (e) {
+    e.preventDefault();
     loading.toggleClass("d-flex");
     loading.toggle();
     toastBody.empty();

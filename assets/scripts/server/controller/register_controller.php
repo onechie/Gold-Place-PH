@@ -45,6 +45,12 @@ class RegisterController extends UserModel
         return false;
     }
 
+    private function isPasswordSame($password, $confirm_password){
+        if($password == $confirm_password){
+            return true;
+        }
+        return false;
+    }
     public function isEmailExist($email)
     {
         if (count($this->getUserByEmail($email)) > 0) {
@@ -71,7 +77,7 @@ class RegisterController extends UserModel
         return false;
     }
 
-    public function createAccount($firstname, $lastname, $email, $phone, $password, $verified, $type)
+    public function createAccount($firstname, $lastname, $email, $phone, $password, $confirm_password, $verified, $type)
     {
         if (!$this->isNameValid($firstname)) {
             return false;
@@ -86,6 +92,9 @@ class RegisterController extends UserModel
             return false;
         }
         if (!$this->isPassValid($password)) {
+            return false;
+        }
+        if(!$this->isPasswordSame($password,$confirm_password)){
             return false;
         }
         if ($this->isEmailExist($email)) {

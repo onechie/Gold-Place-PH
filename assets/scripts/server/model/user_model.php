@@ -127,6 +127,17 @@ trait UserTrait
         $stmt = null;
         return true;
     }
+    protected function updateUserPurchased($purchased, $id){
+        $sql = "UPDATE user set purchased = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if(!$stmt->execute(array($purchased, $id))){
+            $stmt = null;
+            exit();
+        }
+        $stmt = null;
+        return true;
+
+    }
     protected function updateUserImage($id){
         if ($_FILES["images"]["tmp_name"][0] == null) {
             return true;

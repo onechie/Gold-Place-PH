@@ -85,9 +85,9 @@ class ContactController{
                                 <h2>Gold Place PH</h2>
                             </div>
                             <h1>Contact form</h1>
-                            <h2>Name: $name</h2>
-                            <h2>Email: $email</h2>
-                            <p>Message: $message</p>
+                            <h2><strong>Name: </strong>$name</h2>
+                            <h2><strong>Email: </strong>$email</h2>
+                            <p><strong>Message: </strong>$message</p>
                         </div>
                     </div>
                 </body>

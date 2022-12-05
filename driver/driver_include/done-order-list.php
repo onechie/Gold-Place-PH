@@ -18,7 +18,8 @@ if (!defined('ACCESS')) {
                         <table class="table table-hover table-borderless table-striped fs-7 bg-white">
                             <thead class="sticky-top bg-dark text-light z-mid">
                                 <tr class=" align-middle">
-                                    <th class="ps-4 py-3" style="width:80%">ID</th>
+                                    <th class="ps-4 py-3" style="width:30%">ID</th>
+                                    <th class="ps-4 py-3" style="width:50%">STATUS</th>
                                     <th class="px-4 py-3" style="width:20%"><i class="bi bi-list"></i></th>
                                 </tr>
                             </thead>

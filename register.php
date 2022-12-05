@@ -69,8 +69,15 @@
                 <span class="text-danger pw-w"></span>
               </label>
             </div>
+            <div class="form-floating mb-1">
+              <input type="password" class="form-control pw" id="cpwInput" placeholder="Confirm password">
+              <label for="cpwInput" class="fs-7" style="width:110%">
+                Confirm password
+                <span class="text-danger cpw-w"></span>
+              </label>
+            </div>
             <p class="mt-3 mb-3 text-dark fs-7">Already have an account? <a href="login.php" class="link-secondary">login now</a></p>
-            <button class="w-100 btn btn-lg btn-dark fs-6" id="ca-submit" type="button">Sign-up</button>
+            <button class="w-100 btn btn-lg btn-dark fs-6" id="ca-submit" type="submit">Sign-up</button>
           </form>
           <div class="container-fluid ms-3 shadow bg-dark rounded-4 d-md-flex d-none side-content">
 

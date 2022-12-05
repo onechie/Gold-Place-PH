@@ -21,7 +21,7 @@ class DriverDoneOrderListController extends OrderModel
             $order_id = $order['order_id'];
             $status = $this->getOrderBy_OID($order_id)[0]['status'];
             if ($status == 'cancelled' || $status == 'delivered') {
-                array_unshift($orderHandlersData, $order_id);
+                array_unshift($orderHandlersData, array("id" => $order_id, "status"=>$status));
             }
         }
         return $orderHandlersData;
