@@ -43,7 +43,6 @@ class DriverOrderListController extends OrderModel
         $status_message = $order['status_message'];
         $available = $order['available'];
 
-        $user_address = $this->getAddressBy_UID($user_id)[0];
         $user_data = $this->getUserById($user_id)[0];
         $order_items = $this->getOrderItemBy_OID($order_id);
 

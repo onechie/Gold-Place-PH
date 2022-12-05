@@ -110,7 +110,7 @@ $(document).ready(function () {
                 "   <td class='ps-4 text-wrap order-id'>" +
                 order.id +
                 "</td>" +
-                "   <td class='ps-4 text-wrap order-id'>" +
+                "   <td class='ps-4 text-wrap'>" +
                 order.status +
                 "</td>" +
                 "   <td class='px-4'>" +
