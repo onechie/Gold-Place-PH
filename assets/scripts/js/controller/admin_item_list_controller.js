@@ -193,9 +193,25 @@ $(document).ready(function () {
     updateButton();
   });
   addPrice.change(function () {
+    let value = $(this).val();
+
+    if(value < 0){
+      addPrice.val(value*(-1));
+    } else if(value >= 0){
+      addPrice.val(value);
+    } else {
+      addPrice.val(0);
+    }
     updateButton();
   });
   addStocks.change(function () {
+    let value = $(this).val();
+
+    if(value < 0){
+      addStocks.val(0);
+    } else if(value > 100){
+      addStocks.val(100);
+    }
     updateButton();
   });
   addDescription.change(function () {
@@ -209,6 +225,8 @@ $(document).ready(function () {
     if (addStocks.val().length == 0) return false;
     if (addDescription.val().length == 0) return false;
 
+
+    console.log(addStocks.val())
     return true;
   }
 

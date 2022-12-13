@@ -125,3 +125,11 @@ if ($_POST['requestType'] == "user_shipping_fee") {
     }
     echo $fee;
 }
+if ($_POST['requestType'] == "get_item_max_qty") {
+    $item_id = $_POST['id'];
+    $quantity = $_POST['quantity'];
+    $cc = new CartController();
+    $max_qty = $cc->validateQuantity($item_id, $quantity);
+
+    echo $max_qty;
+}

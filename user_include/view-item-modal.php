@@ -50,11 +50,11 @@ if (!defined('ACCESS')) {
                                     <i class="bi bi-star-fill"></i>
                                 </span>
                                 <h2 class="py-3 m-0 text-warning fw-normal text-capitalize">&#8369;<span id="item-price"></span></h2>
-                                <p class="py-1 fw-200 m-0">Sold : <strong id="item-sold">200</strong></p>
-                                <p class="py-1 fw-200 m-0" id="item-rating">Ratings : <strong>100</strong></p>
+                                <p class="py-1 fw-200 m-0">Sold : <strong id="item-sold">0</strong></p>
+                                <p class="py-1 fw-200 m-0" id="item-rating">Ratings : <strong id="item-ratings">0</strong></p>
                                 <div class="pt-3">
                                     <p class="fw-200 p-0 pb-2 m-0">Quantity - <strong id="item-stocks">100</strong><strong> available</strong></p>
-                                    <input type="number" class="form-control w-50" id="item-quantity" name="item-quantity" min="1" value="1">
+                                    <input type="number" class="form-control w-50" id="item-quantity" name="item-quantity" value="0">
                                 </div>
                             </div>
                         </div>

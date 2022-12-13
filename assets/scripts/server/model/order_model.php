@@ -143,4 +143,14 @@ trait OrderTrait
         return true;
     }
     //DELETE
+    protected function deleteOrderBy_ID($order_id){
+        $sql = "DELETE FROM orders WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if(!$stmt->execute(array($order_id))){
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
 }

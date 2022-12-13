@@ -4,7 +4,7 @@ class CartController extends ItemModel
 {
     use CartTrait, UserAddressTrait, OrderTrait, OrderItemTrait, BarangayListTrait, CityListTrait, ProvinceListTrait;
 
-    private function validateQuantity($item_id, $quantity)
+    public function validateQuantity($item_id, $quantity)
     {
         $stocks = $this->getItemById($item_id)[0]['stocks'];
         $newQuantity = 0;

@@ -7,16 +7,16 @@ $(document).ready(function () {
   const cartBtn = $("#cart-button");
   const cartList = $("#cart-items");
   const cartCheckOut = $("#cart #checkOut");
-  const cartTotalPrice = $("#cart #total_price")
-  const cartShippingFee = $("#cart #shipping_fee")
+  const cartTotalPrice = $("#cart #total_price");
+  const cartShippingFee = $("#cart #shipping_fee");
   const cartRemove = $("#cart #remove");
 
-  let currency = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'PHP',
-});
+  let currency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
 
-  const token = $('.token').val();
+  const token = $(".token").val();
 
   const cartUrl = "./assets/scripts/server/request/cart_request.php";
 
@@ -30,7 +30,7 @@ $(document).ready(function () {
         id: id,
         quantity: 1,
         requestType: "cart_add",
-        token: token
+        token: token,
       },
       function (data) {
         if (data == "login_required") {
@@ -50,6 +50,23 @@ $(document).ready(function () {
     );
   });
 
+  $("#item-quantity").keyup(function () {
+    //check if input value is valid
+    let id = $(this).parents('.modal-content').children('.modal-footer').children('#item-id').val();
+    $.post(
+      cartUrl,
+      {
+        token: token,
+        requestType: "get_item_max_qty",
+        id: id,
+        quantity: $("#item-quantity").val(),
+      },
+      function (data) {
+        $("#item-quantity").val(data);
+      }
+    );
+  });
+
   $("#item #add-cart-btn").click(function () {
     let id = $(this).siblings("#item-id").val();
     let qty = $("#item-quantity").val();
@@ -59,7 +76,7 @@ $(document).ready(function () {
         id: id,
         quantity: qty,
         requestType: "cart_add",
-        token: token
+        token: token,
       },
       function (data) {
         if (data == "login_required") {
@@ -87,80 +104,93 @@ $(document).ready(function () {
   //CHANGE QUANTITY REQUEST
   cartList.on("change", ".input-qty", function () {
     let value = $(this).val();
-    let cart_id = $(this).parent().siblings("#ids_parent").find("#cart_id").val();
-    $.post(cartUrl, {
-      value: value,
-      cart_id: cart_id,
-      requestType: "cart_update",
-      token: token
-    },
+    let cart_id = $(this)
+      .parent()
+      .siblings("#ids_parent")
+      .find("#cart_id")
+      .val();
+    $.post(
+      cartUrl,
+      {
+        value: value,
+        cart_id: cart_id,
+        requestType: "cart_update",
+        token: token,
+      },
       function (data) {
         getCartData();
-      },
+      }
     );
-  })
+  });
 
-    //CHECKOUT 
-    cartCheckOut.click(function () {
-      let checkoutArray = [];
-      $(".checkBox").each(function(){
-        if($(this).is(":checked")){
-          checkoutArray.push($(this).parent().siblings("td").find("#cart_id").val())
-        }
-      })
-      if(checkoutArray.length > 0){
-        $.post(cartUrl, {
-          cartItems:checkoutArray,
-          requestType:"cart_checkout",
-          token: token
-        },
-          function (data) {
-            if(data == "ok"){
-              getCartData();
-              setTotalPrice();
-              if($("#check_all").is(":checked")){
-                $("#check_all").prop("checked", false);
-              }
-              toastBody.text("Items ordered successfully!");
-              toast.show();
-            }
-            if(data == "invalid_address"){
-              toastBody.text("Please update your address in your profile!");
-              toast.show();
-            }
-            if(data == "zero_value"){
-              toastBody.text("Add at least 1 quantity to checkout!");
-              toast.show();
-            }
-            if(data == "out_of_stock"){
-              toastBody.text("Item out of stock!");
-              toast.show();
-            }
-          }
+  //CHECKOUT
+  cartCheckOut.click(function () {
+    let checkoutArray = [];
+    $(".checkBox").each(function () {
+      if ($(this).is(":checked")) {
+        checkoutArray.push(
+          $(this).parent().siblings("td").find("#cart_id").val()
         );
       }
-      
     });
-
-  //REMOVE
-  cartRemove.click(function(){
-    let removeArray = [];
-    $(".checkBox").each(function(){
-      if($(this).is(":checked")){
-        removeArray.push($(this).parent().siblings("td").find("#cart_id").val())
-      }
-    })
-    if(removeArray.length > 0){
-      $.post(cartUrl, {
-        cartItems:removeArray,
-        requestType:"cart_remove",
-        token: token
-      },
+    if (checkoutArray.length > 0) {
+      $.post(
+        cartUrl,
+        {
+          cartItems: checkoutArray,
+          requestType: "cart_checkout",
+          token: token,
+        },
         function (data) {
-          if(data == "ok"){
+          if (data == "ok") {
             getCartData();
             setTotalPrice();
-            if($("#check_all").is(":checked")){
+            if ($("#check_all").is(":checked")) {
+              $("#check_all").prop("checked", false);
+            }
+            toastBody.text("Items ordered successfully!");
+            toast.show();
+          }
+          if (data == "invalid_address") {
+            toastBody.text("Please update your address in your profile!");
+            toast.show();
+          }
+          if (data == "zero_value") {
+            toastBody.text("Add at least 1 quantity to checkout!");
+            toast.show();
+          }
+          if (data == "out_of_stock") {
+            toastBody.text("Item out of stock!");
+            toast.show();
+          }
+        }
+      );
+    }
+  });
+
+  //REMOVE
+  cartRemove.click(function () {
+    let removeArray = [];
+    $(".checkBox").each(function () {
+      if ($(this).is(":checked")) {
+        removeArray.push(
+          $(this).parent().siblings("td").find("#cart_id").val()
+        );
+      }
+    });
+    if (removeArray.length > 0) {
+      $.post(
+        cartUrl,
+        {
+          cartItems: removeArray,
+          requestType: "cart_remove",
+          token: token,
+        },
+        function (data) {
+          if (data == "ok") {
+            getCartData();
+            setTotalPrice();
+            if ($("#check_all").is(":checked")) {
               $("#check_all").prop("checked", false);
             }
             toastBody.text("Items removed successfully!");
@@ -169,94 +199,130 @@ $(document).ready(function () {
         }
       );
     }
-
-  })
+  });
   //CHECK ALL
-  $("#check_all").change(function () { 
-    totalPriceValue = 0; 
-    if($(this).is(":checked")){
-      $(".checkBox").each(function(){
+  $("#check_all").change(function () {
+    totalPriceValue = 0;
+    if ($(this).is(":checked")) {
+      $(".checkBox").each(function () {
         this.checked = true;
-        let itemValue = parseInt($(this).parent().siblings("td").find("#item_price").text());
-        let itemQty = parseInt($(this).parent().siblings("td").find("#item_qty").val());
-        totalPriceValue += itemValue*itemQty; 
-      })
+        let itemValue = parseInt(
+          $(this).parent().siblings("td").find("#item_price").text()
+        );
+        let itemQty = parseInt(
+          $(this).parent().siblings("td").find("#item_qty").val()
+        );
+        totalPriceValue += itemValue * itemQty;
+      });
     } else {
-      $(".checkBox").each(function(){
+      $(".checkBox").each(function () {
         this.checked = false;
-        totalPriceValue = 0; 
-      })
+        totalPriceValue = 0;
+      });
     }
     setTotalPrice();
   });
 
   //CHECK EACH
-  cartList.on("change", ".checkBox", function(){
-      let itemValue = parseInt($(this).parent().siblings("td").find("#item_price").text());
-      let itemQty = parseInt($(this).parent().siblings("td").find("#item_qty").val());
-    if($(this).is(":checked")){
-      totalPriceValue += itemValue*itemQty; 
+  cartList.on("change", ".checkBox", function () {
+    let itemValue = parseInt(
+      $(this).parent().siblings("td").find("#item_price").text()
+    );
+    let itemQty = parseInt(
+      $(this).parent().siblings("td").find("#item_qty").val()
+    );
+    if ($(this).is(":checked")) {
+      totalPriceValue += itemValue * itemQty;
+      let checkAll = true;
+      $(".checkBox").each(function () {
+        if ($(this).prop("checked") == false) {
+          checkAll = false;
+        }
+      });
+      if (checkAll) {
+        $("#check_all").prop("checked", true);
+      }
     } else {
-      totalPriceValue -= itemValue*itemQty; 
+      $("#check_all").prop("checked", false);
+      totalPriceValue -= itemValue * itemQty;
     }
 
     setTotalPrice();
-  })
+  });
 
-  
-  function setTotalPrice(){
+  function setTotalPrice() {
     cartTotalPrice.text(currency.format(totalPriceValue));
   }
-  function setShippingFee(){
-    $.post(cartUrl, {
-      requestType:"user_shipping_fee",
-      token:token
-    }, function(data){
-      if(data >= 0){
-        cartShippingFee.text(currency.format(data));
-      } else {
-        cartShippingFee.text(data);
-      }
-    })
-  }
-
-  function getCartData(){
-    totalPriceValue = 0;
+  function setShippingFee() {
     $.post(
       cartUrl,
       {
-        requestType: "cart_info",
-        token: token
+        requestType: "user_shipping_fee",
+        token: token,
       },
       function (data) {
-        cartList.empty();
-        if (data && data != "null") {
-
-            let cartItems = JSON.parse(data);
-            let htmlData = "";
-
-            for(let i = 0; i < cartItems.length; i++){
-                let item = cartItems[i];
-
-                htmlData +="<tr class='align-middle fs-7 itemClick'>"
-                        +"<td class='px-4'><input class='form-check-input checkBox' type='checkbox' value=''></td>"
-                        +"<td class='px-4'><img src='./assets/images/items/"+item.id+"/"+item.images[0]+"' class='rounded-4' height='100' width='100' alt=''></td>"
-                        +"<td class='fw-light px-4'>"+item.name+"</td>"
-                        +"<td class='fw-light px-4'>"+currency.format(item.price)+"<span id='item_price' class='d-none'>"+item.price+"</span></td>"
-                        +"<td class='px-4'><input class='form-control input-qty p-1' id='item_qty' type='number' value='"+item.quantity+"'></td>"
-                        +"<td class='px-4' id='ids_parent'>"
-                        +"    <div class='d-flex fs-4'>"
-                        +"        <input type='hidden' id='cart_id' value='"+item.cart_id+"'>"
-                        +"        <input type='hidden' id='item_id' value='"+item.id+"'>"
-                        +"    </div>"
-                        +"</td>"
-                        +"</tr>"
-
-            }
-            cartList.append(htmlData);
+        if (data >= 0) {
+          cartShippingFee.text(currency.format(data));
+        } else {
+          cartShippingFee.text(data);
         }
       }
     );
   }
 
+  function getCartData() {
+    totalPriceValue = 0;
+    setTotalPrice();
+    $("#check_all").prop("checked", false);
+    $.post(
+      cartUrl,
+      {
+        requestType: "cart_info",
+        token: token,
+      },
+      function (data) {
+        cartList.empty();
+        if (data && data != "null") {
+          let cartItems = JSON.parse(data);
+          let htmlData = "";
+
+          for (let i = 0; i < cartItems.length; i++) {
+            let item = cartItems[i];
+
+            htmlData +=
+              "<tr class='align-middle fs-7 itemClick'>" +
+              "<td class='px-4'><input class='form-check-input checkBox' type='checkbox' value=''></td>" +
+              "<td class='px-4'><img src='./assets/images/items/" +
+              item.id +
+              "/" +
+              item.images[0] +
+              "' class='rounded-4' height='100' width='100' alt=''></td>" +
+              "<td class='fw-light px-4'>" +
+              item.name +
+              "</td>" +
+              "<td class='fw-light px-4'>" +
+              currency.format(item.price) +
+              "<span id='item_price' class='d-none'>" +
+              item.price +
+              "</span></td>" +
+              "<td class='px-4'><input class='form-control input-qty p-1' id='item_qty' type='number' value='" +
+              item.quantity +
+              "'></td>" +
+              "<td class='px-4' id='ids_parent'>" +
+              "    <div class='d-flex fs-4'>" +
+              "        <input type='hidden' id='cart_id' value='" +
+              item.cart_id +
+              "'>" +
+              "        <input type='hidden' id='item_id' value='" +
+              item.id +
+              "'>" +
+              "    </div>" +
+              "</td>" +
+              "</tr>";
+          }
+          cartList.append(htmlData);
+        }
+      }
+    );
+  }
 });

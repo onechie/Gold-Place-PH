@@ -51,6 +51,20 @@ trait OrderItemTrait
         $stmt = null;
         return $results;
     }
+    protected function getOrderItemBy_IID($item_id)
+    {
+        $sql = "SELECT * FROM order_item WHERE item_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($item_id))) {
+            $stmt = null;
+            exit();
+        }
+
+        $results = $stmt->fetchAll();
+        $stmt = null;
+        return $results;
+    }
     //UPDATE
     protected function updateOrderItem($orderItemId, $can_rate)
     {

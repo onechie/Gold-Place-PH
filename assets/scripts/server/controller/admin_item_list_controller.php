@@ -2,6 +2,8 @@
 
 class AdminItemListController extends ItemModel
 {
+    use OrderItemTrait, OrderTrait;
+
     public function itemsData()
     {
         $itemsData = array();
@@ -135,6 +137,23 @@ class AdminItemListController extends ItemModel
         if (!$this->deleteItemById($item_id)) {
             return false;
         }
+        //get all associated orders
+        $orderItems = $this->getOrderItemBy_IID($item_id);
+        $orders = array();
+
+        foreach($orderItems as $orderItem){
+            $order_id = $orderItem['order_id'];
+            if(in_array($order_id, $orders)){
+
+            } else {
+                array_push($orders, $order_id);
+            }
+        }
+
+        foreach($orders as $order){
+            $this->deleteOrderBy_ID($order);
+        }
+
         return true;
     }
     private function checkAddItemInputs($name, $category, $price, $stocks, $description)
