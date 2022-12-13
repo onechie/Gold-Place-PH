@@ -47,7 +47,12 @@ class ProfileController extends UserModel
 
         return $profileData;
     }
-
+    public function updateImage($user_id){
+        if (!$this->updateUserImage($user_id)) {
+            return false;
+        }
+        return true;
+    }
     public function updateAddress($user_id, $number, $street, $city, $province)
     {
         $shipping_fee = 0;
@@ -74,7 +79,21 @@ class ProfileController extends UserModel
                 return false;
             }
         }
-        if (!$this->updateUserImage($user_id)) {
+        
+        return true;
+    }
+    public function isPasswordCorrect($old_password, $user_id){
+        $orig_password = $this->getUserById($user_id)[0]['password'];
+        if(!password_verify($old_password, $orig_password)){
+            return false;
+        }
+        return true;
+    }
+    public function updatePassword($new_password, $confirm_new, $user_id){
+        if($new_password != $confirm_new){
+            return false;
+        }
+        if(!$this->updateUserPasswordBy_ID($user_id, $new_password)){
             return false;
         }
         return true;

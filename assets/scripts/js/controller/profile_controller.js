@@ -1,12 +1,33 @@
 $(document).ready(function () {
   const profileBtn = $("#profile-button");
   const imageContainer = $("#profile .image-container ");
-  const updateProfile = $("#update-profile");
+  const updatePicture = $("#update-picture");
   const toast = new bootstrap.Toast($("#liveToast"));
   const toastBody = $(".toast-body");
+
+  const houseNumber = $("#profile #address_number");
   const brgyDrop = $("#profile #address_street");
   const cityDrop = $("#profile #address_city");
   const provDrop = $("#profile #address_province");
+  const saveAddress = $("#profile #save_address");
+
+  const oldPass = $("#profile #old-password");
+  const newPass = $("#profile #new-password");
+  const cNewPass = $("#profile #confirm-new-password");
+
+  const opwWarning = $("#profile .opw-w");
+  const npwWarning = $("#profile .npw-w");
+  const cnpwWarning = $("#profile .cnpw-w");
+
+  let isOpwOk = false;
+  let isNpwOk = false;
+  let isCnpwOk = false;
+
+  let opwValue = '';
+  let npwValue = '';
+  let cnpwValue = '';
+
+  const savePassword = $("#profile #save_password");
 
   const brgyHidden = $("#profile #hidden_street");
   const cityHidden = $("#profile #hidden_city");
@@ -15,10 +36,13 @@ $(document).ready(function () {
   let userAddress;
 
   const token = $(".token").val();
+  const errorIcon = "<i class='bi bi-exclamation-circle-fill'></i>";
 
   const profileUrl = "./assets/scripts/server/request/profile_request.php";
 
   getProfileData();
+
+  savePassword.prop("disabled", true);
 
   function cityList(province, type) {
     $.post(
@@ -100,7 +124,6 @@ $(document).ready(function () {
       brgyDrop.prop("disabled", false);
       brgyList(cityDrop.val(), "reload");
     }
-
   });
 
   function updateDropDowns() {
@@ -121,7 +144,7 @@ $(document).ready(function () {
     getProfileData();
   });
 
-  updateProfile.on("submit", function (e) {
+  updatePicture.on("submit", function (e) {
     e.preventDefault();
     $.ajax({
       url: profileUrl,
@@ -134,12 +157,103 @@ $(document).ready(function () {
       if (data == "error") {
         toastBody.text("Error ocurred!");
       } else {
-        toastBody.text("Profile updated successfully!");
+        toastBody.text("Profile picture updated successfully!");
       }
       toast.show();
       getProfileData();
       $("#imageInput").val(null);
     });
+  });
+  saveAddress.click(function () {
+    $.post(
+      profileUrl,
+      {
+        requestType: "update_address",
+        number: houseNumber.val(),
+        street: brgyDrop.val(),
+        city: cityDrop.val(),
+        province: provDrop.val(),
+        token: token,
+      },
+      function (data) {
+        if (data == "ok") {
+          toastBody.text("Home address updated successfully!");
+        } else {
+          toastBody.text("Error ocurred!");
+        }
+        toast.show();
+      }
+    );
+  });
+  oldPass.keyup(function () {
+    opwWarning.empty();
+    isOpwOk = false;
+    opwValue = oldPass.val();
+    if (opwValue.length <= 0) {
+      opwWarning.empty();
+      opwWarning.html(errorIcon);
+    } else {
+      isOpwOk = true;
+    }
+    updatePassBtn(isOpwOk, isNpwOk, isCnpwOk);
+  });
+  //PASSWORD VALIDATION
+  newPass.keyup(function () {
+    npwWarning.empty();
+    isNpwOk = false;
+    npwValue = newPass.val();
+    if (npwValue.length <= 7) {
+      npwWarning.html("is too short " + errorIcon);
+      if (npwValue.length <= 0) {
+        npwWarning.empty();
+        npwWarning.html(errorIcon);
+      }
+    } else if (npwValue.length >= 50) {
+      npwWarning.html("is too long " + errorIcon);
+    } else {
+      isNpwOk = true;
+    }
+    cNewPass.trigger("keyup");
+    updatePassBtn(isOpwOk, isNpwOk, isCnpwOk);
+  });
+  //PASSWORD VALIDATION
+  cNewPass.keyup(function () {
+    cnpwWarning.empty();
+    isCnpwOk = false;
+    cnpwValue = cNewPass.val();
+    if (cnpwValue.length <= 0) {
+      cnpwWarning.empty();
+      cnpwWarning.html(errorIcon);
+    } else if (cnpwValue != npwValue) {
+      cnpwWarning.html("not matched " + errorIcon);
+    } else {
+      isCnpwOk = true;
+    }
+    updatePassBtn(isOpwOk, isNpwOk, isCnpwOk);
+  });
+
+  savePassword.click(function () {
+    $.post(
+      profileUrl,
+      {
+        requestType: "update_password",
+        old_password: oldPass.val(),
+        new_password: newPass.val(),
+        confirm_new_password: cNewPass.val(),
+        token: token,
+      },
+      function (data) {
+        if (data == "ok") {
+          toastBody.text("Password updated successfully!");
+          clearPassword();
+        } else if (data == "wrong") {
+          toastBody.text("Your old password is incorrect!");
+        } else {
+          toastBody.text("Error ocurred!");
+        }
+        toast.show();
+      }
+    );
   });
 
   //FUNCTION FOR DISPLAYING IMAGE ON INPUT
@@ -261,5 +375,29 @@ $(document).ready(function () {
         updateDropDowns();
       }
     );
+  }
+  function updatePassBtn(opw, npw, cnpw) {
+    if (opw, npw, cnpw) {
+      savePassword.prop("disabled", false);
+    } else {
+      savePassword.prop("disabled", true);
+    }
+  }
+  function clearPassword(){
+    oldPass.val("");
+    newPass.val("");
+    cNewPass.val("");
+
+    opwWarning.html('');
+    npwWarning.html('');
+    cnpwWarning.html('');
+
+
+
+    isOpwOk = false;
+    isNpwOk = false;
+    isCnpwOk = false;
+
+    updatePassBtn(isOpwOk, isNpwOk, isCnpwOk);
   }
 });

@@ -11,7 +11,7 @@
     ?>
     <script src="./assets/scripts/js/controller/contact_controller.js"></script>
     <link rel="stylesheet" href="./assets/styles/default.css">
-    <title>Gold Place PH - About</title>
+    <title>Gold Place PH - Contact us</title>
 </head>
 
 <body>

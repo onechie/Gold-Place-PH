@@ -23,9 +23,22 @@ if ($_POST['requestType'] == "get_profile") {
 
     echo json_encode($pc->profileData($user_id));
 }
+//RESPONSE FOR UPDATE IMAGE
+if ($_POST['requestType'] == "update_picture") {
+
+    $user_id = $_SESSION['userId'];
+
+    $pc = new ProfileController();
+
+    if (!$pc->updateImage($user_id)) {
+        echo 'error';
+        exit();
+    }
+    echo 'ok';
+}
 
 //RESPONSE FOR UPDATE PROFILE
-if ($_POST['requestType'] == "update_profile") {
+if ($_POST['requestType'] == "update_address") {
 
     $user_id = $_SESSION['userId'];
     $number = $_POST['number'];
@@ -42,10 +55,30 @@ if ($_POST['requestType'] == "update_profile") {
     if(isset($_POST['province'])){
         $province = $_POST['province'];
     }
+    
     $pc = new ProfileController();
 
     if (!$pc->updateAddress($user_id, $number, $street, $city, $province)) {
         echo 'error';
+        exit();
+    }
+    echo 'ok';
+}
+
+if ($_POST['requestType'] == "update_password") {
+    $user_id = $_SESSION['userId'];
+    $old_password = $_POST['old_password'];
+    $new_password = $_POST['new_password'];
+    $confirm_new = $_POST['confirm_new_password'];
+
+    $pc = new ProfileController();
+
+    if (!$pc->isPasswordCorrect($old_password, $user_id)) {
+        echo 'wrong';
+        exit();
+    }
+    if (!$pc->updatePassword($new_password, $confirm_new, $user_id)) {
+        echo 'failed';
         exit();
     }
     echo 'ok';

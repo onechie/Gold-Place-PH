@@ -138,6 +138,18 @@ trait UserTrait
         return true;
 
     }
+    protected function updateUserPasswordBy_ID($user_id, $new_password){
+        $password = password_hash($new_password, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE user set password = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if(!$stmt->execute(array($password, $user_id))){
+            $stmt = null;
+            exit();
+        }
+        $stmt = null;
+        return true;
+    }
     protected function updateUserImage($id){
         if ($_FILES["images"]["tmp_name"][0] == null) {
             return true;

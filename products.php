@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="./assets/styles/products.css">
     <link rel="stylesheet" href="./assets/styles/default.css">
-    <title>Gold Place PH - Items</title>
+    <title>Gold Place PH - Products</title>
 </head>
 
 <body>
