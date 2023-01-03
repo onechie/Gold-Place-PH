@@ -23,3 +23,28 @@ if ($_POST['requestType'] == "order_info") {
     }
     echo json_encode($orderData);
 }
+
+if ($_POST['requestType'] == "submit-ref-number") {
+    $order_id = $_POST['order_id'];
+    $reference_number = $_POST['reference_number'];
+
+    $oc = new OrderController();
+
+    if(!$oc->isRefValid($reference_number)){
+        echo 'invalid';
+        exit();
+    }
+    if($oc->isRefExists($reference_number)){
+        echo 'exists';
+        exit();
+    }
+    if($oc->isOrderHasRef($order_id)){
+        echo 'already';
+        exit();
+    }
+    if(!$oc->updateRefNumber($order_id, $reference_number)){
+        echo 'failed';
+        exit();
+    }
+    echo 'ok';
+}

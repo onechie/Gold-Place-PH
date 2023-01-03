@@ -7,9 +7,23 @@ $(document).ready(function () {
   const cartBtn = $("#cart-button");
   const cartList = $("#cart-items");
   const cartCheckOut = $("#cart #checkOut");
+
   const cartTotalPrice = $("#cart #total_price");
   const cartShippingFee = $("#cart #shipping_fee");
+  const sfNumber = $("#cart #sf_number");
   const cartRemove = $("#cart #remove");
+
+  const cartConfirm = $("#cart #proceed-confirm");
+  const confirmBtn = $("#confirm-checkout confirm-btn");
+
+  let paymentMethod = "";
+
+  const popoverTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="popover"]'
+  );
+  const popoverList = [...popoverTriggerList].map(
+    (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+  );
 
   let currency = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -21,6 +35,9 @@ $(document).ready(function () {
   const cartUrl = "./assets/scripts/server/request/cart_request.php";
 
   let totalPriceValue = 0;
+  cartConfirm.prop("disabled", true);
+  cartRemove.prop("disabled", true);
+  let checkoutArray = [];
 
   $("#item-list").on("click", ".addCart", function () {
     let id = $(this).siblings(".id").val();
@@ -52,7 +69,11 @@ $(document).ready(function () {
 
   $("#item-quantity").keyup(function () {
     //check if input value is valid
-    let id = $(this).parents('.modal-content').children('.modal-footer').children('#item-id').val();
+    let id = $(this)
+      .parents(".modal-content")
+      .children(".modal-footer")
+      .children("#item-id")
+      .val();
     $.post(
       cartUrl,
       {
@@ -119,13 +140,18 @@ $(document).ready(function () {
       },
       function (data) {
         getCartData();
+        if (data == "no_stocks") {
+          toastBody.text("Item out of stock!");
+          toast.show();
+        }
       }
     );
   });
 
   //CHECKOUT
+  /*
   cartCheckOut.click(function () {
-    let checkoutArray = [];
+    checkoutArray = [];
     $(".checkBox").each(function () {
       if ($(this).is(":checked")) {
         checkoutArray.push(
@@ -137,6 +163,7 @@ $(document).ready(function () {
       $.post(
         cartUrl,
         {
+          payment_method: 'cod',
           cartItems: checkoutArray,
           requestType: "cart_checkout",
           token: token,
@@ -159,6 +186,12 @@ $(document).ready(function () {
             toastBody.text("Add at least 1 quantity to checkout!");
             toast.show();
           }
+          if (data == "not_updated") {
+            toastBody.text(
+              "Item quantity is not sync, Please re-open your cart or reload the page!"
+            );
+            toast.show();
+          }
           if (data == "out_of_stock") {
             toastBody.text("Item out of stock!");
             toast.show();
@@ -167,7 +200,165 @@ $(document).ready(function () {
       );
     }
   });
+  */
+  //CONFIRM CHECKOUT
+  cartConfirm.click(function () {
+    $("#confirm-btn").prop("disabled", true);
+    checkoutArray = [];
+    let itemNames = [];
+    let itemPrices = [];
+    let itemQuantities = [];
+    let shippingFee = 0;
+    let address = "";
+    let total = 0;
 
+    address =
+      $("#address_number").val() +
+      " " +
+      $("#address_street").val() +
+      ", " +
+      $("#address_city").val() +
+      ", " +
+      $("#address_province").val();
+
+    shippingFee = $(this).parent().siblings("div").find("#sf_number").text();
+
+    $(".checkBox").each(function () {
+      if ($(this).is(":checked")) {
+        checkoutArray.push(
+          $(this).parent().siblings("td").find("#cart_id").val()
+        );
+        itemNames.push($(this).parent().siblings(".item-name").text() + " x");
+        itemQuantities.push(
+          $(this).parent().siblings("td").find("#item_qty").val()
+        );
+        itemPrices.push(
+          $(this).parent().siblings("td").find("#item_price").text() *
+            $(this).parent().siblings("td").find("#item_qty").val()
+        );
+      }
+    });
+
+    for (let qty of itemQuantities) {
+      if (qty <= 0) {
+        toastBody.text("Add at least 1 quantity to checkout!");
+        toast.show();
+        return;
+      }
+    }
+
+    if (shippingFee == "invalid") {
+      toastBody.text("Please update your address in your profile!");
+      toast.show();
+    } else {
+      if (checkoutArray.length > 0) {
+        $("#confirm-checkout").modal("show");
+        $("#confirm-address").text(address);
+        let itemsHtmlData = "";
+        let count = 0;
+        for (let item of itemNames) {
+          itemsHtmlData +=
+            "<div class=' col-8 text-start text-break fw-200'>" +
+            item +
+            itemQuantities[count] +
+            "</div>" +
+            "<div class='col-4 text-start text-break'>" +
+            currency.format(itemPrices[count]) +
+            "</div>";
+
+          total += parseInt(itemPrices[count]);
+          count++;
+        }
+        total += parseInt(shippingFee);
+
+        $("#confirm-items").html(itemsHtmlData);
+        $("#confirm-shipping").html(currency.format(shippingFee));
+        $("#confirm-total").text(currency.format(total));
+        resetPaymentButton();
+      }
+    }
+  });
+  //PAYMENT OPTION CHOOSE
+  $(".payment-option").click(function () {
+    paymentMethod = "";
+
+    if ($(this).hasClass("cod")) {
+      if ($(this).hasClass("btn-outline-success")) {
+        resetPaymentButton();
+        $(this).removeClass("btn-outline-success");
+        $(this).addClass("btn-success");
+        paymentMethod = "cod";
+      } else {
+        resetPaymentButton();
+      }
+    }
+    if ($(this).hasClass("gcash")) {
+      if ($(this).hasClass("btn-outline-primary")) {
+        resetPaymentButton();
+        $(this).removeClass("btn-outline-primary");
+        $(this).addClass("btn-primary");
+        paymentMethod = "gcash";
+        $("#gcash-message").show();
+      } else {
+        resetPaymentButton();
+      }
+    }
+    if (paymentMethod == "") {
+      $("#confirm-btn").prop("disabled", true);
+    } else {
+      $("#confirm-btn").prop("disabled", false);
+    }
+  });
+  function resetPaymentButton() {
+    $("#gcash-message").hide();
+    $(".cod").removeClass("btn-success");
+    $(".cod").addClass("btn-outline-success");
+
+    $(".gcash").removeClass("btn-primary");
+    $(".gcash").addClass("btn-outline-primary");
+  }
+
+  //CONFIRM CHECKOUT
+  $("#confirm-btn").click(function () {
+    $.post(
+      cartUrl,
+      {
+        cartItems: checkoutArray,
+        payment_method: paymentMethod,
+        requestType: "cart_checkout",
+        token: token,
+      },
+      function (data) {
+        if (data == "ok") {
+          getCartData();
+          setTotalPrice();
+          if ($("#check_all").is(":checked")) {
+            $("#check_all").prop("checked", false);
+          }
+          toastBody.text("Items ordered successfully!");
+          toast.show();
+        }
+        if (data == "invalid_address") {
+          toastBody.text("Please update your address in your profile!");
+          toast.show();
+        }
+        if (data == "zero_value") {
+          toastBody.text("Add at least 1 quantity to checkout!");
+          toast.show();
+        }
+        if (data == "not_updated") {
+          toastBody.text(
+            "Item quantity is not sync, Please re-open your cart or reload the page!"
+          );
+          toast.show();
+        }
+        if (data == "out_of_stock") {
+          toastBody.text("Item out of stock!");
+          toast.show();
+        }
+      }
+    );
+  });
   //REMOVE
   cartRemove.click(function () {
     let removeArray = [];
@@ -204,6 +395,8 @@ $(document).ready(function () {
   $("#check_all").change(function () {
     totalPriceValue = 0;
     if ($(this).is(":checked")) {
+      cartConfirm.prop("disabled", false);
+      cartRemove.prop("disabled", false);
       $(".checkBox").each(function () {
         this.checked = true;
         let itemValue = parseInt(
@@ -215,6 +408,8 @@ $(document).ready(function () {
         totalPriceValue += itemValue * itemQty;
       });
     } else {
+      cartConfirm.prop("disabled", true);
+      cartRemove.prop("disabled", true);
       $(".checkBox").each(function () {
         this.checked = false;
         totalPriceValue = 0;
@@ -225,6 +420,8 @@ $(document).ready(function () {
 
   //CHECK EACH
   cartList.on("change", ".checkBox", function () {
+    cartConfirm.prop("disabled", true);
+    cartRemove.prop("disabled", true);
     let itemValue = parseInt(
       $(this).parent().siblings("td").find("#item_price").text()
     );
@@ -233,6 +430,8 @@ $(document).ready(function () {
     );
     if ($(this).is(":checked")) {
       totalPriceValue += itemValue * itemQty;
+      cartConfirm.prop("disabled", false);
+      cartRemove.prop("disabled", false);
       let checkAll = true;
       $(".checkBox").each(function () {
         if ($(this).prop("checked") == false) {
@@ -243,6 +442,12 @@ $(document).ready(function () {
         $("#check_all").prop("checked", true);
       }
     } else {
+      $(".checkBox").each(function () {
+        if ($(this).prop("checked") == true) {
+          cartConfirm.prop("disabled", false);
+          cartRemove.prop("disabled", false);
+        }
+      });
       $("#check_all").prop("checked", false);
       totalPriceValue -= itemValue * itemQty;
     }
@@ -263,8 +468,10 @@ $(document).ready(function () {
       function (data) {
         if (data >= 0) {
           cartShippingFee.text(currency.format(data));
+          sfNumber.text(data);
         } else {
           cartShippingFee.text(data);
+          sfNumber.text("invalid");
         }
       }
     );
@@ -272,6 +479,8 @@ $(document).ready(function () {
 
   function getCartData() {
     totalPriceValue = 0;
+    cartConfirm.prop("disabled", true);
+    cartRemove.prop("disabled", true);
     setTotalPrice();
     $("#check_all").prop("checked", false);
     $.post(
@@ -297,7 +506,7 @@ $(document).ready(function () {
               "/" +
               item.images[0] +
               "' class='rounded-4' height='100' width='100' alt=''></td>" +
-              "<td class='fw-light px-4'>" +
+              "<td class='fw-light px-4 item-name'>" +
               item.name +
               "</td>" +
               "<td class='fw-light px-4'>" +

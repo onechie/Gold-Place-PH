@@ -26,54 +26,30 @@
         <div class="container-xxl">
             <h2 class="pt-4 pt-sm-5 text-center text-sm-start">About us</h2>
             <div class='my-4 text-center text-sm-start'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Sit amet nulla facilisi
-                morbi. Ultricies leo integer malesuada nunc vel. Mattis aliquam faucibus purus
-                in massa. Viverra accumsan in nisl nisi scelerisque. Est ante in nibh mauris
-                cursus mattis molestie a iaculis. Leo integer malesuada nunc vel risus commodo
-                viverra maecenas. Vitae et leo duis ut diam quam. Sit amet consectetur adipiscing
-                elit pellentesque. Tristique et egestas quis ipsum suspendisse ultrices gravida.
-                Egestas erat imperdiet sed euismod. Lectus nulla at volutpat diam ut venenatis tellus.
-                Nibh mauris cursus mattis molestie a iaculis at erat pellentesque. Consequat interdum
-                varius sit amet mattis vulputate enim. Tortor id aliquet lectus proin nibh nisl. Et
-                molestie ac feugiat sed lectus vestibulum mattis. Dictum at tempor commodo ullamcorper
-                a lacus vestibulum sed arcu. Mauris sit amet massa vitae tortor condimentum. Integer
-                vitae justo eget magna fermentum iaculis eu. Lorem sed risus ultricies tristique nulla.
+                <strong>Gold Place Ph</strong> is an online jewelry shop, it is a trusted seller of 18K Saudi Gold Jewelry.
+                Gold Place Ph starts since 2020. Gold Place Ph physical location is in Sta. Maria, Bulacan.
+                This website offers good services and show our beautiful jewelries. It requires you to
+                sign up and create account for you to experience better services of our website.
+                Gold Place Ph offer COD (Cash on Delivery) on purchasing the products. Gold Place Ph
+                assure you that the product will deliver safety to the buyers. Gold Place Ph also use
+                Facebook page as a platform for selling products.
+
                 <br><br>
-                Id interdum velit laoreet id donec ultrices tincidunt. Ullamcorper sit amet risus nullam.
-                Est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque. Diam quis enim
-                lobortis scelerisque fermentum dui faucibus in. Enim eu turpis egestas pretium. Sed arcu
-                non odio euismod lacinia at quis risus. Sit amet justo donec enim. Lacus suspendisse faucibus
-                interdum posuere lorem ipsum dolor sit. Semper feugiat nibh sed pulvinar. Etiam non quam lacus
-                suspendisse faucibus interdum posuere lorem. Turpis egestas maecenas pharetra convallis posuere.
-                A erat nam at lectus urna. Lorem mollis aliquam ut porttitor leo a diam sollicitudin. Ornare arcu
-                dui vivamus arcu felis bibendum ut tristique. Vestibulum lectus mauris ultrices eros. Cras pulvinar
-                mattis nunc sed blandit libero volutpat sed. Facilisis magna etiam tempor orci eu lobortis
-                elementum nibh tellus. Tincidunt eget nullam non nisi est sit amet.
+                <h4>History</h4>
+                Three years ago, we began as a small online retailer that only sold some jewelries up
+                until now, we still sell jewelries with more options and high-quality products. Our main
+                Facebook page has 113K likes and 119K total followers, we use this page for three years to
+                sell and market our products and we still does. But currently we create new Facebook page
+                because our main page has been suspended. But we assure our loyal buyers that we still offer
+                them our better services and high-quality product.
                 <br><br>
-                Tristique sollicitudin
-                nibh sit amet commodo. A iaculis at erat pellentesque adipiscing. Elementum tempus egestas
-                sed sed risus. Hac habitasse platea dictumst quisque sagittis purus sit amet. Eros in cursus
-                turpis massa tincidunt dui ut ornare lectus. Consectetur a erat nam at lectus urna. Cursus metus
-                aliquam eleifend mi in nulla posuere. Ultricies tristique nulla aliquet enim. Luctus accumsan tortor
-                posuere ac ut consequat semper viverra nam. Commodo ullamcorper a lacus vestibulum sed arcu non. At
-                elementum eu facilisis sed odio. Sed elementum tempus egestas sed sed risus pretium quam vulputate.
-                Vulputate eu scelerisque felis imperdiet proin fermentum leo. Tellus mauris a diam maecenas sed enim ut.
+                <h4>Our Mission</h4>
+                GOLD PLACE PH is dedicated to the highest quality of jewelry delivered with honesty, pride,
+                and authenticity. We also offer a unique fashion experience for gold enthusiasts, by providing
+                the best jewelry.
             </div>
 
             <div class="accordion my-4" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne">
-                            <h6 class='fw-normal'>Terms of Service</h6>
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <strong>Heading</strong> <br>{content}
-                        </div>
-                    </div>
-                </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo">
@@ -82,28 +58,236 @@
                     </h2>
                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                         <div class="accordion-body">
-                            <strong>Heading</strong> <br>{content}
+                            <h5>Introduction</h5>
+                            <p>Welcome to Gold Place Ph.</p>
+                            <p>Gold Place Ph (“us”, “we”, or “our”) operates goldplaceph.com (hereinafter referred to as “Service”).</p>
+                            <p>Our Privacy Policy governs your visit to goldplaceph.com, and explains how we collect, safeguard and disclose information that results from your use of our Service.</p>
+                            <p>We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.</p>
+                            <p>Our Terms and Conditions (“Terms”) govern all use of our Service and together with the Privacy Policy constitutes your agreement with us (“agreement”).</p>
+
+                            <br>
+                            <h5>Definitions</h5>
+                            <p><strong>SERVICE</strong> means the goldplaceph.com website operated by Gold Place Ph.</p>
+                            <p><strong>PERSONAL DATA</strong> means data about a living individual who can be identified from those data (or from those and other information either in our possession or likely to come into our possession).</p>
+                            <p><strong>USAGE DATA</strong> is data collected automatically either generated by the use of Service or from Service infrastructure itself (for example, the duration of a page visit).</p>
+                            <p><strong>COOKIES</strong> are small files stored on your device (computer or mobile device).</p>
+                            <p><strong>DATA CONTROLLER</strong> means a natural or legal person who (either alone or jointly or in common with other persons) determines the purposes for which and the manner in which any personal data are, or are to be, processed. For the purpose of this Privacy Policy, we are a Data Controller of your data.</p>
+                            <p><strong>DATA PROCESSORS</strong> (OR SERVICE PROVIDERS) means any natural or legal person who processes the data on behalf of the Data Controller. We may use the services of various Service Providers in order to process your data more effectively.</p>
+                            <p><strong>DATA SUBJECT</strong> is any living individual who is the subject of Personal Data.</p>
+                            <p><strong>THE USER</strong> is the individual using our Service. The User corresponds to the Data Subject, who is the subject of Personal Data.</p>
+
+                            <br>
+                            <h5>Information Collection and Use</h5>
+                            <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+
+                            <br>
+                            <h5>Types of Data Collected</h5>
+                            <p><strong>Personal Data</strong>
+                                <br>While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you (“Personal Data”). Personally identifiable information may include, but is not limited to:
+                                <br>0.1. Email address
+                                <br>0.2. First name and last name
+                                <br>0.3. Phone number
+                                <br>0.4. Address, Province, City
+                                <br>We may use your Personal Data to contact you with newsletters, marketing or promotional materials and other information that may be of interest to you. You may opt out of receiving any, or all, of these communications from us by following the unsubscribe link.
+                            </p>
+                            <p><strong>Usage Data</strong>
+                                <br> We may also collect information that your browser sends whenever you visit our Service or when you access Service by or through any device (“Usage Data”).
+                            </p>
+                            <p><strong>Location Data</strong>
+                                <br>We may use and store information about your location if you give us permission to do so (“Location Data”). We use this data to provide features of our Service, to improve and customize our Service.
+                                <br>You can enable or disable location services when you use our Service at any time by way of your device settings.
+                                <br>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.
+                                <br>Examples of Cookies we use:
+                            </p>
+                            <p><strong>Other Data</strong>
+                                <br>While using our Service, we may also collect the following information: sex, age, date of birth, place of birth, registration at place of residence and actual address, cell phone number.
+                            </p>
+
+                            <br>
+                            <h5>Use of Data</h5>
+                            Gold Place Ph uses the collected data for various purposes:
+                            <br>0.1. to provide and maintain our Service;
+                            <br>0.2. to notify you about changes to our Service;
+                            <br>0.3. to allow you to participate in interactive features of our Service when you choose to do so;
+                            <br>0.4. to provide customer support;
+                            <br>0.5. to gather analysis or valuable information so that we can improve our Service;
+                            <br>0.6. to monitor the usage of our Service;
+                            <br>0.7. to detect, prevent and address technical issues;
+                            <br>0.8. to fulfil any other purpose for which you provide it;
+                            <br>0.9. to carry out our obligations and enforce our rights arising from any contracts entered into between you and us, including for billing and collection;
+                            <br>0.10. to provide you with notices about your account and/or subscription.
+                            <br>0.11. to provide you with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless you have opted not to receive such information;
+                            <br>0.12. in any other way we may describe when you provide the information;
+                            <br>0.13. for any other purpose with your consent.
+
+                            <br><br>
+                            <h5>Retention of Data</h5>
+                            We will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
+                            <br><br>We will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period, except when this data is used to strengthen the security or to improve the functionality of our Service, or we are legally obligated to retain this data for longer time periods.
+
+                            <br><br>
+                            <h5>Transfer of Data</h5>
+                            Your information, including Personal Data, may be transferred to – and maintained on – computers located outside of your province, or other governmental jurisdiction where the data protection laws may differ from those of your jurisdiction.
+                            <br><br>If you are located outside Philippines and choose to provide information to us, please note that we transfer the data, including Personal Data, to Philippines and process it there.
+                            <br><br>Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.
+                            <br><br>Gold Place Ph will take all the steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy and no transfer of your Personal Data will take place to an organisation or a country unless there are adequate controls in place including the security of your data and other personal information.
+
+                            <br><br>
+                            <h5>Disclosure of Data</h5>
+                            We may disclose personal information that we collect, or you provide:
+                            <br>0.1. Disclosure for Law Enforcement.
+                            <br>Under certain circumstances, we may be required to disclose your Personal Data if required to do so by law or in response to valid requests by public authorities.
+                            <br>0.2. Business Transaction.
+                            <br>If we or our subsidiaries are involved in a merger, acquisition or asset sale, your Personal Data may be transferred.
+                            <br>0.3. Other cases. We may disclose your information also:
+                            <br>0.3.1. to our subsidiaries and affiliates;
+                            <br>0.3.2. to contractors, service providers, and other third parties we use to support our business;
+                            <br>0.3.3. to fulfill the purpose for which you provide it;
+                            <br>0.3.4. for the purpose of including your company’s logo on our website;
+                            <br>0.3.5. for any other purpose disclosed by us when you provide the information;
+                            <br>0.3.6. with your consent in any other cases;
+                            <br>0.3.7. if we believe disclosure is necessary or appropriate to protect the rights, property, or safety of the Company, our customers, or others.
+
+                            <br><br>
+                            <h5>Security of Data</h5>
+                            The security of your data is important to us but remember that no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.
+
+                            <br><br>
+                            <h5>Your Data Protection Rights Under General Data Protection Regulation (GDPR)</h5>
+                            If you are a resident of the European Union (EU) and European Economic Area (EEA), you have certain data protection rights, covered by GDPR.
+                            <br><br>We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.
+                            <br><br>If you wish to be informed what Personal Data we hold about you and if you want it to be removed from our systems, please go to this link https://www.facebook.com/lovejewelrybox
+                            <br><br>In certain circumstances, you have the following data protection rights:
+                            <br>0.1. the right to access, update or to delete the information we have on you;
+                            <br>0.2. the right of rectification. You have the right to have your information rectified if that information is inaccurate or incomplete;
+                            <br>0.3. the right to object. You have the right to object to our processing of your Personal Data;
+                            <br>0.4. the right of restriction. You have the right to request that we restrict the processing of your personal information;
+                            <br>0.5. the right to data portability. You have the right to be provided with a copy of your Personal Data in a structured, machine-readable and commonly used format;
+                            <br>0.6. the right to withdraw consent. You also have the right to withdraw your consent at any time where we rely on your consent to process your personal information;
+                            <br><br>Please note that we may ask you to verify your identity before responding to such requests. Please note, we may not able to provide Service without some necessary data.
+                            <br><br>You have the right to complain to a Data Protection Authority about our collection and use of your Personal Data. For more information, please contact your local data protection authority in the European Economic Area (EEA).
+                            <br>0.1. What personal information we have about you. If you make this request, we will return to you:
+                            <br>0.0.1. The categories of personal information we have collected about you.
+                            <br>0.0.2. The categories of sources from which we collect your personal information.
+                            <br>0.0.3. The business or commercial purpose for collecting or selling your personal information.
+                            <br>0.0.4. The specific pieces of personal information we have collected about you.
+                            <br>0.0.5. A list of categories of personal information that we have disclosed for a business purpose, along with the category of any other company we shared it with.
+                            <br> <br>Please note, you are entitled to ask us to provide you with this information up to two times in a rolling twelve-month period. When you make this request, the information provided may be limited to the personal information we collected about you in the previous 12 months.
+                            <br>0.2. To delete your personal information. If you make this request, we will delete the personal information we hold about you as of the date of your request from our records and direct any service providers to do the same. In some cases, deletion may be accomplished through de-identification of the information. If you choose to delete your personal information, you may not be able to use certain functions that require your personal information to operate.
+                            <br>0.3. To stop selling your personal information. We don’t sell or rent your personal information to any third parties for any purpose. We do not sell your personal information for monetary consideration. However, under some circumstances, a transfer of personal information to a third party, or within our family of companies, without monetary consideration may be considered a “sale” under California law. You are the only owner of your Personal Data and can request disclosure or deletion at any time.
+                            <br><br>If you submit a request to stop selling your personal information, we will stop making such transfers.
+                            <br><br>Please note, if you ask us to delete or stop selling your data, it may impact your experience with us, and you may not be able to participate in certain programs or membership services which require the usage of your personal information to function. But in no circumstances, we will discriminate against you for exercising your rights.
+
+                            <br><br>
+                            <h5>Service Providers</h5>
+                            <br>Under RA10173, you have the right to suspend, withdraw or order the blocking, removal or destruction of your personal data. You can exercise this right upon discovery and substantial proof of the following:
+                            <br><br>1. Your personal data is incomplete, outdated, false, or unlawfully obtained.
+                            <br>2. It is being used for purposes you did not authorize.
+                            <br>3. The data is no longer necessary for the purposes for which they were collected.
+                            <br>4. You decided to withdraw consent, or you object to its processing and there is no overriding legal ground for its processing.
+                            <br>5. The data concerns information prejudicial to the data subject — unless justified by freedom of speech, of expression, or of the press; or otherwise authorized (by court of law)
+                            <br>6. The processing is unlawful.
+                            <br>7. The personal information controller, or the personal information processor, violated your rights as data subject.
+
+                            <br><br>
+                            <h5>Children’s Privacy</h5>
+                            Our Services are not intended for use by children under the age of 18 (“Child” or “Children”).
+                            <br><br>We do not knowingly collect personally identifiable information from Children under 18. If you become aware that a Child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from Children without verification of parental consent, we take steps to remove that information from our servers.
+
+                            <br><br>
+                            <h5>Changes to This Privacy Policy</h5>
+                            We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.
+                            <br><br>We will let you know via email and/or a prominent notice on our Service, prior to the change becoming effective and update “effective date” at the top of this Privacy Policy.
+                            <br><br>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree">
-                            <h6 class='fw-normal'>Help</h6>
+                            <h6 class='fw-normal'>FAQs</h6>
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                         <div class="accordion-body">
-                            <strong>Heading</strong> <br>{content}
+                            <h5>I want to know Gold Place Ph.</h5>
+                            <br><strong>What is Gold Place Ph?</strong>
+                            <br>Go to “About us” / direct to “about us” page
+
+                            <br><br><strong>When Gold Place Ph start?</strong>
+                            <br>Go to “About us” / direct to “about us” page
+
+                            <br><br><strong>Is Gold Place Ph Have Physical store?</strong>
+                            <br> Go to “About us” / direct to “about us” page
+
+                            <br><br><strong>How to contact Gold Place Ph?</strong>
+                            <br>You can contact us by directly message us on
+                            our Facebook page: Gold Place Ph – Second Branch
+                            <br>You can also send an email to us: goldplaceph@gmail.com
+                            <br>You can call us here: 123-4567 or 0912-345-6789
+
+                            <br><br>
+                            <h5>I want to know the transactions information.</h5>
+                            <br><strong>Is Gold Place Ph Have Cash on Delivery?</strong>
+                            <br>Gold Place Ph is offering Cash on Delivery as a way of transaction and to deliver your orders directly on your location. May you check and update your location so we can avoid problem on your delivery. You must put your contact information for the rider can call or message you about your parcel. Thank you for your understanding, enjoy our product and we will assure that your parcel is safe and will delivered on time to you.
+
+                            <br><br><strong>Is Gold Place Ph Have Online Payment?</strong>
+                            <br>Gold Place Ph is currently recommended you to use COD (Cash on Delivery) to your transaction/payment. Online payment still under development, we want to offer best for you and safety way right now but we will update you in terms of paying through online transaction. Thank you for your understanding.
+
+                            <br><br><strong>How long it takes the order to be delivered?</strong>
+                            <br>Your order takes One day minimum to prepare your order and on delivering your parcel is depend on your location and to the delivery company. We assume that 4-7 days long to be delivered your parcel. But we assure that your parcel is safe and will be deliver on your location. Thank you for understanding.
+
+                            <br><br>
+                            <h5>How to manage your account?</h5>
+                            <br><strong>I want to edit my account</strong>
+                            <br>You can go to your profile and you will see edit button. You can edit your information there. Click here to direct: My Profile
+
+                            <br><br><strong>I want to delete my account</strong>
+                            <br>You can contact us about this concern. You can contact us by directly message us on our Facebook page: Gold Place Ph – Second Branch or send an email to us: goldplaceph@gmail.com or you can call us here: 123-4567 or 0912-345-6789. We will accommodate you about your concern, wait until we notice your concern. We will up your concern as fast as we can. Thank you for your understanding.
+
+                            <br><br>
+                            <h5>Is Gold Place Ph accepting customize design?</h5>
+                            <br>Gold place Ph is a retailer online shop, unfortunately we don’t accept customize design. But you can check our elegant and beautiful jewelries, we hope that we can give your desire design and fulfill your satisfaction on finding your ideal jewelry. Thank you for understanding.
+
+                            <br><br>
+                            <h5>I want to return my purchase, what do I do?</h5>
+                            <br><strong>you can up your concern by messaging us here:</strong>
+                            <br>You can contact us by directly message us on our Facebook page: Gold Place Ph – Second Branch
+                            <br>You can also send an email to us: shop@goldplaceph.com
+                            <br>You can call us here: 123-4567 or 0912-345-6789
+
+                            <br><br>
+                            <h5>I cannot add order in my cart.</h5>
+                            You will not able to add and check out if you are not logged in your account. If you don’t have an account, click here: sign up
+
+                            <br>you need to be logged in for you to be able to add product to your cart, click here: log in
+
+                            <br>you also need to update you location for you to check out your order, click here: My Profile
+
+                            <br><br>
+                            <h5>I did not receive email verification.</h5>
+                            May you check that you put existing email for you to receive and see the verification on your email.
+
+                            <br><br>
+                            <h5>If your concern is not mention</h5>
+                            <br>
+                            <strong>Leave a message on us</strong>
+                            <br>We will try our best to answer your question and fix your concern.  
+                            <br>You can contact us by directly message us on our Facebook page: Gold Place Ph – Second Branch
+                            <br>You can also send an email to us: goldplaceph@gmail.com
+                            <br>You can call us here: 123-4567 or 0912-345-6789
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <?php
         include './user_include/csrf_token.php';
         include './user_include/footer.php';
-        include './user_include/toast.php'; 
+        include './user_include/toast.php';
         ?>
     </main>
 

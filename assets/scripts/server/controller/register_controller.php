@@ -30,7 +30,7 @@ class RegisterController extends UserModel
 
     private function isPhoneValid($phone)
     {
-        $phonePattern = "/((^(\+63)(\d{10}))|(^(0)(\d{10}))|(^(9)(\d{9})))$/";
+        $phonePattern = "/((^(\+63)(\d{10}))|(^(09)(\d{9}))|(^(9)(\d{9})))$/";
         if (preg_match($phonePattern, $phone)) {
             return true;
         }
@@ -79,6 +79,8 @@ class RegisterController extends UserModel
 
     public function createAccount($firstname, $lastname, $email, $phone, $password, $confirm_password, $verified, $type)
     {
+        $status = 'active';
+        
         if (!$this->isNameValid($firstname)) {
             return false;
         }
@@ -113,7 +115,7 @@ class RegisterController extends UserModel
             }
         }
 
-        $userData = [$firstname, $lastname, $email, $phone, $passwordHashed, $verified, $type, $code];
+        $userData = [$firstname, $lastname, $email, $phone, $passwordHashed, $verified, $type, $code, $status];
 
         if (!$this->setUser($userData)) {
             return false;

@@ -36,6 +36,16 @@ class CartController extends ItemModel
         }
         return true;
     }
+    public function isQtyUpdated($cart_items){
+        foreach($cart_items as $cart_item){
+            $item_id = $this->getCartBy_ID($cart_item)[0]['item_id'];
+            $cart_qty = $this->getCartBy_ID($cart_item)[0]['quantity'];
+            if($cart_qty > $this->getItemById($item_id)[0]['stocks']){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public function isItemsOnStock($cart_items){
         foreach($cart_items as $cart_item){
@@ -120,14 +130,14 @@ class CartController extends ItemModel
         return false;
     }
 
-    public function checkOut($user_id, $items, $status, $date, $cart_items, $available)
+    public function checkOut($user_id, $items, $status, $date, $cart_items, $available, $payment_method)
     {
         $user_address = $this->getAddressBy_UID($user_id)[0];
         $user_address_whole = $user_address['house_number'] . " " . $user_address['barangay'] . ", " . $user_address['city'] . ", " . $user_address['province'];
         $shipping_fee = $user_address['shipping_fee'];
         
 
-        if(!$this->setOrder($user_id,$items, $status, $date, $available, $user_address_whole, $shipping_fee)){
+        if(!$this->setOrder($user_id,$items, $status, $date, $available, $user_address_whole, $shipping_fee, $payment_method)){
             return false;
         }
 

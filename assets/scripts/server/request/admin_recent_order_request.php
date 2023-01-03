@@ -50,6 +50,15 @@ if ($_POST['requestType'] == "get-full-order-data") {
 
 }
 
+if ($_POST['requestType'] == "get-delivery-proof") {
+
+    $order_id = $_POST['order_id'];
+    $aroc = new AdminRecentOrderController();
+    $images = $aroc->deliveryProofData($order_id);
+    echo json_encode($images);
+
+}
+
 //RESPONSE FOR EDIT ORDER STATUS
 if ($_POST['requestType'] == "edit-order-status") {
     $status = $_POST['status'];

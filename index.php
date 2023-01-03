@@ -6,6 +6,7 @@
   <?php
   define('ACCESS', TRUE);
   include './user_include/restrict-admin.php';
+  include './user_include/restrict-system-admin.php';
   include './user_include/restrict-driver.php';
   include './user_include/links.php';
   $_SESSION['menu'] = 'home';
@@ -75,6 +76,7 @@
       </div>
     </div>
 
+
     <div id="myCarousel" class="carousel slide h-100 scroll-page overflow-hidden" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -83,7 +85,7 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image.png);"></div>
+          <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image2.png);"></div>
           <div class="container">
             <div class="carousel-caption text-start">
               <h1>Order now</h1>
@@ -93,7 +95,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image.png);"></div>
+          <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image2.png);"></div>
           <div class="container">
             <div class="carousel-caption">
               <h1>Online Jewelry Shop</h1>
@@ -103,7 +105,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image.png);"></div>
+          <div class="bg-image" style="background-image: url(./assets/images/defaults/sample-image2.png);"></div>
           <div class="container">
             <div class="carousel-caption text-end">
               <h1>Looking for something?</h1>
@@ -122,6 +124,34 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
+    </div>
+
+    <div class="container py-5 scroll-page h-100 overflow-auto">
+      <div class="p-5 mb-4 bg-white rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">Rings & Bracelet</h1>
+          <p class="col-md-8 fs-4">Charming and delicate accessories are available here for your different kinds of desired designs</p>
+          <a class="btn btn-warning btn-lg" type="button" href="./products.php">Check now</a>
+        </div>
+      </div>
+
+      <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-bg-dark rounded-3">
+            <h2>Necklace & Pendant</h2>
+            <p>Check out here some of the most lustrous and elegant styles of necklaces and pendants for classier looks. Timeless designs</p>
+            <a class="btn btn-outline-light" type="button" href="./products.php">just for you</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>Earring</h2>
+            <p>Stunning and delightful gleam of affordable earrings are available for a more exclusive and courtly fashionable look</p>
+            <a class="btn btn-outline-secondary" type="button" href="./products.php">More</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Marketing messaging and featurettes
@@ -167,12 +197,13 @@
       </div>
 
     </div>
+-->
     <div class="container marketing bg scroll-page overflow-auto h-100">
-
-      <div class="row featurette pt-5">
+      <hr class="featurette-divider">
+      <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading fw-normal lh-1">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada nunc vel risus commodo viverra maecenas accumsan. Nisi porta lorem mollis aliquam ut porttitor.</p>
+          <h2 class="featurette-heading fw-normal lh-1">Simple <span class="text-muted">is elegant.</span></h2>
+          <p class="lead">Simplicity is the best beauty so try and keep it as simple as possible. Big accessories are best worn with simple clothes. Steer clear of busy patterns and embellishments when wearing a bold jewelry. A bold dress pattern goes best with simple accessories and vice-versa. Remember, you want your costume jewelry to stand out and to grab attention, so match it wisely.</p>
         </div>
         <div class="col-md-5">
           <img src="./assets/images/defaults/img1.jpg" alt="" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
@@ -183,8 +214,8 @@
 
       <div class="row featurette">
         <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading fw-normal lh-1">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat pellentesque adipiscing commodo elit at imperdiet dui.</p>
+          <h2 class="featurette-heading fw-normal lh-1">True beauty <span class="text-muted">engraved in our jewelry.</span></h2>
+          <p class="lead">Jewellery has an unquestionable ability to bring out the best in a woman's features and personality when the right piece is worn by the right individual to the right occasion. It is important for women as it can make them feel beautiful, stylish, special, and confident. It ultimately plays a big role in making a woman feel good about herself, which is why it's so valuable to many women.</p>
         </div>
         <div class="col-md-5 order-md-1">
           <img src="./assets/images/defaults/img2.jpg" alt="" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
@@ -195,8 +226,8 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading fw-normal lh-1">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Imperdiet proin fermentum leo vel orci porta non pulvinar. </p>
+          <h2 class="featurette-heading fw-normal lh-1">Trendy designs <span class="text-muted">that adds glow to your appearance</span></h2>
+          <p class="lead">Jewellery is very valuable to women and it's importance in their lives today is not hard to understand given the fact that it has been worn by humans for centuries. It's popularity only increases as time progresses as new styles and designs enter the marketplace. Attending special occasions, such as weddings, graduations, award ceremonies, birthday parties, and anniversary dinners, without wearing jewellery is not an option for the majority of women. They would feel dull and under-dressed without some pieces of jewellery to adorn themselves.</p>
         </div>
         <div class="col-md-5">
           <img src="./assets/images/defaults/img3.jpg" alt="" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
@@ -206,7 +237,7 @@
       <hr class="featurette-divider">
 
     </div>
-    -->
+
     <?php
     include './user_include/toast.php';
     include './user_include/csrf_token.php';

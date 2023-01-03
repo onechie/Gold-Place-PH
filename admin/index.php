@@ -46,6 +46,7 @@
             include './admin_include/add-user-modal.php';
             include './admin_include/view-order-modal.php';
             include './admin_include/view-receipt-modal.php';
+            include './admin_include/view-proof-modal.php';
             include './admin_include/add-city-modal.php';
             include './admin_include/add-barangay-modal.php';
             ?>

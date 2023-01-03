@@ -10,7 +10,7 @@ trait UserTrait
     //CREATE
     protected function setUser($userData)
     {
-        $sql = "INSERT user(firstname, lastname, email, phone, password, verified, type, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT user(firstname, lastname, email, phone, password, verified, type, verification_code, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
 
         if (!$stmt->execute($userData)) {
@@ -115,6 +115,26 @@ trait UserTrait
         return $file;
     }
     //UPDATE
+    protected function updateUserInfo($user_id, $first_name, $last_name, $email, $phone, $user_type, $verified, $status){
+        $sql = "UPDATE user set 
+        firstname = ?,
+        lastname = ?,
+        email = ?,
+        phone = ?,
+        type = ?,
+        verified = ?,
+        status = ? 
+        WHERE id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($first_name, $last_name, $email, $phone, $user_type, $verified, $status, $user_id))) {
+            $stmt = null;
+            exit();
+        }
+
+        $stmt = null;
+        return true;
+    }
     protected function updateUserVerById($id)
     {
         $sql = "UPDATE user set verified = 'yes' WHERE id = ?";
@@ -212,4 +232,15 @@ trait UserTrait
         }
     }
     //DELETE
+    protected function deleteUserById($user_id)
+    {
+        $sql = "DELETE FROM user WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if (!$stmt->execute(array($user_id))) {
+            $stmt = null;
+            return false;
+        }
+        $stmt = null;
+        return true;
+    }
 }

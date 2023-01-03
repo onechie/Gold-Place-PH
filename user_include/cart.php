@@ -33,11 +33,13 @@ if (!defined('ACCESS')) {
       <div class="modal-footer">
         <div class='d-flex flex-column'>
           <h6 class="fw-light fs-7">Total Price : <span class="fw-normal fs-7 text-success" id="total_price">&#8369;0.00</span></h6>
-          <h6 class="fw-light fs-7">Shipping Fee : <span class="fw-normal fs-7 text-danger" id="shipping_fee">0</span></h6>
+          <h6 class="fw-light fs-7">Shipping Fee : <span class="fw-normal fs-7 text-danger" id="shipping_fee">0</span><span class="d-none" id="sf_number"></h6>
         </div>
         <div class="d-flex">
-          <button type="button" class="btn btn-warning btn-sm ms-5" id="checkOut">Checkout</button>
+          <button type="button" class="btn btn-warning btn-sm ms-5 d-none" id="checkOut">Checkout</button>
+          <button type="button" class="btn btn-warning btn-sm ms-5" id="proceed-confirm" data-bs-dismiss="modal">Checkout</button>
           <button type="button" class="btn btn-dark btn-sm ms-2" id="remove">Remove</button>
+          
         </div>
       </div>
     </div>

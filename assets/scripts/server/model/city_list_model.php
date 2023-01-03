@@ -8,10 +8,10 @@ class CityListModel extends DbHelper
 trait CityListTrait
 {
     //CREATE
-    protected function setCity($city, $province){
-        $sql = 'INSERT city_list(city, province) VALUES (?, ?)';
+    protected function setCity($city, $province, $province_id){
+        $sql = 'INSERT city_list(city, province, province_id) VALUES (?, ?, ?)';
         $stmt = $this->connect()->prepare($sql);
-        if(!$stmt->execute(array($city, $province))){
+        if(!$stmt->execute(array($city, $province, $province_id))){
             $stmt = null;
             return false;
         }

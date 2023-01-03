@@ -26,6 +26,7 @@ $(document).ready(function () {
 
   provAdd.click(() => {
     console.log(provInput.val());
+    provAdd.prop("disabled", true);
     $.post(
       loc_URL,
       {
@@ -39,7 +40,13 @@ $(document).ready(function () {
         }
         if (data == "exist") {
         }
+        if (data == "invalid") {
+        }
+        if (data == "failed") {
+        }
         loadProvinces();
+        loadCity();
+        provAdd.prop("disabled", false);
       }
     );
   });
@@ -219,9 +226,12 @@ $(document).ready(function () {
           );
           if (requestType == "province-delete") {
             loadProvinces();
+            loadCity();
+            loadBarangay();
           }
           if (requestType == "city-delete") {
             loadCity();
+            loadBarangay();
           }
           if (requestType == "brgy-delete") {
             loadBarangay();

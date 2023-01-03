@@ -45,7 +45,8 @@ class DriverDoneOrderListController extends OrderModel
 
         $user_data = $this->getUserById($user_id)[0];
         $order_items = $this->getOrderItemBy_OID($order_id);
-
+        $proofImages = $this->getOrderProofImage($order_id, true);
+        
         foreach ($order_items as $order_item) {
             $item_id = $order_item['item_id'];
             $item_qty = $order_item['quantity'];
@@ -61,7 +62,7 @@ class DriverDoneOrderListController extends OrderModel
                 "image" => $image
             );
         }
-
+        
         $userInfo = array(
             "name" => $user_data['firstname'] . " " . $user_data['lastname'],
             "contact" => $user_data['phone']
@@ -80,7 +81,8 @@ class DriverDoneOrderListController extends OrderModel
             "address" => $order['address'],
             "shipping_fee" => $order['shipping_fee'],
             "customer" => $userInfo,
-            "order" => $orderInfo
+            "order" => $orderInfo,
+            "delivered_proof" => $proofImages
         );
 
         return $orderData;

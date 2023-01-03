@@ -26,7 +26,7 @@
                     <div class="p-4 h-100 d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="fw-normal" id="total">0</h4>
-                            <p class="m-0">TOTAL ORDERS</p>
+                            <p class="m-0 total">TOTAL ORDERS</p>
                         </div>
                         <div>
                             <i class="bi bi-card-checklist fs-1"></i>

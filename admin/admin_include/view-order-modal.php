@@ -49,7 +49,8 @@ if (!defined('ACCESS')) {
                 <h6 class="fw-light fs-7">Total price :</h6>
                 <h6 class="fw-normal fs-7 text-success" id="total_price">P0</h6>
                 <input type="hidden" id="order_id">
-                <div class="d-flex align-items-center fw-light ms-5 fs-7">
+                <button type="submit" class="btn btn-sm btn-dark ms-4" data-bs-dismiss='modal' id="view-proof">Proof of Delivery</button>
+                <div class="d-flex align-items-center fw-light ms-4 fs-7">
                     <h6 class="fw-light fs-7 my-auto">Status :</h6>
                     <select class="py-1 px-1 rounded-1 fs-7 btn btn-success w-auto ms-2 border-0 text-light" id="status" name="status">
                         <option value="checking">Checking</option>

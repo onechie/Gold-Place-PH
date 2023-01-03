@@ -19,7 +19,7 @@ if($_SESSION['userType'] == 'admin' || $_SESSION['userType'] == 'super_admin'){
 //RESPONSE FOR ORDERS CHART DATA
 if ($_POST['requestType'] == "add-province") {
 
-    $province = $_POST['province'];
+    $province = strtoupper($_POST['province']);
     $allc = new AdminLocationListController();
 
     if($allc->isEmpty($province)){
@@ -29,6 +29,10 @@ if ($_POST['requestType'] == "add-province") {
 
     if($allc->isProvinceExist($province)){
         echo 'exist';
+        exit();
+    }
+    if(!$allc->isProvinceValid($province)){
+        echo 'invalid';
         exit();
     }
 
@@ -65,8 +69,9 @@ if ($_POST['requestType'] == "province-delete") {
 };
 
 if ($_POST['requestType'] == "add-city") {
-    $city = $_POST['city'];
+    $city = strtoupper($_POST['city']);
     $province = $_POST['province'];
+
     $allc = new AdminLocationListController();
 
     if($allc->isEmpty($city)){
@@ -106,7 +111,7 @@ if ($_POST['requestType'] == "city-delete") {
 
 if ($_POST['requestType'] == "add-brgy") {
 
-    $barangay = $_POST['barangay'];
+    $barangay = strtoupper($_POST['barangay']);
     $city = $_POST['city'];
     $shipping_fee = $_POST['shipping_fee'];
 

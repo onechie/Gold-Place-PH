@@ -8,10 +8,10 @@ class BarangayListModel extends DbHelper
 trait BarangayListTrait
 {
     //CREATE
-    protected function setBarangay($barangay, $city, $shipping_fee){
-        $sql = 'INSERT barangay_list(barangay, city, shipping_fee) VALUES (?, ?, ?)';
+    protected function setBarangay($barangay, $city, $city_id, $shipping_fee){
+        $sql = 'INSERT barangay_list(barangay, city, city_id, shipping_fee) VALUES (?, ?, ?, ?)';
         $stmt = $this->connect()->prepare($sql);
-        if(!$stmt->execute(array($barangay, $city, $shipping_fee))){
+        if(!$stmt->execute(array($barangay, $city, $city_id, $shipping_fee))){
             $stmt = null;
             return false;
         }

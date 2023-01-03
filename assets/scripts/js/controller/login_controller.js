@@ -130,6 +130,10 @@ $(document).ready(function () {
           toastBody.append("Please verify your email before you log in.");
           toast.show();
         }
+        if (data == "blocked") {
+          toastBody.append("Your account is blocked.");
+          toast.show();
+        }
         if (data == "ok") {
           location.reload();
         }

@@ -88,4 +88,6 @@ if (isset($_SESSION['menu'])) {
 include './user_include/profile.php';
 include './user_include/cart.php';
 include './user_include/orders.php';
+include './user_include/confirm-checkout.php';
+include './user_include/order-ref-number.php';
 ?>

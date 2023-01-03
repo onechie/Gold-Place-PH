@@ -16,15 +16,9 @@ if (!defined('ACCESS')) {
                     </div>
                     <div class="p-4 shadow-sm w-100 bg-light-sm d-flex justify-content-center justify-content-sm-between flex-wrap">
                         <div class="d-flex">
-                            <select class="p-0 px-1 ms-1 rounded-1 fs-7 w-auto user-type btn btn-light border text-start">
+                            <select class="p-0 px-1 ms-1 rounded-1 fs-7 w-auto user-type btn btn-white border text-start">
                                 <option selected value="customer">Customer</option>
                                 <option value="driver">Driver</option>
-                                <?php
-                                if ($_SESSION['userType'] == 'super_admin') {
-                                    echo "<option value='admin'>Admin</option>
-                                    <option value='super_admin'>Super Admin</option>";
-                                }
-                                ?>
                             </select>
                         </div>
                         <div class="d-flex px-3">

@@ -80,9 +80,29 @@ $(document).ready(function () {
                 orderData.order.status +
                 "</span></p>";
             }
+
+            htmlData +=
+              "<p>Proof of Delivery :</p>" +
+              "<div id='image' class='mb-3 d-flex flex-wrap justify-content-center'>";
+
+            for (let image of orderData.delivered_proof) {
+              htmlData +=
+                "<div class='ratio ratio-1x1 bg-light shadow rounded-4 align-self-center' style='max-width: 300px; margin:10px;'>" +
+                "<img class='inputImages rounded-4' src='../assets/images/proofs/" +
+                orderData.order.id +
+                "/" +
+                image +
+                "'/>" +
+                "</div>";
+            }
+
+            htmlData += "</div>";
+
             orderId.val(orderData.order.id);
             orderPrice.text(
-              currency.format(parseInt(orderPriceData) + parseInt(orderData.shipping_fee))
+              currency.format(
+                parseInt(orderPriceData) + parseInt(orderData.shipping_fee)
+              )
             );
           }
         }

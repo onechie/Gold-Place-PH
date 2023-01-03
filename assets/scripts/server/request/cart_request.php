@@ -59,6 +59,10 @@ if ($_POST['requestType'] == "cart_update") {
     $currentDate = date("Y-m-d H:i:s");
 
     $cc = new CartController();
+    if (!$cc->isItemsOnStock(array($cart_id))){
+        echo 'no_stocks';
+        exit();
+    }
     if ($cc->updateCartQuantity($quantity, $currentDate, $cart_id, $user_id)) {
         echo 'ok';
         exit();
@@ -69,6 +73,7 @@ if ($_POST['requestType'] == "cart_update") {
 if ($_POST['requestType'] == "cart_checkout") {
 
     $cartItems = $_POST['cartItems'];
+    $paymentMethod = $_POST['payment_method'];
     $user_id = $_SESSION['userId'];
     $currentDate = date("Y-m-d H:i:s");
     $status = 'checking';
@@ -84,6 +89,10 @@ if ($_POST['requestType'] == "cart_checkout") {
     if ($items == 0) {
         exit();
     }
+    if (!$cc->isQtyUpdated($cartItems)) {
+        echo 'not_updated';
+        exit();
+    }
     if (!$cc->isItemsOnStock($cartItems)) {
         echo 'out_of_stock';
         exit();
@@ -93,7 +102,7 @@ if ($_POST['requestType'] == "cart_checkout") {
         exit();
     }
 
-    if (!$cc->checkOut($user_id, $items, $status, $currentDate, $cartItems, $available)) {
+    if (!$cc->checkOut($user_id, $items, $status, $currentDate, $cartItems, $available, $paymentMethod)) {
         echo 'error';
         exit();
     }

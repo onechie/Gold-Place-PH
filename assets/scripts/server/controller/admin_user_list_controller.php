@@ -2,7 +2,7 @@
 
 class AdminUserListController extends UserModel
 {
-    use OrderTrait;
+    use OrderTrait, OrderHandlerTrait;
     public function usersData($user_type)
     {
         $results = '';
@@ -30,6 +30,7 @@ class AdminUserListController extends UserModel
                 "verified" => $result['verified'],
                 "type" => $result['type'],
                 "purchased" => $result['purchased'],
+                "status" => $result['status'],
                 "image" => $this->getUserImage($result['id'])
             );
         }
@@ -42,17 +43,53 @@ class AdminUserListController extends UserModel
         $userImage = $this->getUserImage($user_id);
         $userOrders = $this->OrderCountData($user_id);
 
+        $order_handled = array();
+
+        if($userData[0]['type'] == 'driver'){
+
+            $handled = $this->getOrderHandlerBy_DID($user_id);
+
+            $total = 0;
+            $delivered = 0;
+            $pending = 0;
+            $cancelled = 0;
+
+            foreach($handled as $handle){
+                $status = $this->getOrderBy_OID($handle['order_id'])[0]['status'];
+
+                if($status == 'processing' || $status == 'checking'){
+                    $pending++;
+                }
+                if($status == 'delivered'){
+                    $delivered++;
+                }
+                if($status == 'cancelled'){
+                    $cancelled++;
+                }
+                $total++;
+            }
+
+            $order_handled = array(
+                "total_handled" => $total,
+                "delivered" => $delivered,
+                "pending" => $pending,
+                "cancelled" => $cancelled
+            );
+        }
+
         $user_info = array(
             "id" => $user_id,
             "name" => $userData[0]['firstname'] . " " .  $userData[0]['lastname'],
             "email" => $userData[0]['email'],
             "phone" => $userData[0]['phone'],
+            "type" => $userData[0]['type'],
             "image" => $userImage
         );
 
         $profileData = array(
             "user_info" => $user_info,
-            "user_orders" => $userOrders
+            "user_orders" => $userOrders,
+            "order_handled" => $order_handled
         );
 
         return $profileData;

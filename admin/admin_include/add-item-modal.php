@@ -28,7 +28,7 @@
                 <option value="Necklace">Necklace</option>
                 <option value="Pendant">Pendant</option>
                 <option value="Earring">Earring</option>
-                <option value="Earring">Bracelet</option>
+                <option value="Bracelet">Bracelet</option>
               </select>
             </div>
             <div class="col-12 col-sm-3 mb-3">

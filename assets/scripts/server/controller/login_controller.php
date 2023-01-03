@@ -18,6 +18,14 @@ class LoginController extends UserModel
         return false;
     }
 
+    public function isBlocked($email)
+    {
+        if ($this->getUserByEmail($email)[0]['status'] == 'blocked') {
+            return true;
+        }
+        return false;
+    }
+
     public function login($email, $password)
     {
         if (!$this->isEmailExist($email)) {
@@ -30,6 +38,9 @@ class LoginController extends UserModel
         $user = $this->getUserByEmail($email)[0];
 
         if (!password_verify($password, $user['password'])) {
+            return false;
+        }
+        if($this->isBlocked($email)){
             return false;
         }
         

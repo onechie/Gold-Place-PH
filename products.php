@@ -27,6 +27,7 @@
     ?>
     <main class="mt-5 bg-light h-100 overflow-auto" id="user-panel">
         <div class="container-fluid p-0 pb-5">
+            
             <!-- COMMENT
             <p class="pt-4 m-0"></p>
             <p class="text-center fs-3 m-0 py-4  bg-light fw-light">OUR FINEST MERCHANDISE</p>

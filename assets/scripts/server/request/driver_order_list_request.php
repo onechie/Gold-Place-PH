@@ -51,10 +51,19 @@ if ($_POST['requestType'] == "view-order") {
 if ($_POST['requestType'] == "update-order") {
     $driver_id = $_SESSION['userId'];
     $order_id = $_POST['order_id'];
-    $status = $_POST['status'];
-    $status_message = $_POST['status_message'];
+    $status = 'delivered';
+    $status_message = '';
     $date = date("Y-m-d H:i:s");
     $dolc = new DriverOrderListController();
+
+    if ($_FILES["images"]["tmp_name"][0] == null) {
+        echo 'noImage';
+        exit();
+    }
+    if(!$dolc->isImagesValid()){
+        echo 'notValidImage';
+        exit();
+    }
 
     if(!$dolc->updateOrder($status, $status_message, $date, $order_id, $driver_id)){
         echo 'failed';

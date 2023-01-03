@@ -44,15 +44,52 @@ class OrderController extends ItemModel
             $orderData[] = array(
                 "id" => $order_id,
                 "status" => $order['status'],
+                "payment_method" => $order['payment_method'],
                 "status_message" => $order['status_message'],
                 "date" => date("F d Y", strtotime($order['date_created'])),
                 "shipping_fee" => $order['shipping_fee'],
                 "total_price" => $total_price,
-                "order_items" => $orderItemsData
+                "order_items" => $orderItemsData,
+                "reference_number" => $order['ref_number']
             );
             $total_price += 0;
         }
 
         return $orderData;
+    }
+
+    public function updateRefNumber($order_id, $reference_number){
+        if(!$this->isRefValid($reference_number)){
+            return false;
+        }
+        if($this->isRefExists($reference_number)){
+            return false;
+        }
+        if($this->isOrderHasRef($order_id)){
+            return false;
+        }
+        if(!$this->updateOrderRef($order_id, $reference_number)){
+            return false;
+        }
+        return true;
+    }
+    public function isRefValid($reference_number){
+        $refPattern = "/^(\d{13})$/";
+        if (preg_match($refPattern, $reference_number)) {
+            return true;
+        }
+        return false;
+    }
+    public function isRefExists($reference_number){
+        if(count($this->getOrderBy_REF($reference_number)) > 0){
+            return true;
+        }
+        return false;
+    }
+    public function isOrderHasRef($order_id){
+        if($this->getOrderBy_OID($order_id)[0]['ref_number'] > 0){
+            return true;
+        }
+        return false;
     }
 }

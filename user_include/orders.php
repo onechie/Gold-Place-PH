@@ -20,8 +20,9 @@ if (!defined('ACCESS')) {
                   <div class="row fw-light py-3 fs-7 bg-dark px-4 text-light">
                     <div class="col-1">#</div>
                     <div class="col-3">DATE</div>
-                    <div class="col-3">Total Price</div>
-                    <div class="col-4">STATUS</div>
+                    <div class="col-2">Total Price</div>
+                    <div class="col-2">STATUS</div>
+                    <div class="col-3">REF_NO</div>
                     <div class="col-1"><i class="bi bi-list"></i></div>
                   </div>
                 </th>

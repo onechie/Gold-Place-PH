@@ -72,7 +72,6 @@ class DriverOrderListController extends OrderModel
             "items_count" => $items_count,
             "items_data" => $itemsData,
             "status" => $status,
-            "status_message" => $status_message,
             "available" => $available
         );
 
@@ -100,7 +99,11 @@ class DriverOrderListController extends OrderModel
         if ($status == 'delivered') {
             $user_id = $this->getOrderBy_OID($order_id)[0]['user_id'];
             $current_purchased = $this->getUserById($user_id)[0]['purchased'];
-            
+
+            if(!$this->isImagesValid()){
+                return false;
+            }
+
             if (!$this->updateOrderItemsBy_OID($order_id, 'yes')) {
                 return false;
             }
@@ -117,6 +120,10 @@ class DriverOrderListController extends OrderModel
             if(!$this->updateUserPurchased($current_purchased, $user_id)){
                 return false;
             }
+            if(!$this->updateOrderProofImage($order_id)){
+                return false;
+            }
+            
         }
         if ($status == 'cancelled') {
             $orderItems = $this->getOrderItemBy_OID($order_id);
@@ -132,6 +139,38 @@ class DriverOrderListController extends OrderModel
 
         if (!$this->updateOrderStatusAndMessage($status, $status_message, $date, $order_id)) {
             return false;
+        }
+        return true;
+    }
+    public function isImagesValid(){
+        $len = count($_FILES['images']['name']);
+
+        for ($i = 0; $i < $len; $i++) {
+
+            $target_file = $_FILES["images"]["name"][$i];
+
+            $fType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            //CHECK IF TRUE IMAGE USING "getimagesize"
+            $check = getimagesize($_FILES["images"]["tmp_name"][$i]);
+
+            if ($check) {
+            } else {
+                //echo 'notImage';
+                return false;
+            }
+
+            // CHECK FILE SIZE
+            if ($_FILES["images"]["size"][$i] > 10000000) {
+                //echo "largeImage";
+                return false;
+            }
+
+            // CHECK FILE FORMAT
+            if ($fType != "jpg" && $fType != "png" && $fType != "jpeg" && $fType != "gif") {
+                //echo "formatImage";
+                return false;
+            }
         }
         return true;
     }

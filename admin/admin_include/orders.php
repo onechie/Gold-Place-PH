@@ -1,14 +1,14 @@
 <?php
-    if(!defined('ACCESS')) {
+if (!defined('ACCESS')) {
     header("location: ../");
-    }
+}
 ?>
 <!--ORDERS-->
 <div class="container-fluid px-xl-4 orders" id="list-2">
     <div class="container-fluid p-0">
         <div class="row">
             <!--GRAPH-->
-            <div class="container-fluid col-12 col-lg-6 px-3 mb-4">
+            <div class="container-fluid col-12 col-lg-6 mx-0 px-3 mb-4">
                 <div class="bg-white rounded-4 overflow-hidden shadow d-flex flex-column align-items-center">
                     <div class="w-100 p-4 shadow-sm">
                         <P class="lt-space fw-light m-0 p-0 text-center text-sm-start">ORDERS CHART</P>
@@ -27,7 +27,7 @@
                                     <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="daily">TODAY</button></li>
                                     <li><button class="dropdown-item text-start fs-7 fw-light" type="button" id="weekly">THIS WEEK</button></li>
                                     <li"><button class="dropdown-item text-start fs-7 fw-light" type="button" id="monthly">THIS MONTH</button></li>
-                                    <li"><button class="dropdown-item text-start fs-7 fw-light" type="button" id="annually">THIS YEAR</button></li>
+                                        <li"><button class="dropdown-item text-start fs-7 fw-light" type="button" id="annually">THIS YEAR</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -45,21 +45,26 @@
                 </div>
             </div>
             <!--RECENT SALES-->
-            <div class="container-fluid col-12 col-lg-6 px-3 mb-4">
+            <div class="container-fluid col-12 px-3 mb-4">
                 <div class="bg-white rounded-4 overflow-hidden shadow d-flex flex-column align-items-center">
-                    <div class="p-4 shadow-sm w-100 shadow-sm">
+                    <div class="p-4 shadow-sm w-100 shadow-sm d-flex justify-content-center flex-wrap justify-content-sm-between">
                         <P class="lt-space fw-light m-0 text-center text-sm-start">RECENT ORDERS</P>
+                        <form class="" role="search">
+                            <input type="search" class="form-control py-0 fw-light fs-7" id="search-order" placeholder="Search" aria-label="Search">
+                        </form>
                     </div>
                     <div class="w-100 m-0 max-h-ex overflow-auto">
-                        <div class="w-100 h-100" style="min-width: 750px">
+                        <div class="w-100 h-100" style="min-width: 1040px">
                             <table class="table table-hover table-borderless table-striped fs-7 bg-white">
                                 <thead class="sticky-top bg-light z-mid">
                                     <tr class=" align-middle">
-                                    <th class="ps-4 py-4" style="width:35%">NAME</th>
-                                    <th class="ps-4 py-4" style="width:15%">ITEMS</th>
-                                    <th class="ps-4 py-4" style="width:15%">DATE</th>
-                                    <th class="ps-4 py-4" style="width:15%">STATUS</th>
-                                    <th class="px-4 py-4" style="width:10%">ACTION</th>
+                                        <th class="ps-4 py-4" style="width:25%">NAME</th>
+                                        <th class="ps-4 py-4" style="width:10%">ITEMS</th>
+                                        <th class="ps-4 py-4" style="width:15%">DATE</th>
+                                        <th class="ps-4 py-4" style="width:15%">STATUS</th>
+                                        <th class="ps-4 py-4" style="width:10%">PAYMENT</th>
+                                        <th class="ps-4 py-4" style="width:15%">REF_NO</th>
+                                        <th class="px-4 py-4" style="width:10%">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody id="recent-orders">

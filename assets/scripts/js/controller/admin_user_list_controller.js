@@ -6,9 +6,10 @@ $(document).ready(function () {
   const userPhone = $("#users #phone");
   const userImage = $("#users #image");
   const userTotal = $("#users #total");
+  const totalText = $("#users .total");
   const userCancelled = $("#users #cancelled");
   const userDelivered = $("#users #delivered");
-  const userType = $('.users .user-type');
+  const userType = $(".users .user-type");
 
   //VALUES
   var fnValue = "";
@@ -48,9 +49,9 @@ $(document).ready(function () {
 
   getUsersData(userType.val());
 
-  userType.change(function(){
+  userType.change(function () {
     getUsersData(userType.val());
-  })
+  });
 
   $(".users #search-user").on("keyup", function () {
     var value = $(this).val().toLowerCase();
@@ -137,7 +138,7 @@ $(document).ready(function () {
         {
           email: emValue,
           requestType: "validate_email",
-          token: token
+          token: token,
         },
         function (data) {
           if (data == "used") {
@@ -170,7 +171,7 @@ $(document).ready(function () {
         {
           phone: phValue,
           requestType: "validate_phone",
-          token: token
+          token: token,
         },
         function (data) {
           if (data == "used") {
@@ -215,7 +216,7 @@ $(document).ready(function () {
       {
         id: id,
         requestType: "view-user",
-        token: token
+        token: token,
       },
       function (data) {
         if (data && data != "null") {
@@ -237,9 +238,20 @@ $(document).ready(function () {
           userEmail.text(user_info.email);
           userPhone.text(user_info.phone);
           userImage.prop("src", currentImg);
-          userTotal.text(user_orders.orders);
-          userCancelled.text(user_orders.cancelled);
-          userDelivered.text(user_orders.delivered);
+          if (user_info.type == "customer") {
+            totalText.text('TOTAL ORDERS');
+            userTotal.text(user_orders.orders);
+            userCancelled.text(user_orders.cancelled);
+            userDelivered.text(user_orders.delivered);
+          }
+          if(user_info.type == "driver"){
+            totalText.text('TOTAL HANDLED');
+            userTotal.text(order_handled.total_handled);
+            userCancelled.text(order_handled.cancelled);
+            userDelivered.text(order_handled.delivered);
+
+          }
+
         }
       }
     );
@@ -271,7 +283,7 @@ $(document).ready(function () {
         user_type,
         password,
         verRequired,
-        token:token
+        token: token,
       },
       function (data) {
         if (data == "ok") {
@@ -377,7 +389,7 @@ $(document).ready(function () {
       {
         requestType: "load-users",
         user_type: user_type,
-        token: token
+        token: token,
       },
       function (data) {
         if (data && data != "null") {

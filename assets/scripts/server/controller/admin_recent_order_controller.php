@@ -30,7 +30,9 @@ class AdminRecentOrderController extends OrderModel
                 "user_image" => $image,
                 "items" => $items,
                 "date" => date("h:i:s A M d Y", strtotime($date)),
-                "order_status" => $status
+                "order_status" => $status,
+                "payment_method" => $order['payment_method'],
+                "reference_number" => $order['ref_number']
 
             ));
         }
@@ -124,6 +126,13 @@ class AdminRecentOrderController extends OrderModel
         return $orderData;
     }
 
+    public function deliveryProofData($order_id){
+        $proofImages = $this->getOrderProofImage($order_id, true);
+        $images = array(
+            "delivered_proof"=>$proofImages
+        );
+        return $images;
+    }
     public function updateOrder($order_id, $date, $status)
     {
         $current_status = $this->getOrderBy_OID($order_id)[0]['status'];

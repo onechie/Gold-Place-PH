@@ -30,6 +30,12 @@ if ($_POST['requestType'] == "login") {
     $password = $_POST['password'];
 
     $lc = new LoginController();
+
+    if ($lc->isBlocked($email)) {
+        echo 'blocked';
+        exit();
+    }
+
     if (!$lc->login($email, $password)) {
         echo 'wrong_pass';
         exit();

@@ -14,13 +14,14 @@ $(document).ready(function () {
   const orderName = $("#update-order .order-name");
   const orderStatus = $("#update-order .order-status");
   const orderMessage = $("#update-order .order-message");
+  const proofImage = $("#update-order #image");
 
   const updateButton = $("#update-order .update-button");
 
-  let currency = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'PHP',
-});
+  let currency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
   const toastBody = $(".toast-body");
   const toast = new bootstrap.Toast($("#liveToast"));
 
@@ -57,19 +58,80 @@ $(document).ready(function () {
           orderItems.append(orderItemsData);
           itemsPrice.text(currency.format(orderPriceData));
           shippingFee.text(currency.format(orderData.shipping_fee));
-          orderPrice.text(currency.format(parseInt(orderPriceData)+ parseInt(orderData.shipping_fee)));
+          orderPrice.text(
+            currency.format(
+              parseInt(orderPriceData) + parseInt(orderData.shipping_fee)
+            )
+          );
           orderAddress.text(orderData.address);
           orderContact.text(orderData.customer.contact);
           orderName.text(orderData.customer.name);
-          orderStatus.val(orderData.order.status);
-          orderMessage.val(orderData.order.status_message);
+          orderStatus.text(orderData.order.status);
 
           $("#update-order #order-id").val(orderData.order.id);
+          proofImage.empty();
+          $("#update-order #imageInput").val(null);
         }
       }
     );
   });
 
+  $("#update-order #imageInput").change(function () {
+    var i = 0;
+    proofImage.empty();
+
+    while (i < this.files.length) {
+      var file = this.files[i];
+      var fileType = file["type"];
+      var validImageTypes = [
+        "image/gif",
+        "image/jpeg",
+        "image/png",
+        "image/jpg",
+      ];
+      if ($.inArray(fileType, validImageTypes) < 0) {
+        toastBody.text("Please insert pictures only!");
+        toast.show();
+        proofImage.empty();
+        this.value = null;
+      } else {
+        proofImage.append(
+          "<div class='ratio ratio-1x1 bg-light shadow rounded-4 align-self-center' style='max-width: 300px; margin:10px;'>" +
+            "<img class='inputImages rounded-4' src='" +
+            URL.createObjectURL(event.target.files[i]) +
+            "'/>" +
+            "</div>"
+        );
+      }
+      i++;
+    }
+  });
+
+  $("#update-order-form").on("submit", function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: driverOL_URL,
+      type: "POST",
+      data: new FormData(this),
+      contentType: false,
+      cache: false,
+      processData: false,
+    }).done(function (data) {
+      if (data == "ok") {
+        toastBody.text("Order updated successfully!");
+        toast.show();
+        $("#close-update-order").trigger("click");
+        loadOrderList();
+        $("#imageInput").val(null);
+      }
+      if(data == 'noImage'){
+        toastBody.text("Please insert proof of delivery image!");
+        toast.show();
+      } 
+    });
+  });
+
+  /*
   updateButton.click(function () {
     let order_id = $("#update-order #order-id").val();
     if (orderStatus.val() == "cancelled" || orderStatus.val() == "delivered") {
@@ -95,6 +157,7 @@ $(document).ready(function () {
       }
     );
   });
+  */
 
   function loadOrderList() {
     orderList.empty();

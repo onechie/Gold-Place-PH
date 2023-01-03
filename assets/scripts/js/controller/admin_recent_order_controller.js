@@ -1,16 +1,16 @@
 $(document).ready(function () {
   let recentOrders = $(".orders #recent-orders");
   let orderItems = $("#view-order #order-items");
-  const receiptContent = $("#view-receipt .receipt-content")
+  const receiptContent = $("#view-receipt .receipt-content");
   let status = $("#view-order #status");
   let orderId = $(".modal-footer #order_id");
   const totalPrice = $(".modal-footer #total_price");
   const qrCode = $("#view-receipt #qrcode");
 
-  let currency = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'PHP',
-});
+  let currency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
 
   const token = $(".token").val();
 
@@ -41,54 +41,70 @@ $(document).ready(function () {
           totalPriceValue = 0;
           for (let item of orderItems) {
             totalPriceValue += item.price * item.quantity;
-            
-            htmlData += 
-            "<div class='row fs-7'>"+
-                "<div class=' col-8 text-start text-break fw-200'>"+item.name+" - x"+item.quantity+"</div>"+
-                "<div class='col-4 text-start text-break'>"+currency.format(item.price * item.quantity)+"</div>"+
+
+            htmlData +=
+              "<div class='row fs-7'>" +
+              "<div class=' col-8 text-start text-break fw-200'>" +
+              item.name +
+              " - x" +
+              item.quantity +
+              "</div>" +
+              "<div class='col-4 text-start text-break'>" +
+              currency.format(item.price * item.quantity) +
+              "</div>" +
+              "</div>";
+          }
+          totalPriceValue += parseInt(orderData.shipping_fee);
+          htmlData +=
+            "<div class='row fs-7 mt-3'>" +
+            "<div class=' col-8 text-start text-break fw-200'>Shipping Fee</div>" +
+            "<div class='col-4 text-start text-break'>" +
+            currency.format(orderData.shipping_fee) +
+            "</div>" +
+            "</div>" +
+            "<div class='row'>" +
+            "<div class=' col-8 text-start text-break'>Total</div>" +
+            "<div class='col-4 text-start text-break'>" +
+            currency.format(totalPriceValue) +
+            "</div>" +
+            "</div>" +
+            "<hr>" +
+            "<h5 class='m-0 fw-normal text-start mb-2'>SHIP TO</h5>" +
+            "<div class='row fs-7'>" +
+            "<div class=' col-4 text-start text-break fw-200'>Name: </div>" +
+            "<div class='col-8 text-start text-break'>" +
+            customer.name +
+            "</div>" +
+            "</div>" +
+            "<div class='row fs-7'>" +
+            "<div class=' col-4 text-start text-break fw-200'>Address: </div>" +
+            "<div class='col-8 text-start text-break'>" +
+            address +
+            "</div>" +
+            "</div>" +
+            "<div class='row fs-7'>" +
+            "<div class=' col-4 text-start text-break fw-200'>Phone: </div>" +
+            "<div class='col-8 text-start text-break'>" +
+            customer.contact +
+            "</div>" +
+            "</div>" +
+            "<div class='row fs-7 mt-3'>" +
+            "<div class=' col-4 text-start text-break fw-200'>Order ID: </div>" +
+            "<div class='col-8 text-start text-break'>" +
+            order_id +
+            "</div>" +
             "</div>";
 
-          }
-          totalPriceValue+=parseInt(orderData.shipping_fee);
-          htmlData += 
-          "<div class='row fs-7 mt-3'>"+
-              "<div class=' col-8 text-start text-break fw-200'>Shipping Fee</div>"+
-              "<div class='col-4 text-start text-break'>"+currency.format(orderData.shipping_fee)+"</div>"+
-          "</div>"+
-          "<div class='row'>"+
-              "<div class=' col-8 text-start text-break'>Total</div>"+
-              "<div class='col-4 text-start text-break'>"+currency.format(totalPriceValue)+"</div>"+
-          "</div>"+
-          "<hr>"+
-          "<h5 class='m-0 fw-normal text-start mb-2'>SHIP TO</h5>"+
-          "<div class='row fs-7'>"+
-              "<div class=' col-4 text-start text-break fw-200'>Name: </div>"+
-              "<div class='col-8 text-start text-break'>"+customer.name+"</div>"+
-          "</div>"+
-          "<div class='row fs-7'>"+
-              "<div class=' col-4 text-start text-break fw-200'>Address: </div>"+
-              "<div class='col-8 text-start text-break'>"+address+"</div>"+
-          "</div>"+
-          "<div class='row fs-7'>"+
-              "<div class=' col-4 text-start text-break fw-200'>Phone: </div>"+
-              "<div class='col-8 text-start text-break'>"+customer.contact+"</div>"+
-          "</div>"+
-          "<div class='row fs-7 mt-3'>"+
-              "<div class=' col-4 text-start text-break fw-200'>Order ID: </div>"+
-              "<div class='col-8 text-start text-break'>"+order_id+"</div>"+
-          "</div>"
-
-
           receiptContent.append(htmlData);
-          
+
           qrCode.empty();
           var qrcode = new QRCode(document.getElementById("qrcode"), {
             text: order_id,
             width: 100,
             height: 100,
-            colorDark : "black",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
+            colorDark: "black",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H,
           });
 
           orderId.val(order_id);
@@ -96,8 +112,48 @@ $(document).ready(function () {
       }
     );
   });
+  $(".orders #search-order").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#recent-orders tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+
+  $("#view-proof").click(function () {
+    let order_id = $(this).siblings("#order_id").val();
+    $("#view-proof-modal").modal("show");
+    console.log("test");
+
+    $.post(
+      adminRC_URL,
+      { requestType: "get-delivery-proof", order_id: order_id, token: token },
+      function (data) {
+        let htmlData = "";
+        if (data && data != "null") {
+          let imageData = JSON.parse(data);
+          htmlData +=
+            "<div id='image' class='mb-3 d-flex flex-wrap justify-content-center'>";
+
+          for (let image of imageData.delivered_proof) {
+            htmlData +=
+              "<div class='ratio ratio-1x1 bg-light shadow rounded-4 align-self-center' style='max-width: 300px; margin:10px;'>" +
+              "<img class='inputImages rounded-4' src='../assets/images/proofs/" +
+              order_id +
+              "/" +
+              image +
+              "'/>" +
+              "</div>";
+          }
+
+          htmlData += "</div>";
+        }
+        $("#view-proof-modal .modal-body").html(htmlData);
+      }
+    );
+  });
 
   $(".orders").on("click", ".editOrder", function () {
+    $("#view-proof").hide();
     orderItems.empty();
     order_id = $(this).siblings("#order_id").val();
     $.post(
@@ -138,6 +194,11 @@ $(document).ready(function () {
               "    </div>" +
               "</td>" +
               "</tr>";
+
+            if (item.status == "delivered") {
+              $("#view-proof").show();
+            }
+
             if (item.status == "cancelled" || item.status == "delivered") {
               status.prop("disabled", true);
             } else {
@@ -232,6 +293,12 @@ $(document).ready(function () {
               "</td>" +
               "<td class='ps-4'>" +
               order.order_status +
+              "</td>" +
+              "<td class='ps-4 text-uppercase'>" +
+              order.payment_method +
+              "</td>" +
+              "<td class='ps-4'>" +
+              order.reference_number +
               "</td>" +
               "<td class='px-4'>" +
               "<div class='d-flex'>" +
