@@ -143,7 +143,7 @@ $(document).ready(function () {
               "        <div class='col-3 d-flex fw-light text-danger'>";
 
             if (order.payment_method == "gcash") {
-              if (order.reference_number == "0") {
+              if (order.reference_number == "0" || order.reference_number == "") {
                 htmlData +=
                   "           <input id='order_id' type='hidden' value='" +
                   order.id +

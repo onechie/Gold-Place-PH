@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2022 at 10:00 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Oct 27, 2023 at 03:31 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,23 +31,20 @@ CREATE TABLE `barangay_list` (
   `id` int(11) NOT NULL,
   `barangay` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
-  `shipping_fee` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `shipping_fee` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `barangay_list`
 --
 
-INSERT INTO `barangay_list` (`id`, `barangay`, `city`, `shipping_fee`) VALUES
-(31, 'longos', 'malolos', 50),
-(32, 'san vicente', 'malolos', 55),
-(33, 'tikay', 'malolos', 60),
-(34, 'talisay', 'balanga', 50),
-(35, 'san jose', 'balanga', 55),
-(36, 'munting batangas', 'balanga', 60),
-(37, 'Alasas', 'san fernando', 50),
-(38, 'dolores', 'san fernando', 55),
-(39, 'panipuan', 'san fernando', 60);
+INSERT INTO `barangay_list` (`id`, `barangay`, `city`, `shipping_fee`, `city_id`) VALUES
+(125, 'PALAPAT', 'HAGONOY', 50, 139),
+(126, 'SAN MIGUEL', 'HAGONOY', 55, 139),
+(127, 'SAN ISIDRO', 'HAGONOY', 60, 139),
+(128, 'SAN JUAN', 'HAGONOY', 55, 139),
+(129, 'TEST', 'BULACAN', 50, 131);
 
 -- --------------------------------------------------------
 
@@ -62,7 +59,7 @@ CREATE TABLE `cart` (
   `quantity` int(11) NOT NULL,
   `date_created` datetime NOT NULL,
   `date_updated` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -74,17 +71,54 @@ CREATE TABLE `city_list` (
   `id` int(11) NOT NULL,
   `city` varchar(255) NOT NULL,
   `province` varchar(255) NOT NULL,
-  `shipping_fee` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `shipping_fee` int(11) NOT NULL,
+  `province_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `city_list`
 --
 
-INSERT INTO `city_list` (`id`, `city`, `province`, `shipping_fee`) VALUES
-(39, 'balanga', 'bataan', 0),
-(40, 'malolos', 'bulacan', 0),
-(41, 'san fernando', 'pampanga', 0);
+INSERT INTO `city_list` (`id`, `city`, `province`, `shipping_fee`, `province_id`) VALUES
+(127, 'ANGAT', 'BULACAN', 0, 38),
+(128, 'BALAGTAS (BIGAA)', 'BULACAN', 0, 38),
+(129, 'BALIUAG', 'BULACAN', 0, 38),
+(130, 'BOCAUE', 'BULACAN', 0, 38),
+(131, 'BULACAN', 'BULACAN', 0, 38),
+(132, 'BUSTOS', 'BULACAN', 0, 38),
+(133, 'CALUMPIT', 'BULACAN', 0, 38),
+(134, 'CITY OF MALOLOS (Capital)', 'BULACAN', 0, 38),
+(135, 'CITY OF MEYCAUAYAN', 'BULACAN', 0, 38),
+(136, 'CITY OF SAN JOSE DEL MONTE', 'BULACAN', 0, 38),
+(137, 'DOÃ‘A REMEDIOS TRINIDAD', 'BULACAN', 0, 38),
+(138, 'GUIGUINTO', 'BULACAN', 0, 38),
+(139, 'HAGONOY', 'BULACAN', 0, 38),
+(140, 'MARILAO', 'BULACAN', 0, 38),
+(141, 'NORZAGARAY', 'BULACAN', 0, 38),
+(142, 'OBANDO', 'BULACAN', 0, 38),
+(143, 'PANDI', 'BULACAN', 0, 38),
+(144, 'PAOMBONG', 'BULACAN', 0, 38),
+(145, 'PLARIDEL', 'BULACAN', 0, 38),
+(146, 'PULILAN', 'BULACAN', 0, 38),
+(147, 'SAN ILDEFONSO', 'BULACAN', 0, 38),
+(148, 'SAN MIGUEL', 'BULACAN', 0, 38),
+(149, 'SAN RAFAEL', 'BULACAN', 0, 38),
+(150, 'SANTA MARIA', 'BULACAN', 0, 38);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forgot_password`
+--
+
+CREATE TABLE `forgot_password` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -101,37 +135,26 @@ CREATE TABLE `items` (
   `stocks` int(11) NOT NULL,
   `description` text NOT NULL,
   `sold` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`id`, `name`, `date_created`, `category`, `price`, `stocks`, `description`, `sold`) VALUES
-(45, 'Ring of Critical ', '2022-11-16 17:21:18', 'Ring', 3999, 93, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 5),
-(46, 'Ring of Luck', '2022-11-16 17:21:19', 'Ring', 5000, 94, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 5),
-(47, 'Ring of Protection', '2022-11-16 17:21:20', 'Ring', 3500, 97, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(48, 'Necklace of Crypt', '2022-11-16 17:21:21', 'Necklace', 4000, 96, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(49, 'Necklace of Cross', '2022-11-16 17:21:22', 'Necklace', 5000, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(50, 'Necklace of Plain Cross', '2022-11-16 17:21:23', 'Necklace', 3500, 98, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(51, 'Pendant of Strength', '2022-11-16 17:21:24', 'Pendant', 3999, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(52, 'Blessed Pendant', '2022-11-16 17:21:25', 'Pendant', 3500, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(53, 'Earring of Guard', '2022-11-16 17:21:26', 'Earring', 2500, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(54, 'Sienna\'s Bracelet', '2022-11-16 17:21:27', 'Earring', 2500, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(55, 'Necklace of Moon', '2022-11-16 17:21:28', 'Necklace', 3500, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(56, 'Flower Necklace ', '2022-11-16 17:21:29', 'Necklace', 5000, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus in hac habitasse platea dictumst quisque. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat. Turpis egestas pretium aenean pharetra magna ac placerat. Libero volutpat sed cras ornare arcu dui. Neque volutpat ac tincidunt vitae semper quis lectus nulla. Amet nulla facilisi morbi tempus. Accumsan sit amet nulla facilisi morbi tempus. Tempus egestas sed sed risus pretium quam vulputate dignissim.\r\n\r\nPulvinar neque laoreet suspendisse interdum. Sem fringilla ut morbi tincidunt augue. Purus in massa tempor nec feugiat nisl pretium. Enim diam vulputate ut pharetra sit amet. Enim tortor at auctor urna nunc. Mauris augue neque gravida in fermentum et sollicitudin ac. Ipsum suspendisse ultrices gravida dictum fusce ut placerat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eu consequat ac felis donec et odio. Urna cursus eget nunc scelerisque viverra mauris. Cras pulvinar mattis nunc sed blandit libero volutpat. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Eu nisl nunc mi ipsum faucibus. Mauris ultrices eros in cursus turpis massa tincidunt dui. In egestas erat imperdiet sed euismod nisi porta lorem. Quis varius quam quisque id diam vel quam. Bibendum neque egestas congue quisque egestas diam. Sed adipiscing diam donec adipiscing tristique risus.', 0),
-(62, '1', '2022-11-16 17:21:30', 'Ring', 1, 1, '1', 0),
-(63, '1', '2022-11-16 17:21:31', 'Ring', 1, 1, '1', 0),
-(64, '1', '2022-11-16 17:21:32', 'Ring', 1, 1, '1', 0),
-(66, '1', '2022-11-16 17:21:33', 'Ring', 1, 1, '1', 0),
-(71, '1', '2022-11-16 17:27:26', 'Ring', 1, 1, '1', 0),
-(72, '1', '2022-11-16 17:27:42', 'Ring', 1, 1, '1', 0),
-(73, '1', '2022-11-16 17:27:54', 'Necklace', 1, 1, '1', 0),
-(74, '1', '2022-11-16 17:28:08', 'Ring', 1, 1, '1', 0),
-(75, '1', '2022-11-16 17:28:18', 'Ring', 1, 1, '1', 0),
-(76, '1', '2022-11-16 17:28:29', 'Pendant', 1, 1, '1', 0),
-(77, '1', '2022-11-16 17:28:38', 'Ring', 1, 1, '1', 0),
-(78, '1', '2022-11-16 17:28:45', 'Necklace', 1, 1, '1', 0);
+(82, 'Ring of protection Guard', '2022-11-26 19:03:06', 'Ring', 4000, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 101),
+(83, 'Pendant of luck', '2022-11-26 19:03:30', 'Pendant', 5000, 77, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 9),
+(84, 'Necklace of durance', '2022-11-26 19:04:10', 'Necklace', 2500, 92, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 5),
+(85, 'Vampiric Necklace', '2022-11-26 19:04:55', 'Necklace', 2500, 94, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 2),
+(86, 'Refresher Necklace', '2022-11-26 19:05:45', 'Necklace', 3500, 97, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 2),
+(87, 'Lucky pendant', '2022-11-26 19:06:41', 'Pendant', 2000, 93, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 6),
+(88, 'Cross Pendant', '2022-11-26 19:08:26', 'Pendant', 1500, 99, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 0),
+(89, 'Durance Pendant', '2022-11-26 19:10:32', 'Pendant', 2500, 99, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 0),
+(90, 'Vampiric Earring', '2022-11-26 19:12:40', 'Earring', 3500, 99, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 0),
+(91, 'Earring of Guard', '2022-11-26 19:14:47', 'Earring', 4000, 98, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 1),
+(92, 'Bracelet of Braid', '2022-11-26 19:15:38', 'Bracelet', 2500, 99, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 0),
+(93, 'Sienna\'s Bracelet', '2022-11-26 19:16:08', 'Bracelet', 3500, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 0),
+(94, 'Bracelet of fighter', '2022-11-26 19:16:45', 'Bracelet', 3500, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus iaculis urna id volutpat. Etiam non quam lacus suspendisse faucibus interdum. Sem nulla pharetra diam sit amet. Enim ut sem viverra aliquet eget sit amet tellus. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. Aliquam sem fringilla ut morbi tincidunt. Morbi tristique senectus et netus et malesuada fames ac turpis. Sit amet venenatis urna cursus. Varius quam quisque id diam vel quam elementum pulvinar etiam. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Integer feugiat scelerisque varius morbi enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Ac orci phasellus egestas tellus rutrum tellus pellentesque.\r\n\r\nLeo integer malesuada nunc vel risus commodo viverra. Vel quam elementum pulvinar etiam non quam. Integer quis auctor elit sed vulputate mi. Habitasse platea dictumst quisque sagittis purus sit. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Risus ultricies tristique nulla aliquet enim tortor at. Nunc sed augue lacus viverra. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Faucibus in ornare quam viverra orci sagittis. Risus sed vulputate odio ut. Purus in massa tempor nec feugiat nisl pretium fusce. Accumsan lacus vel facilisis volutpat est velit. In hac habitasse platea dictumst.', 0);
 
 -- --------------------------------------------------------
 
@@ -150,8 +173,10 @@ CREATE TABLE `orders` (
   `status_message` varchar(255) NOT NULL,
   `available` varchar(10) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `shipping_fee` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `shipping_fee` int(11) NOT NULL,
+  `payment_method` varchar(100) NOT NULL,
+  `ref_number` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -164,7 +189,7 @@ CREATE TABLE `order_handler` (
   `driver_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `available` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -178,7 +203,7 @@ CREATE TABLE `order_item` (
   `item_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `can_rate` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -189,16 +214,14 @@ CREATE TABLE `order_item` (
 CREATE TABLE `province_list` (
   `id` int(11) NOT NULL,
   `province` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `province_list`
 --
 
 INSERT INTO `province_list` (`id`, `province`) VALUES
-(27, 'bulacan'),
-(28, 'pampanga'),
-(29, 'bataan');
+(38, 'BULACAN');
 
 -- --------------------------------------------------------
 
@@ -213,7 +236,7 @@ CREATE TABLE `rating` (
   `score` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -231,18 +254,19 @@ CREATE TABLE `user` (
   `verified` varchar(10) NOT NULL,
   `type` varchar(255) NOT NULL,
   `purchased` int(11) NOT NULL,
-  `verification_code` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `verification_code` varchar(255) NOT NULL,
+  `status` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `phone`, `password`, `verified`, `type`, `purchased`, `verification_code`) VALUES
-(82, 'Super', 'Admin', 'superadmin@test.com', '09999999999', '$2y$10$hO98dr9z60gjoIry2bOHQO.O1Ez4yj0aC.Mt92ktnbzpOrX1mLEIK', 'yes', 'super_admin', 0, ''),
-(93, 'Customer', 'User', 'customer@test.com', '09999999997', '$2y$10$gUrYv0Wcdr0GgpS.ciAMy.1D8P3NSS4/6AKhB61AJYAEK1dF9iuAC', 'yes', 'customer', 0, '$2y$10$h1yZQx0ASEnsjNi/euct9.t8Dx96jxGbvqVn3748q81ra1qcc/RGu'),
-(94, 'Driver', 'User', 'driver@test.com', '09999999996', '$2y$10$3R6ojsB10k2RcN4Idg8Aiepvk0exYNX5877l3JLkxa77mU2jAem7m', 'yes', 'driver', 0, '$2y$10$96YUo9.BmVIcw3mgRF9DNOX8UFoKZhAi0kjr1t8MXnDFSV1F3qt06'),
-(96, 'Admin', 'User', 'admin@test.com', '09999999998', '$2y$10$wsI78OfOTIguJu4EF7r8UeBgXoKk2W.REh/XjVg8KyYpxvTgjQ1ZS', 'yes', 'admin', 0, '$2y$10$65LXvlXFbre6WAhuJBR6guWHMRcv6HjH58nInokMNX.lU2leDCeiK');
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `phone`, `password`, `verified`, `type`, `purchased`, `verification_code`, `status`) VALUES
+(82, 'Super', 'Admin', 'systemadmin@goldplaceph.com', '09999999999', '$2y$10$hO98dr9z60gjoIry2bOHQO.O1Ez4yj0aC.Mt92ktnbzpOrX1mLEIK', 'yes', 'super_admin', 0, '', 'active'),
+(97, 'driver', 'test', 'driver@goldplaceph.com', '09999999998', '$2y$10$ZeOB0DG0bzjHNsE85/IVC.ZscJYVHCy0ztuE6iEh8CgkuqtYLw4ya', 'yes', 'driver', 0, '$2y$10$nXzh85o.O34W07m.crx5yOBb53/7OMqdkcrgPdAhwSzpMfGlMhz0G', 'active'),
+(108, 'admin', 'Test', 'employee@goldplaceph.com', '09999999912', '$2y$10$mT0Smi5yO8D4FRQoW7UjAeIMdtzTdwUU7sOFMEBvdbaACtDKhE9ei', 'yes', 'admin', 0, '$2y$10$uVS4EBmLniJVXcKvoxEJo.B0498R1Vz.nKNG51sD6Tzp7.jy51nly', 'active'),
+(112, 'Customer', 'test', 'customer@goldplaceph.com', '09999999996', '$2y$10$ObwDExQwjsvKCuVqkBzv1OuaYs24f1yQOoKyV408KZPPawNGFLuaa', 'yes', 'customer', 12, '$2y$10$TbE11UG0rNfTVfZXdOvc2Oohso0FnjzK/R6m5zro0.tidYvOGarL2', 'active');
 
 -- --------------------------------------------------------
 
@@ -258,14 +282,7 @@ CREATE TABLE `user_address` (
   `province` varchar(255) NOT NULL,
   `id` int(11) NOT NULL,
   `shipping_fee` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_address`
---
-
-INSERT INTO `user_address` (`user_id`, `house_number`, `barangay`, `city`, `province`, `id`, `shipping_fee`) VALUES
-(93, '', '', '', '', 8, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -275,7 +292,8 @@ INSERT INTO `user_address` (`user_id`, `house_number`, `barangay`, `city`, `prov
 -- Indexes for table `barangay_list`
 --
 ALTER TABLE `barangay_list`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_brgy_city` (`city_id`);
 
 --
 -- Indexes for table `cart`
@@ -289,6 +307,13 @@ ALTER TABLE `cart`
 -- Indexes for table `city_list`
 --
 ALTER TABLE `city_list`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_city_province` (`province_id`);
+
+--
+-- Indexes for table `forgot_password`
+--
+ALTER TABLE `forgot_password`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -301,13 +326,15 @@ ALTER TABLE `items`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_order_user` (`user_id`);
 
 --
 -- Indexes for table `order_handler`
 --
 ALTER TABLE `order_handler`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_handler_order` (`order_id`);
 
 --
 -- Indexes for table `order_item`
@@ -327,7 +354,9 @@ ALTER TABLE `province_list`
 -- Indexes for table `rating`
 --
 ALTER TABLE `rating`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_rating_item` (`item_id`),
+  ADD KEY `fk_rating_user` (`user_id`);
 
 --
 -- Indexes for table `user`
@@ -350,71 +379,83 @@ ALTER TABLE `user_address`
 -- AUTO_INCREMENT for table `barangay_list`
 --
 ALTER TABLE `barangay_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=438;
 
 --
 -- AUTO_INCREMENT for table `city_list`
 --
 ALTER TABLE `city_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+
+--
+-- AUTO_INCREMENT for table `forgot_password`
+--
+ALTER TABLE `forgot_password`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=276;
 
 --
 -- AUTO_INCREMENT for table `order_handler`
 --
 ALTER TABLE `order_handler`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
 -- AUTO_INCREMENT for table `province_list`
 --
 ALTER TABLE `province_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `user_address`
 --
 ALTER TABLE `user_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `barangay_list`
+--
+ALTER TABLE `barangay_list`
+  ADD CONSTRAINT `fk_brgy_city` FOREIGN KEY (`city_id`) REFERENCES `city_list` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `cart`
@@ -424,11 +465,36 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `fk_cart_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `city_list`
+--
+ALTER TABLE `city_list`
+  ADD CONSTRAINT `fk_city_province` FOREIGN KEY (`province_id`) REFERENCES `province_list` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_handler`
+--
+ALTER TABLE `order_handler`
+  ADD CONSTRAINT `fk_handler_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `order_item`
 --
 ALTER TABLE `order_item`
   ADD CONSTRAINT `fk_oitem_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_oitem_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `rating`
+--
+ALTER TABLE `rating`
+  ADD CONSTRAINT `fk_rating_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_rating_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user_address`
