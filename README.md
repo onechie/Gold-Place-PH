@@ -45,3 +45,16 @@ Drivers can manage their deliveries by adding the products they need to deliver 
 System administrators have full control over user accounts, with the ability to create new accounts or block existing ones to maintain security and integrity across the platform.
 
 ![Admin Page](Extra_files/preview_images/d1.jpg)
+
+## Technologies Used
+
+- **HTML**
+- **CSS**
+- **JavaScript**
+- **PHP**
+- **MySQL**
+- **jQuery**
+- **Bootstrap**
+- **Chart.js**
+- **Html5-QRCode**
+- **anime.js**
