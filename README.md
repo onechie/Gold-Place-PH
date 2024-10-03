@@ -2,6 +2,19 @@
 
 A comprehensive e-commerce platform, optimized for both desktop and mobile use, designed to meet the needs of customers, business administrators, and logistics personnel through distinct, intuitive panels:
 
+## Technologies Used
+
+- **HTML**
+- **CSS**
+- **JavaScript**
+- **PHP**
+- **MySQL**
+- **jQuery**
+- **Bootstrap**
+- **Chart.js**
+- **Html5-QRCode**
+- **anime.js**
+
 ## Customer Panel
 
 Users can effortlessly browse through a wide range of products, add their desired items to the cart, and complete their orders with ease. The platform provides a seamless shopping experience, ensuring customer satisfaction at every step.
@@ -45,16 +58,3 @@ Drivers can manage their deliveries by adding the products they need to deliver 
 System administrators have full control over user accounts, with the ability to create new accounts or block existing ones to maintain security and integrity across the platform.
 
 ![Admin Page](Extra_files/preview_images/d1.jpg)
-
-## Technologies Used
-
-- **HTML**
-- **CSS**
-- **JavaScript**
-- **PHP**
-- **MySQL**
-- **jQuery**
-- **Bootstrap**
-- **Chart.js**
-- **Html5-QRCode**
-- **anime.js**
